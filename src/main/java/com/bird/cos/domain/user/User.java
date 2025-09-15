@@ -1,22 +1,18 @@
 package com.bird.cos.domain.user;
 
-import com.bird.cos.domain.admin.CustomerService;
-import com.bird.cos.domain.log.UserActivityLog;
-import com.bird.cos.domain.order.Order;
-import com.bird.cos.domain.order.OrderStatusHistory;
-import com.bird.cos.domain.post.Comment;
-import com.bird.cos.domain.post.Like;
-import com.bird.cos.domain.post.Post;
-import com.bird.cos.domain.post.Scrap;
-import com.bird.cos.domain.proudct.Answer;
-import com.bird.cos.domain.proudct.Cart;
-import com.bird.cos.domain.proudct.Question;
-import com.bird.cos.domain.proudct.Review;
+import com.bird.cos.dto.admin.UserUpdateRequest;
 import jakarta.persistence.*;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
+@Getter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "USER")
 public class User {
@@ -59,4 +55,14 @@ public class User {
     @Column(name = "user_updated_at", insertable = false, updatable = false)
     private LocalDateTime userUpdatedAt;
 
+    public void update(UserUpdateRequest request) {
+        if (request.getUserEmail() != null) this.userEmail = request.getUserEmail();
+        if (request.getUserNickname() != null) this.userNickname = request.getUserNickname();
+        if (request.getUserName() != null) this.userName = request.getUserName();
+        if (request.getUserAddress() != null) this.userAddress = request.getUserAddress();
+        if (request.getUserPhone() != null) this.userPhone = request.getUserPhone();
+        if (request.getSocialProvider() != null) this.socialProvider = request.getSocialProvider();
+        if (request.getSocialId() != null) this.socialId = request.getSocialId();
+        if (request.getTermsAgreed() != null) this.termsAgreed = request.getTermsAgreed();
+    }
 }
