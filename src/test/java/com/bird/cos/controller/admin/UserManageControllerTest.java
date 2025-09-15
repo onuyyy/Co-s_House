@@ -3,9 +3,13 @@ package com.bird.cos.controller.admin;
 import com.bird.cos.dto.admin.AdminUserResponse;
 import com.bird.cos.dto.admin.AdminUserSearchType;
 import com.bird.cos.dto.admin.UserDetailResponse;
+import com.bird.cos.dto.admin.UserUpdateRequest;
 import com.bird.cos.service.admin.AdminService;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -20,16 +24,21 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.mockito.Mockito.times;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@WebMvcTest(AdminController.class)
-public class AdminControllerTest {
+@WebMvcTest({UserManageController.class, AdminMainController.class})
+public class UserManageControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
+
+    @Autowired
+    private ObjectMapper objectMapper;
 
     @Autowired
     private AdminService adminService;
@@ -48,7 +57,7 @@ public class AdminControllerTest {
     @DisplayName("[Controller] - 어드민 메인 화면 접속")
     @Test
     void givenNothing_whenRequestRootPage_thenForwardToUser() throws Exception {
-        mockMvc.perform(get("/admin/main"))
+        mockMvc.perform(get("/api/admin/main"))
                 .andExpect(status().isOk())
                 .andExpect(forwardedUrl("/admin/user/")); // Thymeleaf용 forward 확인
     }
@@ -99,8 +108,8 @@ public class AdminControllerTest {
                 .userName("test-user")
                 .userPhone("1111")
                 .build();
-        // when
 
+        // when
         Mockito.when(adminService.getUserDetail(1L)).thenReturn(user);
 
         // then
@@ -110,5 +119,55 @@ public class AdminControllerTest {
                 .andExpect(model().attribute("user", user))
                 .andExpect(model().attributeExists("user"));
 
+    }
+
+    @DisplayName("[Controller] - 사용자 정보 업데이트")
+    @Test
+    void givenUserUpdateRequest_whenPostUpdate_thenRedirect() throws Exception {
+        // given
+        Long userId = 1L;
+        UserUpdateRequest request = new UserUpdateRequest();
+        request.setUserEmail("test@example.com");
+        request.setUserNickname("test-nickname");
+        request.setUserName("test-user");
+        request.setUserAddress("Seoul");
+        request.setUserPhone("010-1111-2222");
+        request.setSocialProvider("GOOGLE");
+        request.setSocialId("google123");
+        request.setTermsAgreed(true);
+
+        // ObjectMapper를 이용해 DTO -> JSON
+        String json = objectMapper.writeValueAsString(request);
+
+        // when & then
+        mockMvc.perform(post("/api/admin/users/{userId}/update", userId)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(json))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/admin/users/" + userId));
+
+        // 서비스 호출 검증
+        ArgumentCaptor<UserUpdateRequest> captor = ArgumentCaptor.forClass(UserUpdateRequest.class);
+        Mockito.verify(adminService).updateUser(eq(userId), captor.capture());
+
+        UserUpdateRequest captured = captor.getValue();
+        assertEquals("test@example.com", captured.getUserEmail());
+        assertEquals("test-nickname", captured.getUserNickname());
+        assertEquals("test-user", captured.getUserName());
+    }
+
+    @Test
+    @DisplayName("[Controller] - 사용자 삭제 후 리다이렉트")
+    void givenUserId_whenDelete_thenRedirect() throws Exception {
+        // given
+        Long userId = 1L;
+
+        // when & then
+        mockMvc.perform(delete("/api/admin/users/{userId}", userId))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/api/admin/users"));
+
+        // 서비스 호출 검증
+        Mockito.verify(adminService, times(1)).deleteUser(userId);
     }
 }

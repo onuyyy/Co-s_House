@@ -1,5 +1,6 @@
 package com.bird.cos.domain.user;
 
+import com.bird.cos.dto.admin.UserUpdateRequest;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -54,4 +55,14 @@ public class User {
     @Column(name = "user_updated_at", insertable = false, updatable = false)
     private LocalDateTime userUpdatedAt;
 
+    public void update(UserUpdateRequest request) {
+        if (request.getUserEmail() != null) this.userEmail = request.getUserEmail();
+        if (request.getUserNickname() != null) this.userNickname = request.getUserNickname();
+        if (request.getUserName() != null) this.userName = request.getUserName();
+        if (request.getUserAddress() != null) this.userAddress = request.getUserAddress();
+        if (request.getUserPhone() != null) this.userPhone = request.getUserPhone();
+        if (request.getSocialProvider() != null) this.socialProvider = request.getSocialProvider();
+        if (request.getSocialId() != null) this.socialId = request.getSocialId();
+        if (request.getTermsAgreed() != null) this.termsAgreed = request.getTermsAgreed();
+    }
 }

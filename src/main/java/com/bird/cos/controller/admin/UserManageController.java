@@ -2,6 +2,7 @@ package com.bird.cos.controller.admin;
 
 import com.bird.cos.dto.admin.AdminUserResponse;
 import com.bird.cos.dto.admin.AdminUserSearchType;
+import com.bird.cos.dto.admin.UserUpdateRequest;
 import com.bird.cos.service.admin.AdminService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -13,18 +14,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
-@RequestMapping("/api/admin")
+@RequestMapping("/api/admin/users")
 @Controller
-public class AdminController {
+public class UserManageController {
 
     private final AdminService adminService;
 
-    @RequestMapping("/main")
-    public String adminMainPage() {
-        return "forward:/admin/user/";
-    }
-
-    @GetMapping("/users")
+    @GetMapping
     public String adminUsersPage(
             @RequestParam(required = false, defaultValue = "NAME") AdminUserSearchType searchType,
             @RequestParam(required = false) String searchValue,
@@ -38,13 +34,32 @@ public class AdminController {
         return "admin/user-list";
     }
 
-    @GetMapping("/users/{userId}")
+    @GetMapping("/{userId}")
     public String adminUserDetailPage(
             @PathVariable Long userId, Model model
     ) {
         model.addAttribute("user", adminService.getUserDetail(userId));
 
         return "admin/user-detail";
+    }
+
+    @PostMapping("/{userId}/update")
+    public String adminUserUpdate(
+            @PathVariable Long userId,
+            UserUpdateRequest request
+    ) {
+
+        adminService.updateUser(userId, request);
+        return "redirect:/api/admin/users/" + userId;
+    }
+
+    @PostMapping("/{userId}/delete")
+    public String adminUserDelete(
+            @PathVariable Long userId
+    ) {
+        adminService.deleteUser(userId);
+
+        return "redirect:/api/admin/users";
     }
 
 }
