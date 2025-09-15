@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>사용자 목록</title>
+</head>
+<body>
+<h1>사용자 상세 화면</h1>
+<table border="1">
+    <thead>
+    <tr>
+        <th>이름</th>
+        <th>닉네임</th>
+        <th>이메일</th>
+        <th>주소</th>
+        <th>연락처</th>
+        <th>소셜</th>
+        <th>소셜 아이디</th>
+        <th>약관 동의</th>
+        <th>가입일자</th>
+        <th>수정일자</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td th:text="${user.getUserName()}">이름</td>
+        <td th:text="${user.userNickname}">닉네임</td>
+        <td th:text="${user.userEmail}">이메일</td>
+        <td th:text="${user.userAddress}">주소</td>
+        <td th:text="${user.userPhone}">연락처</td>
+        <td th:text="${user.socialProvider}">소셜</td>
+        <td th:text="${user.socialId}">소셜 아이디</td>
+        <td th:text="${user.termsAgreed}">약관 동의</td>
+        <td th:text="${user.userCreatedAt}">가입일자</td>
+        <td th:text="${user.userUpdatedAt}">수정일자</td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

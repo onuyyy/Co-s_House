@@ -2,6 +2,7 @@ package com.bird.cos.controller.admin;
 
 import com.bird.cos.dto.admin.AdminUserResponse;
 import com.bird.cos.dto.admin.AdminUserSearchType;
+import com.bird.cos.dto.admin.UserDetailResponse;
 import com.bird.cos.service.admin.AdminService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -77,7 +78,7 @@ public class AdminControllerTest {
         )).thenReturn(usersPage);
 
         // then
-        mockMvc.perform(get("/admin/user") // 경로에서 searchValue 제거
+        mockMvc.perform(get("/api/admin/users") // 경로에서 searchValue 제거
                         .param("searchType", "NAME")
                         .param("searchValue", "User") // 쿼리 파라미터로 전달
                         .param("page", "0")
@@ -86,5 +87,28 @@ public class AdminControllerTest {
                 .andExpect(view().name("admin/user-list")) // 뷰 이름 확인
                 .andExpect(model().attributeExists("userList")) // 모델 속성 존재 확인
                 .andExpect(model().attribute("userList", usersPage));
+    }
+
+    @DisplayName("[Controller] - 사용자 관리 상세 화면")
+    @Test
+    void givenUserId_whenRequestUserPage_thenUserPage() throws Exception {
+        // given
+        UserDetailResponse user = UserDetailResponse.builder()
+                .userId(1L)
+                .userNickname("test-nickname")
+                .userName("test-user")
+                .userPhone("1111")
+                .build();
+        // when
+
+        Mockito.when(adminService.getUserDetail(1L)).thenReturn(user);
+
+        // then
+        mockMvc.perform(get("/api/admin/users/" + user.getUserId()))
+                .andExpect(status().isOk())
+                .andExpect(view().name("admin/user-detail"))
+                .andExpect(model().attribute("user", user))
+                .andExpect(model().attributeExists("user"));
+
     }
 }
