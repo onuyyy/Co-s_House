@@ -1,26 +1,81 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<html xmlns:th="http://www.thymeleaf.org" 
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+      layout:decorate="~{layout/admin-layout}"
+      lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <title>사용자 목록</title>
+    <title>관리자 목록</title>
 </head>
 <body>
-<h1>사용자 목록</h1>
-<table border="1">
-    <thead>
-    <tr>
-        <th>이름</th>
-        <th>닉네임</th>
-        <th>이메일</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="user : ${userList.content}">
-        <td th:text="${user.userName}">이름</td>
-        <td th:text="${user.userNickname}">닉네임</td>
-        <td th:text="${user.userEmail}">이메일</td>
-    </tr>
-    </tbody>
-</table>
+    <!-- Content Header -->
+    <div layout:fragment="content-header" class="content-header">
+        <h2 style="color: #333; font-size: 20px;">관리자 목록</h2>
+        <div class="search-section">
+            <form method="get" style="display: flex; gap: 10px;">
+                <select name="searchType" style="padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+                    <option value="NAME" th:selected="${param.searchType} == 'NAME'">이름</option>
+                    <option value="EMAIL" th:selected="${param.searchType} == 'EMAIL'">이메일</option>
+                </select>
+                <input type="text" name="searchValue" th:value="${param.searchValue}" 
+                       class="search-input" placeholder="검색어를 입력하세요">
+                <button type="submit" class="btn btn-primary">검색</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div layout:fragment="content">
+        <div class="data-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>이름</th>
+                        <th>이메일</th>
+                        <th>연락처</th>
+                        <th>상태</th>
+                        <th>생성일자</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="admin : ${adminList.content}">
+                        <td>
+                            <a th:href="@{/api/admin/admins/{adminId}(adminId=${admin.adminId})}" 
+                               style="text-decoration: none; color: #007bff;"
+                               th:text="${admin.adminName}">관리자명</a>
+                        </td>
+                        <td th:text="${admin.adminEmail}">이메일</td>
+                        <td th:text="${admin.adminPhone ?: '-'}">연락처</td>
+                        <td>
+                            <span th:class="${admin.adminStatus == 'ACTIVE' ? 'status-badge status-active' : 'status-badge status-inactive'}"
+                                  th:text="${admin.adminStatus == 'ACTIVE' ? '활성' : '비활성'}">상태</span>
+                        </td>
+                        <td th:text="${#temporals.format(admin.adminCreatedDate, 'yyyy-MM-dd')}">생성일자</td>
+                    </tr>
+                    <tr th:if="${adminList.content.empty}">
+                        <td colspan="5" style="padding: 40px; color: #666;">등록된 관리자가 없습니다.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Pagination -->
+        <div class="pagination" th:if="${adminList.totalPages > 0}">
+            <!-- Previous -->
+            <a th:if="${adminList.hasPrevious()}" 
+               th:href="@{/api/admin/admins(page=${adminList.number - 1}, searchType=${param.searchType}, searchValue=${param.searchValue})}">‹</a>
+
+            <!-- Page Numbers -->
+            <th:block th:each="pageNum : ${#numbers.sequence(0, adminList.totalPages - 1)}">
+                <span th:if="${pageNum == adminList.number}" class="current" th:text="${pageNum + 1}">1</span>
+                <a th:unless="${pageNum == adminList.number}" 
+                   th:href="@{/api/admin/admins(page=${pageNum}, searchType=${param.searchType}, searchValue=${param.searchValue})}"
+                   th:text="${pageNum + 1}">1</a>
+            </th:block>
+
+            <!-- Next -->
+            <a th:if="${adminList.hasNext()}" 
+               th:href="@{/api/admin/admins(page=${adminList.number + 1}, searchType=${param.searchType}, searchValue=${param.searchValue})}">›</a>
+        </div>
+    </div>
 </body>
 </html>
