@@ -1,11 +1,13 @@
 package com.bird.cos.domain.admin;
 
-import com.bird.cos.domain.log.AdminActionLog;
+import com.bird.cos.dto.admin.AdminUpdateRequest;
+import com.bird.cos.dto.admin.UserUpdateRequest;
 import jakarta.persistence.*;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
+import lombok.Getter;
 
+import java.time.LocalDateTime;
+
+@Getter
 @Entity
 @Table(name = "ADMIN")
 public class Admin {
@@ -39,5 +41,13 @@ public class Admin {
 
     @Column(name = "admin_updated_date")
     private LocalDateTime adminUpdatedDate;
+
+    public void update(AdminUpdateRequest request) {
+        if (request.getAdminName() != null) this.adminName = request.getAdminName();
+        if (request.getAdminPhone() != null) this.adminPhone = request.getAdminPhone();
+        if (request.getAdminEmail() != null) this.adminEmail = request.getAdminEmail();
+        if (request.getAdminStatus() != null) this.adminStatus = request.getAdminStatus();
+        if (request.getAdminRole() != null) this.adminRole = request.getAdminRole();
+    }
 
 }
