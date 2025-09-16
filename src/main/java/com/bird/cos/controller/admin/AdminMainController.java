@@ -12,6 +12,6 @@ public class AdminMainController {
 
     @RequestMapping("/main")
     public String adminMainPage() {
-        return "forward:/admin/user/";
+        return "forward:/api/admin/users";
     }
 }

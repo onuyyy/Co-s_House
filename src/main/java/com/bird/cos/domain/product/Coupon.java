@@ -1,4 +1,4 @@
-package com.bird.cos.domain.proudct;
+package com.bird.cos.domain.product;
 
 import jakarta.persistence.*;
 import java.math.BigDecimal;

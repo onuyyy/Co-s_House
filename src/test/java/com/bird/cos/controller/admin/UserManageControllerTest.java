@@ -32,6 +32,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest({UserManageController.class, AdminMainController.class})
+@org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc(addFilters = false)
 public class UserManageControllerTest {
 
     @Autowired
@@ -59,7 +60,7 @@ public class UserManageControllerTest {
     void givenNothing_whenRequestRootPage_thenForwardToUser() throws Exception {
         mockMvc.perform(get("/api/admin/main"))
                 .andExpect(status().isOk())
-                .andExpect(forwardedUrl("/admin/user/")); // Thymeleaf용 forward 확인
+                .andExpect(forwardedUrl("/api/admin/users")); // Thymeleaf용 forward 확인
     }
 
     @DisplayName("[Controller] - 사용자 관리 화면 접속")
@@ -141,10 +142,17 @@ public class UserManageControllerTest {
 
         // when & then
         mockMvc.perform(post("/api/admin/users/{userId}/update", userId)
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(json))
+                        .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                        .param("userEmail", request.getUserEmail())
+                        .param("userNickname", request.getUserNickname())
+                        .param("userName", request.getUserName())
+                        .param("userAddress", request.getUserAddress())
+                        .param("userPhone", request.getUserPhone())
+                        .param("socialProvider", request.getSocialProvider())
+                        .param("socialId", request.getSocialId())
+                        .param("termsAgreed", String.valueOf(request.getTermsAgreed())))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("/admin/users/" + userId));
+                .andExpect(redirectedUrl("/api/admin/users/" + userId));
 
         // 서비스 호출 검증
         ArgumentCaptor<UserUpdateRequest> captor = ArgumentCaptor.forClass(UserUpdateRequest.class);
@@ -163,7 +171,7 @@ public class UserManageControllerTest {
         Long userId = 1L;
 
         // when & then
-        mockMvc.perform(delete("/api/admin/users/{userId}", userId))
+        mockMvc.perform(post("/api/admin/users/{userId}/delete", userId))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/api/admin/users"));
 
