@@ -1,10 +1,13 @@
 package com.bird.cos.domain.admin;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+@Getter
 @Entity
 @Table(name = "ADMIN_ROLE")
 public class AdminRole {

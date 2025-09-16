@@ -1,7 +1,7 @@
 package com.bird.cos.controller.admin;
 
-import com.bird.cos.dto.admin.AdminUserResponse;
-import com.bird.cos.dto.admin.AdminUserSearchType;
+import com.bird.cos.dto.admin.UserManageResponse;
+import com.bird.cos.dto.admin.UserManageSearchType;
 import com.bird.cos.dto.admin.UserUpdateRequest;
 import com.bird.cos.service.admin.AdminService;
 import lombok.RequiredArgsConstructor;
@@ -21,13 +21,13 @@ public class UserManageController {
     private final AdminService adminService;
 
     @GetMapping
-    public String adminUsersPage(
-            @RequestParam(required = false, defaultValue = "NAME") AdminUserSearchType searchType,
+    public String userManagePage(
+            @RequestParam(required = false, defaultValue = "NAME") UserManageSearchType searchType,
             @RequestParam(required = false) String searchValue,
             @PageableDefault(size = 20, sort = "userName", direction = Sort.Direction.DESC) Pageable pageable,
             Model model
     ) {
-        Page<AdminUserResponse> userList =
+        Page<UserManageResponse> userList =
                 adminService.getUserList(searchType, searchValue, pageable);
 
         model.addAttribute("userList", userList);

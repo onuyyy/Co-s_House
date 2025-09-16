@@ -8,7 +8,8 @@ import java.time.LocalDateTime;
 
 @Getter
 @Builder
-public class AdminUserResponse {
+public class UserManageResponse {
+    private Long userId;
     private String userEmail;
     private String userNickname;
     private String userName;
@@ -20,8 +21,9 @@ public class AdminUserResponse {
     private LocalDateTime userCreatedAt;
     private LocalDateTime userUpdatedAt;
 
-    public static AdminUserResponse from(User user) {
-        return AdminUserResponse.builder()
+    public static UserManageResponse from(User user) {
+        return UserManageResponse.builder()
+                .userId(user.getUserId())
                 .userEmail(user.getUserEmail())
                 .userNickname(user.getUserNickname())
                 .userName(user.getUserName())

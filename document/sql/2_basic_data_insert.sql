@@ -140,10 +140,33 @@ INSERT INTO COMMON_CODE (code_id, group_id, code_name, description, sort_order, 
 ('CS_STATUS_003', 'CUSTOMER_STATUS', 'closed', '상담 종료', 3, TRUE);
 
 -- 기본 관리자 역할
-INSERT INTO ADMIN_ROLE (admin_role_name, role_description) VALUES 
-('슈퍼관리자', '모든 권한을 가진 최고 관리자'),
-('상품관리자', '상품 등록 및 관리 담당'),
-('주문관리자', '주문 및 배송 관리 담당'),
-('고객서비스', '고객 문의 및 상담 담당'),
-('마케팅관리자', '이벤트 및 프로모션 관리 담당');
+INSERT INTO admin_role (admin_role_name, role_description, role_created_date) VALUES
+('슈퍼관리자', '모든 권한을 가진 최고 관리자', '2025-05-05'),
+('상품관리자', '상품 등록 및 관리 담당', '2025-05-05'),
+('주문관리자', '주문 및 배송 관리 담당', '2025-05-05'),
+('고객서비스', '고객 문의 및 상담 담당', '2025-05-05'),
+('마케팅관리자', '이벤트 및 프로모션 관리 담당', '2025-05-05');
 
+INSERT INTO admin
+(admin_role_id, admin_password, admin_name, admin_email, admin_phone, admin_status, admin_created_date)
+VALUES
+    (1, 'password123!', '슈퍼관리자1', 'superadmin1@cos.com', '010-1111-1111', 'ACTIVE', NOW()),
+    (1, 'password123!', '슈퍼관리자2', 'superadmin2@cos.com', '010-1111-1112', 'ACTIVE', NOW()),
+    (2, ß'password123!', '상품관리자1', 'product1@cos.com', '010-2222-1111', 'ACTIVE', NOW()),
+    (2, 'password123!', '상품관리자2', 'product2@cos.com', '010-2222-1112', 'ACTIVE', NOW()),
+    (2, 'password123!', '상품관리자3', 'product3@cos.com', '010-2222-1113', 'ACTIVE', NOW()),
+    (3, 'password123!', '주문관리자1', 'order1@cos.com', '010-3333-1111', 'ACTIVE', NOW()),
+    (3, 'password123!', '주문관리자2', 'order2@cos.com', '010-3333-1112', 'ACTIVE', NOW()),
+    (3, 'password123!', '주문관리자3', 'order3@cos.com', '010-3333-1113', 'ACTIVE', NOW()),
+    (3, 'password123!', '주문관리자4', 'order4@cos.com', '010-3333-1114', 'ACTIVE', NOW()),
+    (4, 'password123!', '고객서비스1', 'cs1@cos.com', '010-4444-1111', 'ACTIVE', NOW()),
+    (4, 'password123!', '고객서비스2', 'cs2@cos.com', '010-4444-1112', 'ACTIVE', NOW()),
+    (4, 'password123!', '고객서비스3', 'cs3@cos.com', '010-4444-1113', 'ACTIVE', NOW()),
+    (4, 'password123!', '고객서비스4', 'cs4@cos.com', '010-4444-1114', 'ACTIVE', NOW()),
+    (5, 'password123!', '마케팅관리자1', 'marketing1@cos.com', '010-5555-1111', 'ACTIVE', NOW()),
+    (5, 'password123!', '마케팅관리자2', 'marketing2@cos.com', '010-5555-1112', 'ACTIVE', NOW()),
+    (5, 'password123!', '마케팅관리자3', 'marketing3@cos.com', '010-5555-1113', 'ACTIVE', NOW()),
+    (5, 'password123!', '마케팅관리자4', 'marketing4@cos.com', '010-5555-1114', 'ACTIVE', NOW()),
+    (5, 'password123!', '마케팅관리자5', 'marketing5@cos.com', '010-5555-1115', 'ACTIVE', NOW()),
+    (5, 'password123!', '마케팅관리자6', 'marketing6@cos.com', '010-5555-1116', 'ACTIVE', NOW()),
+    (5, 'password123!', '마케팅관리자7', 'marketing7@cos.com', '010-5555-1117', 'ACTIVE', NOW());
