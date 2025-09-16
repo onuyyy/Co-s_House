@@ -3,7 +3,7 @@ services:
     image: mysql:8.4
     container_name: cos-mysql
     ports:
-      - "3306"
+      - "13306:3306"
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: cos

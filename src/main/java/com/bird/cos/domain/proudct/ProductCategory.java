@@ -2,7 +2,6 @@ package com.bird.cos.domain.proudct;
 
 import com.bird.cos.domain.common.CommonCode;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
 import lombok.Setter;
 
 import java.time.LocalDateTime;

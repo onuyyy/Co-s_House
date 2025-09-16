@@ -2,20 +2,15 @@ package com.bird.cos.domain.proudct;
 
 import com.bird.cos.domain.brand.Brand;
 import com.bird.cos.domain.common.CommonCode;
-import com.bird.cos.domain.delivery.DeliveryInfo;
-import com.bird.cos.domain.inventory.Inventory;
-import com.bird.cos.domain.inventory.InventoryHistory;
-import com.bird.cos.domain.inventory.InventoryOutbound;
-import com.bird.cos.domain.inventory.InventoryReceipt;
-import com.bird.cos.domain.order.OrderItem;
 import jakarta.persistence.*;
+import lombok.Getter;
+
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Table(name = "PRODUCT")
+@Getter
 public class Product {
 
     @Id

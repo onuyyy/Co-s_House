@@ -1,21 +1,7 @@
 package com.bird.cos.domain.user;
 
-import com.bird.cos.domain.admin.CustomerService;
-import com.bird.cos.domain.log.UserActivityLog;
-import com.bird.cos.domain.order.Order;
-import com.bird.cos.domain.order.OrderStatusHistory;
-import com.bird.cos.domain.post.Comment;
-import com.bird.cos.domain.post.Like;
-import com.bird.cos.domain.post.Post;
-import com.bird.cos.domain.post.Scrap;
-import com.bird.cos.domain.proudct.Answer;
-import com.bird.cos.domain.proudct.Cart;
-import com.bird.cos.domain.proudct.Question;
-import com.bird.cos.domain.proudct.Review;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Table(name = "USER")
