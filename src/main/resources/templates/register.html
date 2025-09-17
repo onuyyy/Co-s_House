@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>코딩의 집 | 회원가입</title>
+  <link rel="stylesheet" th:href="@{/css/app.css}">
+  <style>
+    :root{
+      --bg:#ffffff; --text:#111827; --muted:#6b7280; --primary: #3c9dfc; --primary-600: #3c9dfc;
+      --ring:#93c5fd; --error:#ef4444; --border:#e5e7eb; --card:#ffffff; --shadow:0 10px 30px rgba(0,0,0,.06);
+    }
+
+    *{box-sizing:border-box}
+    body{ margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Noto Sans KR", sans-serif; background:var(--bg); color:var(--text); }
+    .container{ max-width:980px; margin:24px auto 60px; padding:0 24px; }
+    .top-brand{ display:flex; align-items:center; gap:10px; }
+    .top-brand .brand-logo{ height:32px; }
+    @font-face {
+      font-family: 'KkuBulLim';
+      src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/2410-1@1.0/BMkkubulimTTF-Regular.woff2') format('woff2');
+      font-weight: 1000;
+      font-style: normal;
+      font-display: swap;
+    }
+    .top-brand .brand-name{ font-family:'KkuBulLim', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Noto Sans KR", sans-serif; font-weight:1000; font-size:26px; letter-spacing:.2px; }
+    .layout{ display:grid; grid-template-columns: 1fr; gap:36px; align-items:start; }
+    @media (max-width: 900px){ .layout{ grid-template-columns:1fr; } }
+    .brand{ display:flex; align-items:center; gap:10px; }
+    .brand img{ height:32px; }
+    .title{ font-size:22px; font-weight:800; margin:20px 0 16px; }
+    .card{ background:var(--card); border:1px solid var(--border); border-radius:14px; box-shadow:var(--shadow); padding:22px; max-width:650px; margin:16px auto; }
+    form{ display:grid; gap:18px; margin-top:18px; }
+    .row{ display:grid; grid-template-columns: 1fr; gap:10px; }
+    label{ display:grid; gap:8px; font-weight:600; font-size:14px; }
+    .hint{ color:var(--muted); font-weight:400; font-size:12px; }
+    input, select { height:46px; border:1px solid var(--border); border-radius:10px; padding:0 12px; font-size:15px; background:#fff; }
+    input:focus, select:focus{ outline:none; border-color:var(--ring); box-shadow:0 0 0 3px color-mix(in oklab, var(--ring) 28%, transparent); }
+    .grid-2{ display:grid; grid-template-columns: 1fr 180px; gap:10px; }
+    .email-row{ display:grid; grid-template-columns: 1fr 48px 1fr 140px; gap:8px; align-items:center; }
+    .email-at{ text-align:center; color:#9ca3af; }
+    .btn{ height:50px; border:none; border-radius:12px; background:var(--primary); color:#fff; font-weight:700; font-size:16px; cursor:pointer; }
+    .btn:hover{ background:var(--primary-600); }
+    .btn-outline{ background: #ffffff; color:var(--primary); border:1px solid var(--primary); }
+    /* 특정 버튼(이메일 인증/주소 검색)만 호버 시 흰 글씨 전환 */
+    .btn-outline.hover-swap:hover,
+    .btn-outline.hover-swap:focus,
+    .btn-outline.hover-swap:focus-visible{ background:#3C9DFCFF; color:#fff; border-color:#3C9DFC; }
+    .btn-verified{ background:#3C9DFCFF !important; color:#fff !important; border-color:#3C9DFC !important; }
+    .btn-verified:hover{ background:#3C9DFCFF !important; }
+    .sns-wrap{ display:grid; justify-content:center; margin:12px 0 16px; }
+    .sns{ display:flex; gap:18px; justify-content:center; }
+    .sns .kakao, .sns .naver{ width:54px; height:54px; border-radius:50%; display:grid; place-items:center; border:1px solid var(--border); }
+    .sns .kakao{ background:#fee500; }
+    .sns .naver{ background:#03c75a; }
+    .sns-caption{ text-align:center; color:#9aa3af; font-size:12px; margin-top:8px; }
+    .divider{ border:none; height:1px; background:#f1f5f9; margin:16px 0 0; }
+    .agree{ border:1px solid var(--border); border-radius:12px; padding:10px 12px; display:grid; gap:10px; }
+    .agree .rowline{ display:flex; align-items:center; gap:10px; padding:10px 6px; border-top:1px solid #f1f5f9; }
+    .agree .rowline:first-child{ border-top:none; }
+    .agree small{ color:var(--muted); }
+    /* captcha 요소 제거됨 */
+    .msg{ font-size:14px; }
+    .ok{ color:#0a7c2f; }
+    .err{ color:var(--error); white-space:pre-wrap; }
+    .foot{ text-align:center; color:var(--muted); font-size:13px; margin-top:14px; }
+  </style>
+  <script>
+    function emailValue(){
+      const local = document.getElementById('emailLocal').value.trim();
+      const sel = document.getElementById('emailDomain').value;
+      const custom = document.getElementById('emailDomainCustom').value.trim();
+      const domain = sel === 'custom' ? custom : sel;
+      return local && domain ? `${local}@${domain}` : '';
+    }
+
+    function onDomainChange(){
+      const sel = document.getElementById('emailDomain');
+      const custom = document.getElementById('emailDomainCustom');
+      const needCustom = sel.value === 'custom';
+      custom.style.display = needCustom ? 'block' : 'none';
+      if(!needCustom) custom.value = '';
+    }
+
+    function allAgreeToggle(chk){
+      document.getElementById('agreeAge').checked = chk.checked;
+      document.getElementById('agreeTos').checked = chk.checked;
+      document.getElementById('agreeMarketing').checked = chk.checked;
+      document.getElementById('agreeMail').checked = chk.checked;
+    }
+
+    function validateBeforeSubmit(){
+      const out = document.getElementById('out');
+      out.textContent = '';
+
+      const email = emailValue();
+      const pw = document.getElementById('password').value;
+      const pw2 = document.getElementById('password2').value;
+      if(!email){ out.textContent = '이메일을 입력해주세요.'; out.className='msg err'; return false; }
+      if(pw.length < 8){ out.textContent = '비밀번호는 8자 이상이어야 합니다.'; out.className='msg err'; return false; }
+      if(pw !== pw2){ out.textContent = '비밀번호 확인이 일치하지 않습니다.'; out.className='msg err'; return false; }
+      if(!document.getElementById('agreeAge').checked || !document.getElementById('agreeTos').checked){
+        out.textContent = '필수 약관에 동의해주세요.'; out.className='msg err'; return false; }
+      return true;
+    }
+
+    async function submitRegister(e){
+      e.preventDefault();
+      if(!validateBeforeSubmit()) return;
+
+      const payload = {
+        name: document.getElementById('name').value.trim(),
+        nickname: document.getElementById('nickname').value.trim(),
+        email: emailValue(),
+        password: document.getElementById('password').value,
+        phone: document.getElementById('phone').value.trim(),
+        address: (function(){
+          const base = document.getElementById('address').value.trim();
+          const detail = (document.getElementById('addressDetail')?.value || '').trim();
+          return detail ? base + ' ' + detail : base;
+        })()
+      };
+      const out = document.getElementById('out');
+      out.textContent = '가입 처리 중...'; out.className='msg';
+      try{
+        const res = await fetch('/controller/register/register',{
+          method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload)
+        });
+        const txt = await res.text();
+        let body; try{ body = txt? JSON.parse(txt): null; }catch(_){ body = txt; }
+        if(res.ok){
+          out.innerHTML = '<div class="ok">회원가입이 완료되었습니다. 이제 로그인 해주세요.</div>';
+          setTimeout(()=>{ window.location.href = '/controller/register/login'; }, 800);
+        }else{
+          const msg = typeof body === 'string' ? body : (body?.message || '요청이 실패했습니다.');
+          const details = body?.details ? '\n' + Object.entries(body.details).map(([k,v])=>`- ${k}: ${v}`).join('\n') : '';
+          out.innerHTML = `<div class="err">실패 (HTTP ${res.status})\n${msg}${details}</div>`;
+        }
+      }catch(err){ out.innerHTML = `<div class="err">네트워크 오류: ${err}</div>`; }
+    }
+
+    function emailVerifyClick(){
+      const btn = document.getElementById('emailVerifyBtn');
+      if(btn){ btn.classList.add('btn-verified'); btn.classList.remove('btn-outline'); }
+    }
+
+    function openPostcode(){
+      if(!window.daum || !window.daum.Postcode){
+        alert('주소 검색 스크립트를 불러오지 못했습니다. 잠시 후 다시 시도해주세요.');
+        return;
+      }
+      new daum.Postcode({
+        oncomplete: function(data){
+          var addr = data.userSelectedType === 'R' ? data.roadAddress : data.jibunAddress;
+          document.getElementById('address').value = addr || '';
+          document.getElementById('addressDetail').focus();
+        }
+      }).open();
+    }
+  </script>
+</head>
+<body onload="onDomainChange()">
+  <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+  <div class="container">
+    <header class="top-brand" aria-label="브랜드">
+      <img class="brand-logo" th:src="@{/images/logo.png}" alt="코딩의 집 로고" />
+      <div class="brand-name">코딩의 집</div>
+    </header>
+    <div class="layout">
+      <section class="main">
+        <div class="title">회원가입</div>
+
+        <div class="sns-wrap">
+      <div class="sns">
+        <a class="kakao" th:href="@{/oauth2/authorization/kakao}" aria-label="카카오로 가입">
+          <svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true">
+            <path fill="#3c1e1e" d="M12 4.5c-4.42 0-8 2.64-8 5.9 0 1.93 1.24 3.64 3.15 4.75l-1 3.35a.6.6 0 0 0 .9.68l3.5-2.2c.46.05.93.08 1.45.08 4.42 0 8-2.64 8-5.9S16.42 4.5 12 4.5z"/>
+          </svg>
+        </a>
+        <a class="naver" th:href="@{/oauth2/authorization/naver}" aria-label="네이버로 가입">
+          <svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true">
+            <path fill="#ffffff" d="M7 5h4.2l5.8 8.1V5H19v14h-4.2L9 10.9V19H7z"/>
+          </svg>
+        </a>
+      </div>
+      <div class="sns-caption">SNS계정으로 간편 회원가입</div>
+    </div>
+        <hr class="divider"/>
+
+    <div class="card">
+      <form onsubmit="submitRegister(event)">
+        <!-- 이름 먼저 -->
+        <section>
+          <label>이름
+            <input id="name" type="text" required minlength="2" maxlength="50" />
+          </label>
+        </section>
+
+        <!-- 이메일 -->
+        <section>
+          <label>이메일
+            <div class="email-row">
+              <input id="emailLocal" type="text" placeholder="이메일" required />
+              <div class="email-at">@</div>
+              <select id="emailDomain" onchange="onDomainChange()">
+                <option value="gmail.com">gmail.com</option>
+                <option value="naver.com">naver.com</option>
+                <option value="daum.net">daum.net</option>
+                <option value="hanmail.net">hanmail.net</option>
+                <option value="kakao.com">kakao.com</option>
+                <option value="custom">직접입력</option>
+              </select>
+              <button type="button" id="emailVerifyBtn" class="btn btn-outline hover-swap" onclick="emailVerifyClick()">이메일 인증하기</button>
+            </div>
+            <input id="emailDomainCustom" type="text" placeholder="도메인을 입력하세요" style="display:none;margin-top:8px;" />
+          </label>
+        </section>
+
+        <!-- 비밀번호, 비밀번호 확인 -->
+        <section>
+          <label>비밀번호
+            <div class="hint">영문, 숫자를 포함한 8자 이상의 비밀번호를 입력해주세요.</div>
+            <input id="password" type="password" required minlength="8" /> <br>
+          </label>
+          <label>비밀번호 확인
+            <input id="password2" type="password" required minlength="8" />
+          </label>
+        </section>
+
+        <!-- 닉네임 -->
+        <section>
+          <label>닉네임
+            <div class="hint">다른 유저와 겹치지 않도록 입력해주세요. (2~20자)</div>
+            <input id="nickname" type="text" required minlength="2" maxlength="20" />
+          </label>
+        </section>
+
+        <!-- captcha UI 제거됨 -->
+
+        <!-- 연락처, 주소 (백엔드 필수) -->
+        <section class="row">
+          <label>연락처
+            <input id="phone" type="text" required />
+          </label>
+          <label>주소
+            <div class="grid-2">
+              <input id="address" type="text" required maxlength="255" placeholder="기본 주소" readonly />
+              <button type="button" class="btn btn-outline hover-swap" onclick="openPostcode()">주소 검색</button>
+            </div>
+          </label>
+          <label>상세주소
+            <input id="addressDetail" type="text" placeholder="상세 주소" maxlength="255" />
+          </label>
+        </section>
+
+        <!-- 약관동의: 맨 아래, 개인정보 관련 항목은 마지막에 배치 -->
+        <section>
+          <div class="agree">
+            <div class="rowline">
+              <input id="allAgree" type="checkbox" onchange="allAgreeToggle(this)" />
+              <strong>전체동의</strong>
+              <small>선택항목에 대한 동의 포함</small>
+            </div>
+            <div class="rowline"><input id="agreeAge" type="checkbox" required /> 만 14세 이상입니다 <small>(필수)</small></div>
+            <div class="rowline"><input id="agreeTos" type="checkbox" required /> 이용약관 <small>(필수)</small></div>
+            <div class="rowline"><input id="agreeMail" type="checkbox" /> 이벤트, 쿠폰, 특가 알림 메일 및 SMS 동 수신 <small>(선택)</small></div>
+            <div class="rowline"><input id="agreeMarketing" type="checkbox" /> 개인정보 마케팅 활용 동의 <small>(선택)</small></div>
+          </div>
+        </section>
+
+        <button class="btn" type="submit">회원가입하기</button>
+        <div id="out" class="msg" aria-live="polite"></div>
+        <div class="foot">이미 아이디가 있으신가요? <a th:href="@{/controller/register/login}">로그인</a></div>
+      </form>
+    </div>
+      </section>
+    </div>
+  </div>
+</body>
+</html>

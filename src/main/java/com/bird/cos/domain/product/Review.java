@@ -1,4 +1,4 @@
-package com.bird.cos.domain.proudct;
+package com.bird.cos.domain.product;
 
 import com.bird.cos.domain.order.OrderItem;
 import com.bird.cos.domain.user.User;

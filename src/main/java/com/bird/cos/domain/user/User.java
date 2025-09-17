@@ -49,6 +49,9 @@ public class User {
     @Column(name = "terms_agreed")
     private Boolean termsAgreed = false;
 
+    @Column(name = "user_role", length = 20, nullable = false)
+    private String userRole = "user_role";
+
     @Column(name = "user_created_at", insertable = false, updatable = false)
     private LocalDateTime userCreatedAt;
 

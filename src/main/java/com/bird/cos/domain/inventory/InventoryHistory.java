@@ -1,6 +1,6 @@
 package com.bird.cos.domain.inventory;
 
-import com.bird.cos.domain.proudct.Product;
+import com.bird.cos.domain.product.Product;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
