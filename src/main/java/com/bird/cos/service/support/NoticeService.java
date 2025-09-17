@@ -4,6 +4,8 @@ import com.bird.cos.domain.support.Notice;
 import com.bird.cos.dto.support.NoticeResponse;
 import com.bird.cos.repository.support.NoticeRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,10 +18,9 @@ public class NoticeService {
     private final NoticeRepository noticeRepository;
 
     //공지사항 전체 조회
-    public List<NoticeResponse> getAllNotices() {
-        return noticeRepository.findAll().stream()
-                .map(NoticeResponse::fromResponse)
-                .collect(Collectors.toList());
+    public Page<NoticeResponse> getAllNotices(Pageable pageable) {
+        return noticeRepository.findAll(pageable)
+                .map(NoticeResponse::fromResponse); // Page.map() 사용 가능
     }
 
     //공지사항 단건 조회

@@ -1,10 +1,14 @@
 package com.bird.cos.controller.support;
 
+import com.bird.cos.domain.support.Notice;
 import com.bird.cos.dto.support.AdminNoticeRequest;
 import com.bird.cos.dto.support.NoticeResponse;
 import com.bird.cos.service.support.AdminNoticeService;
 import com.bird.cos.service.support.NoticeService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -55,10 +59,11 @@ public class AdminNoticeController {
 
     // 관리자용 공지 목록
     @GetMapping("/list")
-    public String listNotices(
-            Model model,
-            @RequestParam(defaultValue = "0") int page) {
-        model.addAttribute("notices", noticeService.getAllNotices());
+    public String listNotices(Model model,
+                              @RequestParam(defaultValue = "0") int page) {
+        Pageable pageable = PageRequest.of(page, 10); // 한 페이지 10개
+        Page<NoticeResponse> notices = noticeService.getAllNotices(pageable);
+        model.addAttribute("notices", notices);
         return "support/notice-list-admin";
     }
 }

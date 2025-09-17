@@ -5,10 +5,13 @@ import com.bird.cos.dto.support.NoticeResponse;
 import com.bird.cos.repository.support.NoticeRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -27,7 +30,7 @@ class NoticeServiceTest {
     }
 
     @Test
-    void getAllNotices() {//정상
+    void getAllNotices() {
         // given
         Notice notice1 = Notice.builder()
                 .noticeId(1L)
@@ -42,21 +45,24 @@ class NoticeServiceTest {
                 .noticeCreateDate(LocalDateTime.now())
                 .build();
 
-        when(noticeRepository.findAll()).thenReturn(Arrays.asList(notice1, notice2));
+        Pageable pageable = PageRequest.of(0, 10);
+        Page<Notice> noticePage = new PageImpl<>(Arrays.asList(notice1, notice2), pageable, 2);
+
+        when(noticeRepository.findAll(pageable)).thenReturn(noticePage);
 
         // when
-        List<NoticeResponse> responses = noticeService.getAllNotices();
+        Page<NoticeResponse> responses = noticeService.getAllNotices(pageable);
 
         // then
-        assertThat(responses).hasSize(2);
-        assertThat(responses.get(0).getTitle()).isEqualTo("공지1");
-        assertThat(responses.get(1).getTitle()).isEqualTo("공지2");
+        assertThat(responses.getContent()).hasSize(2);
+        assertThat(responses.getContent().get(0).getTitle()).isEqualTo("공지1");
+        assertThat(responses.getContent().get(1).getTitle()).isEqualTo("공지2");
 
-        verify(noticeRepository, times(1)).findAll();
+        verify(noticeRepository, times(1)).findAll(pageable);
     }
 
     @Test
-    void getNotice() {//정상
+    void getNotice() {
         // given
         Notice notice = Notice.builder()
                 .noticeId(1L)
@@ -78,7 +84,7 @@ class NoticeServiceTest {
     }
 
     @Test
-    void getNotice1() {//예외_존재하지 않음
+    void getNoticeNotFound() {
         when(noticeRepository.findById(999L)).thenReturn(Optional.empty());
 
         assertThrows(IllegalArgumentException.class, () -> noticeService.getNotice(999L));

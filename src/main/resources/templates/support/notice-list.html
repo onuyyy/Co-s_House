@@ -151,27 +151,25 @@
         </div>
     </div>
 
-    <!-- Pagination (추후 서버에서 currentPage, totalPages를 모델에 넣어야 함) -->
     <div class="pagination-container">
         <div class="pagination">
-            <a href="#" class="page-btn disabled" th:if="${currentPage == 0}">
-                <i class="fas fa-chevron-left"></i>
-            </a>
-            <a href="#" class="page-btn" th:if="${currentPage > 0}"
-               th:href="@{/notices(page=${currentPage - 1})}">
-                <i class="fas fa-chevron-left"></i>
-            </a>
-
-<!--            <a href="#" class="page-btn"-->
-<!--               th:each="pageNum : ${#numbers.sequence(0,totalPages-1)}"-->
-<!--               th:href="@{/notices(page=${pageNum})}"-->
-<!--               th:text="${pageNum+1}"-->
-<!--               th:classappend="${pageNum == currentPage} ? 'active' : ''">1</a>-->
-
-<!--            <a href="#" class="page-btn" th:if="${currentPage < totalPages -1}"-->
-<!--               th:href="@{/notices(page=${currentPage + 1})}">-->
-<!--                <i class="fas fa-chevron-right"></i>-->
-<!--            </a>-->
+                     <span th:if="${notices.number > 0}">
+                <a th:href="@{/notices(page=0)}">« 처음</a>
+            </span>
+            <span th:if="${notices.hasPrevious()}">
+                <a th:href="@{/notices(page=${notices.number - 1})}">‹ 이전</a>
+            </span>
+            <span th:each="i : ${#numbers.sequence(0, notices.totalPages - 1)}">
+                <a th:href="@{/notices(page=${i})}"
+                   th:text="${i + 1}"
+                   th:classappend="${i == notices.number} ? 'current' : ''"></a>
+            </span>
+            <span th:if="${notices.hasNext()}">
+                <a th:href="@{/notices(page=${notices.number + 1})}">다음 ›</a>
+            </span>
+            <span th:if="${notices.number < notices.totalPages - 1}">
+                <a th:href="@{/notices(page=${notices.totalPages - 1})}">마지막 »</a>
+            </span>
         </div>
     </div>
 

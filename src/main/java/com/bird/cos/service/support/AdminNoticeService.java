@@ -14,7 +14,6 @@ import java.time.LocalDateTime;
 @Service
 @RequiredArgsConstructor
 public class AdminNoticeService {
-
     private final NoticeRepository noticeRepository;
     private final AdminNoticeRepository adminNoticeRepository;
 

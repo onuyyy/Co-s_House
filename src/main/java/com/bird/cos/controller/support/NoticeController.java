@@ -2,6 +2,8 @@ package com.bird.cos.controller.support;
 
 import com.bird.cos.service.support.NoticeService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -15,8 +17,10 @@ public class NoticeController {
 
     // 전체 공지 조회
     @GetMapping
-    public String listNotices(Model model) {
-        model.addAttribute("notices", noticeService.getAllNotices());
+    public String listNotices(Model model,
+                              @RequestParam(defaultValue = "0") int page) {
+        Pageable pageable = PageRequest.of(page,10);
+        model.addAttribute("notices", noticeService.getAllNotices(pageable));
         return "support/notice-list";
     }
 
