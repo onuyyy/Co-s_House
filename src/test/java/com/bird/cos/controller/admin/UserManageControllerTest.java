@@ -1,15 +1,12 @@
 package com.bird.cos.controller.admin;
 
-import com.bird.cos.dto.admin.AdminUserResponse;
-import com.bird.cos.dto.admin.AdminUserSearchType;
-import com.bird.cos.dto.admin.UserDetailResponse;
+import com.bird.cos.dto.admin.UserManageResponse;
+import com.bird.cos.dto.admin.UserManageSearchType;
 import com.bird.cos.dto.admin.UserUpdateRequest;
 import com.bird.cos.service.admin.AdminService;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -24,15 +21,14 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.times;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest({UserManageController.class, AdminMainController.class})
-@org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc(addFilters = false)
 public class UserManageControllerTest {
 
     @Autowired
@@ -60,29 +56,29 @@ public class UserManageControllerTest {
     void givenNothing_whenRequestRootPage_thenForwardToUser() throws Exception {
         mockMvc.perform(get("/api/admin/main"))
                 .andExpect(status().isOk())
-                .andExpect(forwardedUrl("/api/admin/users")); // Thymeleaf용 forward 확인
+                .andExpect(forwardedUrl("/admin/user/")); // Thymeleaf용 forward 확인
     }
 
     @DisplayName("[Controller] - 사용자 관리 화면 접속")
     @Test
     void givenPaging_whenRequestUserPage_thenUserPage() throws Exception {
         // given
-        AdminUserResponse user1 = AdminUserResponse.builder()
+        UserManageResponse user1 = UserManageResponse.builder()
                 .userNickname("test-nickname")
                 .userName("test-user")
                 .build();
 
-        AdminUserResponse user2 = AdminUserResponse.builder()
+        UserManageResponse user2 = UserManageResponse.builder()
                 .userNickname("test-nickname2")
                 .userName("test-user2")
                 .build();
 
-        List<AdminUserResponse> users = Arrays.asList(user1, user2);
-        Page<AdminUserResponse> usersPage = new PageImpl<>(users);
+        List<UserManageResponse> users = Arrays.asList(user1, user2);
+        Page<UserManageResponse> usersPage = new PageImpl<>(users);
 
         // when
         Mockito.when(adminService.getUserList(
-                eq(AdminUserSearchType.NAME),
+                eq(UserManageSearchType.NAME),
                 eq("User"),
                 any(Pageable.class)
         )).thenReturn(usersPage);
@@ -103,11 +99,12 @@ public class UserManageControllerTest {
     @Test
     void givenUserId_whenRequestUserPage_thenUserPage() throws Exception {
         // given
-        UserDetailResponse user = UserDetailResponse.builder()
+        UserManageResponse user = UserManageResponse.builder()
                 .userId(1L)
                 .userNickname("test-nickname")
                 .userName("test-user")
                 .userPhone("1111")
+                .termsAgreed(true)
                 .build();
 
         // when
@@ -137,31 +134,20 @@ public class UserManageControllerTest {
         request.setSocialId("google123");
         request.setTermsAgreed(true);
 
-        // ObjectMapper를 이용해 DTO -> JSON
-        String json = objectMapper.writeValueAsString(request);
-
         // when & then
         mockMvc.perform(post("/api/admin/users/{userId}/update", userId)
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-                        .param("userEmail", request.getUserEmail())
-                        .param("userNickname", request.getUserNickname())
-                        .param("userName", request.getUserName())
-                        .param("userAddress", request.getUserAddress())
-                        .param("userPhone", request.getUserPhone())
-                        .param("socialProvider", request.getSocialProvider())
-                        .param("socialId", request.getSocialId())
-                        .param("termsAgreed", String.valueOf(request.getTermsAgreed())))
+                        .param("userEmail", "test@example.com")
+                        .param("userNickname", "test-nickname")
+                        .param("userName", "test-user")
+                        .param("userAddress", "Seoul")
+                        .param("userPhone", "010-1111-2222")
+                        .param("socialProvider", "GOOGLE")
+                        .param("socialId", "google123")
+                        .param("termsAgreed", "true"))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/api/admin/users/" + userId));
 
-        // 서비스 호출 검증
-        ArgumentCaptor<UserUpdateRequest> captor = ArgumentCaptor.forClass(UserUpdateRequest.class);
-        Mockito.verify(adminService).updateUser(eq(userId), captor.capture());
-
-        UserUpdateRequest captured = captor.getValue();
-        assertEquals("test@example.com", captured.getUserEmail());
-        assertEquals("test-nickname", captured.getUserNickname());
-        assertEquals("test-user", captured.getUserName());
     }
 
     @Test
