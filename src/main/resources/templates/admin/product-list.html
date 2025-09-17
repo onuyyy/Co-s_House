@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+      layout:decorate="~{layout/admin-layout}"
+      lang="ko">
+<head>
+    <title>상품관리</title>
+</head>
+<body>
+    <div layout:fragment="content-header" class="content-header">
+        <h2 style="color: #333; font-size: 20px;">상품관리</h2>
+        <div class="search-section">
+            <form method="get" style="display: flex; gap: 10px;">
+                <select name="searchType" style="padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+                    <option value="TITLE" th:selected="${param.searchType} == 'TITLE'">상품명</option>
+                    <option value="BRAND" th:selected="${param.searchType} == 'BRAND'">브랜드</option>
+                    <option value="CATEGORY" th:selected="${param.searchType} == 'CATEGORY'">카테고리</option>
+                    <option value="STATUS" th:selected="${param.searchType} == 'STATUS'">상태</option>
+                    <option value="COLOR" th:selected="${param.searchType} == 'COLOR'">색상</option>
+                </select>
+                <input type="text" name="searchValue" th:value="${param.searchValue}" 
+                       class="search-input" placeholder="검색어를 입력하세요">
+                <button type="submit" class="btn btn-primary">검색</button>
+            </form>
+        </div>
+    </div>
+
+    <div layout:fragment="content">
+        <div th:if="${param.deleted}" class="alert alert-success">상품이 성공적으로 삭제되었습니다.</div>
+        <div class="data-table">
+            <table>
+                <thead>
+                    <tr><th>상품명</th><th>브랜드</th><th>원가</th><th>판매가</th><th>재고</th><th>상태</th></tr>
+                </thead>
+                <tbody>
+                    <tr th:each="product : ${productList.content}">
+                        <td><a th:href="@{/api/admin/products/{productId}(productId=${product.productId})}" 
+                               style="text-decoration: none; color: #007bff;" th:text="${product.productTitle}">상품명</a></td>
+                        <td th:text="${product.brandName ?: '-'}">브랜드</td>
+                        <td th:text="${product.originalPrice != null ? #numbers.formatCurrency(product.originalPrice) : '-'}">원가</td>
+                        <td th:text="${product.salePrice != null ? #numbers.formatCurrency(product.salePrice) : '-'}">판매가</td>
+                        <td th:text="${product.stockQuantity ?: 0}">재고</td>
+                        <td><span th:class="${product.productStatus == '판매중' ? 'status-active' : 'status-inactive'}"
+                                  th:text="${product.productStatus ?: '-'}">상태</span></td>
+                    </tr>
+                    <tr th:if="${productList.content.empty}"><td colspan="6" style="padding: 40px; color: #666; text-align: center;">등록된 상품이 없습니다.</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <th:block layout:fragment="extra-css">
+        <style>
+            .status-active { background-color: #28a745; color: white; padding: 4px 8px; border-radius: 4px; font-size: 12px; }
+            .status-inactive { background-color: #dc3545; color: white; padding: 4px 8px; border-radius: 4px; font-size: 12px; }
+            .alert { padding: 12px 16px; margin-bottom: 20px; border: 1px solid transparent; border-radius: 4px; }
+            .alert-success { color: #155724; background-color: #d4edda; border-color: #c3e6cb; }
+        </style>
+    </th:block>
+</body>
+</html>

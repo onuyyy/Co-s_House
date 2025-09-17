@@ -25,7 +25,7 @@ public class AuthorityService {
         UserRole role = user == null ? null : user.getUserRole();
         if (role != null && role.getUserRoleName() != null) {
             String name = role.getUserRoleName().trim().toUpperCase(Locale.ROOT);
-            if ("ADMIN".equals(name)) {
+            if ("ADMIN".equals(name) || "SUPER_ADMIN".equals(name)) {
                 authorities.add(new SimpleGrantedAuthority("admin_role"));
             }
         }
