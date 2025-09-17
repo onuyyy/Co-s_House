@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+      layout:decorate="~{layout/admin-layout}"
+      lang="ko">
+<head>
+    <title th:text="${pageTitle ?: '사용자 관리'}">사용자 관리</title>
+    <link rel="stylesheet" href="/css/app.css" />
+</head>
+<body>
+    <!-- Content Header -->
+    <div layout:fragment="content-header" class="content-header">
+        <h2 style="color: #333; font-size: 20px;" th:text="${pageTitle ?: '사용자 관리'}">사용자 관리</h2>
+        <div class="search-section">
+            <form method="get" style="display: flex; gap: 10px;">
+                <select name="searchType" style="padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+                    <option value="NAME" th:selected="${param.searchType} == 'NAME'">이름</option>
+                    <option value="EMAIL" th:selected="${param.searchType} == 'EMAIL'">이메일</option>
+                    <option value="NICKNAME" th:selected="${param.searchType} == 'NICKNAME'">닉네임</option>
+                    <option value="PHONE" th:selected="${param.searchType} == 'PHONE'">연락처</option>
+                    <option value="ROLE" th:selected="${param.searchType} == 'ROLE'">역할</option>
+                </select>
+                <input type="text" name="searchValue" th:value="${param.searchValue}" 
+                       class="search-input" placeholder="검색어를 입력하세요">
+                <button type="submit" class="btn btn-primary">검색</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div layout:fragment="content">
+        <!-- 알림 메시지 -->
+        <div th:if="${param.deleted}" class="alert alert-success">
+            사용자가 성공적으로 삭제되었습니다.
+        </div>
+
+        <!-- 역할별 필터 표시 -->
+        <div th:if="${roleFilter}" class="role-filter-info">
+            <span class="filter-label">현재 필터:</span>
+            <span class="filter-value" th:text="${roleFilter == 'USER' ? '일반 사용자' : (roleFilter == 'ADMIN' ? '관리자' : roleFilter)}">필터</span>
+            <a th:href="@{/api/admin/users}" class="remove-filter">전체 보기</a>
+        </div>
+
+        <div class="data-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>이름</th>
+                        <th>이메일</th>
+                        <th>닉네임</th>
+                        <th>역할</th>
+                        <th>연락처</th>
+                        <th>소셜</th>
+                        <th>가입일</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="user : ${userList.content}">
+                        <td>
+                            <a th:href="@{/api/admin/users/{userId}(userId=${user.userId})}" 
+                               style="text-decoration: none; color: #007bff; font-weight: 500;"
+                               th:text="${user.userName}">사용자명</a>
+                        </td>
+                        <td class="email-cell" th:text="${user.userEmail}">이메일</td>
+                        <td th:text="${user.userNickname}">닉네임</td>
+                        <td>
+                            <span th:class="${user.admin ? 'role-badge admin-role' : 'role-badge user-role'}"
+                                  th:text="${user.userRoleName}">역할</span>
+                        </td>
+                        <td th:text="${user.userPhone ?: '-'}">연락처</td>
+                        <td>
+                            <span th:if="${user.socialProvider}" 
+                                  class="social-badge"
+                                  th:text="${user.socialProvider}">소셜</span>
+                            <span th:unless="${user.socialProvider}">-</span>
+                        </td>
+                        <td th:text="${user.userCreatedAt != null ? #temporals.format(user.userCreatedAt, 'yyyy-MM-dd') : '-'}">가입일</td>
+                    </tr>
+                    <tr th:if="${userList.content.empty}">
+                        <td colspan="7" style="padding: 40px; color: #666; text-align: center;">등록된 사용자가 없습니다.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Pagination -->
+        <div class="pagination" th:if="${userList.totalPages > 0}">
+            <!-- Previous -->
+            <a th:if="${userList.hasPrevious()}" 
+               th:href="@{${#httpServletRequest.requestURI}(page=${userList.number - 1}, searchType=${param.searchType}, searchValue=${param.searchValue})}">‹</a>
+
+            <!-- Page Numbers -->
+            <th:block th:each="pageNum : ${#numbers.sequence(0, userList.totalPages - 1)}">
+                <span th:if="${pageNum == userList.number}" class="current" th:text="${pageNum + 1}">1</span>
+                <a th:unless="${pageNum == userList.number}" 
+                   th:href="@{${#httpServletRequest.requestURI}(page=${pageNum}, searchType=${param.searchType}, searchValue=${param.searchValue})}"
+                   th:text="${pageNum + 1}">1</a>
+            </th:block>
+
+            <!-- Next -->
+            <a th:if="${userList.hasNext()}" 
+               th:href="@{${#httpServletRequest.requestURI}(page=${userList.number + 1}, searchType=${param.searchType}, searchValue=${param.searchValue})}">›</a>
+        </div>
+    </div>
+
+    <th:block layout:fragment="extra-css">
+        <style>
+            .role-filter-info {
+                background-color: #e7f3ff;
+                border: 1px solid #b8daff;
+                border-radius: 6px;
+                padding: 12px 16px;
+                margin-bottom: 20px;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+            
+            .filter-label {
+                font-weight: 600;
+                color: #004085;
+            }
+            
+            .filter-value {
+                background-color: #007bff;
+                color: white;
+                padding: 4px 12px;
+                border-radius: 12px;
+                font-size: 12px;
+                font-weight: bold;
+            }
+            
+            .remove-filter {
+                color: #007bff;
+                text-decoration: none;
+                font-size: 14px;
+                margin-left: auto;
+            }
+            
+            .remove-filter:hover {
+                text-decoration: underline;
+            }
+            
+            .email-cell {
+                font-family: monospace;
+                font-size: 0.9em;
+            }
+            
+            .role-badge {
+                padding: 4px 12px;
+                border-radius: 12px;
+                font-size: 12px;
+                font-weight: bold;
+            }
+            
+            .admin-role {
+                background-color: #dc3545;
+                color: white;
+            }
+            
+            .user-role {
+                background-color: #28a745;
+                color: white;
+            }
+            
+            .social-badge {
+                background-color: #17a2b8;
+                color: white;
+                padding: 2px 8px;
+                border-radius: 8px;
+                font-size: 11px;
+            }
+            
+            .alert {
+                padding: 12px 16px;
+                margin-bottom: 20px;
+                border: 1px solid transparent;
+                border-radius: 4px;
+            }
+            
+            .alert-success {
+                color: #155724;
+                background-color: #d4edda;
+                border-color: #c3e6cb;
+            }
+        </style>
+    </th:block>
+</body>
+</html>

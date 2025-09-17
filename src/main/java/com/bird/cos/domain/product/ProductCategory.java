@@ -3,12 +3,14 @@ package com.bird.cos.domain.product;
 import com.bird.cos.domain.common.CommonCode;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+@Getter
 @Entity
 @Table(name = "PRODUCT_CATEGORY")
 public class ProductCategory {

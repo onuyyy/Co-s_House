@@ -65,7 +65,7 @@ public class LoginPageController {
 
             // 어드민이면 어드민 페이지로, 아니면 홈으로
             if (result.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("admin_role"))) {
-                return "redirect:/api/admin/users";
+                return "redirect:/api/admin";
             }
             return "redirect:/";
         } catch (UnauthorizedException e) {
