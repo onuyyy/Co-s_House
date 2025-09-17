@@ -27,13 +27,15 @@ public class RegisterSecurityFilter extends OncePerRequestFilter {
     private static final String TARGET_PATH = "/controller/register/register";
 
     private static final int LIMIT_WINDOW_SECONDS = 60;
-    private static final int LIMIT_MAX_REQUESTS = 5;
+    private static final int LIMIT_MAX_REQUESTS = 60;
 
     private final Map<String, Deque<Long>> ipBuckets = new ConcurrentHashMap<>();
 
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) {
-        return !"POST".equalsIgnoreCase(request.getMethod()) || !TARGET_PATH.equals(request.getRequestURI());
+        // 컨텍스트 패스 영향을 피하기 위해 servletPath 기준으로 비교
+        String servletPath = request.getServletPath();
+        return !"POST".equalsIgnoreCase(request.getMethod()) || !TARGET_PATH.equals(servletPath);
     }
 
     @Override
@@ -74,6 +76,10 @@ public class RegisterSecurityFilter extends OncePerRequestFilter {
                 return;
             }
             q.addLast(now);
+            // 큐가 비워졌다면 버킷 제거하여 메모리 누수 완화
+            if (q.isEmpty()) {
+                ipBuckets.remove(key);
+            }
         }
 
         filterChain.doFilter(request, response);

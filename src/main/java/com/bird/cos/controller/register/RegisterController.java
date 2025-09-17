@@ -13,11 +13,16 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.web.context.SecurityContextRepository;
+import com.bird.cos.repository.user.UserRepository;
+import com.bird.cos.security.AuthorityService;
 
 @Slf4j
 @RestController
@@ -27,6 +32,12 @@ public class RegisterController {
 
     private final RegisterService registerService;
     private final AuthService authService;
+    private final AuthorityService authorityService;
+    private final AuthenticationManager authenticationManager;
+    private final SecurityContextRepository securityContextRepository;
+    private final UserRepository userRepository;
+
+    
 
 
     // 회원가입 201 Created
@@ -38,27 +49,26 @@ public class RegisterController {
     }
 
     @PostMapping("/login")
-    public String login(@Valid @RequestBody LoginRequest req, HttpSession session) throws UnauthorizedException {
-        User user = authService.login(req.loginEmail(), req.password());
+    public String login(@Valid @RequestBody LoginRequest req,
+                        HttpSession session,
+                        HttpServletRequest request,
+                        HttpServletResponse response) throws UnauthorizedException {
+        // 표준 인증 플로우: AuthenticationManager를 통해 인증 수행
+        Authentication result = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(req.loginEmail(), req.password())
+        );
 
-        //세션 사용자 저장
+        // SecurityContext 저장(세션에 지속)
+        SecurityContext context = SecurityContextHolder.createEmptyContext();
+        context.setAuthentication(result);
+        SecurityContextHolder.setContext(context);
+        securityContextRepository.saveContext(context, request, response);
+
+        // 세션 사용자 정보(기존 호환): 도메인 User를 세션에 보관
+        User user = userRepository.findByUserEmail(req.loginEmail()).orElseThrow();
         session.setAttribute("userEmail", user.getUserEmail());
         session.setAttribute("userName", user.getUserName());
         session.setAttribute("user", user);
-
-        // Spring Security 인증 컨텍스트에 저장(세션으로 지속) - 역할 부여(DB의 userRole 기반)
-        java.util.List<GrantedAuthority> authorities = new java.util.ArrayList<>();
-        // 기본 사용자 권한 항상 부여
-        authorities.add(new SimpleGrantedAuthority("user_role"));
-        // 관리자인 경우 관리자 권한 추가 부여
-        if ("admin_role".equalsIgnoreCase(user.getUserRole())) {
-            authorities.add(new SimpleGrantedAuthority("admin_role"));
-        }
-        UsernamePasswordAuthenticationToken authentication =
-                new UsernamePasswordAuthenticationToken(user.getUserEmail(), null, authorities);
-        SecurityContext context = SecurityContextHolder.createEmptyContext();
-        context.setAuthentication(authentication);
-        SecurityContextHolder.setContext(context);
 
         return "로그인 유저 : " + user.getUserEmail();
     }
