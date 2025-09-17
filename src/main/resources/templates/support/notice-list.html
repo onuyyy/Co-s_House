@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>공지사항 - 오늘의집</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body { font-family: -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Noto Sans KR',sans-serif;
+            background:#f8f9fa; color:#333; line-height:1.6; }
+
+        /* Header */
+        .header-banner { background:linear-gradient(135deg,#74b9ff,#0984e3); padding:12px;
+            text-align:center; color:white; font-size:14px; position:relative; }
+        .header-banner::after { content: ">"; position:absolute; right:20px; font-weight:bold; }
+
+        .navbar { background:white; padding:15px 0; box-shadow:0 2px 10px rgba(0,0,0,0.1);
+            position:sticky; top:0; z-index:100; }
+        .nav-container { max-width:1200px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; padding:0 20px; }
+        .logo { font-size:24px; font-weight:bold; color:#333; text-decoration:none; }
+        .nav-menu { display:flex; list-style:none; gap:40px; }
+        .nav-menu a { text-decoration:none; color:#333; font-weight:500; padding:8px 0; transition:color 0.3s; }
+        .nav-menu a:hover { color:#0984e3; border-bottom:2px solid #0984e3; }
+        .nav-right { display:flex; align-items:center; gap:20px; }
+        .search-container { position:relative; }
+        .search-input { width:300px; padding:10px 40px 10px 15px; border:1px solid #ddd; border-radius:25px; font-size:14px; outline:none; }
+        .search-input:focus { border-color:#0984e3; }
+        .search-btn { position:absolute; right:15px; top:50%; transform:translateY(-50%); background:none; border:none; color:#666; cursor:pointer; }
+        .nav-icons { display:flex; gap:15px; }
+        .nav-icon { color:#666; font-size:20px; text-decoration:none; position:relative; }
+        .user-btn { background:#0984e3; color:white; padding:10px 20px; border:none; border-radius:5px; cursor:pointer; font-weight:500; }
+
+        /* Main Content */
+        .main-content { max-width:800px; margin:40px auto; padding:0 20px; background:white;
+            border-radius:10px; box-shadow:0 2px 10px rgba(0,0,0,0.1); overflow:hidden; }
+        .page-header { padding:40px 40px 20px; border-bottom:1px solid #f0f0f0; }
+        .page-title { font-size:28px; font-weight:bold; color:#333; margin-bottom:10px; }
+        .page-subtitle { color:#666; font-size:16px; }
+
+        /* Notice List */
+        .notice-list { padding:0; }
+        .notice-item { border-bottom:1px solid #f0f0f0; transition:all 0.3s ease; cursor:pointer; position:relative; }
+        .notice-item:hover { background-color:#f8f9ff; }
+        .notice-item:last-child { border-bottom:none; }
+        .notice-link { display:block; padding:25px 40px; text-decoration:none; color:inherit; }
+        .notice-title { font-size:16px; font-weight:500; color:#333; margin-bottom:8px; line-height:1.5; transition:color 0.3s; }
+        .notice-item:hover .notice-title { color:#0984e3; }
+        .notice-date { font-size:14px; color:#999; }
+        .notice-badge { display:inline-block; background:#ff6b6b; color:white; font-size:11px; font-weight:bold;
+            padding:3px 8px; border-radius:12px; margin-right:8px; text-transform:uppercase; }
+        .notice-badge.important { background:#e74c3c; }
+        .notice-badge.update { background:#3498db; }
+        .notice-badge.maintenance { background:#f39c12; }
+
+        /* Empty State */
+        .empty-state { text-align:center; padding:60px 40px; color:#999; }
+        .empty-state i { font-size:48px; margin-bottom:20px; color:#ddd; }
+
+        /* Pagination */
+        .pagination-container { padding:30px 40px; text-align:center; border-top:1px solid #f0f0f0; }
+        .pagination { display:inline-flex; gap:5px; align-items:center; }
+        .page-btn { padding:8px 12px; border:1px solid #ddd; background:white; color:#666;
+            text-decoration:none; border-radius:5px; font-size:14px; transition:all 0.3s; }
+        .page-btn:hover { background:#0984e3; color:white; border-color:#0984e3; }
+        .page-btn.active { background:#0984e3; color:white; border-color:#0984e3; }
+        .page-btn.disabled { opacity:0.5; cursor:not-allowed; }
+        .page-btn.disabled:hover { background:white; color:#666; border-color:#ddd; }
+
+        /* Footer Link */
+        .footer-link { padding:20px 40px; background:#f8f9fa; border-top:1px solid #f0f0f0; }
+        .footer-link a { color:#0984e3; text-decoration:none; font-size:14px; }
+        .footer-link a:hover { text-decoration:underline; }
+
+        /* Responsive */
+        @media (max-width:768px) {
+            .nav-container { flex-direction:column; gap:15px; }
+            .search-input { width:250px; }
+            .main-content { margin:20px; border-radius:5px; }
+            .page-header, .notice-link, .pagination-container, .footer-link { padding:20px; }
+            .page-title { font-size:24px; }
+            .notice-title { font-size:15px; }
+            .pagination { flex-wrap:wrap; gap:3px; }
+            .page-btn { padding:6px 10px; font-size:13px; }
+        }
+
+        /* Loading Animation */
+        .loading { text-align:center; padding:40px; color:#666; }
+        .loading i { font-size:24px; animation:spin 1s linear infinite; }
+        @keyframes spin { 0% { transform:rotate(0deg); } 100% { transform:rotate(360deg); } }
+    </style>
+</head>
+<body>
+<!-- Header Banner -->
+<div class="header-banner">
+    오늘의집 DESIGN AWARD 2025 출품작 다시 한 번!
+</div>
+
+<!-- Main Navigation -->
+<nav class="navbar">
+    <div class="nav-container">
+        <a href="/" class="logo">오늘의집</a>
+        <ul class="nav-menu">
+            <li><a href="/community">커뮤니티</a></li>
+            <li><a href="/shop">쇼핑</a></li>
+            <li><a href="/interior">인테리어/시공</a></li>
+        </ul>
+        <div class="nav-right">
+            <div class="search-container">
+                <input type="text" class="search-input" placeholder="통합검색">
+                <button class="search-btn"><i class="fas fa-search"></i></button>
+            </div>
+            <div class="nav-icons">
+                <a href="/cart" class="nav-icon"><i class="fas fa-shopping-cart"></i></a>
+                <a href="/bookmark" class="nav-icon">북마크</a>
+                <a href="/history" class="nav-icon">최근본상품</a>
+                <a href="/customer" class="nav-icon">고객센터</a>
+            </div>
+            <button class="user-btn">글쓰기 ▼</button>
+        </div>
+    </div>
+</nav>
+
+<!-- Main Content -->
+<main class="main-content">
+    <div class="page-header">
+        <h1 class="page-title">공지사항</h1>
+        <p class="page-subtitle">오늘의집의 새로운 소식과 업데이트를 확인하세요</p>
+    </div>
+
+    <!-- Notice List -->
+    <div class="notice-list">
+        <div class="notice-item" th:each="notice : ${notices}">
+            <a class="notice-link" th:href="@{/notices/{id}(id=${notice.noticeId})}">
+                <div class="notice-title">
+<!--                        <span class="notice-badge" th:if="${notice.important}"-->
+<!--                              th:text="${notice.badge}">공지</span>-->
+                    <span th:text="${notice.title}">공지사항 제목</span>
+                </div>
+                <div class="notice-date"
+                     th:text="${#temporals.format(notice.createTime,'yyyy. MM. dd')}">
+                    2025. 07. 21
+                </div>
+            </a>
+        </div>
+
+        <!-- Empty state -->
+        <div class="empty-state" th:if="${#lists.isEmpty(notices)}">
+            <i class="far fa-bell-slash"></i>
+            <p>현재 등록된 공지사항이 없습니다.</p>
+        </div>
+    </div>
+
+    <!-- Pagination (추후 서버에서 currentPage, totalPages를 모델에 넣어야 함) -->
+    <div class="pagination-container">
+        <div class="pagination">
+            <a href="#" class="page-btn disabled" th:if="${currentPage == 0}">
+                <i class="fas fa-chevron-left"></i>
+            </a>
+            <a href="#" class="page-btn" th:if="${currentPage > 0}"
+               th:href="@{/notices(page=${currentPage - 1})}">
+                <i class="fas fa-chevron-left"></i>
+            </a>
+
+<!--            <a href="#" class="page-btn"-->
+<!--               th:each="pageNum : ${#numbers.sequence(0,totalPages-1)}"-->
+<!--               th:href="@{/notices(page=${pageNum})}"-->
+<!--               th:text="${pageNum+1}"-->
+<!--               th:classappend="${pageNum == currentPage} ? 'active' : ''">1</a>-->
+
+<!--            <a href="#" class="page-btn" th:if="${currentPage < totalPages -1}"-->
+<!--               th:href="@{/notices(page=${currentPage + 1})}">-->
+<!--                <i class="fas fa-chevron-right"></i>-->
+<!--            </a>-->
+        </div>
+    </div>
+
+    <!-- Footer -->
+
+</main>
+
+<script>
+    // 페이지 로딩 애니메이션
+    document.addEventListener('DOMContentLoaded', function() {
+        const noticeItems = document.querySelectorAll('.notice-item');
+        noticeItems.forEach((item,index)=>{
+            item.style.opacity='0';
+            item.style.transform='translateY(20px)';
+            setTimeout(()=>{
+                item.style.transition='opacity 0.5s ease, transform 0.5s ease';
+                item.style.opacity='1';
+                item.style.transform='translateY(0)';
+            }, index*100);
+        });
+    });
+
+    // 검색 이벤트
+    const searchInput=document.querySelector('.search-input');
+    const searchBtn=document.querySelector('.search-btn');
+    searchBtn.addEventListener('click',function(){
+        const keyword=searchInput.value.trim();
+        if(keyword){ console.log('검색어:',keyword); }
+    });
+    searchInput.addEventListener('keypress',function(e){
+        if(e.key==='Enter'){ searchBtn.click(); }
+    });
+</script>
+</body>
+</html>

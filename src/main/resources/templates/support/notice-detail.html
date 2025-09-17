@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${notice.title} + ' - 오늘의집'">공지 상세</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body { font-family: -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Noto Sans KR',sans-serif;
+            background:#f8f9fa; color:#333; line-height:1.6; }
+
+        /* Header */
+        .header-banner { background:linear-gradient(135deg,#74b9ff,#0984e3); padding:12px;
+            text-align:center; color:white; font-size:14px; position:relative; }
+        .header-banner::after { content: ">"; position:absolute; right:20px; font-weight:bold; }
+
+        .navbar { background:white; padding:15px 0; box-shadow:0 2px 10px rgba(0,0,0,0.1);
+            position:sticky; top:0; z-index:100; }
+        .nav-container { max-width:1200px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; padding:0 20px; }
+        .logo { font-size:24px; font-weight:bold; color:#333; text-decoration:none; }
+        .nav-menu { display:flex; list-style:none; gap:40px; }
+        .nav-menu a { text-decoration:none; color:#333; font-weight:500; padding:8px 0; transition:color 0.3s; }
+        .nav-menu a:hover { color:#0984e3; border-bottom:2px solid #0984e3; }
+        .nav-right { display:flex; align-items:center; gap:20px; }
+        .search-container { position:relative; }
+        .search-input { width:300px; padding:10px 40px 10px 15px; border:1px solid #ddd; border-radius:25px; font-size:14px; outline:none; }
+        .search-input:focus { border-color:#0984e3; }
+        .search-btn { position:absolute; right:15px; top:50%; transform:translateY(-50%); background:none; border:none; color:#666; cursor:pointer; }
+        .nav-icons { display:flex; gap:15px; }
+        .nav-icon { color:#666; font-size:20px; text-decoration:none; position:relative; }
+        .user-btn { background:#0984e3; color:white; padding:10px 20px; border:none; border-radius:5px; cursor:pointer; font-weight:500; }
+
+        /* Main Content */
+        .main-content { max-width:800px; margin:40px auto; padding:0 20px; background:white;
+            border-radius:10px; box-shadow:0 2px 10px rgba(0,0,0,0.1); overflow:hidden; }
+        .page-header { padding:40px 40px 20px; border-bottom:1px solid #f0f0f0; }
+        .page-title { font-size:28px; font-weight:bold; color:#333; margin-bottom:10px; }
+        .page-subtitle { color:#666; font-size:16px; }
+
+        .notice-content { padding:40px; font-size:16px; color:#333; line-height:1.8; }
+
+        .back-btn { display:inline-block; margin:20px 40px; padding:8px 16px; background:#0984e3; color:white;
+            text-decoration:none; border-radius:5px; transition:all 0.3s; }
+        .back-btn:hover { background:#065fa0; }
+
+        /* Responsive */
+        @media(max-width:768px) {
+            .main-content { margin:20px; border-radius:5px; }
+            .page-header, .notice-content { padding:20px; }
+            .page-title { font-size:24px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="header-banner">
+    오늘의집 DESIGN AWARD 2025 출품작 다시 한 번!
+</div>
+
+<!-- Main Navigation -->
+<nav class="navbar">
+    <div class="nav-container">
+        <a href="/" class="logo">오늘의집</a>
+        <ul class="nav-menu">
+            <li><a href="/community">커뮤니티</a></li>
+            <li><a href="/shop">쇼핑</a></li>
+            <li><a href="/interior">인테리어/시공</a></li>
+        </ul>
+        <div class="nav-right">
+            <div class="search-container">
+                <input type="text" class="search-input" placeholder="통합검색">
+                <button class="search-btn"><i class="fas fa-search"></i></button>
+            </div>
+            <div class="nav-icons">
+                <a href="/cart" class="nav-icon"><i class="fas fa-shopping-cart"></i></a>
+                <a href="/bookmark" class="nav-icon">북마크</a>
+                <a href="/history" class="nav-icon">최근본상품</a>
+                <a href="/customer" class="nav-icon">고객센터</a>
+            </div>
+            <button class="user-btn">글쓰기 ▼</button>
+        </div>
+    </div>
+</nav>
+
+<main class="main-content">
+    <div class="page-header">
+        <h1 class="page-title" th:text="${notice.title}">공지 제목</h1>
+        <p class="page-subtitle" th:text="${#temporals.format(notice.createTime,'yyyy. MM. dd')}">
+            공지 날짜
+        </p>
+    </div>
+
+    <div class="notice-content" th:utext="${notice.content}">
+        공지 내용
+    </div>
+
+    <a href="/notices" class="back-btn">목록으로 돌아가기</a>
+</main>
+
+</body>
+</html>
