@@ -1,6 +1,6 @@
 package com.bird.cos.domain.post;
 
-import com.bird.cos.domain.proudct.Review;
+import com.bird.cos.domain.product.Review;
 import jakarta.persistence.*;
 
 @Entity

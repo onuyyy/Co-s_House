@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
+import static jakarta.persistence.FetchType.LAZY;
+
 @Getter
 @Builder
 @NoArgsConstructor
@@ -21,6 +23,10 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
     private Long userId;
+
+    @ManyToOne(fetch = LAZY)
+    @JoinColumn(name = "user_role_id")
+    private UserRole userRole;
 
     @Column(name = "user_email", length = 255, unique = true, nullable = false)
     private String userEmail;
@@ -55,14 +61,42 @@ public class User {
     @Column(name = "user_updated_at", insertable = false, updatable = false)
     private LocalDateTime userUpdatedAt;
 
+    // 사용자 정보 업데이트 메서드
     public void update(UserUpdateRequest request) {
-        if (request.getUserEmail() != null) this.userEmail = request.getUserEmail();
-        if (request.getUserNickname() != null) this.userNickname = request.getUserNickname();
-        if (request.getUserName() != null) this.userName = request.getUserName();
-        if (request.getUserAddress() != null) this.userAddress = request.getUserAddress();
-        if (request.getUserPhone() != null) this.userPhone = request.getUserPhone();
-        if (request.getSocialProvider() != null) this.socialProvider = request.getSocialProvider();
-        if (request.getSocialId() != null) this.socialId = request.getSocialId();
-        if (request.getTermsAgreed() != null) this.termsAgreed = request.getTermsAgreed();
+        if (request.getUserName() != null && !request.getUserName().trim().isEmpty()) {
+            this.userName = request.getUserName().trim();
+        }
+        if (request.getUserNickname() != null && !request.getUserNickname().trim().isEmpty()) {
+            this.userNickname = request.getUserNickname().trim();
+        }
+        if (request.getUserEmail() != null && !request.getUserEmail().trim().isEmpty()) {
+            this.userEmail = request.getUserEmail().trim();
+        }
+        if (request.getUserPhone() != null) {
+            this.userPhone = request.getUserPhone().trim();
+        }
+        if (request.getUserAddress() != null) {
+            this.userAddress = request.getUserAddress().trim();
+        }
+        if (request.getTermsAgreed() != null) {
+            this.termsAgreed = request.getTermsAgreed();
+        }
+    }
+
+    // 역할 변경 메서드 (관리자가 사용자 역할을 변경할 때)
+    public void changeRole(UserRole newRole) {
+        this.userRole = newRole;
+    }
+
+    // 관리자 여부 확인
+    public boolean isAdmin() {
+        return this.userRole != null && 
+               ("ADMIN".equals(this.userRole.getUserRoleName()) || 
+                "SUPER_ADMIN".equals(this.userRole.getUserRoleName()));
+    }
+
+    // 일반 사용자 여부 확인  
+    public boolean isUser() {
+        return this.userRole != null && "USER".equals(this.userRole.getUserRoleName());
     }
 }

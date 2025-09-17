@@ -1,65 +1,257 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<html xmlns:th="http://www.thymeleaf.org" 
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+      layout:decorate="~{layout/admin-layout}"
+      lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <title>사용자 상세 화면</title>
+    <title>사용자 상세정보</title>
 </head>
 <body>
-<h1>사용자 상세 화면</h1>
-<table border="1">
-    <thead>
-    <tr>
-        <th>이름</th>
-        <th>닉네임</th>
-        <th>이메일</th>
-        <th>주소</th>
-        <th>연락처</th>
-        <th>소셜</th>
-        <th>소셜 아이디</th>
-        <th>약관 동의</th>
-        <th>가입일자</th>
-        <th>수정일자</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-        <td th:text="${user.userName}">이름</td>
-        <td th:text="${user.userNickname}">닉네임</td>
-        <td th:text="${user.userEmail}">이메일</td>
-        <td th:text="${user.userAddress}">주소</td>
-        <td th:text="${user.userPhone}">연락처</td>
-        <td th:text="${user.socialProvider}">소셜</td>
-        <td th:text="${user.socialId}">소셜 아이디</td>
-        <td th:text="${user.termsAgreed}">약관 동의</td>
-        <td th:text="${user.userCreatedAt}">가입일자</td>
-        <td th:text="${user.userUpdatedAt}">수정일자</td>
-    </tr>
-    </tbody>
-</table>
+    <!-- Content Header -->
+    <div layout:fragment="content-header" class="content-header">
+        <div>
+            <div class="breadcrumb">
+                <a href="/api/admin/users">사용자 관리</a> > 사용자 상세정보
+            </div>
+            <h2 style="color: #333; font-size: 24px; margin-top: 10px;">사용자 상세정보</h2>
+        </div>
+        <div>
+            <a href="/api/admin/users" class="btn btn-secondary">목록으로</a>
+        </div>
+    </div>
 
-<!-- 수정 버튼 -->
-<form th:action="@{'/api/admin/users/' + ${user.userId} + '/update'}" method="post">
-    <input type="hidden" name="userEmail" th:value="${user.userEmail}" />
-    <input type="hidden" name="userNickname" th:value="${user.userNickname}" />
-    <input type="hidden" name="userName" th:value="${user.userName}" />
-    <input type="hidden" name="userAddress" th:value="${user.userAddress}" />
-    <input type="hidden" name="userPhone" th:value="${user.userPhone}" />
-    <input type="hidden" name="socialProvider" th:value="${user.socialProvider}" />
-    <input type="hidden" name="socialId" th:value="${user.socialId}" />
-    <input type="hidden" name="termsAgreed" th:value="${user.termsAgreed}" />
+    <!-- Main Content -->
+    <div layout:fragment="content">
+        <!-- 알림 메시지 -->
+        <div th:if="${param.success}" class="alert alert-success">
+            사용자 정보가 성공적으로 수정되었습니다.
+        </div>
+        <div th:if="${param.error}" class="alert alert-danger">
+            <span th:text="${param.error}">오류가 발생했습니다.</span>
+        </div>
 
-    <input type="submit" value="수정">
-</form>
+        <!-- 모드 선택 버튼 -->
+        <div class="mode-selector">
+            <button id="viewMode" class="mode-btn active" onclick="toggleMode('view')">👁️ 보기 모드</button>
+            <button id="editMode" class="mode-btn" onclick="toggleMode('edit')">✏️ 수정 모드</button>
+        </div>
 
+        <!-- 사용자 정보 (읽기 전용) -->
+        <div class="detail-card" id="viewSection">
+            <div class="detail-card-header">
+                <h3>👤 사용자 정보</h3>
+            </div>
+            <div class="detail-card-body">
+                <div class="detail-grid">
+                    <div class="detail-label">사용자 ID</div>
+                    <div class="detail-value" th:text="${user.userId}">1</div>
+                    
+                    <div class="detail-label">이름</div>
+                    <div class="detail-value user-name" th:text="${user.userName}">사용자명</div>
+                    
+                    <div class="detail-label">닉네임</div>
+                    <div class="detail-value" th:text="${user.userNickname}">닉네임</div>
+                    
+                    <div class="detail-label">이메일</div>
+                    <div class="detail-value email-display" th:text="${user.userEmail}">이메일</div>
+                    
+                    <div class="detail-label">역할</div>
+                    <div class="detail-value">
+                        <span th:class="${user.admin ? 'role-badge admin-role' : 'role-badge user-role'}"
+                              th:text="${user.userRoleName}">역할</span>
+                    </div>
+                    
+                    <div class="detail-label">주소</div>
+                    <div class="detail-value" th:text="${user.userAddress ?: '정보 없음'}">주소</div>
+                    
+                    <div class="detail-label">연락처</div>
+                    <div class="detail-value" th:text="${user.userPhone ?: '정보 없음'}">연락처</div>
+                    
+                    <div class="detail-label">소셜 로그인</div>
+                    <div class="detail-value" th:text="${user.socialProvider ?: '일반 회원'}">소셜 로그인</div>
+                    
+                    <div class="detail-label">소셜 ID</div>
+                    <div class="detail-value" th:text="${user.socialId ?: '-'}">소셜 ID</div>
+                    
+                    <div class="detail-label">약관 동의</div>
+                    <div class="detail-value">
+                        <span th:class="${user.termsAgreed != null and user.termsAgreed ? 'status-badge status-active' : 'status-badge status-inactive'}"
+                              th:text="${user.termsAgreed != null and user.termsAgreed ? '동의' : '미동의'}">
+                            약관 동의
+                        </span>
+                    </div>
 
-<!-- 삭제 버튼 -->
-<form th:action="@{'/api/admin/users/' + ${user.userId} + '/delete'}" method="post">
-    <input type="hidden" name="_method" value="delete"/>
-    <input type="submit" value="삭제" onclick="return confirm('정말 삭제하시겠습니까?');">
-</form>
+                    <div class="detail-label">가입일자</div>
+                    <div class="detail-value" th:text="${user.userCreatedAt != null ? #temporals.format(user.userCreatedAt, 'yyyy-MM-dd HH:mm') : '-'}">가입일자</div>
+                    
+                    <div class="detail-label">수정일자</div>
+                    <div class="detail-value" th:text="${user.userUpdatedAt != null ? #temporals.format(user.userUpdatedAt, 'yyyy-MM-dd HH:mm') : '-'}">수정일자</div>
+                </div>
+            </div>
+        </div>
 
-<!-- 목록 돌아가기 -->
-<a th:href="@{/api/admin/users}">목록으로 돌아가기</a>
+        <!-- 사용자 수정 폼 -->
+        <div class="detail-card" id="editSection" style="display: none;">
+            <div class="detail-card-header">
+                <h3>✏️ 사용자 정보 수정</h3>
+            </div>
+            <div class="detail-card-body">
+                <form th:action="@{/api/admin/users/{userId}/update(userId=${user.userId})}" method="post" class="user-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="userName" class="required">이름 *</label>
+                            <input type="text" id="userName" name="userName" th:value="${user.userName}" 
+                                   class="form-control" required maxlength="50"
+                                   placeholder="사용자 이름을 입력하세요">
+                            <small class="form-text">필수 입력 항목입니다. (최대 50자)</small>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="userNickname" class="required">닉네임 *</label>
+                            <input type="text" id="userNickname" name="userNickname" th:value="${user.userNickname}" 
+                                   class="form-control" required maxlength="20"
+                                   placeholder="닉네임을 입력하세요">
+                            <small class="form-text">필수 입력 항목입니다. (최대 20자)</small>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="userEmail" class="required">이메일 *</label>
+                            <input type="email" id="userEmail" name="userEmail" th:value="${user.userEmail}" 
+                                   class="form-control" required maxlength="255"
+                                   placeholder="example@email.com">
+                            <small class="form-text">필수 입력 항목입니다. 로그인 ID로 사용됩니다.</small>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="userPhone">연락처</label>
+                            <input type="tel" id="userPhone" name="userPhone" th:value="${user.userPhone}" 
+                                   class="form-control" maxlength="20"
+                                   placeholder="010-0000-0000">
+                            <small class="form-text">휴대폰 번호를 입력하세요.</small>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="userAddress">주소</label>
+                            <textarea id="userAddress" name="userAddress" th:text="${user.userAddress}" 
+                                      class="form-control" rows="3" maxlength="200"
+                                      placeholder="주소를 입력하세요"></textarea>
+                            <small class="form-text">사용자의 주소 정보입니다. (최대 200자)</small>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group checkbox-group">
+                            <label>
+                                <input type="checkbox" name="termsAgreed" th:checked="${user.termsAgreed}">
+                                <span class="checkbox-text">이용약관 동의</span>
+                            </label>
+                            <small class="form-text">서비스 이용약관에 동의하는지 설정합니다.</small>
+                        </div>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="icon">💾</i> 수정 저장
+                        </button>
+                        <button type="button" class="btn btn-danger" onclick="deleteUser()">
+                            <i class="icon">🗑️</i> 사용자 삭제
+                        </button>
+                        <button type="button" class="btn btn-secondary" onclick="toggleMode('view')">
+                            <i class="icon">❌</i> 취소
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
 
+        <!-- 읽기 전용 모드 메시지 -->
+        <div class="readonly-message" id="readonlyMessage">
+            <div class="readonly-icon">👁️</div>
+            <div class="readonly-text">
+                <strong>읽기 전용 모드</strong><br>
+                현재 사용자 정보 조회만 가능합니다. 수정이 필요한 경우 '수정 모드'로 전환하세요.
+            </div>
+        </div>
+    </div>
+
+    <th:block layout:fragment="extra-css">
+        <style>
+            .mode-selector { display: flex; gap: 10px; margin-bottom: 20px; padding: 10px; background-color: #f8f9fa; border-radius: 8px; border: 1px solid #dee2e6; }
+            .mode-btn { padding: 8px 16px; border: 1px solid #dee2e6; background-color: #ffffff; color: #6c757d; border-radius: 6px; cursor: pointer; transition: all 0.3s ease; font-size: 14px; font-weight: 500; }
+            .mode-btn:hover { background-color: #e9ecef; color: #495057; }
+            .mode-btn.active { background-color: #007bff; color: white; border-color: #007bff; }
+            .detail-grid { display: grid; grid-template-columns: 150px 1fr; gap: 12px 20px; align-items: center; }
+            .detail-label { font-weight: 600; color: #495057; background-color: #f8f9fa; padding: 8px 12px; border-radius: 6px; border: 1px solid #e9ecef; }
+            .detail-value { background-color: #ffffff; padding: 8px 12px; border-radius: 6px; border: 1px solid #e9ecef; color: #212529; }
+            .user-name { font-size: 1.1em; font-weight: 600; color: #007bff; }
+            .email-display { font-family: monospace; font-size: 0.9em; }
+            .role-badge { padding: 4px 12px; border-radius: 12px; font-size: 12px; font-weight: bold; }
+            .admin-role { background-color: #dc3545; color: white; }
+            .user-role { background-color: #28a745; color: white; }
+            .status-badge { padding: 4px 8px; border-radius: 4px; font-size: 12px; font-weight: bold; }
+            .status-active { background-color: #28a745; color: white; }
+            .status-inactive { background-color: #dc3545; color: white; }
+            .user-form { max-width: 800px; }
+            .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px; }
+            .form-row:has(.form-group:only-child) { grid-template-columns: 1fr; }
+            .form-group { width: 100%; }
+            .form-group label { display: block; margin-bottom: 8px; font-weight: 600; color: #333; }
+            .form-group label.required { color: #dc3545; }
+            .form-control { width: 100%; padding: 10px 12px; border: 1px solid #ced4da; border-radius: 6px; font-size: 14px; transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out; }
+            .form-control:focus { outline: 0; border-color: #80bdff; box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); }
+            .checkbox-group { display: flex; align-items: center; gap: 10px; }
+            .checkbox-group label { display: flex; align-items: center; gap: 8px; font-weight: normal; cursor: pointer; padding: 8px 12px; background-color: #f8f9fa; border-radius: 6px; border: 1px solid #e9ecef; }
+            .checkbox-text { font-weight: 500; color: #495057; }
+            .form-text { display: block; margin-top: 5px; color: #6c757d; font-size: 12px; }
+            .form-actions { display: flex; gap: 10px; margin-top: 30px; padding-top: 20px; border-top: 1px solid #e9ecef; }
+            .readonly-message { display: flex; align-items: center; background-color: #e7f3ff; border: 1px solid #b8daff; border-radius: 8px; padding: 16px; margin-top: 20px; gap: 12px; }
+            .readonly-icon { font-size: 24px; flex-shrink: 0; }
+            .readonly-text { color: #004085; line-height: 1.5; }
+            .alert { padding: 12px 16px; margin-bottom: 20px; border: 1px solid transparent; border-radius: 4px; }
+            .alert-success { color: #155724; background-color: #d4edda; border-color: #c3e6cb; }
+            .alert-danger { color: #721c24; background-color: #f8d7da; border-color: #f5c6cb; }
+            .icon { margin-right: 5px; }
+        </style>
+    </th:block>
+
+    <th:block layout:fragment="extra-scripts">
+        <script>
+            function toggleMode(mode) {
+                const viewBtn = document.getElementById('viewMode');
+                const editBtn = document.getElementById('editMode');
+                const viewSection = document.getElementById('viewSection');
+                const editSection = document.getElementById('editSection');
+                const readonlyMessage = document.getElementById('readonlyMessage');
+                
+                if (mode === 'view') {
+                    viewBtn.classList.add('active');
+                    editBtn.classList.remove('active');
+                    viewSection.style.display = 'block';
+                    editSection.style.display = 'none';
+                    readonlyMessage.style.display = 'flex';
+                } else {
+                    editBtn.classList.add('active');
+                    viewBtn.classList.remove('active');
+                    viewSection.style.display = 'none';
+                    editSection.style.display = 'block';
+                    readonlyMessage.style.display = 'none';
+                }
+            }
+
+            function deleteUser() {
+                if (confirm('정말로 이 사용자를 삭제하시겠습니까?\n삭제된 데이터는 복구할 수 없습니다.')) {
+                    const form = document.createElement('form');
+                    form.method = 'POST';
+                    form.action = '/api/admin/users/' + [[${user.userId}]] + '/delete';
+                    document.body.appendChild(form);
+                    form.submit();
+                }
+            }
+        </script>
+    </th:block>
 </body>
 </html>

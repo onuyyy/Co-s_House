@@ -1,10 +1,17 @@
+-- ========================================
+-- USER_ROLE 테이블 기본 데이터 (먼저 실행)
+-- ========================================
+INSERT INTO user_role (user_role_name, role_description, role_created_date) VALUES
+('USER', '일반 사용자 - 상품 구매 및 기본 서비스 이용', NOW()),
+('ADMIN', '관리자 - 사용자/상품/주문 관리 권한', NOW()),
+('SUPER_ADMIN', '최고 관리자 - 모든 시스템 관리 권한', NOW());
 
 -- ========================================
--- 기본 데이터 삽입
+-- 기본 데이터 삽입 (User 엔티티 기반)
 -- ========================================
 
 -- 공통 코드 그룹 삽입
-INSERT INTO COMMON_CODE_GROUP (group_id, group_name, description) VALUES
+INSERT INTO common_code_group (group_id, group_name, description) VALUES
 ('PRODUCT_CATEGORY', '상품 카테고리', '상품 카테고리'),
 ('ORDER_STATUS', '주문 상태', '주문의 진행 상태를 나타내는 코드'),
 ('PAYMENT_STATUS', '결제 상태', '결제 진행 상태를 나타내는 코드'),
@@ -23,7 +30,7 @@ INSERT INTO COMMON_CODE_GROUP (group_id, group_name, description) VALUES
 ('CUSTOMER_STATUS', '고객상담 상태', '고객상담 처리 상태 코드');
 
 -- 기본 공통 코드 데이터 삽입
-INSERT INTO COMMON_CODE (code_id, group_id, code_name, description, sort_order, is_active) VALUES
+INSERT INTO common_code (code_id, group_id, code_name, description, sort_order, is_active) VALUES
 -- Product_category 코드
 ('PD_001', 'PRODUCT_CATEGORY', 'PRODUCT', '상품', 1, TRUE),
 ('PD_002', 'PRODUCT_CATEGORY', 'PRODUCT', '상품', 1, TRUE),
@@ -139,11 +146,48 @@ INSERT INTO COMMON_CODE (code_id, group_id, code_name, description, sort_order, 
 ('CS_STATUS_002', 'CUSTOMER_STATUS', 'answered', '답변 완료', 2, TRUE),
 ('CS_STATUS_003', 'CUSTOMER_STATUS', 'closed', '상담 종료', 3, TRUE);
 
--- 기본 관리자 역할
-INSERT INTO ADMIN_ROLE (admin_role_name, role_description) VALUES 
-('슈퍼관리자', '모든 권한을 가진 최고 관리자'),
-('상품관리자', '상품 등록 및 관리 담당'),
-('주문관리자', '주문 및 배송 관리 담당'),
-('고객서비스', '고객 문의 및 상담 담당'),
-('마케팅관리자', '이벤트 및 프로모션 관리 담당');
+-- ========================================
+-- USER 테이블 테스트 데이터 (관리자 + 일반 사용자)
+-- ========================================
 
+-- 최고 관리자 (SUPER_ADMIN) 
+INSERT INTO user (user_role_id, user_email, user_password, user_nickname, user_name, user_phone, user_address, terms_agreed) VALUES
+(3, 'superadmin@cos.com', '$2a$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2uheWG/igi.', 'SuperAdmin', '최고관리자', '010-0000-0001', '서울특별시 강남구 테헤란로 123', TRUE);
+
+-- 일반 관리자 (ADMIN) - 4명
+INSERT INTO user (user_role_id, user_email, user_password, user_nickname, user_name, user_phone, user_address, terms_agreed) VALUES
+(2, 'admin1@cos.com', '$2a$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2uheWG/igi.', 'ProductAdmin', '상품관리자', '010-1111-0001', '서울특별시 서초구 서초대로 456', TRUE),
+(2, 'admin2@cos.com', '$2a$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2uheWG/igi.', 'OrderAdmin', '주문관리자', '010-1111-0002', '서울특별시 송파구 올림픽로 789', TRUE),
+(2, 'admin3@cos.com', '$2a$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2uheWG/igi.', 'CSAdmin', '고객서비스관리자', '010-1111-0003', '서울특별시 마포구 월드컵북로 111', TRUE),
+(2, 'admin4@cos.com', '$2a$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2uheWG/igi.', 'MarketingAdmin', '마케팅관리자', '010-1111-0004', '서울특별시 용산구 한강대로 222', TRUE);
+
+-- 일반 사용자 (USER) - 5명  
+INSERT INTO user (user_role_id, user_email, user_password, user_nickname, user_name, user_phone, user_address, terms_agreed) VALUES
+(1, 'user1@example.com', '$2a$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2uheWG/igi.', 'HomeSeeker', '김집찾', '010-2222-0001', '경기도 성남시 분당구 판교로 333', TRUE),
+(1, 'user2@example.com', '$2a$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2uheWG/igi.', 'DesignLover', '박인테리어', '010-2222-0002', '경기도 수원시 영통구 광교로 444', TRUE),
+(1, 'user3@example.com', '$2a$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2uheWG/igi.', 'FurnitureFan', '이가구', '010-2222-0003', '인천광역시 연수구 컨벤시아대로 555', TRUE),
+(1, 'user4@example.com', '$2a$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2uheWG/igi.', 'CozyHome', '최따뜻', '010-2222-0004', '부산광역시 해운대구 센텀중앙로 666', TRUE),
+(1, 'user5@example.com', '$2a$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2uheWG/igi.', 'ModernLife', '정모던', '010-2222-0005', '대구광역시 수성구 동대구로 777', TRUE);
+
+-- ========================================
+-- 추가 테스트용 사용자 (소셜 로그인 포함)
+-- ========================================
+
+-- 카카오 소셜 사용자
+INSERT INTO user (user_role_id, user_email, user_password, user_nickname, user_name, user_phone, user_address, social_provider, social_id, terms_agreed) VALUES
+(1, 'kakao_user@kakao.com', NULL, 'KakaoUser', '카카오유저', '010-3333-0001', '광주광역시 서구 상무대로 888', 'KAKAO', 'kakao_12345', TRUE);
+
+-- 네이버 소셜 사용자  
+INSERT INTO user (user_role_id, user_email, user_password, user_nickname, user_name, user_phone, user_address, social_provider, social_id, terms_agreed) VALUES
+(1, 'naver_user@naver.com', NULL, 'NaverUser', '네이버유저', '010-3333-0002', '대전광역시 유성구 대학로 999', 'NAVER', 'naver_67890', TRUE);
+
+-- 구글 소셜 사용자
+INSERT INTO user (user_role_id, user_email, user_password, user_nickname, user_name, user_phone, user_address, social_provider, social_id, terms_agreed) VALUES
+(1, 'google_user@gmail.com', NULL, 'GoogleUser', '구글유저', '010-3333-0003', '울산광역시 남구 삼산로 101', 'GOOGLE', 'google_abcde', TRUE);
+
+-- ========================================
+-- 비밀번호 정보
+-- ========================================
+-- 모든 일반 계정의 비밀번호: "password123!"
+-- BCrypt 해시값: $2a$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2uheWG/igi.
+-- 소셜 로그인 계정은 비밀번호가 NULL

@@ -1,10 +1,13 @@
 package com.bird.cos.domain.brand;
 
-import com.bird.cos.domain.proudct.Product;
+import com.bird.cos.domain.product.Product;
 import jakarta.persistence.*;
+import lombok.Getter;
+
 import java.util.ArrayList;
 import java.util.List;
 
+@Getter
 @Entity
 @Table(name = "BRAND")
 public class Brand {
@@ -26,7 +29,16 @@ public class Brand {
     @OneToMany(mappedBy = "brand", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Product> products = new ArrayList<>();
 
-    @OneToMany(mappedBy = "brand", fetch = FetchType.LAZY)
-    private List<Event> events = new ArrayList<>();
-
+    // 브랜드 정보 업데이트 메서드
+    public void update(com.bird.cos.dto.admin.BrandUpdateRequest request) {
+        if (request.getBrandName() != null && !request.getBrandName().trim().isEmpty()) {
+            this.brandName = request.getBrandName().trim();
+        }
+        if (request.getLogoUrl() != null) {
+            this.logoUrl = request.getLogoUrl().trim();
+        }
+        if (request.getBrandDescription() != null) {
+            this.brandDescription = request.getBrandDescription().trim();
+        }
+    }
 }
