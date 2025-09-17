@@ -1,48 +1,129 @@
 package com.bird.cos.config;
 
+import com.bird.cos.security.ProblemDetailsAccessDeniedHandler;
+import com.bird.cos.security.ProblemDetailsAuthenticationEntryPoint;
 import com.bird.cos.security.RegisterSecurityFilter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
+import org.springframework.core.env.Profiles;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.savedrequest.NullRequestCache;
+import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
+import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
+import org.springframework.security.web.context.SecurityContextRepository;
 
 @Configuration
 @EnableWebSecurity
+/**
+ * Spring Security 핵심 설정
+ * - 정적 리소스/공개 페이지 퍼밋, 관리자 경로 권한(admin_role)
+ * - 세션 기반 SecurityContext 저장, 동시 세션 1회
+ * - dev 프로파일에서만 HTTP Basic 허용
+ * - 인증/인가 예외 JSON 처리(ProblemDetails*)
+ */
+// 메서드 보안 애너테이션(@PreAuthorize, @Secured, @RolesAllowed) 활성화
+@EnableMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
 public class SecurityConfig {
 
+    @Autowired
+    private Environment environment;
+
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
+        // AuthenticationManager를 빈으로 노출(필요 시 주입받아 사용)
+        return configuration.getAuthenticationManager();
+    }
+
+    @Bean
+    public SecurityContextRepository securityContextRepository() {
+        // 세션 기반 SecurityContext 저장 전략 사용
+        return new HttpSessionSecurityContextRepository();
+    }
+
+    @Bean
+    public ProblemDetailsAuthenticationEntryPoint problemDetailsAuthenticationEntryPoint() {
+        // 인증 실패(401) 시 JSON 형태로 에러 응답 생성
+        return new ProblemDetailsAuthenticationEntryPoint();
+    }
+
+    @Bean
+    public ProblemDetailsAccessDeniedHandler problemDetailsAccessDeniedHandler() {
+        // 인가 거부(403) 시 JSON 형태로 에러 응답 생성
+        return new ProblemDetailsAccessDeniedHandler();
+    }
+
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http, SecurityContextRepository securityContextRepository) throws Exception {
         http
-                // 테스트 HTML과 JSON POST가 막히지 않도록 CSRF 비활성화
-                .csrf(csrf -> csrf.disable())
-                // URL 접근 제어
+                // 서버 렌더/동일 오리진 기준이므로 CSRF/CORS는 기본 비활성화(필요 시 별도 구성)
+                .csrf(AbstractHttpConfigurer::disable)
+                .cors(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        // 정적/테스트 페이지 허용 + 회원가입 페이지(GET)
+                        // 1) 정적 리소스 전부 허용
+                        .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
+                        .requestMatchers(
+                                "/favicon.ico",
+                                "/css/**", "/js/**", "/images/**", "/webjars/**"
+                        ).permitAll()
+
+                        // 2) 루트 및 공개 페이지(GET)
                         .requestMatchers(HttpMethod.GET,
                                 "/",
                                 "/account/register",
-                                "/css/**", "/js/**", "/images/**", "/webjars/**").permitAll()
+                                "/controller/register/login"
+                        ).permitAll()
 
-                        // 회원가입/로그인/로그아웃은 모두 허용
-                        .requestMatchers("/controller/register/**").permitAll()
-                        // 관리자 영역은 ADMIN 권한 필요 (custom authority 명칭 사용)
+                        // 3) 회원가입/로그인/로그아웃 공개 API(POST)
+                        .requestMatchers(HttpMethod.POST,
+                                "/controller/register/register",
+                                "/controller/register/login",
+                                "/controller/register/login-form",
+                                "/controller/register/logout"
+                        ).permitAll()
+
+                        // 4) 관리자 영역은 관리자 권한 필요(권한명: admin_role)
                         .requestMatchers("/api/admin/**").hasAuthority("admin_role")
-                        // 나머지는 인증 필요
+
+                        // 5) 그 외 모든 요청은 인증 필요
                         .anyRequest().authenticated()
                 )
+                .exceptionHandling(ex -> ex
+                        .authenticationEntryPoint(problemDetailsAuthenticationEntryPoint())
+                        .accessDeniedHandler(problemDetailsAccessDeniedHandler())
+                )
+                // 기본 폼 로그인은 비활성화(커스텀 로그인 사용). dev 프로파일일 때만 Basic 허용
+                .formLogin(AbstractHttpConfigurer::disable);
 
-                // 기본 로그인/HTTP Basic 비활성화 (커스텀 엔드포인트 사용)
-                .formLogin(form -> form.disable())
-                .httpBasic(basic -> basic.disable())
+        if (environment.acceptsProfiles(Profiles.of("dev"))) {
+            // 개발 편의를 위한 HTTP Basic (운영에서는 비활성)
+            http.httpBasic(org.springframework.security.config.Customizer.withDefaults());
+        } else {
+            http.httpBasic(AbstractHttpConfigurer::disable);
+        }
 
-                // 세션 기반
-                .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED))
-
-                // 회원가입 보강 보안 필터 추가
+        http
+                .sessionManagement(session -> session
+                        // 세션 기반: 필요 시 생성, 세션 고정 보호(newSession)
+                        .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
+                        .sessionFixation().newSession()
+                        .maximumSessions(1)
+                        .maxSessionsPreventsLogin(false)
+                )
+                // SecurityContext를 세션에 저장/조회
+                .securityContext(sc -> sc.securityContextRepository(securityContextRepository))
+                .requestCache(c -> c.requestCache(new NullRequestCache()))
+                // 회원가입 보강 보안 필터 추가(Origin/Referer/RateLimit/JSON 강제)
                 .addFilterBefore(registerSecurityFilter(), UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
@@ -50,6 +131,7 @@ public class SecurityConfig {
 
     @Bean
     public RegisterSecurityFilter registerSecurityFilter() {
+        // 회원가입 엔드포인트 POST 요청에만 동작하는 경량 필터
         return new RegisterSecurityFilter();
     }
 }

@@ -36,7 +36,6 @@ public class RegisterService {
                 .userAddress(req.address())
                 .userPhone(req.phone())
                 .termsAgreed(Boolean.TRUE)
-                .userRole("user_role")
                 .build();
 
         return userRepository.save(user);
