@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/layout :: head('코딩의 집 | 이벤트')"></head>
+<body class="page font-body">
+  <header th:replace="fragments/layout :: header"></header>
+  <main class="page-main container">
+    <section class="section">
+      <div class="section-head">
+        <h1 class="text-h2">이벤트</h1>
+      </div>
+      <div class="grid-4">
+        <article class="p-card">
+          <a class="thumb" href="#"><div class="ph" role="img" aria-label="이벤트 이미지"></div></a>
+          <div class="body">
+            <h3 class="title">가을맞이 리빙페어</h3>
+            <div class="text-muted">브랜드 단독 특가와 쿠폰</div>
+          </div>
+        </article>
+        <article class="p-card">
+          <a class="thumb" href="#"><div class="ph" role="img" aria-label="이벤트 이미지"></div></a>
+          <div class="body">
+            <h3 class="title">신규 가입 웰컴 혜택</h3>
+            <div class="text-muted">첫 구매 10% 할인</div>
+          </div>
+        </article>
+        <article class="p-card">
+          <a class="thumb" href="#"><div class="ph" role="img" aria-label="이벤트 이미지"></div></a>
+          <div class="body">
+            <h3 class="title">주말 타임딜</h3>
+            <div class="text-muted">한정 수량 특가</div>
+          </div>
+        </article>
+        <article class="p-card">
+          <a class="thumb" href="#"><div class="ph" role="img" aria-label="이벤트 이미지"></div></a>
+          <div class="body">
+            <h3 class="title">리뷰 이벤트</h3>
+            <div class="text-muted">리뷰 작성 포인트 증정</div>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+  <footer th:replace="fragments/layout :: footer"></footer>
+  <link rel="stylesheet" th:href="@{/css/home.css}">
+</body>
+</html>
+
