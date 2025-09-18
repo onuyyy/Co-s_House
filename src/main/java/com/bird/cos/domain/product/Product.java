@@ -8,12 +8,16 @@ import com.bird.cos.domain.inventory.InventoryHistory;
 import com.bird.cos.domain.inventory.InventoryOutbound;
 import com.bird.cos.domain.inventory.InventoryReceipt;
 import com.bird.cos.domain.order.OrderItem;
+
 import jakarta.persistence.*;
+import lombok.Getter;
+
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+@Getter
 @Entity
 @Table(name = "PRODUCT")
 public class Product {
@@ -98,4 +102,52 @@ public class Product {
     @Column(name = "product_updated_at", insertable = false, updatable = false)
     private LocalDateTime productUpdatedAt;
 
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    private List<ProductOption> options = new ArrayList<>();
+
+    // 상품 정보 업데이트 메서드
+    public void update(com.bird.cos.dto.admin.ProductUpdateRequest request) {
+        if (request.getProductTitle() != null && !request.getProductTitle().trim().isEmpty()) {
+            this.productTitle = request.getProductTitle().trim();
+        }
+        if (request.getDescription() != null) {
+            this.description = request.getDescription().trim();
+        }
+        if (request.getOriginalPrice() != null) {
+            this.originalPrice = request.getOriginalPrice();
+        }
+        if (request.getSalePrice() != null) {
+            this.salePrice = request.getSalePrice();
+        }
+        if (request.getCouponPrice() != null) {
+            this.couponPrice = request.getCouponPrice();
+        }
+        if (request.getDiscountRate() != null) {
+            this.discountRate = request.getDiscountRate();
+        }
+        if (request.getProductColor() != null) {
+            this.productColor = request.getProductColor().trim();
+        }
+        if (request.getMaterial() != null) {
+            this.material = request.getMaterial().trim();
+        }
+        if (request.getCapacity() != null) {
+            this.capacity = request.getCapacity().trim();
+        }
+        if (request.getStockQuantity() != null) {
+            this.stockQuantity = request.getStockQuantity();
+        }
+        if (request.getIsFreeShipping() != null) {
+            this.isFreeShipping = request.getIsFreeShipping();
+        }
+        if (request.getIsTodayDeal() != null) {
+            this.isTodayDeal = request.getIsTodayDeal();
+        }
+        if (request.getIsCohouseOnly() != null) {
+            this.isCohouseOnly = request.getIsCohouseOnly();
+        }
+        if (request.getMainImageUrl() != null) {
+            this.mainImageUrl = request.getMainImageUrl().trim();
+        }
+    }
 }

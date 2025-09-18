@@ -27,6 +27,5 @@ public class UserRole {
     @Column(name = "role_updated_date")
     private LocalDateTime roleUpdatedDate;
 
-    // 양방향 매핑은 현재 불필요하여 제거(간결한 역할 마스터)
 
 }

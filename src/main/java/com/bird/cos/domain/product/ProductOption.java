@@ -2,8 +2,10 @@ package com.bird.cos.domain.product;
 
 import com.bird.cos.domain.common.CommonCode;
 import jakarta.persistence.*;
+import lombok.Getter;
 import java.math.BigDecimal;
 
+@Getter
 @Entity
 @Table(name = "PRODUCT_OPTION")
 public class ProductOption {
@@ -32,5 +34,4 @@ public class ProductOption {
 
     @Column(name = "sort_order")
     private Integer sortOrder = 0;
-
 }

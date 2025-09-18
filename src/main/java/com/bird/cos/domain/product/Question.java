@@ -41,5 +41,4 @@ public class Question {
 
     @Column(name = "question_created_at", insertable = false, updatable = false)
     private LocalDateTime questionCreatedAt;
-
 }
