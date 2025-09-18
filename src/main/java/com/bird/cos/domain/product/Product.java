@@ -105,8 +105,6 @@ public class Product {
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     private List<ProductOption> options = new ArrayList<>();
 
-    public void setBrand(Brand brand) {
-
     // 상품 정보 업데이트 메서드
     public void update(com.bird.cos.dto.admin.ProductUpdateRequest request) {
         if (request.getProductTitle() != null && !request.getProductTitle().trim().isEmpty()) {
