@@ -368,7 +368,7 @@
         <div class="brand-info">
             <div class="brand-logo-section" role="img" aria-label="브랜드 로고">
                 <div class="brand-logo">
-                    <img th:if="${brand.logoUrl != null}" th:src="${brand.logoUrl}" th:alt="${brand.brandName} 로고" />
+                    <img th:if="${brand.logoUrl != null}" th:src="${brand.logoUrl}" th:alt="${brand.brandName} + '로고'" />
                     <div th:unless="${brand.logoUrl != null}" class="brand-logo-placeholder">🏪</div>
                 </div>
             </div>
