@@ -32,5 +32,4 @@ public class ProductImage {
 
     @Column(name = "product_created_at", insertable = false, updatable = false)
     private LocalDateTime productCreatedAt;
-
 }
