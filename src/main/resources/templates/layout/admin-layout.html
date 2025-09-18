@@ -40,21 +40,9 @@
             <nav>
                 <ul class="menu-list">
                     <li>
-                        <a th:href="@{/api/admin/admins}"
-                           th:class="${#httpServletRequest != null and #strings.contains(#httpServletRequest.requestURI, '/admins') ? 'active' : ''}">
-                            관리자 관리
-                        </a>
-                    </li>
-                    <li>
                         <a th:href="@{/api/admin/users}"
                            th:class="${#httpServletRequest != null and #strings.contains(#httpServletRequest.requestURI, '/users') ? 'active' : ''}">
-                            전체 사용자 관리
-                        </a>
-                    </li>
-                    <li>
-                        <a th:href="@{/api/admin/users/role/USER}"
-                           th:class="${#httpServletRequest != null and #strings.contains(#httpServletRequest.requestURI, '/users/role/USER') ? 'active' : ''}">
-                            일반 사용자 관리
+                            사용자 관리
                         </a>
                     </li>
                     <li>

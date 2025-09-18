@@ -15,6 +15,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Transactional
 @RequiredArgsConstructor
 @Service
@@ -25,8 +27,6 @@ public class AdminService {
     private final ProductRepository productRepository;
     private final BrandRepository brandRepository;
 
-    // ========== 사용자 관리 메서드들 ==========
-    
     @Transactional(readOnly = true)
     public Page<UserManageResponse> getAllUsers(
             UserManageSearchType searchType, String searchValue, Pageable pageable) {
@@ -226,12 +226,17 @@ public class AdminService {
     public void deleteBrand(Long brandId) {
         Brand brand = brandRepository.findById(brandId)
                 .orElseThrow(() -> new RuntimeException("삭제할 브랜드가 없습니다."));
-        
+
         // 해당 브랜드에 상품이 있는지 확인
         if (brand.getProducts() != null && !brand.getProducts().isEmpty()) {
             throw new RuntimeException("해당 브랜드에 연결된 상품이 있어 삭제할 수 없습니다.");
         }
-        
+
         brandRepository.deleteById(brandId);
+    }
+
+    @Transactional(readOnly = true)
+    public List<UserRole> getAllRoles() {
+        return userRoleRepository.findAll();
     }
 }

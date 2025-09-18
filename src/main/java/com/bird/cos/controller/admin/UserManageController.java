@@ -22,40 +22,42 @@ public class UserManageController {
 
     @GetMapping
     public String userManagePage(
+            @RequestParam(required = false) String roleFilter,
             @RequestParam(required = false, defaultValue = "NAME") UserManageSearchType searchType,
             @RequestParam(required = false) String searchValue,
             @PageableDefault(size = 20, sort = "userName", direction = Sort.Direction.ASC) Pageable pageable,
             Model model
     ) {
-        Page<UserManageResponse> userList =
-                adminService.getAllUsers(searchType, searchValue, pageable);
+        Page<UserManageResponse> userList;
+        String pageTitle;
+
+        if (roleFilter != null && !roleFilter.isEmpty()) {
+            switch (roleFilter) {
+                case "USER":
+                    userList = adminService.getUsersByRole("USER", searchType, searchValue, pageable);
+                    pageTitle = "일반 사용자 관리";
+                    break;
+                case "ADMIN":
+                    userList = adminService.getAdminList(searchType, searchValue, pageable);
+                    pageTitle = "관리자 관리";
+                    break;
+                default:
+                    userList = adminService.getAllUsers(searchType, searchValue, pageable);
+                    pageTitle = "전체 사용자 관리";
+                    roleFilter = "ALL";
+                    break;
+            }
+        } else {
+            userList = adminService.getAllUsers(searchType, searchValue, pageable);
+            pageTitle = "전체 사용자 관리";
+            roleFilter = "ALL";
+        }
 
         model.addAttribute("userList", userList);
-        return "admin/user-list";
-    }
-
-    @GetMapping("/role/{roleName}")
-    public String usersByRolePage(
-            @PathVariable String roleName,
-            @RequestParam(required = false, defaultValue = "NAME") UserManageSearchType searchType,
-            @RequestParam(required = false) String searchValue,
-            @PageableDefault(size = 20, sort = "userName", direction = Sort.Direction.ASC) Pageable pageable,
-            Model model
-    ) {
-        Page<UserManageResponse> userList =
-                adminService.getUsersByRole(roleName, searchType, searchValue, pageable);
-
-        model.addAttribute("userList", userList);
-        model.addAttribute("roleFilter", roleName);
-        
-        String pageTitle = switch (roleName) {
-            case "USER" -> "일반 사용자 관리";
-            case "ADMIN" -> "관리자 관리";
-            case "SUPER_ADMIN" -> "슈퍼 관리자 관리";
-            default -> "사용자 관리";
-        };
+        model.addAttribute("roleFilter", roleFilter);
         model.addAttribute("pageTitle", pageTitle);
-        
+        model.addAttribute("roles", adminService.getAllRoles());
+
         return "admin/user-list";
     }
 
@@ -65,6 +67,7 @@ public class UserManageController {
     ) {
         UserManageResponse user = adminService.getUserDetail(userId);
         model.addAttribute("user", user);
+        model.addAttribute("roles", adminService.getAllRoles());
         return "admin/user-detail";
     }
 
