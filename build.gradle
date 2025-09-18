@@ -30,7 +30,6 @@ dependencies {
     implementation 'org.springframework.security:spring-security-crypto'
     implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
 
-
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
 

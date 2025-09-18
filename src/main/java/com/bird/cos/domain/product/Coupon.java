@@ -52,5 +52,4 @@ public class Coupon {
 
     @Column(name = "coupon_updated_at", insertable = false, updatable = false)
     private LocalDateTime couponUpdatedAt;
-
 }

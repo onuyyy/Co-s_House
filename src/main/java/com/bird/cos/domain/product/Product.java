@@ -8,6 +8,7 @@ import com.bird.cos.domain.inventory.InventoryHistory;
 import com.bird.cos.domain.inventory.InventoryOutbound;
 import com.bird.cos.domain.inventory.InventoryReceipt;
 import com.bird.cos.domain.order.OrderItem;
+
 import jakarta.persistence.*;
 import lombok.Getter;
 
@@ -100,6 +101,11 @@ public class Product {
 
     @Column(name = "product_updated_at", insertable = false, updatable = false)
     private LocalDateTime productUpdatedAt;
+
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    private List<ProductOption> options = new ArrayList<>();
+
+    public void setBrand(Brand brand) {
 
     // 상품 정보 업데이트 메서드
     public void update(com.bird.cos.dto.admin.ProductUpdateRequest request) {

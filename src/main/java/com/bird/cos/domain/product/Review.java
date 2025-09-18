@@ -44,5 +44,4 @@ public class Review {
 
     @Column(name = "review_updated_at", insertable = false, updatable = false)
     private LocalDateTime reviewUpdatedAt;
-
 }

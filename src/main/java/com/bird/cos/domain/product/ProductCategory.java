@@ -48,6 +48,4 @@ public class ProductCategory {
         childCategories.add(child);
         child.setParentCategory(this);
     }
-
-
 }
