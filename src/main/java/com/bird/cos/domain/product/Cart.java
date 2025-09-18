@@ -1,4 +1,4 @@
-package com.bird.cos.domain.proudct;
+package com.bird.cos.domain.product;
 
 import com.bird.cos.domain.user.User;
 import jakarta.persistence.*;
@@ -32,5 +32,6 @@ public class Cart {
 
     @Column(name = "cart_updated_at", insertable = false, updatable = false)
     private LocalDateTime cartUpdatedAt;
+
 
 }

@@ -1,12 +1,17 @@
 package com.bird.cos.domain.brand;
 
-import com.bird.cos.domain.proudct.Product;
+import com.bird.cos.domain.product.Product;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "BRAND")
+@Getter
+@Setter
 public class Brand {
 
     @Id
@@ -29,4 +34,8 @@ public class Brand {
     @OneToMany(mappedBy = "brand", fetch = FetchType.LAZY)
     private List<Event> events = new ArrayList<>();
 
+
+    public Object getBrandId() {
+        return this.brandId;
+    }
 }

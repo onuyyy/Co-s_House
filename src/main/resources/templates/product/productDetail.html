@@ -1,9 +1,15 @@
+
+
+
+
+
+
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title th:text="${product.productTitle} + ' - 오늘의집'">상품 상세 - 오늘의집</title>
+    <title>상품 상세 - 오늘의집</title>
     <style>
         * {
             margin: 0;
@@ -102,6 +108,22 @@
             color: #666;
             font-size: 14px;
             margin-bottom: 8px;
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+
+        .brand-name:hover {
+            color: #35c5f0;
+            text-decoration: underline;
+        }
+
+        .brand-name.no-link {
+            cursor: default;
+        }
+
+        .brand-name.no-link:hover {
+            color: #666;
+            text-decoration: none;
         }
 
         .product-title {
@@ -203,6 +225,40 @@
             color: #333;
         }
 
+        .option-section {
+            margin-bottom: 20px;
+        }
+
+        .option-section select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+            font-size: 14px;
+            background: white;
+        }
+
+        .total-price-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 0;
+            border-top: 1px solid #e9ecef;
+            margin-bottom: 20px;
+        }
+
+        .total-price-label {
+            font-size: 16px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .total-price-value {
+            font-size: 20px;
+            font-weight: bold;
+            color: #dc3545;
+        }
+
         .action-buttons {
             display: flex;
             gap: 12px;
@@ -230,17 +286,6 @@
 
         .btn-primary:hover {
             background: #2ba3cc;
-        }
-
-        .btn-secondary {
-            background: white;
-            color: #35c5f0;
-            border: 2px solid #35c5f0;
-            min-width: 120px;
-        }
-
-        .btn-secondary:hover {
-            background: #f8f9fa;
         }
 
         /* 상품 설명 */
@@ -274,6 +319,8 @@
 
             .action-buttons {
                 flex-direction: column;
+                gap: 12px;
+                margin-top: 24px;
             }
 
             .btn {
@@ -288,7 +335,7 @@
     <div class="container">
         <nav class="nav">
             <div class="nav-left">
-                <a th:href="@{/}" class="logo">🏠 오늘의집</a>
+                <a href="#" class="logo">🏠 오늘의집</a>
             </div>
             <div class="nav-right">
                 <a href="javascript:history.back()" class="back-btn">← 목록으로</a>
@@ -311,8 +358,13 @@
                 </div>
 
                 <!-- 상품 정보 -->
-                <div class="product-info">
-                    <div class="brand-name">오늘의집 브랜드</div>
+                <div class="product-info"  th:data-product-id="${product.productId}"
+                     th:data-base-price="${product.originalPrice}">
+                    <!-- 브랜드명 -->
+                    <div class="brand-name" th:data-brand-id="${brandId}" onclick="goToBrandPage(this)">
+                        <span th:text="${brand != null ? brand.brandName : '브랜드명'}">브랜드명</span>
+                    </div>
+
                     <h1 class="product-title" th:text="${product.productTitle}">상품명</h1>
 
                     <!-- 평점 -->
@@ -336,8 +388,8 @@
 
                     <!-- 배송 정보 -->
                     <div class="shipping-info">
-                        <span th:if="${product.isFreeShipping}" class="badge free-shipping">무료배송</span>
-                        <span th:if="${product.isTodayDeal}" class="badge today-deal">오늘출발</span>
+                        <span class="badge free-shipping">무료배송</span>
+                        <span class="badge today-deal">오늘출발</span>
                     </div>
 
                     <!-- 상품 상세 정보 -->
@@ -360,10 +412,30 @@
                         </div>
                     </div>
 
+                    <!-- 상품 옵션 -->
+                    <div class="option-section">
+                        <select id="product-options" name="optionId">
+                            <option value="" disabled selected>옵션 선택</option>
+                            <th:block th:each="option : ${options}">
+                                <option th:value="${option.optionId}"
+                                        th:data-additional-price="${option.additionalPrice}"
+                                        th:text="${option.optionName + ' : ' + option.optionValue + (option.additionalPrice.compareTo(T(java.math.BigDecimal).ZERO) != 0 ? ' (+' + #numbers.formatInteger(option.additionalPrice, 0, 'COMMA') + '원)' : '')}">
+                                </option>
+                            </th:block>
+                        </select>
+                    </div>
+
+
+                    <!-- 총 가격 -->
+                    <div class="total-price-section">
+                        <span class="total-price-label">주문 금액</span>
+                        <span id="total-price" class="total-price-value" th:text="${#numbers.formatInteger(basePrice, 0, 'COMMA') + '원'}">0원</span>
+                    </div>
+
                     <!-- 액션 버튼 -->
                     <div class="action-buttons">
-                        <button class="btn btn-secondary" onclick="toggleWishlist()">♡ 찜하기</button>
-                        <button class="btn btn-primary">구매하기</button>
+                        <button class="btn btn-primary" onclick="addToCart()">장바구니 담기</button>
+                        <button class="btn btn-primary" onclick="buyNow()">구매하기</button>
                     </div>
                 </div>
             </div>
@@ -380,18 +452,68 @@
 </main>
 
 <script>
-    function toggleWishlist() {
-        const btn = event.target;
-        const isActive = btn.textContent.includes('♥');
+    // 브랜드 페이지로 이동
+    function goToBrandPage(element) {
+        const brandId = element.getAttribute('data-brand-id');
 
-        if (isActive) {
-            btn.innerHTML = '♡ 찜하기';
-            btn.style.color = '#666';
+        if (brandId && brandId !== 'null' && brandId.trim() !== '') {
+            console.log('브랜드 페이지로 이동:', brandId);
+            window.location.href = '/brands/' + brandId;
+            //alert('브랜드 페이지로 이동: ' + brandId);
         } else {
-            btn.innerHTML = '♥ 찜완료';
-            btn.style.color = '#35c5f0';
+            alert('해당 상품의 브랜드 페이지가 없습니다.');
         }
     }
+
+    // 장바구니 담기
+    function addToCart() {
+        const productId = document.querySelector('.product-info').dataset.productId;
+        const selectedOption = document.querySelector('#product-options').value;
+
+        console.log('장바구니 담기:', { productId, selectedOption });
+        alert('장바구니에 담았습니다!');
+    }
+
+    // 구매하기
+    function buyNow() {
+        const productId = document.querySelector('.product-info').dataset.productId;
+        const selectedOption = document.querySelector('#product-options').value;
+
+        console.log('구매하기:', { productId, selectedOption });
+        alert('구매 페이지로 이동합니다!');
+    }
+
+    // 옵션 선택에 따른 가격 변경
+    document.addEventListener('DOMContentLoaded', function() {
+        const productInfo = document.querySelector('.product-info');
+        const optionsSelect = document.getElementById('product-options');
+        const totalPriceElement = document.getElementById('total-price');
+
+        if (!optionsSelect || !productInfo || !totalPriceElement) {
+            return;
+        }
+
+        const basePriceStr = productInfo.dataset.basePrice;
+        if (!basePriceStr) {
+            return;
+        }
+
+        const basePrice = parseInt(basePriceStr, 10);
+
+        optionsSelect.addEventListener('change', function() {
+            const selectedOption = this.selectedOptions[0];
+            let additionalPrice = 0;
+
+            if (selectedOption && selectedOption.dataset.additionalPrice) {
+                additionalPrice = parseInt(selectedOption.dataset.additionalPrice, 10);
+            }
+
+            const totalPrice = basePrice + additionalPrice;
+            totalPriceElement.textContent = totalPrice.toLocaleString() + '원';
+        });
+    });
 </script>
+
 </body>
 </html>
+

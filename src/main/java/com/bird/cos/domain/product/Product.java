@@ -1,4 +1,4 @@
-package com.bird.cos.domain.proudct;
+package com.bird.cos.domain.product;
 
 import com.bird.cos.domain.brand.Brand;
 import com.bird.cos.domain.common.CommonCode;
@@ -7,6 +7,8 @@ import lombok.Getter;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "PRODUCT")
@@ -80,9 +82,6 @@ public class Product {
     @Column(name = "average_rating", precision = 3, scale = 2)
     private BigDecimal averageRating = BigDecimal.ZERO;
 
-    @Column(name = "bookmark_count")
-    private Integer bookmarkCount = 0;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_status", referencedColumnName = "code_id", nullable = false)
     private CommonCode productStatusCode;
@@ -93,4 +92,10 @@ public class Product {
     @Column(name = "product_updated_at", insertable = false, updatable = false)
     private LocalDateTime productUpdatedAt;
 
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    private List<ProductOption> options = new ArrayList<>();
+
+    public void setBrand(Brand brand) {
+
+    }
 }
