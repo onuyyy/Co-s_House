@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/layout :: head('코딩의 집 | 홈')"></head>
+<body class="page font-body">
+  <header th:replace="fragments/layout :: header"></header>
+
+  <main class="page-main">
+    <!-- Top hero/search -->
+    <section class="home-hero">
+      <div class="container hero-inner">
+        <div class="hero-text">
+          <h1 class="hero-title">오늘, 우리 집 분위기를 바꾸다</h1>
+          <p class="hero-sub">가구 · 인테리어 · 집들이 영감까지 한 곳에서</p>
+          <form class="hero-search" role="search" th:action="@{/search}" method="get">
+            <input class="hero-input" name="q" type="search" placeholder="소파, 러그, 조명… 무엇을 찾고 있나요?" aria-label="검색" />
+            <button class="btn hero-btn" type="submit">검색</button>
+          </form>
+          <nav class="hero-shortcuts" aria-label="바로가기">
+            <a class="chip-btn hover-primary" th:href="@{/}">홈</a>
+            <a class="chip-btn hover-primary" href="#popular">인기</a>
+            <a class="chip-btn hover-primary" href="#today">오늘의 딜</a>
+          </nav>
+        </div>
+        <div class="hero-visual">
+          <div class="hero-card" aria-hidden="true">
+            <div class="ph ph-hero" role="img" aria-label="이미지 플레이스홀더"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Category chips removed as requested -->
+
+    <!-- Today deal -->
+    <section id="today" class="section container">
+      <div class="section-head">
+        <h2 class="text-h2">오늘의 딜</h2>
+        <a class="link-more" th:href="@{/deal/today}">더보기</a>
+      </div>
+      <div class="product-grid grid-4">
+        <article class="p-card" th:each="p : ${todayDeals}">
+          <a class="thumb" th:href="@{'/product/' + ${p.id}}">
+            <div class="ph" role="img" aria-label="상품 이미지 플레이스홀더"></div>
+            <span class="ribbon" th:if="${p.discountRate != null}" th:text="${'-' + #numbers.formatDecimal(p.discountRate, 0, 0) + '%'}">-20%</span>
+          </a>
+          <div class="body">
+            <h3 class="title" th:text="${p.title}">상품명</h3>
+            <div class="price">
+              <b th:text="${#numbers.formatInteger(p.salePrice != null ? p.salePrice : p.price, 0)}">0</b><span class="unit">원</span>
+            </div>
+            <div class="meta">
+              <span class="rating" th:text="${'★ ' + (p.rating != null ? p.rating : 0)}">★ 0</span>
+              <span class="count" th:text="${'후기 ' + (p.reviewCount != null ? p.reviewCount : 0)}">후기 0</span>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Popular products -->
+    <section id="popular" class="section container">
+      <div class="section-head">
+        <h2 class="text-h2">인기 급상승</h2>
+        <a class="link-more" th:href="@{/shop}">더보기</a>
+      </div>
+      <div class="product-grid grid-4">
+        <article class="p-card small" th:each="p : ${popularProducts}">
+          <a class="thumb" th:href="@{'/product/' + ${p.id}}"><div class="ph" role="img" aria-label="상품 이미지 플레이스홀더"></div></a>
+          <div class="body">
+            <h3 class="title" th:text="${p.title}">상품명</h3>
+            <div class="price"><b th:text="${#numbers.formatInteger(p.salePrice != null ? p.salePrice : p.price, 0)}">0</b><span class="unit">원</span></div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Room tour / Community -->
+    <section id="roomtour" class="section container">
+      <div class="section-head">
+        <h2 class="text-h2">집들이</h2>
+        <a class="link-more" th:href="@{/posts}">더보기</a>
+      </div>
+      <div class="room-grid">
+        <article class="room-card" th:each="post : ${topPosts}">
+          <a class="thumb" th:href="@{'/posts/' + ${post.id}}"><div class="ph" role="img" aria-label="집들이 이미지 플레이스홀더"></div></a>
+          <div class="body">
+            <h3 class="title" th:text="${post.title}">집들이 제목</h3>
+            <div class="meta" th:text="${'좋아요 ' + post.likeCount + ' · 댓글 ' + post.commentCount}">좋아요 0 · 댓글 0</div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Banner / events -->
+    <section id="events" class="section container">
+      <div class="banner">
+        <div class="banner-text">
+          <div class="eyebrow">이벤트</div>
+          <h3>가을맞이 리빙페어</h3>
+          <p>브랜드 단독 특가와 10% 쿠폰</p>
+          <a class="btn btn-outline" th:href="@{/events/fall}">자세히 보기</a>
+        </div>
+        <div class="banner-img">
+          <div class="ph ph-banner" role="img" aria-label="프로모션 이미지 플레이스홀더"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer th:replace="fragments/layout :: footer"></footer>
+
+  <link rel="stylesheet" th:href="@{/css/sections.css}">
+  <link rel="stylesheet" th:href="@{/css/home.css}">
+  <script defer th:src="@{/js/home.js}"></script>
+</body>
+</html>

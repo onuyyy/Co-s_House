@@ -37,7 +37,7 @@ public class LoginPageController {
 
     @GetMapping("/login")
     public String loginPage() {
-        return "login"; // templates/login.html
+        return "register/login"; // templates/register/login.html
     }
 
     // Thymeleaf 폼 전송을 위한 로그인 엔드포인트 (application/x-www-form-urlencoded)
