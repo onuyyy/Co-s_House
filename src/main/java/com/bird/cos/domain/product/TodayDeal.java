@@ -43,5 +43,4 @@ public class TodayDeal {
 
     @Column(name = "todaydeal_created_at", insertable = false, updatable = false)
     private LocalDateTime todaydealCreatedAt;
-
 }

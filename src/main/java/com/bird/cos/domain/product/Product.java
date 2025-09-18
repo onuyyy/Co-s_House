@@ -2,6 +2,13 @@ package com.bird.cos.domain.product;
 
 import com.bird.cos.domain.brand.Brand;
 import com.bird.cos.domain.common.CommonCode;
+import com.bird.cos.domain.delivery.DeliveryInfo;
+import com.bird.cos.domain.inventory.Inventory;
+import com.bird.cos.domain.inventory.InventoryHistory;
+import com.bird.cos.domain.inventory.InventoryOutbound;
+import com.bird.cos.domain.inventory.InventoryReceipt;
+import com.bird.cos.domain.order.OrderItem;
+
 import jakarta.persistence.*;
 import lombok.Getter;
 
@@ -10,9 +17,9 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+@Getter
 @Entity
 @Table(name = "PRODUCT")
-@Getter
 public class Product {
 
     @Id
@@ -82,6 +89,9 @@ public class Product {
     @Column(name = "average_rating", precision = 3, scale = 2)
     private BigDecimal averageRating = BigDecimal.ZERO;
 
+    @Column(name = "bookmark_count")
+    private Integer bookmarkCount = 0;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_status", referencedColumnName = "code_id", nullable = false)
     private CommonCode productStatusCode;
@@ -97,5 +107,49 @@ public class Product {
 
     public void setBrand(Brand brand) {
 
+    // 상품 정보 업데이트 메서드
+    public void update(com.bird.cos.dto.admin.ProductUpdateRequest request) {
+        if (request.getProductTitle() != null && !request.getProductTitle().trim().isEmpty()) {
+            this.productTitle = request.getProductTitle().trim();
+        }
+        if (request.getDescription() != null) {
+            this.description = request.getDescription().trim();
+        }
+        if (request.getOriginalPrice() != null) {
+            this.originalPrice = request.getOriginalPrice();
+        }
+        if (request.getSalePrice() != null) {
+            this.salePrice = request.getSalePrice();
+        }
+        if (request.getCouponPrice() != null) {
+            this.couponPrice = request.getCouponPrice();
+        }
+        if (request.getDiscountRate() != null) {
+            this.discountRate = request.getDiscountRate();
+        }
+        if (request.getProductColor() != null) {
+            this.productColor = request.getProductColor().trim();
+        }
+        if (request.getMaterial() != null) {
+            this.material = request.getMaterial().trim();
+        }
+        if (request.getCapacity() != null) {
+            this.capacity = request.getCapacity().trim();
+        }
+        if (request.getStockQuantity() != null) {
+            this.stockQuantity = request.getStockQuantity();
+        }
+        if (request.getIsFreeShipping() != null) {
+            this.isFreeShipping = request.getIsFreeShipping();
+        }
+        if (request.getIsTodayDeal() != null) {
+            this.isTodayDeal = request.getIsTodayDeal();
+        }
+        if (request.getIsCohouseOnly() != null) {
+            this.isCohouseOnly = request.getIsCohouseOnly();
+        }
+        if (request.getMainImageUrl() != null) {
+            this.mainImageUrl = request.getMainImageUrl().trim();
+        }
     }
 }

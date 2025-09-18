@@ -8,6 +8,7 @@ import lombok.Setter;
 import java.util.ArrayList;
 import java.util.List;
 
+@Getter
 @Entity
 @Table(name = "BRAND")
 @Getter
@@ -34,8 +35,20 @@ public class Brand {
     @OneToMany(mappedBy = "brand", fetch = FetchType.LAZY)
     private List<Event> events = new ArrayList<>();
 
-
     public Object getBrandId() {
         return this.brandId;
+    }
+
+    // 브랜드 정보 업데이트 메서드
+    public void update(com.bird.cos.dto.admin.BrandUpdateRequest request) {
+        if (request.getBrandName() != null && !request.getBrandName().trim().isEmpty()) {
+            this.brandName = request.getBrandName().trim();
+        }
+        if (request.getLogoUrl() != null) {
+            this.logoUrl = request.getLogoUrl().trim();
+        }
+        if (request.getBrandDescription() != null) {
+            this.brandDescription = request.getBrandDescription().trim();
+        }
     }
 }

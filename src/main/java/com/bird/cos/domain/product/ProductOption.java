@@ -3,7 +3,6 @@ package com.bird.cos.domain.product;
 import com.bird.cos.domain.common.CommonCode;
 import jakarta.persistence.*;
 import lombok.Getter;
-
 import java.math.BigDecimal;
 
 @Getter
@@ -35,6 +34,4 @@ public class ProductOption {
 
     @Column(name = "sort_order")
     private Integer sortOrder = 0;
-
-
 }

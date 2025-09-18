@@ -1,8 +1,11 @@
 package com.bird.cos.domain.common;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+
 import java.time.LocalDateTime;
 
+@Getter
 @Entity
 @Table(name = "COMMON_CODE")
 public class CommonCode {
