@@ -1,102 +1,45 @@
-# Co-s House Front UI/UX Guide (Static)
+코딩의 집 웹 애플리케이션 (Spring Boot + Thymeleaf)
 
-본 문서는 팀원들이 패키지별 화면을 같은 룩앤필로 빠르게 맞추기 위한 사용법/규칙을 정리합니다. 정적 기준이며, 서버 템플릿(Thymeleaf)에도 동일 규칙을 그대로 적용할 수 있습니다.
+개요
+- 로컬 진입점: http://localhost:8080/
+- 헤더에는 쇼핑/커뮤니티/이벤트 링크와 로그인/회원가입(로그인 시 마이페이지/로그아웃)이 표시됩니다.
+- 모든 이미지 영역은 연한 하늘색 그라데이션 플레이스홀더(.ph)로 대체합니다.
 
-## 페이지 구성
-- 홈: `/images/home.html`
-  - 헤더(고정): 좌 브랜드 + 네비게이션(쇼핑/커뮤니티/이벤트=20px)
-  - 카테고리 라인: 홈/인기/오늘의 딜(텍스트, 위·아래 보더), 우측 통합검색 + 로그인
-  - 배너: 캐러셀(높이 400px)
-  - 섹션: 오늘의 기획전 → 오늘의 추천·집들이 → 오늘의 딜
-- 패키지별 프리뷰(동일 헤더/풋바/카테고리 적용)
-  - 인덱스: `/ui-kit.html` (미리보기 허브)
-  - 장바구니: `/images/ui-kit/cart.html`
-  - 주문/결제: `/images/ui-kit/order.html`
-  - 상품상세: `/images/ui-kit/product.html`
-  - 마이페이지: `/images/ui-kit/mypage.html`
+홈(/)
+- 히어로: 검색창 + 바로가기(홈/인기/오늘의 딜)
+- 오늘의 딜: 4열 × 2행(8개), “더보기” → `/deal/today`
+- 인기 급상승: 4열 × 2행(8개), “더보기” → `/shop`
+- 집들이: 4열 × 1행(4개), “더보기” → `/posts`
+- 이벤트 배너: 밝은 블루 그라데이션 배너
 
-## 공통 스타일(토큰/컴포넌트)
-- CSS 위치: `static/css/app.css`
-- 색상 토큰(통일 팔레트)
-  - `--brand-50..900` (primary: `--brand-500 #3c9dfc`, hover: `--brand-600`)
-  - `--color-primary`, `--color-primary-600`, `--color-ring`는 brand에 매핑됨
-- 주요 유틸/컴포넌트
-  - 버튼: `.btn`, `.btn-outline` (inline-flex, 중앙정렬, 링크에도 사용 가능)
-  - 인풋: `.input` (focus ring = brand)
-  - 표/배지/태그: `.table`, `.badge`, `.tag`
-  - 탭/수량: `.tabs`, `.qty`
-  - 캐러셀: `.carousel`, `.carousel-track`, `.carousel-dots`
-  - 레이아웃: `body.page` + `main.page-main`(sticky footer), `.container`, `.card`, `.grid-2`
+페이지
+- 쇼핑: `/shop` (오늘의 딜/인기 목록 4열 카드)
+- 커뮤니티: `/community` (인기 집들이 4열 카드)
+- 이벤트: `/events` (이벤트 4열 카드)
+- 로그인: `/controller/register/login`
+- 회원가입: `/account/register` (템플릿 `templates/register/register.html`)
 
-## 헤더/카테고리/풋바 스펙
-- 헤더(상단 고정)
-  - 좌: 브랜드(`.brand`) + 네비게이션(쇼핑/커뮤니티/이벤트, 20px, 굵게)
-  - 우: (필요 시) 로그인 버튼 `.btn.btn-outline`
-- 카테고리 라인(헤더 하단 2행)
-  - 좌: 홈/인기/오늘의 딜(텍스트, 24px/800)
-  - 우: 통합검색 입력 + 검색 버튼 + 로그인
-  - 위·아래 보더: `1px solid var(--color-border)`
-- 풋바(하단 바)
-  - 색: `--foot-bg: rgba(204,204,204,0.8)`, 글자색 `--foot-fg: #111827`
-  - sticky footer 구조: `body.page` + `main.page-main` 사용
+데이터 연동
+- ProductRepository, PostRepository에서 DTO 프로젝션으로 조회
+- HomeService가 todayDeals/popularProducts/topPosts 제공
+- 각 페이지 컨트롤러에서 모델에 바인딩하여 렌더링
 
-## 라우팅(정적에서 서버로 연결)
-- 로그인(서버): `/controller/register/login`
-- 회원가입(서버): `/account/register`
-- 비밀번호 재설정(서버): `/account/reset`
-- 커뮤니티/이벤트/딜 섹션 링크는 홈의 앵커로 연결: `/images/home.html#house-tour`, `#today-plan`, `#deal` 등
+스타일 구조(페이지별 로드)
+- 전역: `static/css/app.css` (폰트/토큰/헤더/푸터/버튼/컨테이너)
+- 공용 섹션: `static/css/sections.css` (섹션/그리드/카드/배너/플레이스홀더)
+- 홈 전용: `static/css/home.css` (히어로/바로가기/비주얼)
+- 로딩 규칙: 홈은 `app.css + sections.css + home.css`, 그 외 페이지는 `app.css + sections.css`
 
-## 사용 규칙
-1. 색상은 토큰만 사용(직접 hex 하드코딩 금지). 예) 버튼/포커스 = brand 파생 토큰.
-2. 헤더/카테고리/풋바 마크업/크기 통일(헤더 링크 20px, 카테고리 24px). 원하는 페이지 강조는 활성 클래스(추가 예정)로 처리.
-3. 폰트는 app.css에 정의된 웹폰트 사용(Pretendard 본문, KkuBulLim 포인트). 각 페이지에서 중복 선언 금지.
-4. 시안 이미지는 “참고만” 사용. 실제 UI는 HTML/CSS/토큰으로 구현.
-5. 로그인/회원가입/리셋 링크는 서버 라우트 사용. (정적 데모용 # 링크 금지)
-6. 반응형에서 640px 이하일 때 `.grid-2` → 1열, `product-grid` 2열 기본.
+보안/접근
+- 공개 GET: `/`, `/shop`, `/community`, `/events`, `/controller/register/login`, `/account/register`
+- 회원가입: `POST /controller/register/register` (Content-Type: application/json, 간단 레이트리밋 적용)
 
-## 빠른 스니펫(헤더/카테고리)
-```html
-<header class="app-header">
-  <div class="container" style="padding:15px 19px;">
-    <div class="flex" style="align-items:center; justify-content:space-between; gap:16px;">
-      <div class="flex" style="align-items:center; gap:22px;">
-        <a class="brand" href="/images/home.html">
-          <img class="logo" src="/images/logo.png" alt="로고" />
-          <span class="name">코딩의 집</span>
-        </a>
-        <nav style="display:flex; gap:22px; font-weight:800; font-size:20px;">
-          <a href="/images/home.html">쇼핑</a>
-          <a href="/images/home.html#house-tour">커뮤니티</a>
-          <a href="/images/home.html#today-plan">이벤트</a>
-        </nav>
-      </div>
-    </div>
-    <div class="flex" style="align-items:center; justify-content:space-between; gap:16px; margin-top:10px; border-top:1px solid var(--color-border); border-bottom:1px solid var(--color-border); padding:8px 0;">
-      <div style="display:flex; gap:18px; font-size:24px; font-weight:800;">
-        <a href="/images/home.html">홈</a>
-        <a href="/images/home.html#popular">인기</a>
-        <a href="/images/home.html#deal">오늘의 딜</a>
-      </div>
-      <div style="min-width:380px; display:flex; gap:8px; align-items:center;">
-        <input class="input" placeholder="통합검색" style="height:40px; flex:1;" />
-        <button class="btn" type="button">검색</button>
-        <a class="btn btn-outline" href="/controller/register/login" style="height:40px;">로그인</a>
-      </div>
-    </div>
-  </div>
-</header>
-```
+개발 실행
+1) 실행: `./gradlew bootRun`
+2) 접속: `http://localhost:8080/`
+3) 변경: Devtools로 정적 리소스/템플릿 자동 리로드
 
-## 팀 합의 포인트(추천)
-- 활성 탭 강조: `.is-active` 클래스 스타일 정의하여 현재 위치(헤더/카테고리) 표시
-- 컴포넌트 사용 우선순위: `.btn/.input/.card/.table` 등 공용 먼저 적용 → 페이지 특화 스타일 최소화
-- 반응형 상세 기준: 헤더 2행에서 검색/로그인 줄바꿈 정책 합의(아이콘화 여부)
-- 접근성: 버튼/링크 컨트라스트 준수, 포커스 링 유지(brand 컬러)
-
-## 유지관리
-- 새로운 정적 페이지 추가 시 위 “헤더/카테고리/풋바 스니펫”으로 시작
-- 색/간격/폰트는 오직 `app.css`에서 관리(페이지 내 인라인 변경 지양)
-- 서버 템플릿에서도 동일 구조를 사용할 경우, `fragments/layout.html`의 풋바를 선택적으로 포함 가능
-
----
-문의/수정 제안은 PR 또는 코멘트로 남겨 주세요. 팀이 합의한 수치(폰트/여백/색)가 바뀌면 이 문서와 `app.css`만 업데이트하면 됩니다.
+가이드
+- 공용 UI는 `sections.css`, 페이지 특화는 전용 CSS에 추가
+- 신규 페이지는 컨트롤러/템플릿 생성 후 필요한 경우 전용 CSS 추가, 공용 컴포넌트 우선 재사용
+- 이미지 리소스는 사용하지 않으며, 플레이스홀더(.ph)를 유지합니다.

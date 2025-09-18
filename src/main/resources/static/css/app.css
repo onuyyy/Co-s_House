@@ -128,11 +128,7 @@ main.page-main { flex: 1; }
 
 /* Header blocks (shared) */
 .nav-main a.is-active { color: var(--color-primary); text-decoration: underline; text-underline-offset: 6px; }
-.header-line { display:flex; align-items:center; justify-content:space-between; gap:16px; border-top:1px solid var(--color-border); border-bottom:1px solid var(--color-border); padding:8px 0; }
-.header-cats { display:flex; gap:18px; font-size:24px; font-weight:800; color:#111; }
-.header-cats a { text-decoration:none; color:inherit; }
-.header-cats a.is-active { color: var(--color-primary); text-decoration: underline; text-underline-offset: 6px; }
-.header-actions { min-width:380px; display:flex; gap:8px; align-items:center; }
+/* removed legacy header blocks not used on home */
 
 .app-footer { margin-top: auto; padding: var(--space-8) 0; font-size: 13px; background: var(--foot-bg, var(--brand-900)); color: var(--foot-fg, #ffffff); }
 .app-footer .container { max-width: 1024px; margin: 0 auto; padding: 0 var(--space-4); }
@@ -140,47 +136,26 @@ main.page-main { flex: 1; }
 .app-footer a:hover { text-decoration: underline; opacity: 1; }
 .foot-columns { display:grid; grid-template-columns: 1fr 1fr; gap: 16px; }
 
-/* Horizontal category nav */
-.h-scroll { overflow:auto; white-space:nowrap; -webkit-overflow-scrolling: touch; scroll-snap-type: x mandatory; }
-.h-scroll .tag { scroll-snap-align: start; margin-right: 8px; }
+/* removed horizontal category nav (unused) */
 
-/* Tables */
-.table { width: 100%; border-collapse: collapse; }
-.table th, .table td { padding: 12px; border-bottom: 1px solid var(--color-border); text-align: left; }
-.table th { background: #f8f9fa; font-weight: 700; color: #333; }
+/* removed table styles (unused on home) */
 
-/* Badges & Tags */
-.badge { display:inline-block; padding:4px 10px; border:1px solid var(--color-border); border-radius: 999px; font-size:12px; font-weight:600; color:#333; background:#fff; }
-.tag { display:inline-block; padding:2px 8px; border-radius: 6px; font-size:12px; background:#f3f4f6; color:#333; }
+/* removed badges/tags (unused) */
 
-/* Tabs (simple) */
-.tabs { display:flex; gap:8px; border-bottom:1px solid var(--color-border); margin-bottom:12px; }
-.tabs a { padding:10px 12px; text-decoration:none; color:#555; border-bottom:2px solid transparent; }
-.tabs a.active { color:#111; border-color: var(--color-primary); font-weight:700; }
+/* removed tabs (unused on home) */
 
 /* Product grid */
 .product-grid { display:grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px; }
-.product-card { border:1px solid var(--color-border); border-radius: var(--radius-md); overflow:hidden; background:#fff; }
-.product-card .thumb { background:#f3f4f6; aspect-ratio: 4/3; }
-.product-card .body { padding: 10px; display:grid; gap:6px; }
+/* removed old product-card styles (home uses .p-card in home.css) */
 
-/* Quantity control */
-.qty { display:inline-flex; align-items:center; border:1px solid var(--color-border); border-radius: var(--radius-md); overflow:hidden; }
-.qty button { width:36px; height:36px; border:none; background:#fff; cursor:pointer; }
-.qty input { width:48px; height:36px; border:none; text-align:center; outline:none; }
+/* removed quantity control (unused) */
 
 /* Utilities */
 .mt-1{ margin-top: var(--space-1); } .mt-2{ margin-top: var(--space-2); } .mt-3{ margin-top: var(--space-3); } .mt-4{ margin-top: var(--space-4); } .mt-6{ margin-top: var(--space-6); }
 .mb-1{ margin-bottom: var(--space-1); } .mb-2{ margin-bottom: var(--space-2); } .mb-3{ margin-bottom: var(--space-3); } .mb-4{ margin-bottom: var(--space-4); } .mb-6{ margin-bottom: var(--space-6); }
 .flex{ display:flex; } .items-center{ align-items:center; } .justify-between{ justify-content:space-between; } .gap-2{ gap: var(--space-2); } .gap-3{ gap: var(--space-3); } .gap-4{ gap: var(--space-4); }
 
-/* Simple carousel */
-.carousel { position: relative; overflow: hidden; border-radius: var(--radius-lg); }
-.carousel-track { display:flex; transition: transform .4s ease; }
-.carousel-slide { min-width: 100%; height: 200px; display:grid; place-items:center; color:#111; }
-.carousel-dots { position:absolute; bottom:10px; left:0; right:0; display:flex; justify-content:center; gap:6px; }
-.carousel-dots button { width:8px; height:8px; border-radius:50%; border:none; background: rgba(255,255,255,.6); cursor:pointer; }
-.carousel-dots button.active { background:#fff; }
+/* removed carousel (unused) */
 
 /* Responsive */
 @media (max-width: 640px) {
