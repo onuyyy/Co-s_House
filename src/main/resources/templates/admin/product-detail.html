@@ -1,121 +1,121 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" 
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
-      layout:decorate="~{layout/admin-layout}"
-      lang="ko">
-<head>
-    <title>상품 상세정보</title>
-</head>
-<body>
-    <div layout:fragment="content-header" class="content-header">
-        <h2 style="color: #333; font-size: 20px;">상품 상세정보</h2>
-        <div class="header-actions">
-            <a th:href="@{/api/admin/products}" class="btn btn-secondary">목록으로</a>
-        </div>
-    </div>
-
-    <div layout:fragment="content">
-        <div th:if="${param.success}" class="alert alert-success">상품 정보가 성공적으로 수정되었습니다.</div>
-        <div th:if="${param.error}" class="alert alert-danger" th:text="${param.error}">오류가 발생했습니다.</div>
-
-        <div class="mode-selector">
-            <button id="viewMode" class="mode-btn active" onclick="toggleMode('view')">👁️ 보기 모드</button>
-            <button id="editMode" class="mode-btn" onclick="toggleMode('edit')">✏️ 수정 모드</button>
-        </div>
-
-        <!-- 읽기 전용 -->
-        <div class="detail-card" id="viewSection">
-            <h3>📦 상품 정보</h3>
-            <div class="detail-grid">
-                <div class="detail-label">상품명</div><div class="detail-value" th:text="${product.productTitle}">상품명</div>
-                <div class="detail-label">브랜드</div><div class="detail-value" th:text="${product.brandName ?: '-'}">브랜드</div>
-                <div class="detail-label">원가</div><div class="detail-value" th:text="${product.originalPrice != null ? #numbers.formatCurrency(product.originalPrice) : '-'}">원가</div>
-                <div class="detail-label">판매가</div><div class="detail-value" th:text="${product.salePrice != null ? #numbers.formatCurrency(product.salePrice) : '-'}">판매가</div>
-                <div class="detail-label">재고</div><div class="detail-value" th:text="${product.stockQuantity ?: 0}">재고</div>
-                <div class="detail-label">상태</div><div class="detail-value"><span th:class="${product.productStatus == '판매중' ? 'status-active' : 'status-inactive'}" th:text="${product.productStatus ?: '-'}">상태</span></div>
+    <!DOCTYPE html>
+    <html xmlns:th="http://www.thymeleaf.org"
+          xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+          layout:decorate="~{layout/admin-layout}"
+          lang="ko">
+    <head>
+        <title>상품 상세정보</title>
+    </head>
+    <body>
+        <div layout:fragment="content-header" class="content-header">
+            <h2 style="color: #333; font-size: 20px;">상품 상세정보</h2>
+            <div class="header-actions">
+                <a th:href="@{/api/admin/products}" class="btn btn-secondary">목록으로</a>
             </div>
         </div>
 
-        <!-- 수정 폼 -->
-        <div class="detail-card" id="editSection" style="display: none;">
-            <h3>✏️ 상품 정보 수정</h3>
-            <form th:action="@{/api/admin/products/{productId}/update(productId=${product.productId})}" method="post">
-                <div class="form-group">
-                    <label for="productTitle">상품명 *</label>
-                    <input type="text" id="productTitle" name="productTitle" th:value="${product.productTitle}" class="form-control" required>
+        <div layout:fragment="content">
+            <div th:if="${param.success}" class="alert alert-success">상품 정보가 성공적으로 수정되었습니다.</div>
+            <div th:if="${param.error}" class="alert alert-danger" th:text="${param.error}">오류가 발생했습니다.</div>
+
+            <div class="mode-selector">
+                <button id="viewMode" class="mode-btn active" onclick="toggleMode('view')">👁️ 보기 모드</button>
+                <button id="editMode" class="mode-btn" onclick="toggleMode('edit')">✏️ 수정 모드</button>
+            </div>
+
+            <!-- 읽기 전용 -->
+            <div class="detail-card" id="viewSection">
+                <h3>📦 상품 정보</h3>
+                <div class="detail-grid">
+                    <div class="detail-label">상품명</div><div class="detail-value" th:text="${product.productTitle}">상품명</div>
+                    <div class="detail-label">브랜드</div><div class="detail-value" th:text="${product.brandName ?: '-'}">브랜드</div>
+                    <div class="detail-label">원가</div><div class="detail-value" th:text="${product.originalPrice != null ? #numbers.formatCurrency(product.originalPrice) : '-'}">원가</div>
+                    <div class="detail-label">판매가</div><div class="detail-value" th:text="${product.salePrice != null ? #numbers.formatCurrency(product.salePrice) : '-'}">판매가</div>
+                    <div class="detail-label">재고</div><div class="detail-value" th:text="${product.stockQuantity ?: 0}">재고</div>
+                    <div class="detail-label">상태</div><div class="detail-value"><span th:class="${product.productStatus == '판매중' ? 'status-active' : 'status-inactive'}" th:text="${product.productStatus ?: '-'}">상태</span></div>
                 </div>
-                <div class="form-group">
-                    <label for="originalPrice">원가</label>
-                    <input type="number" id="originalPrice" name="originalPrice" th:value="${product.originalPrice}" step="0.01" class="form-control">
-                </div>
-                <div class="form-group">
-                    <label for="salePrice">판매가</label>
-                    <input type="number" id="salePrice" name="salePrice" th:value="${product.salePrice}" step="0.01" class="form-control">
-                </div>
-                <div class="form-group">
-                    <label for="stockQuantity">재고수량</label>
-                    <input type="number" id="stockQuantity" name="stockQuantity" th:value="${product.stockQuantity}" class="form-control">
-                </div>
-                <div class="form-actions">
-                    <button type="submit" class="btn btn-primary">💾 수정 저장</button>
-                    <button type="button" class="btn btn-danger" onclick="deleteProduct()">🗑️ 삭제</button>
-                    <button type="button" class="btn btn-secondary" onclick="toggleMode('view')">❌ 취소</button>
-                </div>
-            </form>
+            </div>
+
+            <!-- 수정 폼 -->
+            <div class="detail-card" id="editSection" style="display: none;">
+                <h3>✏️ 상품 정보 수정</h3>
+                <form th:action="@{/api/admin/products/{productId}/update(productId=${product.productId})}" method="post">
+                    <div class="form-group">
+                        <label for="productTitle">상품명 *</label>
+                        <input type="text" id="productTitle" name="productTitle" th:value="${product.productTitle}" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="originalPrice">원가</label>
+                        <input type="number" id="originalPrice" name="originalPrice" th:value="${product.originalPrice}" step="0.01" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="salePrice">판매가</label>
+                        <input type="number" id="salePrice" name="salePrice" th:value="${product.salePrice}" step="0.01" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="stockQuantity">재고수량</label>
+                        <input type="number" id="stockQuantity" name="stockQuantity" th:value="${product.stockQuantity}" class="form-control">
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">💾 수정 저장</button>
+                        <button type="button" class="btn btn-danger" onclick="deleteProduct()">🗑️ 삭제</button>
+                        <button type="button" class="btn btn-secondary" onclick="toggleMode('view')">❌ 취소</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="readonly-message" id="readonlyMessage">
+                <strong>읽기 전용 모드</strong><br>현재 상품 정보 조회만 가능합니다.
+            </div>
         </div>
 
-        <div class="readonly-message" id="readonlyMessage">
-            <strong>읽기 전용 모드</strong><br>현재 상품 정보 조회만 가능합니다.
-        </div>
-    </div>
+        <th:block layout:fragment="extra-css">
+            <style>
+                .mode-selector { display: flex; gap: 10px; margin-bottom: 20px; padding: 10px; background-color: #f8f9fa; border-radius: 8px; }
+                .mode-btn { padding: 8px 16px; border: 1px solid #dee2e6; background-color: #ffffff; color: #6c757d; border-radius: 6px; cursor: pointer; }
+                .mode-btn.active { background-color: #007bff; color: white; }
+                .detail-grid { display: grid; grid-template-columns: 150px 1fr; gap: 12px 20px; }
+                .detail-label { font-weight: 600; background-color: #f8f9fa; padding: 8px 12px; border-radius: 6px; }
+                .detail-value { padding: 8px 12px; border: 1px solid #e9ecef; border-radius: 6px; }
+                .form-group { margin-bottom: 15px; }
+                .form-control { width: 100%; padding: 10px; border: 1px solid #ced4da; border-radius: 6px; }
+                .form-actions { display: flex; gap: 10px; margin-top: 20px; }
+                .readonly-message { background-color: #e7f3ff; padding: 16px; border-radius: 8px; margin-top: 20px; }
+                .status-active { background-color: #28a745; color: white; padding: 4px 8px; border-radius: 4px; }
+                .status-inactive { background-color: #dc3545; color: white; padding: 4px 8px; border-radius: 4px; }
+                .alert { padding: 12px; margin-bottom: 20px; border-radius: 4px; }
+                .alert-success { color: #155724; background-color: #d4edda; }
+                .alert-danger { color: #721c24; background-color: #f8d7da; }
+            </style>
+        </th:block>
 
-    <th:block layout:fragment="extra-css">
-        <style>
-            .mode-selector { display: flex; gap: 10px; margin-bottom: 20px; padding: 10px; background-color: #f8f9fa; border-radius: 8px; }
-            .mode-btn { padding: 8px 16px; border: 1px solid #dee2e6; background-color: #ffffff; color: #6c757d; border-radius: 6px; cursor: pointer; }
-            .mode-btn.active { background-color: #007bff; color: white; }
-            .detail-grid { display: grid; grid-template-columns: 150px 1fr; gap: 12px 20px; }
-            .detail-label { font-weight: 600; background-color: #f8f9fa; padding: 8px 12px; border-radius: 6px; }
-            .detail-value { padding: 8px 12px; border: 1px solid #e9ecef; border-radius: 6px; }
-            .form-group { margin-bottom: 15px; }
-            .form-control { width: 100%; padding: 10px; border: 1px solid #ced4da; border-radius: 6px; }
-            .form-actions { display: flex; gap: 10px; margin-top: 20px; }
-            .readonly-message { background-color: #e7f3ff; padding: 16px; border-radius: 8px; margin-top: 20px; }
-            .status-active { background-color: #28a745; color: white; padding: 4px 8px; border-radius: 4px; }
-            .status-inactive { background-color: #dc3545; color: white; padding: 4px 8px; border-radius: 4px; }
-            .alert { padding: 12px; margin-bottom: 20px; border-radius: 4px; }
-            .alert-success { color: #155724; background-color: #d4edda; }
-            .alert-danger { color: #721c24; background-color: #f8d7da; }
-        </style>
-    </th:block>
+        <th:block layout:fragment="extra-scripts">
+            <script>
+                function toggleMode(mode) {
+                    const viewBtn = document.getElementById('viewMode');
+                    const editBtn = document.getElementById('editMode');
+                    const viewSection = document.getElementById('viewSection');
+                    const editSection = document.getElementById('editSection');
+                    const readonlyMessage = document.getElementById('readonlyMessage');
 
-    <th:block layout:fragment="extra-scripts">
-        <script>
-            function toggleMode(mode) {
-                const viewBtn = document.getElementById('viewMode');
-                const editBtn = document.getElementById('editMode');
-                const viewSection = document.getElementById('viewSection');
-                const editSection = document.getElementById('editSection');
-                const readonlyMessage = document.getElementById('readonlyMessage');
-                
-                if (mode === 'view') {
-                    viewBtn.classList.add('active'); editBtn.classList.remove('active');
-                    viewSection.style.display = 'block'; editSection.style.display = 'none'; readonlyMessage.style.display = 'block';
-                } else {
-                    editBtn.classList.add('active'); viewBtn.classList.remove('active');
-                    viewSection.style.display = 'none'; editSection.style.display = 'block'; readonlyMessage.style.display = 'none';
+                    if (mode === 'view') {
+                        viewBtn.classList.add('active'); editBtn.classList.remove('active');
+                        viewSection.style.display = 'block'; editSection.style.display = 'none'; readonlyMessage.style.display = 'block';
+                    } else {
+                        editBtn.classList.add('active'); viewBtn.classList.remove('active');
+                        viewSection.style.display = 'none'; editSection.style.display = 'block'; readonlyMessage.style.display = 'none';
+                    }
                 }
-            }
-            function deleteProduct() {
-                if (confirm('정말로 이 상품을 삭제하시겠습니까?')) {
-                    const form = document.createElement('form');
-                    form.method = 'POST';
-                    form.action = '/api/admin/products/' + [[${product.productId}]] + '/delete';
-                    document.body.appendChild(form);
-                    form.submit();
+                function deleteProduct() {
+                    if (confirm('정말로 이 상품을 삭제하시겠습니까?')) {
+                        const form = document.createElement('form');
+                        form.method = 'POST';
+                        form.action = '/api/admin/products/' + [[${product.productId}]] + '/delete';
+                        document.body.appendChild(form);
+                        form.submit();
+                    }
                 }
-            }
-        </script>
-    </th:block>
-</body>
-</html>
+            </script>
+        </th:block>
+    </body>
+    </html>

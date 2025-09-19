@@ -69,10 +69,16 @@
                             브랜드 관리
                         </a>
                     </li>
+                    <li>
+                        <a th:href="@{/api/admin/notices}"
+                           th:class="${#httpServletRequest != null and #strings.contains(#httpServletRequest.requestURI, '/notices') ? 'active' : ''}">
+                            🗒 공지관리
+                        </a>
+                    </li>
                     <li><a href="#">공통코드 관리</a></li>
                     <li><a href="#">재고 관리</a></li>
                     <li><a href="#">FAQ</a></li>
-                    <li><a href="#">로그 관리</a></li>
+                    <li><a href="#">로그아웃</a></li>
                 </ul>
             </nav>
         </aside>
