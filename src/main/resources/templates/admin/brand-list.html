@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+      layout:decorate="~{layout/admin-layout}"
+      lang="ko">
+<head>
+    <title>브랜드 관리</title>
+</head>
+<body>
+    <div layout:fragment="content-header" class="content-header">
+        <h2 style="color: #333; font-size: 20px;">브랜드 관리</h2>
+        <div class="search-section">
+            <form method="get" style="display: flex; gap: 10px;">
+                <select name="searchType" style="padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+                    <option value="NAME" th:selected="${param.searchType} == 'NAME'">브랜드명</option>
+                    <option value="DESCRIPTION" th:selected="${param.searchType} == 'DESCRIPTION'">브랜드 설명</option>
+                </select>
+                <input type="text" name="searchValue" th:value="${param.searchValue}" 
+                       class="search-input" placeholder="검색어를 입력하세요">
+                <button type="submit" class="btn btn-primary">검색</button>
+            </form>
+        </div>
+    </div>
+
+    <div layout:fragment="content">
+        <div th:if="${param.deleted}" class="alert alert-success">브랜드가 성공적으로 삭제되었습니다.</div>
+        
+        <div class="data-table">
+            <table>
+                <thead>
+                    <tr><th>로고</th><th>브랜드명</th><th>설명</th><th>상품 수</th></tr>
+                </thead>
+                <tbody>
+                    <tr th:each="brand : ${brandList.content}">
+                        <td class="logo-cell">
+                            <div th:if="${brand.logoUrl}" class="brand-logo">
+                                <img th:src="${brand.logoUrl}" alt="브랜드 로고" style="width: 40px; height: 40px; object-fit: cover; border-radius: 4px;">
+                            </div>
+                            <div th:unless="${brand.logoUrl}" class="logo-placeholder">🏷️</div>
+                        </td>
+                        <td>
+                            <a th:href="@{/api/admin/brands/{brandId}(brandId=${brand.brandId})}" 
+                               style="text-decoration: none; color: #007bff; font-weight: 500;" th:text="${brand.brandName}">브랜드명</a>
+                        </td>
+                        <td th:text="${brand.brandDescription != null and !brand.brandDescription.isEmpty() ? 
+                              (brand.brandDescription.length() > 50 ? brand.brandDescription.substring(0, 50) + '...' : brand.brandDescription) : '-'}">설명</td>
+                        <td><span class="product-count" th:text="${brand.productCount}">0</span>개</td>
+                    </tr>
+                    <tr th:if="${brandList.content.empty}">
+                        <td colspan="4" style="padding: 40px; color: #666; text-align: center;">등록된 브랜드가 없습니다.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <th:block layout:fragment="extra-css">
+        <style>
+            .logo-cell { text-align: center; padding: 8px; }
+            .logo-placeholder { font-size: 24px; color: #6c757d; }
+            .product-count { font-weight: 600; color: #007bff; }
+            .alert { padding: 12px 16px; margin-bottom: 20px; border: 1px solid transparent; border-radius: 4px; }
+            .alert-success { color: #155724; background-color: #d4edda; border-color: #c3e6cb; }
+        </style>
+    </th:block>
+</body>
+</html>

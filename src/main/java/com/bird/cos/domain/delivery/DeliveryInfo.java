@@ -1,7 +1,7 @@
 package com.bird.cos.domain.delivery;
 
 import com.bird.cos.domain.common.CommonCode;
-import com.bird.cos.domain.proudct.Product;
+import com.bird.cos.domain.product.Product;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;

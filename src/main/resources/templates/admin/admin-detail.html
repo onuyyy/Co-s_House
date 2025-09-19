@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+      layout:decorate="~{layout/admin-layout}"
+      lang="ko">
+<head>
+    <title>관리자 상세정보</title>
+</head>
+<body>
+    <!-- Content Header -->
+    <div layout:fragment="content-header" class="content-header">
+        <div>
+            <div class="breadcrumb">
+                <a href="/api/admin/admins">관리자 관리</a> > 관리자 상세정보
+            </div>
+            <h2 style="color: #333; font-size: 24px; margin-top: 10px;">👨‍💼 관리자 상세정보</h2>
+        </div>
+        <div>
+            <a href="/api/admin/admins" class="btn btn-secondary">목록으로</a>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div layout:fragment="content">
+        <!-- 알림 메시지 -->
+        <div th:if="${param.success == 'true'}" class="alert alert-success">
+            관리자 정보가 성공적으로 수정되었습니다.
+        </div>
+        <div th:if="${param.success == 'role_changed'}" class="alert alert-success">
+            관리자 권한이 성공적으로 변경되었습니다.
+        </div>
+        <div th:if="${param.error}" class="alert alert-danger">
+            <span th:text="${param.error}">오류가 발생했습니다.</span>
+        </div>
+
+        <!-- 관리자 상태 배너 -->
+        <div class="admin-status-banner">
+            <div class="status-icon">
+                <span th:if="${admin.userRoleName == 'SUPER_ADMIN'}">👑</span>
+                <span th:unless="${admin.userRoleName == 'SUPER_ADMIN'}">👨‍💼</span>
+            </div>
+            <div class="status-content">
+                <h3 th:text="${admin.userName}">관리자명</h3>
+                <span th:class="${admin.userRoleName == 'SUPER_ADMIN' ? 'role-badge super-admin-role' : 'role-badge admin-role'}"
+                      th:text="${admin.userRoleName == 'SUPER_ADMIN' ? '최고 관리자' : '관리자'}">관리자</span>
+            </div>
+            <div class="status-actions">
+                <button id="editModeBtn" class="btn btn-warning" onclick="toggleEditMode()">
+                    ✏️ 수정하기
+                </button>
+            </div>
+        </div>
+
+        <!-- 관리자 정보 (읽기 전용) -->
+        <div class="detail-card" id="viewSection">
+            <div class="detail-card-header">
+                <h3>🔐 관리자 계정 정보</h3>
+            </div>
+            <div class="detail-card-body">
+                <div class="detail-grid">
+                    <div class="detail-label">관리자 ID</div>
+                    <div class="detail-value" th:text="${admin.userId}">1</div>
+                    
+                    <div class="detail-label">이름</div>
+                    <div class="detail-value admin-name" th:text="${admin.userName}">관리자명</div>
+                    
+                    <div class="detail-label">닉네임</div>
+                    <div class="detail-value" th:text="${admin.userNickname}">닉네임</div>
+                    
+                    <div class="detail-label">이메일</div>
+                    <div class="detail-value email-display" th:text="${admin.userEmail}">이메일</div>
+                    
+                    <div class="detail-label">관리자 등급</div>
+                    <div class="detail-value">
+                        <span th:class="${admin.userRoleName == 'SUPER_ADMIN' ? 'role-badge super-admin-role' : 'role-badge admin-role'}"
+                              th:text="${admin.userRoleName == 'SUPER_ADMIN' ? '최고 관리자' : '관리자'}">관리자</span>
+                    </div>
+                    
+                    <div class="detail-label">연락처</div>
+                    <div class="detail-value" th:text="${admin.userPhone ?: '정보 없음'}">연락처</div>
+                    
+                    <div class="detail-label">주소</div>
+                    <div class="detail-value" th:text="${admin.userAddress ?: '정보 없음'}">주소</div>
+                    
+                    <div class="detail-label">소셜 로그인</div>
+                    <div class="detail-value" th:text="${admin.socialProvider ?: '일반 관리자 계정'}">소셜 로그인</div>
+
+                    <div class="detail-label">계정 생성일</div>
+                    <div class="detail-value" th:text="${admin.userCreatedAt != null ? #temporals.format(admin.userCreatedAt, 'yyyy-MM-dd HH:mm') : '-'}">생성일</div>
+                    
+                    <div class="detail-label">최근 수정일</div>
+                    <div class="detail-value" th:text="${admin.userUpdatedAt != null ? #temporals.format(admin.userUpdatedAt, 'yyyy-MM-dd HH:mm') : '-'}">수정일</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 관리자 수정 폼 -->
+        <div class="detail-card" id="editSection" style="display: none;">
+            <div class="detail-card-header">
+                <h3>✏️ 관리자 정보 수정</h3>
+            </div>
+            <div class="detail-card-body">
+                <form th:action="@{/api/admin/admins/{adminId}/update(adminId=${admin.userId})}" method="post" class="admin-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="userName" class="required">이름 *</label>
+                            <input type="text" id="userName" name="userName" th:value="${admin.userName}" 
+                                   class="form-control" required maxlength="50"
+                                   placeholder="관리자 이름을 입력하세요">
+                            <small class="form-text">필수 입력 항목입니다. (최대 50자)</small>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="userNickname" class="required">닉네임 *</label>
+                            <input type="text" id="userNickname" name="userNickname" th:value="${admin.userNickname}" 
+                                   class="form-control" required maxlength="20"
+                                   placeholder="닉네임을 입력하세요">
+                            <small class="form-text">필수 입력 항목입니다. (최대 20자)</small>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="userEmail" class="required">이메일 *</label>
+                            <input type="email" id="userEmail" name="userEmail" th:value="${admin.userEmail}" 
+                                   class="form-control" required maxlength="255"
+                                   placeholder="admin@example.com">
+                            <small class="form-text">필수 입력 항목입니다. 관리자 로그인 ID로 사용됩니다.</small>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="userPhone">연락처</label>
+                            <input type="tel" id="userPhone" name="userPhone" th:value="${admin.userPhone}" 
+                                   class="form-control" maxlength="20"
+                                   placeholder="010-0000-0000">
+                            <small class="form-text">관리자 연락처를 입력하세요.</small>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="userAddress">주소</label>
+                            <textarea id="userAddress" name="userAddress" th:text="${admin.userAddress}" 
+                                      class="form-control" rows="3" maxlength="200"
+                                      placeholder="관리자 주소를 입력하세요"></textarea>
+                            <small class="form-text">관리자의 주소 정보입니다. (최대 200자)</small>
+                        </div>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">💾 수정 저장</button>
+                        <button type="button" class="btn btn-danger" onclick="deleteAdmin()">🗑️ 관리자 삭제</button>
+                        <button type="button" class="btn btn-secondary" onclick="toggleEditMode()">❌ 취소</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <th:block layout:fragment="extra-css">
+        <style>
+            .admin-status-banner { display: flex; align-items: center; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-radius: 12px; padding: 20px; margin-bottom: 20px; gap: 16px; }
+            .status-icon { font-size: 48px; flex-shrink: 0; }
+            .status-content { flex: 1; }
+            .status-content h3 { margin: 0 0 8px 0; font-size: 24px; }
+            .status-actions { display: flex; gap: 10px; }
+            .detail-grid { display: grid; grid-template-columns: 150px 1fr; gap: 12px 20px; align-items: center; }
+            .detail-label { font-weight: 600; color: #495057; background-color: #f8f9fa; padding: 8px 12px; border-radius: 6px; border: 1px solid #e9ecef; }
+            .detail-value { background-color: #ffffff; padding: 8px 12px; border-radius: 6px; border: 1px solid #e9ecef; color: #212529; }
+            .admin-name { font-size: 1.1em; font-weight: 600; color: #007bff; }
+            .email-display { font-family: monospace; font-size: 0.9em; }
+            .role-badge { padding: 6px 12px; border-radius: 12px; font-size: 12px; font-weight: bold; display: inline-flex; align-items: center; gap: 4px; }
+            .admin-role { background-color: #fd7e14; color: white; }
+            .super-admin-role { background: linear-gradient(45deg, #dc3545, #6f42c1); color: white; }
+            .admin-form { max-width: 800px; }
+            .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px; }
+            .form-row:has(.form-group:only-child) { grid-template-columns: 1fr; }
+            .form-group { width: 100%; }
+            .form-group label { display: block; margin-bottom: 8px; font-weight: 600; color: #333; }
+            .form-group label.required { color: #dc3545; }
+            .form-control { width: 100%; padding: 10px 12px; border: 1px solid #ced4da; border-radius: 6px; font-size: 14px; }
+            .form-control:focus { outline: 0; border-color: #80bdff; box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); }
+            .form-text { display: block; margin-top: 5px; color: #6c757d; font-size: 12px; }
+            .form-actions { display: flex; gap: 10px; margin-top: 30px; padding-top: 20px; border-top: 1px solid #e9ecef; }
+            .alert { padding: 12px 16px; margin-bottom: 20px; border: 1px solid transparent; border-radius: 4px; }
+            .alert-success { color: #155724; background-color: #d4edda; border-color: #c3e6cb; }
+            .alert-danger { color: #721c24; background-color: #f8d7da; border-color: #f5c6cb; }
+        </style>
+    </th:block>
+
+    <th:block layout:fragment="extra-scripts">
+        <script>
+            function toggleEditMode() {
+                const editBtn = document.getElementById('editModeBtn');
+                const viewSection = document.getElementById('viewSection');
+                const editSection = document.getElementById('editSection');
+                
+                const isEditing = editSection.style.display !== 'none';
+                
+                if (isEditing) {
+                    viewSection.style.display = 'block';
+                    editSection.style.display = 'none';
+                    editBtn.innerHTML = '✏️ 수정하기';
+                    editBtn.className = 'btn btn-warning';
+                } else {
+                    viewSection.style.display = 'none';
+                    editSection.style.display = 'block';
+                    editBtn.innerHTML = '👁️ 보기 모드';
+                    editBtn.className = 'btn btn-secondary';
+                }
+            }
+
+            function deleteAdmin() {
+                if (confirm('⚠️ 경고!\n\n정말로 이 관리자 계정을 삭제하시겠습니까?\n삭제된 관리자 계정은 복구할 수 없습니다.\n\n신중히 결정해 주세요.')) {
+                    const form = document.createElement('form');
+                    form.method = 'POST';
+                    form.action = '/api/admin/admins/' + [[${admin.userId}]] + '/delete';
+                    document.body.appendChild(form);
+                    form.submit();
+                }
+            }
+        </script>
+    </th:block>
+</body>
+</html>

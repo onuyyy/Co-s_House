@@ -1,6 +1,6 @@
 package com.bird.cos.service.product;
 
-import com.bird.cos.domain.proudct.Product;
+import com.bird.cos.domain.product.Product;
 import com.bird.cos.repository.product.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -28,26 +28,52 @@ public class ProductService {
 
     //특정 상품 ID로 단일 상품 조회
     public Optional<Product> getProductById(Long productId) {
-        return productRepository.findById(productId);
+        return productRepository.findByIdWithOptions(productId);
     }
 
-    //특정 카테고리의 상품들만 가져오는 메서드(추천순, 최신순, 인기순) *미구현
+    //카테고리 별로 조회
     public List<Product> getProductsByCategory(Long categoryId) {
-        return productRepository.findByProductCategoryCategoryId(categoryId);
+        List<Product> products = productRepository.findByProductCategory_CategoryId(categoryId);
+        return products;
     }
 
-    //특정 카테고리의 상품을 가격순으로 조회(낮은 가격순, 높은 가격순) *미구현
-    public List<Product> getProductsSortedByPrice(Long categoryId, boolean ascending) {
-        if (ascending) {
-            return productRepository.findByProductCategoryCategoryIdOrderBySalePriceAsc(categoryId);
-        } else {
-            return productRepository.findByProductCategoryCategoryIdOrderBySalePriceDesc(categoryId);
-        }
+    //세일가격 기준 오름차순으로 조회
+    public List<Product> getProductsByCategoryOrderBySalePriceAsc(Long categoryId) {
+        List<Product> products = productRepository.findByProductCategoryCategoryIdOrderBySalePriceAsc(categoryId);
+        return products;
     }
 
-    //특정 카테고리 평점 높은 순으로 조회 *미구현
-    public List<Product> getProductsSortedByRating(Long categoryId) {
-        return productRepository.findByProductCategoryCategoryIdOrderByAverageRatingDesc(categoryId);
+    //세일가격 기준 내림차순으로 조회
+    public List<Product> getProductsByCategoryOrderBySalePriceDesc(Long categoryId) {
+        List<Product> products = productRepository.findByProductCategoryCategoryIdOrderBySalePriceDesc(categoryId);
+        return products;
+    }
+
+    //별점 기준 내림차순으로 조회
+    public List<Product> getProductsByCategoryOrderByRatingDesc(Long categoryId) {
+        List<Product> products = productRepository.findByProductCategoryCategoryIdOrderByAverageRatingDesc(categoryId);
+        return products;
+    }
+
+    //브랜드 페이지 조회
+    // 브랜드 ID로 상품 목록 조회 (기본)
+    public List<Product> getProductsByBrandId(Long brandId) {
+        return productRepository.findByBrand_BrandId(brandId);
+    }
+
+    // 브랜드 ID로 상품 목록을 '세일 가격' 오름차순으로 조회
+    public List<Product> getProductsByBrandOrderBySalePriceAsc(Long brandId) {
+        return productRepository.findByBrand_BrandIdOrderBySalePriceAsc(brandId);
+    }
+
+    // 브랜드 ID로 상품 목록을 '세일 가격' 내림차순으로 조회
+    public List<Product> getProductsByBrandOrderBySalePriceDesc(Long brandId) {
+        return productRepository.findByBrand_BrandIdOrderBySalePriceDesc(brandId);
+    }
+
+    // 브랜드 ID로 상품 목록을 '세일 가격' 내림차순으로 조회
+    public List<Product> getProductsByBrandOrderByRatingDesc(Long brandId) {
+        return productRepository.findByBrand_BrandIdOrderByAverageRatingDesc(brandId);
     }
 
 }

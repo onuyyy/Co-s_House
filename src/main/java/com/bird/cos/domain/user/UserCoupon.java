@@ -2,7 +2,7 @@ package com.bird.cos.domain.user;
 
 import com.bird.cos.domain.common.CommonCode;
 import com.bird.cos.domain.order.Order;
-import com.bird.cos.domain.proudct.Coupon;
+import com.bird.cos.domain.product.Coupon;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
