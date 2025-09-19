@@ -83,6 +83,7 @@ public class SecurityConfig {
                                 "/account/register",
                                 "/controller/register/login",
                                 "/shop",
+                                "/cart", //todo: 지우기
                                 "/community",
                                 "/events"
                         ).permitAll()

@@ -7,7 +7,7 @@ import com.bird.cos.dto.question.QuestionUpdateRequest;
 import com.bird.cos.dto.question.QuestionManageResponse;
 import java.util.stream.Collectors;
 import com.bird.cos.repository.question.QuestionRepository;
-import com.bird.cos.repository.UserRepository;
+import com.bird.cos.repository.user.UserRepository;
 import com.bird.cos.repository.CommonCodeRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

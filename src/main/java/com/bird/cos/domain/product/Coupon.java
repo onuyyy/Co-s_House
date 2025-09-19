@@ -1,11 +1,14 @@
 package com.bird.cos.domain.product;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "COUPON")
+@Getter
 public class Coupon {
 
     @Id

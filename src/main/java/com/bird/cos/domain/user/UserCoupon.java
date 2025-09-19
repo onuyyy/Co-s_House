@@ -4,10 +4,13 @@ import com.bird.cos.domain.common.CommonCode;
 import com.bird.cos.domain.order.Order;
 import com.bird.cos.domain.product.Coupon;
 import jakarta.persistence.*;
+import lombok.Getter;
+
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "USER_COUPON")
+@Getter
 public class UserCoupon {
 
     @Id

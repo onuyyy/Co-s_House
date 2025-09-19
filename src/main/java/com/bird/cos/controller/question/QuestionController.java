@@ -1,11 +1,11 @@
 package com.bird.cos.controller.question;
 
-import com.bird.cos.domain.proudct.Question;
+import com.bird.cos.domain.product.Question;
 import com.bird.cos.domain.user.User;
 import com.bird.cos.dto.question.QuestionUpdateRequest;
 import com.bird.cos.dto.question.QuestionManageResponse;
 import com.bird.cos.service.question.QuestionService;
-import com.bird.cos.repository.UserRepository;
+import com.bird.cos.repository.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;

@@ -8,7 +8,7 @@ import com.bird.cos.dto.question.QuestionManageResponse;
 import java.util.stream.Collectors;
 import static org.mockito.Mockito.doNothing;
 import com.bird.cos.service.question.QuestionService;
-import com.bird.cos.repository.UserRepository;
+import com.bird.cos.repository.user.UserRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
