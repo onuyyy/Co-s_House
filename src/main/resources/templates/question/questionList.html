@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>오늘의집 - 문의 목록</title>
+    <link rel="stylesheet" th:href="@{/css/question/questionList.css}">
+    <link rel="stylesheet" th:href="@{/css/main/header.css}">
+</head>
+<body>
+
+<!-- 메인 컨텐츠 -->
+<main class="main-content">
+    <div class="container">
+        <div class="question-header">
+            <div class="header-title">
+                <h1>나의 문의 목록</h1>
+                <span class="total-count" th:text="'전체 ' + ${totalElements} + '개'">전체 0개</span>
+            </div>
+            <div class="header-actions">
+                <a th:href="@{/question/info}" class="btn btn-primary">문의 작성</a>
+            </div>
+        </div>
+
+        <!-- 문의 목록 -->
+        <div class="question-list">
+            <div th:if="${questions != null and !questions.isEmpty()}">
+                <div th:each="question : ${questions}" class="question-item">
+                    <div class="question-info">
+                        <div class="question-meta">
+                            <span class="question-type" th:text="${question.questionType == 'QT_001' ? '상품 문의' : (question.questionType == 'QT_002' ? '배송 문의' : '기타 문의')}">상품 문의</span>
+                            <span class="question-status"
+                                  th:classappend="${question.questionStatus != null and question.questionStatus == '답변대기'} ? 'pending' : 'completed'"
+                                  th:text="${question.questionStatus != null ? question.questionStatus : '답변대기'}">답변대기</span>
+                        </div>
+                        <h3 class="question-title">
+                            <span th:if="${question.isSecret}" class="secret-badge">비밀</span>
+                            <span th:text="${question.questionTitle}">문의 제목</span>
+                        </h3>
+                        <div class="question-details">
+                            <span class="author" th:text="${question.userName}">작성자</span>
+                            <span class="date" th:text="${#temporals.format(question.questionCreatedAt, 'yyyy-MM-dd HH:mm')}">2024-09-16 12:30</span>
+                        </div>
+                    </div>
+                    <div class="question-actions">
+                        <button class="btn btn-detail" th:onclick="'viewDetail(' + ${question.questionId} + ')'">상세보기</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 문의가 없을 때 -->
+            <div th:if="${questions == null or questions.isEmpty()}" class="no-questions">
+                <div class="empty-state">
+                    <div class="empty-icon">📝</div>
+                    <h3>등록된 문의가 없습니다</h3>
+                    <p>궁금한 사항이 있으시면 문의를 작성해보세요.</p>
+                    <a th:href="@{/question}" class="btn btn-primary">첫 문의 작성하기</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- 페이징 -->
+        <div th:if="${totalPages != null and totalPages > 1}" class="pagination">
+            <nav>
+                <ul class="pagination-list">
+                    <!-- 이전 페이지 -->
+                    <li th:if="${hasPrevious}" class="page-item">
+                        <a th:href="@{/question(page=${currentPage - 1})}" class="page-link">이전</a>
+                    </li>
+
+                    <!-- 페이지 번호 -->
+                    <li th:each="pageNum : ${#numbers.sequence(0, totalPages - 1)}"
+                        th:classappend="${pageNum == currentPage} ? 'page-item active' : 'page-item'">
+                        <a th:href="@{/question(page=${pageNum})}"
+                           th:text="${pageNum + 1}"
+                           class="page-link">1</a>
+                    </li>
+
+                    <!-- 다음 페이지 -->
+                    <li th:if="${hasNext}" class="page-item">
+                        <a th:href="@{/question(page=${currentPage + 1})}" class="page-link">다음</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</main>
+
+<!-- 푸터 -->
+<footer class="footer">
+    <div class="container">
+        <p>&copy; 2024 오늘의집. All rights reserved.</p>
+    </div>
+</footer>
+
+<script>
+    function viewDetail(questionId) {
+        location.href = '/question/detail/' + questionId;
+    }
+</script>
+
+</body>
+</html>
