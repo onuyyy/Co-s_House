@@ -10,7 +10,6 @@
         body { font-family: -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Noto Sans KR',sans-serif;
             background:#f8f9fa; color:#333; line-height:1.6; }
 
-        /* Header */
         .header-banner { background:linear-gradient(135deg,#74b9ff,#0984e3); padding:12px;
             text-align:center; color:white; font-size:14px; position:relative; }
         .header-banner::after { content: ">"; position:absolute; right:20px; font-weight:bold; }
@@ -24,79 +23,62 @@
         .nav-menu a:hover { color:#0984e3; border-bottom:2px solid #0984e3; }
         .nav-right { display:flex; align-items:center; gap:20px; }
         .search-container { position:relative; }
-        .search-input { width:300px; padding:10px 40px 10px 15px; border:1px solid #ddd; border-radius:25px; font-size:14px; outline:none; }
-        .search-input:focus { border-color:#0984e3; }
-        .search-btn { position:absolute; right:15px; top:50%; transform:translateY(-50%); background:none; border:none; color:#666; cursor:pointer; }
+        .search-input-global { width:300px; padding:10px 40px 10px 15px; border:1px solid #ddd; border-radius:25px; font-size:14px; outline:none; }
+        .search-btn-global { position:absolute; right:15px; top:50%; transform:translateY(-50%); background:none; border:none; color:#666; cursor:pointer; }
         .nav-icons { display:flex; gap:15px; }
         .nav-icon { color:#666; font-size:20px; text-decoration:none; position:relative; }
         .user-btn { background:#0984e3; color:white; padding:10px 20px; border:none; border-radius:5px; cursor:pointer; font-weight:500; }
 
-        /* Main Content */
-        .main-content { max-width:800px; margin:40px auto; padding:0 20px; background:white;
-            border-radius:10px; box-shadow:0 2px 10px rgba(0,0,0,0.1); overflow:hidden; }
-        .page-header { padding:40px 40px 20px; border-bottom:1px solid #f0f0f0; }
-        .page-title { font-size:28px; font-weight:bold; color:#333; margin-bottom:10px; }
-        .page-subtitle { color:#666; font-size:16px; }
+        .main-content { max-width:900px; margin:40px auto; padding:0 20px 60px; }
+        .page-card { background:white; border-radius:16px; box-shadow:0 20px 40px rgba(15,23,42,0.08); overflow:hidden; }
+        .page-header { padding:36px; border-bottom:1px solid #f0f0f0; }
+        .page-title { font-size:28px; font-weight:700; color:#1f2937; margin-bottom:12px; }
+        .page-subtitle { color:#64748b; font-size:15px; }
+        .page-meta { margin-top:8px; color:#94a3b8; font-size:13px; }
 
-        /* Notice List */
-        .notice-list { padding:0; }
-        .notice-item { border-bottom:1px solid #f0f0f0; transition:all 0.3s ease; cursor:pointer; position:relative; }
-        .notice-item:hover { background-color:#f8f9ff; }
-        .notice-item:last-child { border-bottom:none; }
-        .notice-link { display:block; padding:25px 40px; text-decoration:none; color:inherit; }
-        .notice-title { font-size:16px; font-weight:500; color:#333; margin-bottom:8px; line-height:1.5; transition:color 0.3s; }
-        .notice-item:hover .notice-title { color:#0984e3; }
-        .notice-date { font-size:14px; color:#999; }
-        .notice-badge { display:inline-block; background:#ff6b6b; color:white; font-size:11px; font-weight:bold;
-            padding:3px 8px; border-radius:12px; margin-right:8px; text-transform:uppercase; }
-        .notice-badge.important { background:#e74c3c; }
-        .notice-badge.update { background:#3498db; }
-        .notice-badge.maintenance { background:#f39c12; }
+        .list-section { position:relative; }
+        .notice-list { list-style:none; }
+        .notice-item { display:flex; align-items:center; padding:20px 36px; gap:24px; border-bottom:1px solid #f2f4f8; transition:background 0.2s ease; }
+        .notice-item:hover { background:#f8fbff; }
+        .notice-index { width:60px; text-align:center; font-weight:600; color:#64748b; }
+        .notice-texts { flex:1; display:flex; flex-direction:column; gap:6px; }
+        .notice-title { font-size:18px; font-weight:600; color:#1f2937; text-decoration:none; }
+        .notice-title:hover { color:#2563eb; }
+        .notice-meta { display:flex; gap:18px; color:#94a3b8; font-size:13px; }
 
-        /* Empty State */
-        .empty-state { text-align:center; padding:60px 40px; color:#999; }
-        .empty-state i { font-size:48px; margin-bottom:20px; color:#ddd; }
+        .search-inline { padding:16px 36px; background:#f9fafb; border-bottom:1px solid #f0f0f0; display:flex; gap:10px; }
+        .search-inline input { flex:1; padding:12px 14px; border-radius:10px; border:1px solid #d0d7e2; font-size:14px; }
+        .search-inline button { padding:12px 22px; border:none; border-radius:10px; background:linear-gradient(135deg,#3b82f6,#2563eb);
+            color:white; font-size:14px; font-weight:600; cursor:pointer; box-shadow:0 8px 18px rgba(59,130,246,0.25); }
+        .search-inline button:hover { filter:brightness(1.05); }
 
-        /* Pagination */
-        .pagination-container { padding:30px 40px; text-align:center; border-top:1px solid #f0f0f0; }
-        .pagination { display:inline-flex; gap:5px; align-items:center; }
-        .page-btn { padding:8px 12px; border:1px solid #ddd; background:white; color:#666;
-            text-decoration:none; border-radius:5px; font-size:14px; transition:all 0.3s; }
-        .page-btn:hover { background:#0984e3; color:white; border-color:#0984e3; }
-        .page-btn.active { background:#0984e3; color:white; border-color:#0984e3; }
-        .page-btn.disabled { opacity:0.5; cursor:not-allowed; }
-        .page-btn.disabled:hover { background:white; color:#666; border-color:#ddd; }
+        .filter-info { padding:12px 36px; background:#eef2ff; color:#4338ca; font-size:13px; display:flex; gap:10px; align-items:center; }
+        .reset-link { color:#4338ca; text-decoration:underline; font-weight:500; }
 
-        /* Footer Link */
-        .footer-link { padding:20px 40px; background:#f8f9fa; border-top:1px solid #f0f0f0; }
-        .footer-link a { color:#0984e3; text-decoration:none; font-size:14px; }
-        .footer-link a:hover { text-decoration:underline; }
+        .empty-state { text-align:center; padding:60px 20px; color:#94a3b8; font-size:15px; }
+        .empty-state i { font-size:42px; margin-bottom:16px; color:#d0d7e2; }
 
-        /* Responsive */
-        @media (max-width:768px) {
-            .nav-container { flex-direction:column; gap:15px; }
-            .search-input { width:250px; }
-            .main-content { margin:20px; border-radius:5px; }
-            .page-header, .notice-link, .pagination-container, .footer-link { padding:20px; }
-            .page-title { font-size:24px; }
-            .notice-title { font-size:15px; }
-            .pagination { flex-wrap:wrap; gap:3px; }
-            .page-btn { padding:6px 10px; font-size:13px; }
+        .pagination { display:flex; justify-content:center; gap:8px; padding:28px 0 36px; background:#f9fafb; }
+        .page-link { min-width:36px; padding:8px 12px; border-radius:10px; border:1px solid #d0d7e2; text-decoration:none;
+            color:#4b5563; font-size:14px; font-weight:600; background:white; transition:all 0.2s; }
+        .page-link:hover { border-color:#2563eb; color:#2563eb; }
+        .page-link.active { background:linear-gradient(135deg,#3b82f6,#2563eb); color:white; border-color:transparent; }
+        .page-link.disabled { opacity:0.4; pointer-events:none; }
+
+        @media(max-width:768px) {
+            .nav-container { flex-direction:column; gap:16px; }
+            .notice-item { flex-direction:column; align-items:flex-start; gap:4px; }
+            .notice-index { width:auto; }
+            .notice-meta { flex-direction:column; gap:4px; }
+            .search-inline { flex-direction:column; }
         }
-
-        /* Loading Animation */
-        .loading { text-align:center; padding:40px; color:#666; }
-        .loading i { font-size:24px; animation:spin 1s linear infinite; }
-        @keyframes spin { 0% { transform:rotate(0deg); } 100% { transform:rotate(360deg); } }
     </style>
 </head>
 <body>
-<!-- Header Banner -->
 <div class="header-banner">
     오늘의집 DESIGN AWARD 2025 출품작 다시 한 번!
 </div>
 
-<!-- Main Navigation -->
 <nav class="navbar">
     <div class="nav-container">
         <a href="/" class="logo">오늘의집</a>
@@ -107,8 +89,8 @@
         </ul>
         <div class="nav-right">
             <div class="search-container">
-                <input type="text" class="search-input" placeholder="통합검색">
-                <button class="search-btn"><i class="fas fa-search"></i></button>
+                <input type="text" class="search-input-global" placeholder="통합검색">
+                <button class="search-btn-global"><i class="fas fa-search"></i></button>
             </div>
             <div class="nav-icons">
                 <a href="/cart" class="nav-icon"><i class="fas fa-shopping-cart"></i></a>
@@ -121,87 +103,56 @@
     </div>
 </nav>
 
-<!-- Main Content -->
 <main class="main-content">
-    <div class="page-header">
-        <h1 class="page-title">공지사항</h1>
-        <p class="page-subtitle">오늘의집의 새로운 소식과 업데이트를 확인하세요</p>
-    </div>
-
-    <!-- Notice List -->
-    <div class="notice-list">
-        <div class="notice-item" th:each="notice : ${notices}">
-            <a class="notice-link" th:href="@{/notices/{id}(id=${notice.noticeId})}">
-                <div class="notice-title">
-<!--                        <span class="notice-badge" th:if="${notice.important}"-->
-<!--                              th:text="${notice.badge}">공지</span>-->
-                    <span th:text="${notice.title}">공지사항 제목</span>
-                </div>
-                <div class="notice-date"
-                     th:text="${#temporals.format(notice.createTime,'yyyy. MM. dd')}">
-                    2025. 07. 21
-                </div>
-            </a>
+    <div class="page-card">
+        <div class="page-header">
+            <h1 class="page-title">공지사항</h1>
+            <p class="page-subtitle">오늘의집의 새로운 소식과 업데이트를 확인하세요.</p>
         </div>
 
-        <!-- Empty state -->
-        <div class="empty-state" th:if="${#lists.isEmpty(notices)}">
-            <i class="far fa-bell-slash"></i>
-            <p>현재 등록된 공지사항이 없습니다.</p>
+            <ul class="notice-list">
+                <li class="notice-item" th:each="notice, iterStat : ${noticePage.content}">
+                    <div class="notice-index" th:text="${(noticePage.number * noticePage.size) + iterStat.index + 1}">1</div>
+                    <div class="notice-texts">
+                        <a class="notice-title" th:href="@{/notices/{id}(id=${notice.noticeId})}">
+                            <span th:text="${notice.title}">공지 제목</span>
+                        </a>
+                        <div class="notice-meta">
+                            <span><i class="far fa-user"></i>
+                                <span th:text="${notice.writerName != null ? notice.writerName : '알 수 없음'}">작성자</span>
+                            </span>
+                            <span><i class="far fa-calendar-check"></i>
+                                <span th:text="${notice.createTime != null ? #temporals.format(notice.createTime,'yyyy. MM. dd') : '-'}">2024. 01. 01</span>
+                            </span>
+                            <span><i class="far fa-clock"></i>
+                                <span th:text="${notice.updateTime != null ? #temporals.format(notice.updateTime,'yyyy. MM. dd') : '-'}">2024. 01. 02</span>
+                            </span>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+
+            <div class="empty-state" th:if="${noticePage.empty}">
+                <i class="far fa-bell-slash"></i>
+                <p>현재 등록된 공지사항이 없습니다.</p>
+            </div>
         </div>
+
+        <nav class="pagination" th:if="${noticePage.totalPages > 1}">
+            <a class="page-link" th:classappend="${noticePage.first} ? ' disabled' : ''"
+               th:href="${noticePage.first} ? '#' : @{/notices(page=0, size=${pageSize}, keyword=${keyword})}">처음</a>
+            <a class="page-link" th:classappend="${!noticePage.hasPrevious()} ? ' disabled' : ''"
+               th:href="${!noticePage.hasPrevious()} ? '#' : @{/notices(page=${noticePage.number - 1}, size=${pageSize}, keyword=${keyword})}">이전</a>
+            <a class="page-link" th:each="pageNum : ${pageNumbers}"
+               th:classappend="${pageNum == currentPage} ? ' active' : ''"
+               th:href="@{/notices(page=${pageNum}, size=${pageSize}, keyword=${keyword})}"
+               th:text="${pageNum + 1}">1</a>
+            <a class="page-link" th:classappend="${!noticePage.hasNext()} ? ' disabled' : ''"
+               th:href="${!noticePage.hasNext()} ? '#' : @{/notices(page=${noticePage.number + 1}, size=${pageSize}, keyword=${keyword})}">다음</a>
+            <a class="page-link" th:classappend="${noticePage.last} ? ' disabled' : ''"
+               th:href="${noticePage.last} ? '#' : @{/notices(page=${noticePage.totalPages - 1}, size=${pageSize}, keyword=${keyword})}">마지막</a>
+        </nav>
     </div>
-
-    <div class="pagination-container">
-        <div class="pagination">
-                     <span th:if="${notices.number > 0}">
-                <a th:href="@{/notices(page=0)}">« 처음</a>
-            </span>
-            <span th:if="${notices.hasPrevious()}">
-                <a th:href="@{/notices(page=${notices.number - 1})}">‹ 이전</a>
-            </span>
-            <span th:each="i : ${#numbers.sequence(0, notices.totalPages - 1)}">
-                <a th:href="@{/notices(page=${i})}"
-                   th:text="${i + 1}"
-                   th:classappend="${i == notices.number} ? 'current' : ''"></a>
-            </span>
-            <span th:if="${notices.hasNext()}">
-                <a th:href="@{/notices(page=${notices.number + 1})}">다음 ›</a>
-            </span>
-            <span th:if="${notices.number < notices.totalPages - 1}">
-                <a th:href="@{/notices(page=${notices.totalPages - 1})}">마지막 »</a>
-            </span>
-        </div>
-    </div>
-
-    <!-- Footer -->
-
 </main>
-
-<script>
-    // 페이지 로딩 애니메이션
-    document.addEventListener('DOMContentLoaded', function() {
-        const noticeItems = document.querySelectorAll('.notice-item');
-        noticeItems.forEach((item,index)=>{
-            item.style.opacity='0';
-            item.style.transform='translateY(20px)';
-            setTimeout(()=>{
-                item.style.transition='opacity 0.5s ease, transform 0.5s ease';
-                item.style.opacity='1';
-                item.style.transform='translateY(0)';
-            }, index*100);
-        });
-    });
-
-    // 검색 이벤트
-    const searchInput=document.querySelector('.search-input');
-    const searchBtn=document.querySelector('.search-btn');
-    searchBtn.addEventListener('click',function(){
-        const keyword=searchInput.value.trim();
-        if(keyword){ console.log('검색어:',keyword); }
-    });
-    searchInput.addEventListener('keypress',function(e){
-        if(e.key==='Enter'){ searchBtn.click(); }
-    });
-</script>
 </body>
 </html>

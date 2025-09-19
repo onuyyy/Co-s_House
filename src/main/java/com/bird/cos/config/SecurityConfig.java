@@ -70,6 +70,11 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
+                        // 공지사항 테스트용코드
+                        .requestMatchers("/notices/**").permitAll()
+                        .requestMatchers("/admin/notices/**").permitAll()
+                        .requestMatchers("/api/**").permitAll()
+
                         // 1) 정적 리소스 전부 허용
                         .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                         .requestMatchers(

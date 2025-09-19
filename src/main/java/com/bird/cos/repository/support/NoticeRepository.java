@@ -1,7 +1,31 @@
 package com.bird.cos.repository.support;
 
 import com.bird.cos.domain.support.Notice;
+import com.bird.cos.domain.user.User;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface NoticeRepository extends JpaRepository<Notice,Long> {
+import java.time.LocalDateTime;
+
+@Repository
+public interface NoticeRepository extends JpaRepository<Notice, Long> {
+
+    // 제목으로 검색
+    Page<Notice> findByTitleContainingIgnoreCase(String title, Pageable pageable);
+
+    // 내용으로 검색
+    Page<Notice> findByContentContainingIgnoreCase(String content, Pageable pageable);
+
+    // 제목 또는 내용으로 검색
+    Page<Notice> findByTitleContainingIgnoreCaseOrContentContainingIgnoreCase(
+            String title, String content, Pageable pageable);
+
+    // 작성자별 공지사항 조회
+    Page<Notice> findByWriter(User writer, Pageable pageable);
+
+    // 작성일 기간으로 조회
+    Page<Notice> findByNoticeCreateDateBetween(
+            LocalDateTime startDate, LocalDateTime endDate, Pageable pageable);
 }
