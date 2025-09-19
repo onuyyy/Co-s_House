@@ -1,7 +1,6 @@
 package com.bird.cos.dto.support;
 
 import lombok.*;
-import org.springframework.web.ErrorResponse;
 
 @Builder
 @Setter

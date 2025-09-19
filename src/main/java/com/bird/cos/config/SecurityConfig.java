@@ -70,7 +70,7 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        // 공지사항 테스트용코드
+                        // 공지사항 테스트용코드 merge후 지워도 됩니다
                         .requestMatchers("/notices/**").permitAll()
                         .requestMatchers("/admin/notices/**").permitAll()
                         .requestMatchers("/api/**").permitAll()

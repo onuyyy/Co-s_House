@@ -21,11 +21,4 @@ public interface NoticeRepository extends JpaRepository<Notice, Long> {
     // 제목 또는 내용으로 검색
     Page<Notice> findByTitleContainingIgnoreCaseOrContentContainingIgnoreCase(
             String title, String content, Pageable pageable);
-
-    // 작성자별 공지사항 조회
-    Page<Notice> findByWriter(User writer, Pageable pageable);
-
-    // 작성일 기간으로 조회
-    Page<Notice> findByNoticeCreateDateBetween(
-            LocalDateTime startDate, LocalDateTime endDate, Pageable pageable);
 }

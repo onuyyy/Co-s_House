@@ -41,13 +41,13 @@ public class NoticeService {
     }
 
     // 공지 수정
-    public NoticeResponse updateNotice(Long noticeId, NoticeRequest request) {
+    public void updateNotice(Long noticeId, NoticeRequest request) {
         Notice notice = noticeRepository.findById(noticeId)
                 .orElseThrow(() -> new IllegalArgumentException("공지사항이 없습니다."));
 
         validateNoticeRequest(request);
         notice.update(request.getTitle().trim(), request.getContent().trim());
-        return NoticeResponse.fromResponse(noticeRepository.save(notice));
+        NoticeResponse.fromResponse(noticeRepository.save(notice));
     }
 
     // 공지 삭제 (존재 여부 확인)
