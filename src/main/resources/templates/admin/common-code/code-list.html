@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+      layout:decorate="~{layout/admin-layout}"
+      lang="ko">
+<head>
+    <title>공통코드 관리</title>
+</head>
+
+<!-- 추가 CSS -->
+<th:block layout:fragment="extra-css">
+    <style>
+        /* 공통코드 전용 스타일 */
+        .common-code-container {
+            display: flex;
+            gap: 0;
+            height: calc(100vh - 200px);
+        }
+        
+        .sidebar-section {
+            width: 20%;
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px 0 0 8px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .main-section {
+            width: 80%;
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-left: none;
+            border-radius: 0 8px 8px 0;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* 사이드바 스타일 */
+        .sidebar-header {
+            padding: 20px;
+            border-bottom: 1px solid #e0e0e0;
+            background: #f8f9fa;
+        }
+        
+        .sidebar-search {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        
+        .sidebar-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 10px;
+        }
+        
+        /* 트리 스타일 */
+        .tree-list {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .tree-item {
+            margin-bottom: 2px;
+        }
+        
+        .tree-link {
+            display: flex;
+            align-items: flex-start;
+            padding: 10px 12px;
+            text-decoration: none;
+            color: #333;
+            border-radius: 4px;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+        
+        .tree-link:hover {
+            background: #f0f0f0;
+        }
+        
+        .tree-link.active {
+            background: #e3f2fd;
+            color: #1976d2;
+            font-weight: 500;
+        }
+        
+        .tree-toggle {
+            width: 16px;
+            height: 16px;
+            margin-right: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .tree-icon {
+            margin-right: 8px;
+            color: #666;
+        }
+        
+        /* 메인 영역 스타일 */
+        .main-header {
+            padding: 20px;
+            border-bottom: 1px solid #e0e0e0;
+            background: #f8f9fa;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .main-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+            margin: 0;
+        }
+        
+        .main-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .main-body {
+            flex: 1;
+            padding: 20px;
+            overflow: auto;
+        }
+        
+        /* 테이블 스타일 */
+        .code-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .code-table th,
+        .code-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .code-table th {
+            background: #f8f9fa;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .code-table tbody tr:hover {
+            background: #f8f9fa;
+        }
+        
+        /* 상태 뱃지 */
+        .status-active {
+            background: #d4edda;
+            color: #155724;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        
+        .status-inactive {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        
+        /* 빈 상태 */
+        .empty-state {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+        }
+        
+        .empty-state .empty-icon {
+            font-size: 48px;
+            color: #ddd;
+            margin-bottom: 16px;
+        }
+        
+        /* 모달 스타일 */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .modal.show {
+            display: block;
+        }
+        
+        .modal-content {
+            background: white;
+            margin: 10% auto;
+            padding: 0;
+            border-radius: 8px;
+            width: 500px;
+            max-width: 90%;
+            animation: slideIn 0.3s ease;
+        }
+        
+        .modal-header {
+            padding: 20px;
+            border-bottom: 1px solid #e0e0e0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .modal-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+            margin: 0;
+        }
+        
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: #999;
+            cursor: pointer;
+            padding: 0;
+        }
+        
+        .modal-body {
+            padding: 20px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+            color: #333;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        
+        .form-textarea {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            min-height: 80px;
+            resize: vertical;
+        }
+        
+        .form-checkbox {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .modal-footer {
+            padding: 20px;
+            border-top: 1px solid #e0e0e0;
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+        
+        /* 애니메이션 */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateY(-20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        /* 로딩 스피너 */
+        .loading {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid #f3f3f3;
+            border-top: 2px solid #007bff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* 반응형 */
+        @media (max-width: 768px) {
+            .common-code-container {
+                flex-direction: column;
+                height: auto;
+            }
+            
+            .sidebar-section,
+            .main-section {
+                width: 100%;
+                border-radius: 8px;
+                margin-bottom: 10px;
+            }
+            
+            .modal-content {
+                margin: 5% auto;
+                width: 95%;
+            }
+        }
+    </style>
+</th:block>
+
+<body>
+    <!-- Content Header -->
+    <div layout:fragment="content-header" class="content-header">
+        <h2 style="color: #333; font-size: 20px;">공통코드 관리</h2>
+        <div>
+            <span class="text-muted">코드 그룹과 하위 코드를 관리할 수 있습니다.</span>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div layout:fragment="content">
+        <div class="common-code-container">
+            <!-- 좌측 사이드바 - 코드 그룹 트리 -->
+            <div class="sidebar-section">
+                <div class="sidebar-header">
+                    <input type="text" 
+                           id="groupSearch" 
+                           class="sidebar-search" 
+                           placeholder="그룹명 검색...">
+                </div>
+                <div class="sidebar-body">
+                    <ul id="groupTree" class="tree-list">
+                        <li class="empty-state" id="groupEmptyState">
+                            <div class="empty-icon">📁</div>
+                            <div>코드 그룹을 불러오는 중...</div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- 우측 메인 영역 - 코드 리스트 -->
+            <div class="main-section">
+                <div class="main-header">
+                    <h3 class="main-title" id="selectedGroupTitle">코드 그룹을 선택해주세요</h3>
+                    <div class="main-actions">
+                        <button class="btn btn-primary" id="addCodeBtn" disabled>
+                            <span>➕</span> 코드 등록
+                        </button>
+                    </div>
+                </div>
+                <div class="main-body">
+                    <div id="codeTableContainer">
+                        <div class="empty-state">
+                            <div class="empty-icon">🗂️</div>
+                            <div>좌측에서 코드 그룹을 선택해주세요</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 코드 등록/수정 모달 -->
+        <div id="codeModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="modalTitle">코드 등록</h4>
+                    <button class="modal-close" id="modalClose">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <form id="codeForm">
+                        <input type="hidden" id="codeIdHidden" name="codeId">
+                        <input type="hidden" id="groupIdHidden" name="groupId">
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="codeId">코드 ID</label>
+                            <input type="text" id="codeId" name="codeId" class="form-input" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="codeName">코드명</label>
+                            <input type="text" id="codeName" name="codeName" class="form-input" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="description">설명</label>
+                            <textarea id="description" name="description" class="form-textarea"></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="sortOrder">정렬순서</label>
+                            <input type="number" id="sortOrder" name="sortOrder" class="form-input" value="0">
+                        </div>
+                        
+                        <div class="form-group">
+                            <div class="form-checkbox">
+                                <input type="checkbox" id="isActive" name="isActive" checked>
+                                <label class="form-label" for="isActive">사용여부</label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" id="modalCancel">취소</button>
+                    <button class="btn btn-primary" id="modalSave">
+                        <span class="loading" id="saveLoading" style="display: none;"></span>
+                        저장
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <th:block layout:fragment="extra-scripts">
+        <script>
+            class CommonCodeManager {
+                constructor() {
+                    this.selectedGroupId = null;
+                    this.selectedGroupName = null;
+                    this.currentEditingCode = null;
+                    this.allGroups = [];
+                    
+                    this.init();
+                }
+                
+                init() {
+                    this.bindEvents();
+                    this.loadCodeGroups();
+                }
+                
+                bindEvents() {
+                    // 검색
+                    document.getElementById('groupSearch').addEventListener('input', (e) => {
+                        this.filterGroups(e.target.value);
+                    });
+                    
+                    // 코드 등록 버튼
+                    document.getElementById('addCodeBtn').addEventListener('click', () => {
+                        this.openCodeModal();
+                    });
+                    
+                    // 모달 관련
+                    document.getElementById('modalClose').addEventListener('click', () => {
+                        this.closeModal();
+                    });
+                    
+                    document.getElementById('modalCancel').addEventListener('click', () => {
+                        this.closeModal();
+                    });
+                    
+                    document.getElementById('modalSave').addEventListener('click', () => {
+                        this.saveCode();
+                    });
+                    
+                    // 모달 외부 클릭시 닫기
+                    document.getElementById('codeModal').addEventListener('click', (e) => {
+                        if (e.target.id === 'codeModal') {
+                            this.closeModal();
+                        }
+                    });
+                }
+                
+                async loadCodeGroups() {
+                    try {
+                        const response = await fetch('/api/admin/common-code/groups');
+                        if (!response.ok) {
+                            throw new Error('코드 그룹 로드 실패');
+                        }
+                        this.allGroups = await response.json();
+                        this.renderGroupTree(this.allGroups);
+                    } catch (error) {
+                        console.error('코드 그룹 로드 실패:', error);
+                        this.showError('코드 그룹을 불러올 수 없습니다.');
+                    }
+                }
+                
+                renderGroupTree(groups) {
+                    const treeContainer = document.getElementById('groupTree');
+                    
+                    if (!groups || groups.length === 0) {
+                        treeContainer.innerHTML = `
+                            <li class="empty-state">
+                                <div class="empty-icon">📁</div>
+                                <div>등록된 코드 그룹이 없습니다.</div>
+                            </li>
+                        `;
+                        return;
+                    }
+                    
+                    const treeHTML = groups.map(group => `
+                        <li class="tree-item">
+                            <div class="tree-link" data-group-id="${group.groupId}" data-group-name="${group.groupName}">
+                                <span class="tree-icon">📂</span>
+                                <div style="flex: 1;">
+                                    <div style="font-weight: 500; font-size: 14px; line-height: 1.3; margin-bottom: 2px;">${group.groupName}</div>
+                                    <div style="color: #999; font-size: 11px; line-height: 1.2;">${group.groupId}</div>
+                                </div>
+                            </div>
+                        </li>
+                    `).join('');
+                    
+                    treeContainer.innerHTML = treeHTML;
+                    
+                    // 그룹 클릭 이벤트 추가
+                    treeContainer.querySelectorAll('.tree-link').forEach(link => {
+                        link.addEventListener('click', (e) => {
+                            const groupId = e.currentTarget.getAttribute('data-group-id');
+                            const groupName = e.currentTarget.getAttribute('data-group-name');
+                            this.selectGroup(groupId, groupName, e.currentTarget);
+                        });
+                    });
+                }
+                
+                filterGroups(searchTerm) {
+                    if (!searchTerm.trim()) {
+                        this.renderGroupTree(this.allGroups);
+                        return;
+                    }
+                    
+                    const filteredGroups = this.allGroups.filter(group => 
+                        group.groupName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                        group.groupId.toLowerCase().includes(searchTerm.toLowerCase())
+                    );
+                    
+                    this.renderGroupTree(filteredGroups);
+                }
+                
+                async selectGroup(groupId, groupName, element) {
+                    // 기존 선택 해제
+                    document.querySelectorAll('.tree-link.active').forEach(el => {
+                        el.classList.remove('active');
+                    });
+                    
+                    // 새로운 선택 활성화
+                    element.classList.add('active');
+                    
+                    this.selectedGroupId = groupId;
+                    this.selectedGroupName = groupName;
+                    
+                    // 헤더 업데이트
+                    document.getElementById('selectedGroupTitle').textContent = `${groupName} 코드 목록`;
+                    document.getElementById('addCodeBtn').disabled = false;
+                    
+                    // 코드 목록 로드
+                    await this.loadCodes(groupId);
+                }
+                
+                async loadCodes(groupId) {
+                    const container = document.getElementById('codeTableContainer');
+                    container.innerHTML = `
+                        <div class="empty-state">
+                            <div class="loading"></div>
+                            <div>코드 목록을 불러오는 중...</div>
+                        </div>
+                    `;
+                    
+                    try {
+                        const response = await fetch(`/api/admin/common-code/common-codes/${groupId}/child`);
+                        
+                        if (!response.ok) {
+                            throw new Error('코드 목록 로드 실패');
+                        }
+                        
+                        const codes = await response.json();
+                        this.renderCodeTable(codes);
+                        
+                    } catch (error) {
+                        console.error('코드 목록 로드 실패:', error);
+                        container.innerHTML = `
+                            <div class="empty-state">
+                                <div class="empty-icon">❌</div>
+                                <div>코드 목록을 불러올 수 없습니다.</div>
+                            </div>
+                        `;
+                    }
+                }
+                
+                renderCodeTable(codes) {
+                    const container = document.getElementById('codeTableContainer');
+                    
+                    if (!codes || codes.length === 0) {
+                        container.innerHTML = `
+                            <div class="empty-state">
+                                <div class="empty-icon">🗂️</div>
+                                <div>등록된 코드가 없습니다.</div>
+                                <button class="btn btn-primary" style="margin-top: 10px;" onclick="commonCodeManager.openCodeModal()">
+                                    첫 번째 코드 등록하기
+                                </button>
+                            </div>
+                        `;
+                        return;
+                    }
+                    
+                    const tableHTML = `
+                        <table class="code-table">
+                            <thead>
+                                <tr>
+                                    <th>코드 ID</th>
+                                    <th>코드명</th>
+                                    <th>설명</th>
+                                    <th>사용여부</th>
+                                    <th>정렬순서</th>
+                                    <th>작업</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${codes.map(code => `
+                                    <tr>
+                                        <td><code>${code.codeId}</code></td>
+                                        <td>${code.codeName}</td>
+                                        <td>${code.description || '-'}</td>
+                                        <td>
+                                            <span class="${code.isActive ? 'status-active' : 'status-inactive'}">
+                                                ${code.isActive ? '사용' : '미사용'}
+                                            </span>
+                                        </td>
+                                        <td>${code.sortOrder}</td>
+                                        <td>
+                                            <button class="btn btn-sm btn-secondary" onclick="commonCodeManager.editCode('${code.codeId}')">
+                                                수정
+                                            </button>
+                                        </td>
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
+                    `;
+                    
+                    container.innerHTML = tableHTML;
+                }
+                
+                openCodeModal(codeId = null) {
+                    const modal = document.getElementById('codeModal');
+                    const form = document.getElementById('codeForm');
+                    const title = document.getElementById('modalTitle');
+                    
+                    // 폼 초기화
+                    form.reset();
+                    document.getElementById('groupIdHidden').value = this.selectedGroupId;
+                    document.getElementById('isActive').checked = true;
+                    document.getElementById('sortOrder').value = '0';
+                    
+                    if (codeId) {
+                        // 수정 모드
+                        title.textContent = '코드 수정';
+                        this.currentEditingCode = codeId;
+                        // TODO: 기존 데이터 로드해서 폼에 설정
+                    } else {
+                        // 등록 모드
+                        title.textContent = '코드 등록';
+                        this.currentEditingCode = null;
+                        document.getElementById('codeId').disabled = false;
+                    }
+                    
+                    modal.classList.add('show');
+                }
+                
+                closeModal() {
+                    const modal = document.getElementById('codeModal');
+                    modal.classList.remove('show');
+                    this.currentEditingCode = null;
+                }
+                
+                async saveCode() {
+                    const saveBtn = document.getElementById('modalSave');
+                    const loading = document.getElementById('saveLoading');
+                    
+                    // 유효성 검증
+                    const codeId = document.getElementById('codeId').value.trim();
+                    const codeName = document.getElementById('codeName').value.trim();
+                    
+                    if (!codeId || !codeName) {
+                        alert('필수 항목을 입력해주세요.');
+                        return;
+                    }
+                    
+                    // 저장 중 UI
+                    saveBtn.disabled = true;
+                    loading.style.display = 'inline-block';
+                    
+                    try {
+                        // TODO: 서버에 저장 API 호출
+                        await new Promise(resolve => setTimeout(resolve, 1000)); // 임시 딜레이
+                        
+                        // 성공 시
+                        this.closeModal();
+                        await this.loadCodes(this.selectedGroupId); // 테이블 갱신
+                        this.showSuccess(this.currentEditingCode ? '코드가 수정되었습니다.' : '코드가 등록되었습니다.');
+                        
+                    } catch (error) {
+                        console.error('코드 저장 실패:', error);
+                        alert('저장 중 오류가 발생했습니다.');
+                    } finally {
+                        saveBtn.disabled = false;
+                        loading.style.display = 'none';
+                    }
+                }
+                
+                editCode(codeId) {
+                    this.openCodeModal(codeId);
+                }
+                
+                showSuccess(message) {
+                    // 간단한 성공 메시지 (추후 토스트로 대체 가능)
+                    const alert = document.createElement('div');
+                    alert.style.cssText = `
+                        position: fixed;
+                        top: 20px;
+                        right: 20px;
+                        background: #d4edda;
+                        color: #155724;
+                        padding: 15px 20px;
+                        border-radius: 4px;
+                        border: 1px solid #c3e6cb;
+                        z-index: 1001;
+                    `;
+                    alert.textContent = message;
+                    document.body.appendChild(alert);
+                    
+                    setTimeout(() => {
+                        document.body.removeChild(alert);
+                    }, 3000);
+                }
+                
+                showError(message) {
+                    console.error(message);
+                    alert(message);
+                }
+            }
+            
+            // 초기화
+            let commonCodeManager;
+            document.addEventListener('DOMContentLoaded', () => {
+                commonCodeManager = new CommonCodeManager();
+            });
+        </script>
+    </th:block>
+</body>
+</html>

@@ -1,10 +1,13 @@
 package com.bird.cos.domain.common;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import lombok.Getter;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+@Getter
 @Entity
 @Table(name = "COMMON_CODE_GROUP")
 public class CommonCodeGroup {
@@ -19,12 +22,16 @@ public class CommonCodeGroup {
     @Column(name = "description", length = 255)
     private String description;
 
+    @Column(name = "is_active")
+    private Boolean isActive;
+
     @Column(name = "created_at", insertable = false, updatable = false)
     private LocalDateTime createdAt;
 
     @Column(name = "updated_at", insertable = false, updatable = false)
     private LocalDateTime updatedAt;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "commonCodeGroup", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<CommonCode> commonCodes = new ArrayList<>();
 

@@ -1,5 +1,6 @@
 package com.bird.cos.domain.common;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 
@@ -14,6 +15,7 @@ public class CommonCode {
     @Column(name = "code_id", length = 50)
     private String codeId;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "group_id", referencedColumnName = "group_id", nullable = false)
     private CommonCodeGroup commonCodeGroup;

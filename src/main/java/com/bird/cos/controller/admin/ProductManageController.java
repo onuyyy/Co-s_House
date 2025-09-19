@@ -25,15 +25,6 @@ public class ProductManageController {
 
     private final AdminService adminService;
 
-    // 1차 카테고리
-    @GetMapping("/categories-1")
-    public String getProductCategoryLevel1(Model model)
-    {
-        model.addAttribute("category_level1", adminService.getProductCategoryLevel1());
-
-        return "admin/product/create-form";
-    }
-
     // Ajax: 자식 카테고리 조회
     @GetMapping("/categories/{parentId}/children")
     @ResponseBody
