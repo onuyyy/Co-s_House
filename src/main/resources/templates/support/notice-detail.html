@@ -43,6 +43,7 @@
         .back-btn { display:inline-block; margin:20px 40px; padding:8px 16px; background:#0984e3; color:white;
             text-decoration:none; border-radius:5px; transition:all 0.3s; }
         .back-btn:hover { background:#065fa0; }
+        .icon-img {width: 24px; height: 24px; object-fit: contain; }
 
         /* Responsive */
         @media(max-width:768px) {
@@ -73,10 +74,14 @@
                 <button class="search-btn"><i class="fas fa-search"></i></button>
             </div>
             <div class="nav-icons">
-                <a href="/cart" class="nav-icon"><i class="fas fa-shopping-cart"></i></a>
-                <a href="/bookmark" class="nav-icon">북마크</a>
-                <a href="/history" class="nav-icon">최근본상품</a>
-                <a href="/customer" class="nav-icon">고객센터</a>
+                <a href="/cart" class="nav-icon">
+                    <img src="/images/장바구니.png" alt="장바구니" class="icon-img"></a>
+                <a href="/heart" class="nav-icon">
+                    <img src="/images/좋아요.png" alt="하트" class="icon-img"></a>
+                <a href="/history" class="nav-icon">
+                    <img src="/images/알림.png" alt="알림" class="icon-img"></a>
+                <a href="/customer" class="nav-icon">
+                    <img src="/images/mypage.png" alt="마이페이지" class="icon-img"></a>
             </div>
             <button class="user-btn">글쓰기 ▼</button>
         </div>

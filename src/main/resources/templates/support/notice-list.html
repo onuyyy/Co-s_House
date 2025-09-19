@@ -64,6 +64,7 @@
         .page-link:hover { border-color:#2563eb; color:#2563eb; }
         .page-link.active { background:linear-gradient(135deg,#3b82f6,#2563eb); color:white; border-color:transparent; }
         .page-link.disabled { opacity:0.4; pointer-events:none; }
+        .icon-img {width: 24px; height: 24px; object-fit: contain; }
 
         @media(max-width:768px) {
             .nav-container { flex-direction:column; gap:16px; }
@@ -93,10 +94,14 @@
                 <button class="search-btn-global"><i class="fas fa-search"></i></button>
             </div>
             <div class="nav-icons">
-                <a href="/cart" class="nav-icon"><i class="fas fa-shopping-cart"></i></a>
-                <a href="/bookmark" class="nav-icon">북마크</a>
-                <a href="/history" class="nav-icon">최근본상품</a>
-                <a href="/customer" class="nav-icon">고객센터</a>
+                <a href="/cart" class="nav-icon">
+                    <img src="/images/장바구니.png" alt="장바구니" class="icon-img"></a>
+                <a href="/heart" class="nav-icon">
+                    <img src="/images/좋아요.png" alt="하트" class="icon-img"></a>
+                <a href="/history" class="nav-icon">
+                    <img src="/images/알림.png" alt="알림" class="icon-img"></a>
+                <a href="/customer" class="nav-icon">
+                    <img src="/images/mypage.png" alt="마이페이지" class="icon-img"></a>
             </div>
             <button class="user-btn">글쓰기 ▼</button>
         </div>
