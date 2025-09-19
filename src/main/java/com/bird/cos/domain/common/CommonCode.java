@@ -2,12 +2,16 @@ package com.bird.cos.domain.common;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 
 import java.time.LocalDateTime;
 
 @Getter
 @Entity
 @Table(name = "COMMON_CODE")
+@NoArgsConstructor
+@AllArgsConstructor
 public class CommonCode {
 
     @Id

@@ -28,14 +28,22 @@ public class AppUserDetailsService implements UserDetailsService {
                 .orElseThrow(() -> new UsernameNotFoundException("User not found: " + username));
 
         var authorities = authorityService.resolveAuthoritiesFor(user);
-        return org.springframework.security.core.userdetails.User
-                .withUsername(user.getUserEmail())
-                .password(user.getUserPassword() == null ? "" : user.getUserPassword())
+//        return org.springframework.security.core.userdetails.User
+//                .withUsername(user.getUserEmail())
+//                .password(user.getUserPassword() == null ? "" : user.getUserPassword())
+//                .authorities(authorities)
+//                .accountExpired(false)
+//                .accountLocked(false)
+//                .credentialsExpired(false)
+//                .disabled(false)
+//                .build();
+
+        return CustomUserDetails.builder()
                 .authorities(authorities)
-                .accountExpired(false)
-                .accountLocked(false)
-                .credentialsExpired(false)
-                .disabled(false)
+                .name(user.getUserName())
+                .nickname(user.getUserNickname())
+                .userEmail(user.getUserEmail())
+                .password(user.getUserPassword())
                 .build();
     }
 }

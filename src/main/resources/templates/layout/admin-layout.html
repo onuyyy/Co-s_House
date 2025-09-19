@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" 
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:sec="http://www.w3.org/1999/xhtml"
       lang="ko">
 <head>
     <meta charset="UTF-8">
@@ -31,8 +31,9 @@
             <div class="admin-profile">
                 <div class="admin-avatar">👤</div>
                 <div class="admin-info">
-                    <h4>관리자</h4>
-                    <p>개발팀</p>
+                    <h4 th:text="${#authentication.getPrincipal().name}"></h4><!-- 화면에 실제 이름 표시 -->
+                    <p sec:authentication="name"></p>                 <!-- 로그인 ID(email) 표시 -->
+
                 </div>
             </div>
             
@@ -41,31 +42,31 @@
                     <li>
                         <a th:href="@{/api/admin/admins}"
                            th:class="${#httpServletRequest != null and #strings.contains(#httpServletRequest.requestURI, '/admins') ? 'active' : ''}">
-                            👨‍💼 관리자 관리
+                            관리자 관리
                         </a>
                     </li>
                     <li>
                         <a th:href="@{/api/admin/users}"
                            th:class="${#httpServletRequest != null and #strings.contains(#httpServletRequest.requestURI, '/users') ? 'active' : ''}">
-                            👥 전체 사용자 관리
+                            전체 사용자 관리
                         </a>
                     </li>
                     <li>
                         <a th:href="@{/api/admin/users/role/USER}"
                            th:class="${#httpServletRequest != null and #strings.contains(#httpServletRequest.requestURI, '/users/role/USER') ? 'active' : ''}">
-                            👤 일반 사용자 관리
+                            일반 사용자 관리
                         </a>
                     </li>
                     <li>
                         <a th:href="@{/api/admin/products}"
                            th:class="${#httpServletRequest != null and #strings.contains(#httpServletRequest.requestURI, '/products') ? 'active' : ''}">
-                            📦 상품 관리
+                            상품 관리
                         </a>
                     </li>
                     <li>
                         <a th:href="@{/api/admin/brands}"
                            th:class="${#httpServletRequest != null and #strings.contains(#httpServletRequest.requestURI, '/brands') ? 'active' : ''}">
-                            🏷️ 브랜드 관리
+                            브랜드 관리
                         </a>
                     </li>
                     <li>
@@ -74,10 +75,10 @@
                             🗒 공지관리
                         </a>
                     </li>
-                    <li><a href="#">🛠️ 공통코드 관리</a></li>
-                    <li><a href="#">📦 재고 관리</a></li>
-                    <li><a href="#">❓ FAQ</a></li>
-                    <li><a href="#">🚪 로그아웃</a></li>
+                    <li><a href="#">공통코드 관리</a></li>
+                    <li><a href="#">재고 관리</a></li>
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">로그아웃</a></li>
                 </ul>
             </nav>
         </aside>

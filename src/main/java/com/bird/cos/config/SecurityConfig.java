@@ -86,7 +86,10 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET,
                                 "/",
                                 "/account/register",
-                                "/controller/register/login"
+                                "/controller/register/login",
+                                "/shop",
+                                "/community",
+                                "/events"
                         ).permitAll()
 
                         // 3) 회원가입/로그인/로그아웃 공개 API(POST)

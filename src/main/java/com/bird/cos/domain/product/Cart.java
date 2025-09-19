@@ -32,5 +32,4 @@ public class Cart {
 
     @Column(name = "cart_updated_at", insertable = false, updatable = false)
     private LocalDateTime cartUpdatedAt;
-
 }

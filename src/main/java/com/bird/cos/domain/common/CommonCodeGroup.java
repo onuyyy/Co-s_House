@@ -1,12 +1,20 @@
 package com.bird.cos.domain.common;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "COMMON_CODE_GROUP")
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class CommonCodeGroup {
 
     @Id

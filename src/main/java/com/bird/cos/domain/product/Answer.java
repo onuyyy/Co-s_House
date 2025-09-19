@@ -29,5 +29,4 @@ public class Answer {
 
     @Column(name = "answer_updated_at", insertable = false, updatable = false)
     private LocalDateTime answerUpdatedAt;
-
 }
