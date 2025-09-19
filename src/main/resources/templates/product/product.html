@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>오늘의집 - 수납용품</title>
-    <link rel="stylesheet" th:href="@{/css/product.css}">
+    <link rel="stylesheet" th:href="@{/css/product/product.css}">
+    <link rel="stylesheet" th:href="@{/css/main/header.css}">
 </head>
 <body>
 <!-- 헤더 -->
@@ -12,8 +13,8 @@
     <div class="container">
         <nav class="nav">
             <div class="nav-left">
-                <a th:href="@{/}" class="logo">🏠 오늘의집</a>
-                    <div th:include="header-category :: header-category"></div>
+                <a th:href="@{/static}" class="logo">🏠 오늘의집</a>
+                    <div th:include="main/header-category :: header-category"></div>
             </div>
         </nav>
     </div>
@@ -22,6 +23,26 @@
 <!-- 카테고리 탭 -->
 <section class="category-tabs">
     <div class="container">
+        <ul class="tabs">
+            <li class="tab-item">
+                <a href="#" class="active">전체</a>
+            </li>
+            <li class="tab-item">
+                <a href="#">가구</a>
+            </li>
+            <li class="tab-item">
+                <a href="#">홈데코</a>
+            </li>
+            <li class="tab-item">
+                <a href="#">수납용품</a>
+            </li>
+            <li class="tab-item">
+                <a href="#">침구</a>
+            </li>
+            <li class="tab-item">
+                <a href="#">조명</a>
+            </li>
+        </ul>
     </div>
 </section>
 

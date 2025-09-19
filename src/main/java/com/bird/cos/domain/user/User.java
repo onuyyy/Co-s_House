@@ -1,10 +1,19 @@
+// *5. Lombok 어노테이션 추가 (@Getter, @NoArgsConstructor, @AllArgsConstructor)
 package com.bird.cos.domain.user;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "USER")
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class User {
 
     @Id

@@ -1,10 +1,17 @@
+// *6. Lombok 어노테이션 추가 (@Getter, @NoArgsConstructor, @AllArgsConstructor)
 package com.bird.cos.domain.common;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "COMMON_CODE")
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
 public class CommonCode {
 
     @Id

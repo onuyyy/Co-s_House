@@ -26,7 +26,7 @@ public class ProductController {
         int totalCount = products.size();
         model.addAttribute("totalCount", totalCount);
 
-        return "product";
+        return "product/product";
     }
 
     //상세페이지
@@ -38,7 +38,7 @@ public class ProductController {
             Product product = productOpt.get();
             System.out.println("Product detail: " + product.getProductTitle());
             model.addAttribute("product", product);
-            return "product-detail";
+            return "product/product-detail";
         } else {
             return "redirect:/";
         }

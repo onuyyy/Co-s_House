@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>오늘의집 - 문의하기</title>
+    <link rel="stylesheet" href="/css/question/questionInfo.css">
+    <link rel="stylesheet" th:href="@{/css/main/header.css}">
+</head>
+<body>
+
+<!-- 메인 컨텐츠 -->
+<main class="main-content">
+    <div class="container">
+        <div class="question-header">
+            <h1>문의하기</h1>
+            <p>궁금한 사항이나 문의 내용을 남겨주세요. 빠른 시간 내에 답변해드리겠습니다.</p>
+        </div>
+
+
+        <!-- 문의 작성 폼 -->
+        <div class="question-form-container">
+            <form class="question-form" method="post"
+                  th:action="${questionDto != null and questionDto.questionId != null ? '/question/' + questionDto.questionId : '/question/submit'}">
+                <div class="form-group">
+                    <label for="questionType">문의 유형</label>
+                    <select id="questionType" name="questionType" required>
+                        <option value="">문의 유형을 선택해주세요</option>
+                        <option value="QT_001" th:selected="${questionDto != null and questionDto.questionType == 'QT_001'}">상품 문의</option>
+                        <option value="QT_002" th:selected="${questionDto != null and questionDto.questionType == 'QT_002'}">배송 문의</option>
+                        <option value="QT_003" th:selected="${questionDto != null and questionDto.questionType == 'QT_003'}">기타 문의</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="questionTitle">제목</label>
+                    <input type="text" id="questionTitle" name="questionTitle"
+                           th:value="${questionDto != null ? questionDto.questionTitle : ''}"
+                           placeholder="문의 제목을 입력해주세요" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="customerName">이름</label>
+                    <input type="text" id="customerName" name="customerName"
+                           th:value="${questionDto != null ? questionDto.customerName : ''}"
+                           placeholder="이름을 입력해주세요" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="customerEmail">이메일</label>
+                    <div class="email-input-group">
+                        <input type="text" id="customerEmail" name="customerEmail"
+                               th:value="${questionDto != null and questionDto.customerEmail != null and #strings.contains(questionDto.customerEmail, '@') ? #strings.substringBefore(questionDto.customerEmail, '@') : (questionDto != null and questionDto.customerEmail != null ? questionDto.customerEmail : '')}"
+                               placeholder="이메일을 입력해주세요" required
+                               pattern="[a-zA-Z0-9._-]+"
+                               title="영문, 숫자, '.', '_', '-'만 입력 가능합니다"
+                               oninput="validateEmailInput(this)">
+                        <span>@</span>
+                        <select id="emailDomain" name="emailDomain" required>
+                            <option value="">선택하세요</option>
+                            <option value="gmail.com" th:selected="${questionDto != null and questionDto.customerEmail != null and #strings.contains(questionDto.customerEmail, '@gmail.com')}">gmail.com</option>
+                            <option value="naver.com" th:selected="${questionDto != null and questionDto.customerEmail != null and #strings.contains(questionDto.customerEmail, '@naver.com')}">naver.com</option>
+                            <option value="daum.net" th:selected="${questionDto != null and questionDto.customerEmail != null and #strings.contains(questionDto.customerEmail, '@daum.net')}">daum.net</option>
+                            <option value="kakao.com" th:selected="${questionDto != null and questionDto.customerEmail != null and #strings.contains(questionDto.customerEmail, '@kakao.com')}">kakao.com</option>
+                            <option value="yahoo.com" th:selected="${questionDto != null and questionDto.customerEmail != null and #strings.contains(questionDto.customerEmail, '@yahoo.com')}">yahoo.com</option>
+                            <option value="hotmail.com" th:selected="${questionDto != null and questionDto.customerEmail != null and #strings.contains(questionDto.customerEmail, '@hotmail.com')}">hotmail.com</option>
+                            <option value="direct" th:selected="${questionDto != null and questionDto.customerEmail != null and #strings.contains(questionDto.customerEmail, '@') and !#strings.contains(questionDto.customerEmail, '@gmail.com') and !#strings.contains(questionDto.customerEmail, '@naver.com') and !#strings.contains(questionDto.customerEmail, '@daum.net') and !#strings.contains(questionDto.customerEmail, '@kakao.com') and !#strings.contains(questionDto.customerEmail, '@yahoo.com') and !#strings.contains(questionDto.customerEmail, '@hotmail.com')}">직접입력</option>
+                        </select>
+                        <input type="text" id="customDomain" name="customDomain"
+                               th:value="${questionDto != null and questionDto.customerEmail != null and #strings.contains(questionDto.customerEmail, '@') and !#strings.contains(questionDto.customerEmail, '@gmail.com') and !#strings.contains(questionDto.customerEmail, '@naver.com') and !#strings.contains(questionDto.customerEmail, '@daum.net') and !#strings.contains(questionDto.customerEmail, '@kakao.com') and !#strings.contains(questionDto.customerEmail, '@yahoo.com') and !#strings.contains(questionDto.customerEmail, '@hotmail.com') ? #strings.substringAfter(questionDto.customerEmail, '@') : ''}"
+                               placeholder="도메인 입력"
+                               th:style="${questionDto != null and questionDto.customerEmail != null and #strings.contains(questionDto.customerEmail, '@') and !#strings.contains(questionDto.customerEmail, '@gmail.com') and !#strings.contains(questionDto.customerEmail, '@naver.com') and !#strings.contains(questionDto.customerEmail, '@daum.net') and !#strings.contains(questionDto.customerEmail, '@kakao.com') and !#strings.contains(questionDto.customerEmail, '@yahoo.com') and !#strings.contains(questionDto.customerEmail, '@hotmail.com') ? 'display:inline-block;' : 'display:none;'}">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="customerPhone">연락처</label>
+                    <input type="tel" id="customerPhone" name="customerPhone"
+                           th:value="${questionDto != null ? questionDto.customerPhone : ''}"
+                           placeholder="010-1234-5678" pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}"
+                           maxlength="13" onkeyup="formatPhoneNumber(this)">
+                    <small class="phone-info">숫자만 입력하시면 자동으로 형식이 맞춰집니다.</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="questionContent">문의 내용</label>
+                    <textarea id="questionContent" name="questionContent" rows="8"
+                              placeholder="문의 내용을 자세히 작성해주세요" required maxlength="1000"
+                              th:text="${questionDto != null ? questionDto.questionContent : ''}"
+                              oninput="updateCharCount(this)"></textarea>
+                    <small class="char-count" id="charCount">0/1000자</small>
+                </div>
+
+
+                <div class="form-group">
+                    <label for="isSecret" class="checkbox-container">
+                        <input type="checkbox" id="isSecret" name="isSecret" value="true"
+                               th:checked="${questionDto != null and questionDto.isSecret != null and questionDto.isSecret}">
+                        <span>비밀글로 작성 (체크하시면 본인과 관리자만 확인할 수 있습니다)</span>
+                    </label>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="btn btn-cancel" onclick="history.back()">취소</button>
+                    <button type="submit" class="btn btn-submit">문의 등록</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>
+
+<!-- 푸터 -->
+<footer class="footer">
+    <div class="container">
+        <p>&copy; 2024 오늘의집. All rights reserved.</p>
+    </div>
+</footer>
+
+<script>
+// 이메일 도메인 선택 처리
+document.getElementById('emailDomain').addEventListener('change', function() {
+    const customDomain = document.getElementById('customDomain');
+    if (this.value === 'direct') {
+        customDomain.style.display = 'inline-block';
+        customDomain.required = true;
+    } else {
+        customDomain.style.display = 'none';
+        customDomain.required = false;
+        customDomain.value = '';
+    }
+});
+
+function formatPhoneNumber(input) {
+    let n = input.value.replace(/[^0-9]/g, '').slice(0, 11);
+    input.value = n.length > 7 ? `${n.slice(0,3)}-${n.slice(3,7)}-${n.slice(7)}`
+                : n.length > 3 ? `${n.slice(0,3)}-${n.slice(3)}` : n;
+}
+
+function updateCharCount(textarea) {
+    document.getElementById('charCount').textContent = `${textarea.value.length}/1000자`;
+}
+
+// 이메일 입력 검증 (영어만 허용)
+function validateEmailInput(input) {
+    input.value = input.value.replace(/[^a-zA-Z0-9._-]/g, '');
+}
+
+// 폼 제출시 이메일 조합
+document.querySelector('.question-form').addEventListener('submit', function(e) {
+    const emailInput = document.getElementById('customerEmail');
+    const domainSelect = document.getElementById('emailDomain');
+    const customDomain = document.getElementById('customDomain');
+
+    if (domainSelect.value && domainSelect.value !== 'direct') {
+        emailInput.value = emailInput.value.split('@')[0] + '@' + domainSelect.value;
+    } else if (domainSelect.value === 'direct' && customDomain.value) {
+        emailInput.value = emailInput.value.split('@')[0] + '@' + customDomain.value;
+    }
+});
+</script>
+
+</body>
+</html>

@@ -2,7 +2,10 @@ package com.bird.cos.domain.proudct;
 
 import com.bird.cos.domain.common.CommonCode;
 import jakarta.persistence.*;
-import lombok.Setter;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -10,6 +13,10 @@ import java.util.List;
 
 @Entity
 @Table(name = "PRODUCT_CATEGORY")
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class ProductCategory {
 
     @Id
@@ -22,7 +29,6 @@ public class ProductCategory {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "parent_id")
-    @Setter
     private ProductCategory parentCategory;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -43,7 +49,8 @@ public class ProductCategory {
 
     public void addChildCategory(ProductCategory child) {
         childCategories.add(child);
-        child.setParentCategory(this);
+        // parentCategory 설정은 Builder로 생성 시에 처리하도록 변경 필요
+        // 또는 별도의 비즈니스 메서드로 처리
     }
 
 

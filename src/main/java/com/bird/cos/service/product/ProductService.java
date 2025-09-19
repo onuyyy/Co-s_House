@@ -1,7 +1,7 @@
 package com.bird.cos.service.product;
 
 import com.bird.cos.domain.proudct.Product;
-import com.bird.cos.repository.ProductRepository;
+import com.bird.cos.repository.product.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
