@@ -58,7 +58,7 @@ public class UserManageController {
         model.addAttribute("pageTitle", pageTitle);
         model.addAttribute("roles", adminService.getAllRoles());
 
-        return "admin/user-list";
+        return "admin/user/user-list";
     }
 
     @GetMapping("/{userId}")
@@ -68,7 +68,7 @@ public class UserManageController {
         UserManageResponse user = adminService.getUserDetail(userId);
         model.addAttribute("user", user);
         model.addAttribute("roles", adminService.getAllRoles());
-        return "admin/user-detail";
+        return "admin/user/user-detail";
     }
 
     @PostMapping("/{userId}/update")

@@ -24,7 +24,7 @@ public class ProductCategory {
     private String categoryName;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "parent_id")
+    @JoinColumn(name = "parent_category_id")
     @Setter
     private ProductCategory parentCategory;
 

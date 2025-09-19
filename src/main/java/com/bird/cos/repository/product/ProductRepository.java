@@ -42,7 +42,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
     List<Product> findByBrand_BrandIdOrderByAverageRatingDesc(Long brandId);
   
-      // 제품명으로 검색
+    // 제품명으로 검색
     Page<Product> findProductsByProductTitleContainingIgnoreCase(String productTitle, Pageable pageable);
     
     // 브랜드명으로 검색
@@ -59,4 +59,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     
     // 색상으로 검색
     Page<Product> findProductsByProductColorContainingIgnoreCase(String productColor, Pageable pageable);
+
+    // 같은 브랜드, 같은 이름 존재하는지 검색
+    Boolean existsByProductTitleAndBrand_BrandId(String productTitle, Long brandId);
 }
