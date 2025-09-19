@@ -3,11 +3,18 @@ package com.bird.cos.domain.user;
 
 import com.bird.cos.dto.admin.UserUpdateRequest;
 import jakarta.persistence.*;
-
+<<<<<<< HEAD
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+=======
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+>>>>>>> dev
 import java.time.LocalDateTime;
 
 import static jakarta.persistence.FetchType.LAZY;
@@ -18,7 +25,10 @@ import static jakarta.persistence.FetchType.LAZY;
 @AllArgsConstructor
 @Entity
 @Table(name = "USER")
-
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class User {
 
     @Id
