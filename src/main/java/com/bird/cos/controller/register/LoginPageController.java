@@ -59,6 +59,7 @@ public class LoginPageController {
 
             // 세션 저장(기존 호환)
             User user = userRepository.findByUserEmail(loginEmail).orElseThrow();
+            session.setAttribute("userId", user.getUserId());
             session.setAttribute("userEmail", user.getUserEmail());
             session.setAttribute("userName", user.getUserName());
             session.setAttribute("user", user);
