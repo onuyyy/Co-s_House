@@ -1,12 +1,15 @@
 package com.bird.cos.dto.admin;
 
-import jakarta.validation.constraints.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 
-public class CodeCreateRequest {
+public class CodeUpdateRequest {
 
     @Data
     public static class CodeGroup {
+
         @NotBlank(message = "그룹 ID는 필수입니다.")
         private String groupId;
 
@@ -24,12 +27,11 @@ public class CodeCreateRequest {
     @Data
     public static class Code {
 
+        @NotBlank(message = "코드 ID는 필수입니다.")
+        private String codeId;
+
         @NotBlank(message = "그룹 ID는 필수입니다.")
         private String groupId;
-
-        @NotBlank(message = "코드 ID는 필수입니다.")
-        @Size(max = 50, message = "코드 이름은 최대 50자까지 가능합니다.")
-        private String codeId;
 
         @NotBlank(message = "코드 이름은 필수입니다.")
         @Size(max = 100, message = "코드 이름은 최대 100자까지 가능합니다.")

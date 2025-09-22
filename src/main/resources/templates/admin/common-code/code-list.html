@@ -18,16 +18,16 @@
         }
         
         .sidebar-section {
-            width: 20%;
+            width: 30%;
             background: white;
             border: 1px solid #e0e0e0;
             border-radius: 8px 0 0 8px;
             display: flex;
             flex-direction: column;
         }
-        
+
         .main-section {
-            width: 80%;
+            width: 70%;
             background: white;
             border: 1px solid #e0e0e0;
             border-left: none;
@@ -103,6 +103,39 @@
         .tree-icon {
             margin-right: 8px;
             color: #666;
+        }
+
+        /* 그룹 액션 버튼 스타일 */
+        .group-actions {
+            display: flex;
+            gap: 4px;
+            margin-left: 8px;
+            flex-shrink: 0;
+            align-items: center;
+        }
+
+        .group-actions .btn {
+            padding: 4px 8px;
+            font-size: 10px;
+            line-height: 1.2;
+            white-space: nowrap;
+            min-width: 32px;
+            height: 24px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 3px;
+        }
+
+        /* 버튼 그룹 스타일 */
+        .btn-group {
+            display: flex;
+            gap: 4px;
+        }
+
+        .btn-group .btn {
+            white-space: nowrap;
         }
         
         /* 메인 영역 스타일 */
@@ -207,11 +240,14 @@
         
         .modal-content {
             background: white;
-            margin: 10% auto;
+            margin: 5% auto;
             padding: 0;
             border-radius: 8px;
-            width: 500px;
-            max-width: 90%;
+            width: 600px;
+            max-width: 95%;
+            max-height: 85vh;
+            display: flex;
+            flex-direction: column;
             animation: slideIn 0.3s ease;
         }
         
@@ -241,6 +277,9 @@
         
         .modal-body {
             padding: 20px;
+            flex: 1;
+            overflow-y: auto;
+            min-height: 0; /* flex 컨테이너에서 스크롤이 작동하도록 */
         }
         
         .form-group {
@@ -736,9 +775,13 @@
                         <li class="tree-item">
                             <div class="tree-link" data-group-id="${group.groupId}" data-group-name="${group.groupName}">
                                 <span class="tree-icon">📂</span>
-                                <div style="flex: 1;">
-                                    <div style="font-weight: 500; font-size: 14px; line-height: 1.3; margin-bottom: 2px;">${group.groupName}</div>
-                                    <div style="color: #999; font-size: 11px; line-height: 1.2;">${group.groupId}</div>
+                                <div style="flex: 1; min-width: 0; overflow: hidden;">
+                                    <div style="font-weight: 500; font-size: 14px; line-height: 1.3; margin-bottom: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${group.groupName}</div>
+                                    <div style="color: #999; font-size: 11px; line-height: 1.2; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${group.groupId}</div>
+                                </div>
+                                <div class="group-actions">
+                                    <button class="btn btn-sm btn-outline" onclick="event.stopPropagation(); commonCodeManager.editGroup('${group.groupId}')">수정</button>
+                                    <button class="btn btn-sm btn-danger" onclick="event.stopPropagation(); commonCodeManager.deleteGroup('${group.groupId}')">삭제</button>
                                 </div>
                             </div>
                         </li>
@@ -860,9 +903,14 @@
                                         </td>
                                         <td>${code.sortOrder}</td>
                                         <td>
-                                            <button class="btn btn-sm btn-secondary" onclick="commonCodeManager.editCode('${code.codeId}')">
-                                                수정
-                                            </button>
+                                            <div class="btn-group">
+                                                <button class="btn btn-sm btn-secondary" onclick="commonCodeManager.editCode('${code.codeId}')">
+                                                    수정
+                                                </button>
+                                                <button class="btn btn-sm btn-danger" onclick="commonCodeManager.deleteCode('${code.codeId}')">
+                                                    삭제
+                                                </button>
+                                            </div>
                                         </td>
                                     </tr>
                                 `).join('')}
@@ -1085,25 +1133,34 @@
                     loading.style.display = 'inline-block';
 
                     try {
-                        // TODO: 서버에 저장 API 호출
-                        console.log('Saving group:', groupData);
-                        await new Promise(resolve => setTimeout(resolve, 1000)); // 임시 딜레이
+                        const url = this.editMode ? '/api/admin/common-code/groups/update' : '/api/admin/common-code/groups';
+                        const response = await fetch(url, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/x-www-form-urlencoded',
+                            },
+                            body: new URLSearchParams(groupData)
+                        });
 
-                        // 성공 시
-                        this.closeModal();
-                        await this.loadCodeGroups(); // 그룹 목록 갱신
-                        this.showSuccess(this.editMode ? '그룹이 수정되었습니다.' : '그룹이 등록되었습니다.');
+                        const result = await response.json();
 
-                        // 등록 성공 후 코드 등록 탭으로 전환 (새 등록인 경우)
-                        if (!this.editMode) {
-                            setTimeout(() => {
-                                this.openModal('code');
-                            }, 1500);
+                        if (response.ok && result.success) {
+                            // 성공 시
+                            this.closeModal();
+                            await this.loadCodeGroups(); // 그룹 목록 갱신
+                            this.showSuccess(result.message);
+
+                        } else {
+                            // 서버 유효성 검증 오류 처리
+                            if (result.errors) {
+                                this.displayServerErrors(result.errors);
+                            }
+                            this.showError(result.message || '그룹 저장에 실패했습니다.');
                         }
 
                     } catch (error) {
                         console.error('그룹 저장 실패:', error);
-                        alert('저장 중 오류가 발생했습니다.');
+                        this.showError('그룹 저장 중 오류가 발생했습니다: ' + error.message);
                     } finally {
                         saveBtn.disabled = false;
                         loading.style.display = 'none';
@@ -1133,20 +1190,35 @@
                     loading.style.display = 'inline-block';
 
                     try {
-                        // TODO: 서버에 저장 API 호출
-                        console.log('Saving code:', codeData);
-                        await new Promise(resolve => setTimeout(resolve, 1000)); // 임시 딜레이
+                        const url = this.editMode ? '/api/admin/common-code/codes/update' : '/api/admin/common-code/codes';
+                        const response = await fetch(url, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/x-www-form-urlencoded',
+                            },
+                            body: new URLSearchParams(codeData)
+                        });
 
-                        // 성공 시
-                        this.closeModal();
-                        if (this.selectedGroupId) {
-                            await this.loadCodes(this.selectedGroupId); // 코드 목록 갱신
+                        const result = await response.json();
+
+                        if (response.ok && result.success) {
+                            // 성공 시
+                            this.closeModal();
+                            if (this.selectedGroupId) {
+                                await this.loadCodes(this.selectedGroupId); // 코드 목록 갱신
+                            }
+                            this.showSuccess(result.message);
+                        } else {
+                            // 서버 유효성 검증 오류 처리
+                            if (result.errors) {
+                                this.displayServerErrors(result.errors);
+                            }
+                            this.showError(result.message || '코드 저장에 실패했습니다.');
                         }
-                        this.showSuccess(this.editMode ? '코드가 수정되었습니다.' : '코드가 등록되었습니다.');
 
                     } catch (error) {
                         console.error('코드 저장 실패:', error);
-                        alert('저장 중 오류가 발생했습니다.');
+                        this.showError('코드 저장 중 오류가 발생했습니다: ' + error.message);
                     } finally {
                         saveBtn.disabled = false;
                         loading.style.display = 'none';
@@ -1225,18 +1297,32 @@
                     field.parentNode.appendChild(errorDiv);
                 }
                 
-                editCode(codeId) {
-                    // TODO: 서버에서 코드 데이터를 가져와서 수정 모달 열기
-                    // 임시로 더미 데이터 사용
-                    const dummyCodeData = {
-                        codeId: codeId,
-                        groupId: this.selectedGroupId,
-                        codeName: '수정 대상 코드',
-                        description: '수정할 코드입니다',
-                        sortOrder: 1,
-                        isActive: true
-                    };
-                    this.openModal('code', dummyCodeData);
+                async editCode(codeId) {
+                    try {
+                        const response = await fetch(`/api/admin/common-code/codes/${codeId}`);
+                        if (!response.ok) {
+                            throw new Error('코드 데이터 로드 실패');
+                        }
+                        const codeData = await response.json();
+                        this.openModal('code', codeData);
+                    } catch (error) {
+                        console.error('코드 수정 데이터 로드 실패:', error);
+                        this.showError('코드 데이터를 불러올 수 없습니다.');
+                    }
+                }
+
+                async editGroup(groupId) {
+                    try {
+                        const response = await fetch(`/api/admin/common-code/groups/${groupId}`);
+                        if (!response.ok) {
+                            throw new Error('그룹 데이터 로드 실패');
+                        }
+                        const groupData = await response.json();
+                        this.openModal('group', groupData);
+                    } catch (error) {
+                        console.error('그룹 수정 데이터 로드 실패:', error);
+                        this.showError('그룹 데이터를 불러올 수 없습니다.');
+                    }
                 }
                 
                 showSuccess(message) {
@@ -1264,6 +1350,77 @@
                 showError(message) {
                     console.error(message);
                     alert(message);
+                }
+
+                displayServerErrors(errors) {
+                    // 기존 에러 메시지 제거
+                    document.querySelectorAll('.error-message').forEach(msg => msg.remove());
+                    document.querySelectorAll('.form-input, .form-textarea').forEach(input => input.classList.remove('invalid'));
+
+                    // 서버에서 받은 에러 메시지 표시
+                    Object.keys(errors).forEach(fieldName => {
+                        const field = document.getElementById(fieldName);
+                        if (field) {
+                            this.showFieldError(fieldName, errors[fieldName]);
+                        }
+                    });
+                }
+
+                async deleteCode(codeId) {
+                    if (!confirm('정말 이 코드를 삭제하시겠습니까?')) {
+                        return;
+                    }
+
+                    try {
+                        const response = await fetch(`/api/admin/common-code/code/${codeId}/delete`);
+                        const result = await response.json();
+
+                        if (response.ok && result.success === 'true') {
+                            this.showSuccess(result.message);
+                            if (this.selectedGroupId) {
+                                await this.loadCodes(this.selectedGroupId); // 코드 목록 갱신
+                            }
+                        } else {
+                            this.showError(result.message || '코드 삭제에 실패했습니다.');
+                        }
+                    } catch (error) {
+                        console.error('코드 삭제 실패:', error);
+                        this.showError('코드 삭제 중 오류가 발생했습니다.');
+                    }
+                }
+
+                async deleteGroup(groupId) {
+                    if (!confirm('정말 이 그룹을 삭제하시겠습니까?\n그룹에 속한 모든 코드도 함께 삭제됩니다.')) {
+                        return;
+                    }
+
+                    try {
+                        const response = await fetch(`/api/admin/common-code/group/${groupId}/delete`);
+                        const result = await response.json();
+
+                        if (response.ok && result.success === 'true') {
+                            this.showSuccess(result.message);
+                            await this.loadCodeGroups(); // 그룹 목록 갱신
+
+                            // 삭제된 그룹이 현재 선택된 그룹이면 초기화
+                            if (this.selectedGroupId === groupId) {
+                                this.selectedGroupId = null;
+                                this.selectedGroupName = null;
+                                document.getElementById('selectedGroupTitle').textContent = '코드 그룹을 선택해주세요';
+                                document.getElementById('codeTableContainer').innerHTML = `
+                                    <div class="empty-state">
+                                        <div class="empty-icon">🗂️</div>
+                                        <div>좌측에서 코드 그룹을 선택해주세요</div>
+                                    </div>
+                                `;
+                            }
+                        } else {
+                            this.showError(result.message || '그룹 삭제에 실패했습니다.');
+                        }
+                    } catch (error) {
+                        console.error('그룹 삭제 실패:', error);
+                        this.showError('그룹 삭제 중 오류가 발생했습니다.');
+                    }
                 }
             }
             
