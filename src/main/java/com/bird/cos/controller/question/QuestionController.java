@@ -4,6 +4,7 @@ import com.bird.cos.domain.product.Question;
 import com.bird.cos.domain.user.User;
 import com.bird.cos.dto.question.QuestionUpdateRequest;
 import com.bird.cos.dto.question.QuestionManageResponse;
+import com.bird.cos.repository.common.CommonCodeRepository;
 import com.bird.cos.service.question.QuestionService;
 import com.bird.cos.repository.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +32,7 @@ public class QuestionController {
     private UserRepository userRepository;
 
     @Autowired
-    private com.bird.cos.repository.CommonCodeRepository commonCodeRepository;
+    private CommonCodeRepository commonCodeRepository;
 
     /**
      * 문의 목록 페이지 조회 (페이징)
