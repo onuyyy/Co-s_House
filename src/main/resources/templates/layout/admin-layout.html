@@ -58,6 +58,12 @@
                         </a>
                     </li>
                     <li>
+                        <a th:href="@{/api/admin/notices}"
+                           th:class="${#httpServletRequest != null and #strings.contains(#httpServletRequest.requestURI, '/notices') ? 'active' : ''}">
+                            공지관리
+                        </a>
+                    </li>
+                    <li>
                         <a th:href="@{/api/admin/common-code}" 
                            th:class="${#httpServletRequest != null and #strings.contains(#httpServletRequest.requestURI, '/common-code') ? 'active' : ''}">
                             공통코드 관리
