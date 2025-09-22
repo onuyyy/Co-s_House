@@ -2,7 +2,6 @@ package com.bird.cos.controller.register;
 
 import com.bird.cos.domain.user.User;
 import com.bird.cos.exception.UnauthorizedException;
-import com.bird.cos.service.auth.AuthService;
 import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -10,7 +9,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
-import com.bird.cos.security.AuthorityService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,9 +24,6 @@ import com.bird.cos.repository.user.UserRepository;
 @RequestMapping("/controller/register")
 @RequiredArgsConstructor
 public class LoginPageController {
-
-    private final AuthService authService;
-    private final AuthorityService authorityService;
     private final AuthenticationManager authenticationManager;
     private final SecurityContextRepository securityContextRepository;
     private final UserRepository userRepository;
