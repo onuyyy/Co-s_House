@@ -1,11 +1,17 @@
 package com.bird.cos.service.admin;
 
 import com.bird.cos.domain.brand.Brand;
+import com.bird.cos.domain.common.CommonCode;
+import com.bird.cos.domain.common.CommonCodeGroup;
 import com.bird.cos.domain.product.Product;
+import com.bird.cos.domain.product.ProductCategory;
 import com.bird.cos.domain.user.User;
 import com.bird.cos.domain.user.UserRole;
 import com.bird.cos.dto.admin.*;
 import com.bird.cos.repository.brand.BrandRepository;
+import com.bird.cos.repository.common.CommonCodeGroupRepository;
+import com.bird.cos.repository.common.CommonCodeRepository;
+import com.bird.cos.repository.product.ProductCategoryRepository;
 import com.bird.cos.repository.product.ProductRepository;
 import com.bird.cos.repository.user.UserRepository;
 import com.bird.cos.repository.user.UserRoleRepository;
@@ -15,6 +21,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Transactional
 @RequiredArgsConstructor
 @Service
@@ -23,10 +33,10 @@ public class AdminService {
     private final UserRepository userRepository;
     private final UserRoleRepository userRoleRepository;
     private final ProductRepository productRepository;
+    private final ProductCategoryRepository productCategoryRepository;
     private final BrandRepository brandRepository;
+    private final CommonCodeRepository commonCodeRepository;
 
-    // ========== 사용자 관리 메서드들 ==========
-    
     @Transactional(readOnly = true)
     public Page<UserManageResponse> getAllUsers(
             UserManageSearchType searchType, String searchValue, Pageable pageable) {
@@ -182,6 +192,12 @@ public class AdminService {
     }
 
     @Transactional(readOnly = true)
+    public List<BrandManageResponse> getBrandList() {
+        List<Brand> brands = brandRepository.findAll();
+        return brands.stream().map(BrandManageResponse::from).toList();
+    }
+
+    @Transactional(readOnly = true)
     public Page<BrandManageResponse> getBrandList(
             BrandManageSearchType searchType, String searchValue, Pageable pageable) {
         
@@ -226,12 +242,90 @@ public class AdminService {
     public void deleteBrand(Long brandId) {
         Brand brand = brandRepository.findById(brandId)
                 .orElseThrow(() -> new RuntimeException("삭제할 브랜드가 없습니다."));
-        
+
         // 해당 브랜드에 상품이 있는지 확인
         if (brand.getProducts() != null && !brand.getProducts().isEmpty()) {
             throw new RuntimeException("해당 브랜드에 연결된 상품이 있어 삭제할 수 없습니다.");
         }
-        
+
         brandRepository.deleteById(brandId);
     }
+
+    @Transactional(readOnly = true)
+    public List<UserRole> getAllRoles() {
+        return userRoleRepository.findAll();
+    }
+
+    public void createBrand(BrandCreateRequest request) {
+
+        if (brandRepository.existsByBrandNameIgnoreCase(request.getBrandName())) {
+            throw new IllegalArgumentException("이미 존재하는 브랜드 이름입니다.");
+        }
+
+        brandRepository.save(
+                Brand.builder()
+                        .brandName(request.getBrandName())
+                        .brandDescription(request.getBrandDescription())
+                        .logoUrl(request.getLogoUrl())
+                        .build()
+        );
+    }
+
+    public void createProduct(ProductCreateRequest request) {
+
+        ProductCategory category = productCategoryRepository.findById(request.getProductCategoryId())
+                .orElseThrow(() -> new RuntimeException("카테고리가 존재하지 않습니다."));
+
+        Brand brand = brandRepository.findById(request.getBrandId())
+                .orElseThrow(() -> new RuntimeException("브랜드가 존재하지 않습니다."));
+
+        Product product = Product.builder()
+                .productTitle(request.getProductTitle())
+                .brand(brand)
+                .productCategory(category)
+                .mainImageUrl(request.getMainImageUrl())
+                .description(request.getDescription())
+                .originalPrice(request.getOriginalPrice())
+                .salePrice(request.getSalePrice())
+                .couponPrice(request.getCouponPrice())
+                .discountRate(request.getDiscountRate())
+                .isFreeShipping(request.getIsFreeShipping())
+                .isTodayDeal(request.getIsTodayDeal())
+                .isCohouseOnly(request.getIsCohouseOnly())
+                .productColor(request.getProductColor())
+                .material(request.getMaterial())
+                .capacity(request.getCapacity())
+                .stockQuantity(request.getStockQuantity())
+                .productStatusCode(commonCodeRepository.findById(request.getProductStatusCodeId())
+                        .orElseThrow(() -> new RuntimeException("상품 상태 코드를 찾을 수 없습니다: " + request.getProductStatusCodeId())))
+                .build();
+
+        productRepository.save(product);
+    }
+
+    public List<ProductCategoryResponse> getProductCategoryList() {
+        List<ProductCategoryResponse> list = new ArrayList<>();
+        productCategoryRepository.findAll().forEach(productCategory -> {
+            list.add(ProductCategoryResponse.from(productCategory));
+        });
+
+        return list;
+    }
+
+    public List<ProductCategoryResponse> getProductCategoryLevel1() {
+        List<ProductCategory> productCategoryList = productCategoryRepository.findAllByLevel(1);
+
+        return productCategoryList.stream()
+                .map(ProductCategoryResponse::from)
+                .collect(Collectors.toList());
+    }
+
+    public List<ProductCategoryResponse>  getChildCategories(Long parentId) {
+        List<ProductCategory> children = productCategoryRepository.findByParentCategory_CategoryId(parentId);
+        return children.stream()
+                .map(ProductCategoryResponse::from)
+                .collect(Collectors.toList());
+    }
+
+
 }

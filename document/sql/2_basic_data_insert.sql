@@ -1,6 +1,7 @@
 -- ========================================
 -- USER_ROLE 테이블 기본 데이터 (먼저 실행)
 -- ========================================
+
 INSERT INTO user_role (user_role_name, role_description, role_created_date) VALUES
 ('USER', '일반 사용자 - 상품 구매 및 기본 서비스 이용', NOW()),
 ('ADMIN', '관리자 - 사용자/상품/주문 관리 권한', NOW()),

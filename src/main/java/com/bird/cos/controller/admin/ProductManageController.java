@@ -1,24 +1,68 @@
 package com.bird.cos.controller.admin;
 
-import com.bird.cos.dto.admin.ProductManageResponse;
-import com.bird.cos.dto.admin.ProductManageSearchType;
-import com.bird.cos.dto.admin.ProductUpdateRequest;
+import com.bird.cos.dto.admin.*;
 import com.bird.cos.service.admin.AdminService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.Objects;
+
+@Slf4j
 @RequiredArgsConstructor
 @RequestMapping("/api/admin/products")
 @Controller
 public class ProductManageController {
 
     private final AdminService adminService;
+
+    // Ajax: 자식 카테고리 조회
+    @GetMapping("/categories/{parentId}/children")
+    @ResponseBody
+    public List<ProductCategoryResponse> getChildCategories(@PathVariable Long parentId) {
+        return adminService.getChildCategories(parentId);
+    }
+
+    @GetMapping("/new")
+    public String createProduct( Model model)
+    {
+        try {
+            List<BrandManageResponse> brandList = adminService.getBrandList();
+            List<ProductCategoryResponse> categoryList = adminService.getProductCategoryLevel1();
+
+            model.addAttribute("brandList", brandList);
+            model.addAttribute("category_level1", categoryList);
+
+            return "admin/product/create-form";
+        } catch (Exception e) {
+            log.error("createProduct 상품 등록 폼 로드 오류 {}",e.getMessage());
+            model.addAttribute("error", e.getMessage());
+            return "error";
+        }
+    }
+
+    // 상품 등록
+    @PostMapping
+    public String createProduct(@Valid ProductCreateRequest request, BindingResult bindingResult)
+    {
+        // @Valid 유효성 제약 조건의 검증 결과는 담는 객체
+        if (bindingResult.hasErrors()) {
+            log.info("createProduct binding error: {}", Objects.requireNonNull(bindingResult.getFieldError()).getDefaultMessage());
+            return "admin/product/create-form";
+        }
+        adminService.createProduct(request);
+
+        return "redirect:/api/admin/products";
+    }
 
     @GetMapping
     public String productManagePage(
@@ -31,7 +75,7 @@ public class ProductManageController {
                 adminService.getProductList(searchType, searchValue, pageable);
 
         model.addAttribute("productList", productList);
-        return "admin/product-list";
+        return "admin/product/product-list";
     }
 
     @GetMapping("/{productId}")
@@ -39,7 +83,7 @@ public class ProductManageController {
             @PathVariable Long productId, Model model
     ) {
         model.addAttribute("product", adminService.getProductDetail(productId));
-        return "admin/product-detail";
+        return "admin/product/product-detail";
     }
 
     @PostMapping("/{productId}/update")

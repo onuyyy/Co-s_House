@@ -24,6 +24,7 @@ spring:
     suffix: .html
     encoding: UTF-8
     mode: HTML
+    cache: false
 
   mail:
     host: smtp.naver.com #smtp 서버 주소

@@ -141,15 +141,31 @@
                                       placeholder="주소를 입력하세요"></textarea>
                             <small class="form-text">사용자의 주소 정보입니다. (최대 200자)</small>
                         </div>
+
+                        <div class="form-group">
+                            <label for="userRoleId" class="required">역할 *</label>
+                            <select id="userRoleId" name="userRoleId" class="form-control" required>
+                                <option value="">역할을 선택하세요</option>
+                                <option th:each="role : ${roles}"
+                                        th:value="${role.userRoleId}"
+                                        th:text="${role.userRoleName}"
+                                        th:selected="${role.userRoleId == user.userRoleId}">
+                                    역할명
+                                </option>
+                            </select>
+                            <small class="form-text">사용자의 권한 역할을 설정합니다.</small>
+                        </div>
                     </div>
 
                     <div class="form-row">
-                        <div class="form-group checkbox-group">
-                            <label>
-                                <input type="checkbox" name="termsAgreed" th:checked="${user.termsAgreed}">
-                                <span class="checkbox-text">이용약관 동의</span>
-                            </label>
-                            <small class="form-text">서비스 이용약관에 동의하는지 설정합니다.</small>
+                        <div class="form-group">
+                            <label for="termsAgreed" class="required">약관 동의 상태 *</label>
+                            <select id="termsAgreed" name="termsAgreed" class="form-control" required>
+                                <option value="">선택하세요</option>
+                                <option value="true" th:selected="${user.termsAgreed == true}">동의</option>
+                                <option value="false" th:selected="${user.termsAgreed == false}">미동의</option>
+                            </select>
+                            <small class="form-text">사용자의 서비스 이용약관 동의 상태를 설정합니다.</small>
                         </div>
                     </div>
 
