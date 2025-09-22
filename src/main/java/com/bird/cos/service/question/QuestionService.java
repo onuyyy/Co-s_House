@@ -1,13 +1,13 @@
 // *2. CommonCode 연결, user_id=1 하드코딩, questionStatus=QS_001 기본값, 조회 메서드들 추가
 package com.bird.cos.service.question;
 
-import com.bird.cos.domain.proudct.Question;
+import com.bird.cos.domain.product.Question;
 import com.bird.cos.domain.user.User;
 import com.bird.cos.domain.common.CommonCode;
 import com.bird.cos.dto.question.QuestionUpdateRequest;
 import com.bird.cos.dto.question.QuestionManageResponse;
 import com.bird.cos.repository.question.QuestionRepository;
-import com.bird.cos.repository.UserRepository;
+import com.bird.cos.repository.user.UserRepository;
 import com.bird.cos.repository.CommonCodeRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -163,6 +163,7 @@ public class QuestionService {
                     .userPassword(user.getUserPassword())
                     .userPhone(newPhone != null && !newPhone.trim().isEmpty() ? newPhone.trim() : user.getUserPhone())
                     .userUpdatedAt(user.getUserUpdatedAt())
+                    .emailVerified(user.isEmailVerified())
                     .build();
 
             return userRepository.save(updatedUser);

@@ -81,20 +81,21 @@ public class NoticeManageController {
     public String createNotice(@ModelAttribute @Valid NoticeRequest request,
                                HttpSession session,
                                RedirectAttributes redirectAttributes) {
+
         try {
             //시큐리티로 변경가능 지금은 세션처리
             Long writerId = (Long) session.getAttribute("userId");
             if (writerId == null) {
                 redirectAttributes.addFlashAttribute("error", "로그인이 필요합니다.");
-                return "redirect:/admin/login";
+                return "redirect:/controller/register/login";
             }
 
             NoticeResponse createdNotice = noticeService.createNotice(request, writerId);
             redirectAttributes.addFlashAttribute("success", "공지사항이 성공적으로 등록되었습니다.");
-            return "redirect:/admin/notices/" + createdNotice.getNoticeId() + "/detail";
+            return "redirect:/api/admin/notices/" + createdNotice.getNoticeId() + "/detail";
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("error", "공지사항 등록에 실패했습니다: " + e.getMessage());
-            return "redirect:/admin/notices/create";
+            return "redirect:/api/admin/notices/create";
         }
     }
 

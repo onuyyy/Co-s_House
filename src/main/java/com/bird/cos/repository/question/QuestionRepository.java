@@ -1,7 +1,7 @@
 // *1. JpaRepository 상속 추가, JOIN FETCH 쿼리로 User/CommonCode 함께 조회
 package com.bird.cos.repository.question;
 
-import com.bird.cos.domain.proudct.Question;
+import com.bird.cos.domain.product.Question;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

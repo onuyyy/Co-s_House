@@ -1,6 +1,6 @@
 package com.bird.cos.dto.question;
 
-import com.bird.cos.domain.proudct.Question;
+import com.bird.cos.domain.product.Question;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;

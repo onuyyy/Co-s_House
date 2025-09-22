@@ -55,6 +55,9 @@ public class User {
     @Column(name = "terms_agreed")
     private Boolean termsAgreed = false;
 
+    @Column(name = "email_verified", nullable = false)
+    private boolean emailVerified;
+
     @Column(name = "user_created_at", insertable = false, updatable = false)
     private LocalDateTime userCreatedAt;
 
