@@ -8976,7 +8976,3115 @@ INSERT INTO product (
          );
 
 INSERT INTO product (
+    INSERT INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             742, '삼익가구 레이즈 LED 4단 수납 침대 SS', 693, 101, 'https://shopping-phinf.pstatic.net/main_3709776/37097769618.20230110101213.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             264870.0, 264870.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             743, '고래가구 포스티 LED조명 헤드보드 선반 틈새 벽보드 수납 침대 머리판 SS(슈퍼싱글), 직선형-오크', 99, 101, 'https://shopping-phinf.pstatic.net/main_8917990/89179906969.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             46900.0, 46900.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             744, '마젤란 가죽 침대프레임 슈퍼싱글SS 퀸Q 킹K 이스턴EK 캘리포니아CK 라지LK 주문제작', 126, 101, 'https://shopping-phinf.pstatic.net/main_1143962/11439628429.2.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             399000.0, 399000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             745, '까르엠가구 루이스 LED 평상형 수납 침대 프레임 SS(슈퍼싱글), 내추럴', 131, 101, 'https://shopping-phinf.pstatic.net/main_5250673/52506730965.20250115153652.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             299000.0, 299000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             746, '까르엠가구 마티니 고무나무 원목 침대 프레임 SS(슈퍼싱글), 내추럴', 131, 101, 'https://shopping-phinf.pstatic.net/main_5240244/52402449643.20250109110320.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             317000.0, 317000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             747, '슬립퍼 도스 쿠션형 침대 프레임 저상 평상형 침대 파운데이션 LK 라지킹 사이즈 침대', 796, 101, 'https://shopping-phinf.pstatic.net/main_8310723/83107233452.1.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             774000.0, 774000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             748, '지누스 스마트베이스 엘리트 침대 프레임 SS(슈퍼싱글), 화이트', 1171, 101, 'https://shopping-phinf.pstatic.net/main_5520982/55209824552.20250609114304.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             112260.0, 112260.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             749, '리바트 피아프 LED 조명 호텔침대 수납형 SS/Q - 슈퍼싱글_웜 화이트', 422, 101, 'https://shopping-phinf.pstatic.net/main_5002808/50028084238.1.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             462000.0, 462000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             750, '올쏘 진저 고무나무 원목 침대 프레임 SS(슈퍼싱글), 내추럴', 1017, 101, 'https://shopping-phinf.pstatic.net/main_5226864/52268649623.20250306111146.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             249000.0, 249000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             751, '에몬스 클레어 에디션 침대 Q', 927, 101, 'https://shopping-phinf.pstatic.net/main_1730709/17307098430.20190201112144.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             685020.0, 685020.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             752, '금성침대 시그널 LED 서랍침대 SS', 123, 101, 'https://shopping-phinf.pstatic.net/main_1510323/15103237689.20180820111231.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             265500.0, 265500.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             753, '에보니아 파인 평상형 원목 침대 프레임 SS', 929, 101, 'https://shopping-phinf.pstatic.net/main_4447420/44474209620.20231206161240.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             149000.0, 149000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             754, '이케아 침대프레임+보조침대/수납 슬렉트 SLÄKT 화이트 90x200cm 492.277.52', 1100, 101, 'https://shopping-phinf.pstatic.net/main_5492787/54927871706.1.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             349000.0, 349000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             755, '이케아 오토만침대 말름 MALM 화이트 150x200cm 904.048.03', 1100, 101, 'https://shopping-phinf.pstatic.net/main_5492787/54927870591.1.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             599000.0, 599000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             756, '[키디몽드] 꾸메 이지클린 패브릭 데이베드세트 저상형 슈퍼싱글 SS 아기침대 키즈침대', 1259, 101, 'https://shopping-phinf.pstatic.net/main_8762265/87622657801.1.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             790000.0, 790000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             757, '지누스 스마트베이스 엘리트 침대 프레임 S', 1171, 101, 'https://shopping-phinf.pstatic.net/main_1680216/16802160509.20250109184213.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             108390.0, 108390.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             758, '어반네이처 원목 침대 프레임 SS(슈퍼싱글), 월넛', 1451, 101, 'https://shopping-phinf.pstatic.net/main_5220392/52203924625.20241231110635.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             396000.0, 396000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             759, '골든스트릿 맥시멈 슬라이딩 벙커 호텔식 와이드 LED헤드 높은 빅수납침대 SS', 101, 101, 'https://shopping-phinf.pstatic.net/main_5660710/56607101662.20250909140457.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             378000.0, 378000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             760, '동서가구 동서가구 히노끼 편백나무 100% 통원목침대 싱글/슈퍼싱글/퀸/킹 / 침대 침대프레임 패밀리침대 퀸침대', 289, 101, 'https://shopping-phinf.pstatic.net/main_5658892/56588925630.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             172380.0, 172380.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             761, '엘론 맞춤 주문제작 공간활용 패브릭 침대헤드보드 싱글 1000', 1394, 101, 'https://shopping-phinf.pstatic.net/main_8406558/84065587274.1.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             188000.0, 188000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             762, '리자인가구 침대 프레임 매트리스 깔판 저상형 패밀리 받침대 JS', 446, 101, 'https://shopping-phinf.pstatic.net/main_1862198/18621982644.20240329141430.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             48000.0, 48000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             763, '동서가구 미휴 깊은서랍 2단 수납 침대 프레임 SS DF636030', 289, 101, 'https://shopping-phinf.pstatic.net/main_4541159/45411598620.20250624162537.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             159000.0, 159000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             764, '장인가구 로시 라이트 템바보드 평상형 침대 프레임 SS 일반형', 1141, 101, 'https://shopping-phinf.pstatic.net/main_5122535/51225350623.20241105164019.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             269000.0, 269000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             765, '한샘 아임빅 슬림수납헤드형 수납 침대 프레임 SS', 1430, 101, 'https://shopping-phinf.pstatic.net/main_1695383/16953839827.20190109111212.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             419000.0, 419000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             766, '모모드 원스테이 고무나무 원목침대 신혼부부 침대 프레임 퀸 Q 월넛', 126, 101, 'https://shopping-phinf.pstatic.net/main_8560441/85604414984.3.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             453000.0, 453000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             767, '토스트 슈퍼싱글 침대 프레임', 422, 101, 'https://shopping-phinf.pstatic.net/main_3114061/31140612839.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             458000.0, 458000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             768, '이노센트 씨엘로 LED 침대 SS', 1073, 101, 'https://shopping-phinf.pstatic.net/main_2800270/28002700522.20240726182947.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             199000.0, 199000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             769, '홈앤힐 휴고LED 데이베드 저상형 아기침대 패브릭 슈퍼싱글', 1481, 101, 'https://shopping-phinf.pstatic.net/main_8856209/88562094997.1.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             499000.0, 499000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             770, '동서가구 몬스터 빅 수납침대 프레임 SS DF638916', 289, 101, 'https://shopping-phinf.pstatic.net/main_8089559/80895593546.4.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             519000.0, 519000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             771, '제롬 저상형 패밀리 프레임 A타입_3면가드형/슈퍼싱글(SS)', 956, 100, 'https://shopping-phinf.pstatic.net/main_8754436/87544360638.2.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             1007000.0, 1007000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             772, '침대 프레임 매트리스 받침대 원목 갈빗살 깔판 701 슈퍼싱글+원목발 6cm', 492, 101, 'https://shopping-phinf.pstatic.net/main_8650204/86502044376.1.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             86430.0, 86430.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             773, '[에몬스]클레어 에디션 침대 슈퍼싱글(SS) (사은품 포니 2단 협탁)', 927, 101, 'https://shopping-phinf.pstatic.net/main_5473754/54737542851.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             649000.0, 649000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             774, '네이쳐스토리 르마인 무헤드 3단서랍 벙커수납 침대프레임 MS(멀티싱글), 화이트', 181, 101, 'https://shopping-phinf.pstatic.net/main_5294011/52940110498.20250211180614.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             108210.0, 108210.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             775, '시몬스 D2178A 뷰티레스트 자스민 침대 SS', 800, 101, 'https://shopping-phinf.pstatic.net/main_2912566/29125663589.20230615172606.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             2167425.0, 2167425.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             776, '삼익가구 포텐 LED 4단 수납 원목 침대 프레임 LK(라지킹), 내추럴', 693, 101, 'https://shopping-phinf.pstatic.net/main_5218803/52188030620.20241230121501.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             399000.0, 399000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             777, '[희망일] 핀란디아 로렌스 원목 통깔판 평상형 LED 조명 침대 프레임 SS', 1405, 101, 'https://shopping-phinf.pstatic.net/main_8645811/86458117188.5.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             399000.0, 399000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             778, '지누스 1500H 침대 프레임 SS(슈퍼싱글), 화이트', 1171, 101, 'https://shopping-phinf.pstatic.net/main_5525385/55253853473.20250611161801.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             152000.0, 152000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             779, '삼익가구 오브슬립 호텔 아쿠아텍스 패브릭 침대 프레임 SS(슈퍼싱글), 아이보리', 693, 101, 'https://shopping-phinf.pstatic.net/main_5220510/52205106619.20241231123456.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             271000.0, 271000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             780, '침대 매트리스 깔판 받침대 저상형 침대프레임 플라스틱 침대판 S', 126, 101, 'https://shopping-phinf.pstatic.net/main_1144443/11444436964.3.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             25900.0, 25900.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             781, '도담 마루 패밀리침대 슬림 밸런스형 프레임 SS+SS', 281, 101, 'https://shopping-phinf.pstatic.net/main_8540661/85406611815.3.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             159000.0, 159000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             782, '지누스 트리샤 침대 프레임 (슈퍼싱글)', 1171, 101, 'https://shopping-phinf.pstatic.net/main_8230248/82302486753.1.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             152000.0, 152000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             783, '편백나무 원목 침대프레임 평상형 LED 헤드 무헤드', 446, 101, 'https://shopping-phinf.pstatic.net/main_8219127/82191276844.1.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             175000.0, 175000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             784, '일룸 반트 조명형 수납침대 SS', 1117, 101, 'https://shopping-phinf.pstatic.net/main_3601235/36012351622.20221122122309.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             989000.0, 989000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             785, '삼익가구 빅터 슬라이딩 빅수납 침대 프레임 + 계단 + 책장 세트 SS(슈퍼싱글), 화이트', 693, 101, 'https://shopping-phinf.pstatic.net/main_5346616/53466165038.20250310144800.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             471000.0, 471000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             786, '슬립퍼 평상형 침대프레임 파운데이션 저상형 무헤드 헤드없는 침대 깔판 S/SS 10cm', 796, 101, 'https://shopping-phinf.pstatic.net/main_8259303/82593038357.17.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             316000.0, 316000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             787, '이케아 침대프레임+수납/갈빗살 슬렉트 SLÄKT 화이트 90x200cm 992.919.67', 1100, 101, 'https://shopping-phinf.pstatic.net/main_5492787/54927872321.1.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             384000.0, 384000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             788, '스스디 리프트업 수납 침대 높이400 가로형 프레임 슈퍼싱글 SS', 771, 101, 'https://shopping-phinf.pstatic.net/main_8252256/82522561065.8.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             329000.0, 329000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             789, '올쏘 아이비 원목 침대 프레임 Q(퀸), 브라운', 1017, 101, 'https://shopping-phinf.pstatic.net/main_5287083/52870839890.20250228095715.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             219900.0, 219900.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             790, '한샘 클로즈 침대 프레임 SS', 1430, 101, 'https://shopping-phinf.pstatic.net/main_2389181/23891817522.20231214171756.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             406060.0, 406060.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             791, '지누스 스마트베이스 엘리트 침대 프레임 Q', 1171, 101, 'https://shopping-phinf.pstatic.net/main_1680217/16802173510.20250109184720.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             125490.0, 125490.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             792, '휴슬 템바슬라이딩 트윈침대프레임 호텔 조명원목침대 SS+SS', 126, 101, 'https://shopping-phinf.pstatic.net/main_8924617/89246170348.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             1980000.0, 1980000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             793, '평상형 미니 수납 수납형 멀티 싱글 서랍 서랍형 무헤드 침대 프레임', 126, 101, 'https://shopping-phinf.pstatic.net/main_8315335/83153350540.8.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             119000.0, 119000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             794, '홈앤힐 하모 원목 데이베드 아기침대 하이가드 슈퍼싱글', 1481, 101, 'https://shopping-phinf.pstatic.net/main_8898805/88988054351.1.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             569000.0, 569000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             795, '베디스 모나코 원목 편백나무 LED조명 내가 찾던 호텔 침대프레임 수납침대 LK 라지킹', 598, 101, 'https://shopping-phinf.pstatic.net/main_8362145/83621459998.3.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             449000.0, 449000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             796, '퍼니홈 스르륵 리프트업 호텔형 수납 침대 프레임 원목Q(퀸), 도토리', 1332, 101, 'https://shopping-phinf.pstatic.net/main_5509753/55097532242.20250603110659.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             970000.0, 970000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             797, '휴도 나른한 선유 E0등급 저상형 무헤드 원목형 침대 매트리스 깔판 프레임 MS', 1488, 101, 'https://shopping-phinf.pstatic.net/main_8817738/88177383803.6.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             39900.0, 39900.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             798, '크라운퍼니쳐 노아 06 LED 빅수납 서랍 수납침대 프레임 SS', 1248, 101, 'https://shopping-phinf.pstatic.net/main_5496795/54967958357.20250526101550.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             179000.0, 179000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             799, '모젤리가구 모던 LED 수납침대 프레임 K', 518, 101, 'https://shopping-phinf.pstatic.net/main_2929808/29298084619.20211019102911.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             229000.0, 229000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             800, '동서가구 피렌체 우든 LED 원목 수납 침대 프레임 SS(슈퍼싱글), 내추럴', 289, 101, 'https://shopping-phinf.pstatic.net/main_5250622/52506220842.20250806142815.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             169000.0, 169000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             801, '이케아 그림스부 침대프레임 그레이 90x200cm 원룸 싱글 204.587.57', 1100, 101, 'https://shopping-phinf.pstatic.net/main_8249784/82497840563.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             45420.0, 45420.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             802, '리바트 코코니 수납침대 프레임 + 가드 + 계단 SS(슈퍼싱글), 시폼화이트', 422, 101, 'https://shopping-phinf.pstatic.net/main_5447075/54470753554.20250428162551.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             493050.0, 493050.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             803, '몬트디자인 보니타 침대 헤드보드 LED 슈퍼싱글', 126, 101, 'https://shopping-phinf.pstatic.net/main_8805643/88056434815.3.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             63200.0, 63200.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             804, '삼익가구 빅터 슬라이딩 수납 서랍형 벙커 평상형 무헤드형 슈퍼싱글 침대 프레임(안전가드+계단포함) / 매트리스 제외', 693, 101, 'https://shopping-phinf.pstatic.net/main_8301539/83015397299.10.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             301000.0, 301000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             805, '아씨방 제로 릴렉스 발빠짐방지 2.5m 저상형 패밀리 침대 프레임 SS+SS', 850, 101, 'https://shopping-phinf.pstatic.net/main_5259370/52593709503.20250121143942.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             169000.0, 169000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             806, '지누스 퀵스냅 침대 프레임 (슈퍼싱글)', 1171, 101, 'https://shopping-phinf.pstatic.net/main_8354462/83544623304.1.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             152000.0, 152000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             807, '바림가구 코자르 무헤드 침대프레임 헤드없는 파운데이션 평상형 가죽 침대깔판 S', 126, 101, 'https://shopping-phinf.pstatic.net/main_8220995/82209958054.5.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             93900.0, 93900.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             808, '레이디가구 모노 LED 빅 3단서랍 수납 침대 프레임 SS', 369, 101, 'https://shopping-phinf.pstatic.net/main_2683557/26835573522.20210423134928.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             249000.0, 249000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             809, '아임빅 수납침대SS 일반헤드형+노뜨 매트리스', 1430, 101, 'https://shopping-phinf.pstatic.net/main_2160889/21608891309.2.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             541120.0, 541120.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             810, '삼익가구 포텐 LED 4단 서랍형 USB 충전 수납 원목 헤드 호텔 침대 프레임 슈퍼싱글 매트리스 제외', 693, 101, 'https://shopping-phinf.pstatic.net/main_8237718/82377183148.20.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             199000.0, 199000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             811, '보보 웜 유럽 패브릭 침대프레임 LK 기본헤드 풋보드 SET', 126, 101, 'https://shopping-phinf.pstatic.net/main_8771562/87715620660.2.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             1200000.0, 1200000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             812, '플랜퍼니 부부트윈 호텔 침대프레임 라지킹', 1392, 101, 'https://shopping-phinf.pstatic.net/main_8761698/87616988534.5.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             995800.0, 995800.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             813, '원목 침대 프레임 매트리스 깔판 저상형 침대 받침대 소나무 2단 접이식 깔판 미니싱글', 188, 101, 'https://shopping-phinf.pstatic.net/main_1333303/13333034269.8.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             9900.0, 9900.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             814, '일룸 반트 수납침대(조명형, 매트리스미포함) 헤드형, SS(슈퍼싱글), SP(화이트)', 1117, 101, 'https://shopping-phinf.pstatic.net/main_8361464/83614648832.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             619000.0, 619000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             815, '일룸 헤이즐 조명형 침대 프레임 Q(퀸), 카디즈오크', 1117, 101, 'https://shopping-phinf.pstatic.net/main_5220453/52204538647.20241231121649.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             599000.0, 599000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             816, '노르웨이숲 원목 침대 깔판 매트리스 받침대 편백 2단 접이식 깔판 침대 프레임 60cm', 188, 101, 'https://shopping-phinf.pstatic.net/main_4758098/47580988618.20240508130944.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             29900.0, 29900.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             817, '레이디가구 모노 무헤드 빅 3단서랍 수납 침대 프레임 SS', 369, 101, 'https://shopping-phinf.pstatic.net/main_2676943/26769430522.20210422134602.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             170100.0, 170100.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             818, '루체 4단 접이식 원목 매트리스 깔판 받침대 저상형 패밀리 싱글', 126, 101, 'https://shopping-phinf.pstatic.net/main_8373080/83730809246.7.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             51800.0, 51800.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             819, '리바트 필로시 2단 멀티수납 침대 SS 매트별도', 422, 101, 'https://shopping-phinf.pstatic.net/main_2701253/27012532522.20210503121215.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             561400.0, 561400.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             820, '리자인가구 LED 수납 서랍형 고무나무 원목 침대 프레임 SS(슈퍼싱글), 고무나무원목', 446, 101, 'https://shopping-phinf.pstatic.net/main_5268583/52685837227.20250127112612.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             274000.0, 274000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             821, '한샘 아임빅 수납 무헤드 침대 SS', 1430, 101, 'https://shopping-phinf.pstatic.net/main_1108411/11084111163.20200824163709.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             529620.0, 529620.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             822, '리코르소가구 LED 고무나무 원목 서랍형 수납 침대 프레임 SS', 57, 101, 'https://shopping-phinf.pstatic.net/main_8284670/82846701132.3.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             248000.0, 248000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             823, '지누스 매든 저상형 침대 프레임 Q', 1171, 101, 'https://shopping-phinf.pstatic.net/main_4917924/49179245618.20250109195351.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             243520.0, 243520.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             824, '엔투엔퍼니쳐 레인 짜맞춤 평상형 원목 침대프레임 기본형 SS(슈퍼싱글), 애쉬브라운', 955, 101, 'https://shopping-phinf.pstatic.net/main_5522739/55227399114.20250610095305.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             474000.0, 474000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             825, 'NOOER 룬드 헤드없는 무헤드 평상형 침대프레임 S/SS', 48, 101, 'https://shopping-phinf.pstatic.net/main_4664334/46643341619.20240326100543.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             199000.0, 199000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             826, '침대확장 프레임 연장 보조 원목베드 사이드 확장형 300X2020', 1189, 101, 'https://shopping-phinf.pstatic.net/main_8755255/87552554285.4.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             92000.0, 92000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             827, 'NOOER 룬드 무헤드 수납형 침대프레임 S/SS', 48, 101, 'https://shopping-phinf.pstatic.net/main_5492562/54925620152.20250526171934.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             259000.0, 259000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             828, '침대프레임 패밀리침대 큐브 저상형 패브릭 가족 평상형 SS+SS', 620, 101, 'https://shopping-phinf.pstatic.net/main_8652302/86523021417.11.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             389000.0, 389000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             829, '동서가구 LED 조명 편백나무 평상형 침대프레임 SS', 289, 101, 'https://shopping-phinf.pstatic.net/main_8100517/81005171922.4.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             179000.0, 179000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             830, '에이스침대 BMA 1150-LC CA 침대 SS', 939, 101, 'https://shopping-phinf.pstatic.net/main_1913421/19134214403.20240618150122.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             1139800.0, 1139800.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             831, '[에이스침대] BMA 1139-E CA등급/LQ(퀸사이즈)', 939, 101, 'https://shopping-phinf.pstatic.net/main_8296357/82963571524.2.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             1076490.0, 1076490.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             832, '메이른 부부트윈침대 안방 호텔식 템바보드침대 평상형 슈퍼싱글침대2개+사이드협탁', 1154, 101, 'https://shopping-phinf.pstatic.net/main_8869489/88694894925.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             1560000.0, 1560000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             833, '도담 마루 저상형 패밀리 침대 프레임 LED수납 밸런스형 SS + SS', 281, 101, 'https://shopping-phinf.pstatic.net/main_5496867/54968671376.20250526170957.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             329000.0, 329000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             834, '트루베퍼니처 누보 빅 3단 수납 무헤드형 침대 프레임 SS', 1295, 101, 'https://shopping-phinf.pstatic.net/main_2256792/22567925059.20220224163734.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             119900.0, 119900.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             835, '원스테이 고무나무 원목 침대 프레임 LK(라지킹), 월넛', 126, 101, 'https://shopping-phinf.pstatic.net/main_5556373/55563737962.20250630154259.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             549000.0, 549000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             836, '헤일리 LED 조명 3단 서랍형 수납 침대 슈퍼싱글 매트포함 SS 기본형 베이직 매트리스', 620, 101, 'https://shopping-phinf.pstatic.net/main_8222450/82224508224.7.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             289000.0, 289000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             837, '상일리베가구 몽드 패브릭 트윈 부부 침대 프레임 + 조명협탁 1EA SS+SS(슈퍼싱글+슈퍼싱글), 라이트그레이', 696, 101, 'https://shopping-phinf.pstatic.net/main_5509777/55097775044.20250603115552.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             519000.0, 519000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             838, '아카시아 원목 매트리스 깔판 패밀리 무헤드형, Q(퀸), 월넛', 126, 101, 'https://shopping-phinf.pstatic.net/main_8939250/89392502897.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             189800.0, 189800.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             839, '삼익가구 클로드 책장형 LED 4단 수납 침대 SS', 693, 101, 'https://shopping-phinf.pstatic.net/main_3782387/37823873625.20230209155445.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             247430.0, 247430.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             840, '금성침대 파인드 LED 서랍형침대 Q', 123, 101, 'https://shopping-phinf.pstatic.net/main_1252095/12520956446.20171023101956.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             404900.0, 404900.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             841, '수납침대 좁은방 서랍형침대 프레임 알론 LED 1단SS', 846, 101, 'https://shopping-phinf.pstatic.net/main_8157056/81570563874.8.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             219000.0, 219000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             842, '한샘 샘키즈 데이베드 SS + 안전가드 140cm', 1430, 100, 'https://shopping-phinf.pstatic.net/main_4631538/46315383619.20240311151729.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             329000.0, 329000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             843, '베디스 라비앙로즈 호텔식 침대 프레임 Q/K 기본형', 598, 101, 'https://shopping-phinf.pstatic.net/main_3520602/35206021618.20250710110310.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             349000.0, 349000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             844, '동서가구 몬티아 3서랍 LED 침대 SS', 289, 101, 'https://shopping-phinf.pstatic.net/main_4648423/46484235621.20240318174059.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             288550.0, 288550.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             845, '[아울렛] 한정수량★피아프 슈퍼싱글 호텔형 침대 프레임 수납형 (조명포함)', 422, 101, 'https://shopping-phinf.pstatic.net/main_3243625/32436250290.1.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             462000.0, 462000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             846, '인홈 라온 저상형 침대 프레임 슬림형 SS', 1113, 101, 'https://shopping-phinf.pstatic.net/main_5500264/55002642373.20250528171026.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             119000.0, 119000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             847, '안데르센 올리버 60cm 하이가드 원목 데이베드 수납 침대프레임 SS(내츄럴)', 892, 101, 'https://shopping-phinf.pstatic.net/main_8722672/87226720906.16.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             2380000.0, 2380000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             848, '에몬스 뉴헤로 LED 수납침대 SS', 927, 101, 'https://shopping-phinf.pstatic.net/main_3423033/34230331618.20220823102233.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             584100.0, 584100.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             849, '장인가구 루아 터치센서 LED 조명 가죽 헤드 침대 프레임 SS', 1141, 101, 'https://shopping-phinf.pstatic.net/main_5049974/50499748626.20240926124455.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             328000.0, 328000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             850, '[포토리뷰 선물 이벤트] 파로마 로건 LED 수납침대 슈퍼싱글 SS 프레임', 1314, 101, 'https://shopping-phinf.pstatic.net/main_1153811/11538116827.15.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             159000.0, 159000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             851, '일룸 로이모노 침대 프레임 SS(슈퍼싱글), 그레이', 1117, 101, 'https://shopping-phinf.pstatic.net/main_5492686/54926860511.20250523162642.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             315000.0, 315000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             852, '라클라우드 프리미엄 퀸시 호텔식 수납형 침대프레임 Q.K(퀸.킹겸용), 오트밀베이지', 348, 101, 'https://shopping-phinf.pstatic.net/main_5525425/55254254572.20250611173835.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             545660.0, 545660.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             853, '베디스 모나코 편백 수납 프레임 패널제외 기본형 SS', 598, 105, 'https://shopping-phinf.pstatic.net/main_2953759/29537594619.20250312192448.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             329000.0, 329000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             854, '지누스 1500H 메탈 침대프레임 Q(퀸), 블랙', 1171, 101, 'https://shopping-phinf.pstatic.net/main_5525335/55253359867.20250611151128.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             190080.0, 190080.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             855, '파로마 이즈 리베라 수납 침대 SS', 1314, 101, 'https://shopping-phinf.pstatic.net/main_3349383/33493835618.20250107101823.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             259000.0, 259000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             856, '칼리막스 호텔침대 릴렉스302', 1213, 101, 'https://shopping-phinf.pstatic.net/main_8228484/82284844156.1.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             599000.0, 599000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             857, '일룸 쿠시노 코지 범퍼형 저상형침대 SS 독립형스프링, 핑크블리스', 1117, 101, 'https://shopping-phinf.pstatic.net/main_5492374/54923742017.20250523100415.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             1610000.0, 1610000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             858, '한샘 아임빅 수납침대 SS 조명헤드형+노뜨 컴포트', 1430, 101, 'https://shopping-phinf.pstatic.net/main_8271849/82718494100.1.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             709000.0, 709000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             859, '보루네오 코지 3서랍 편백나무침대 원목 수납헤드 프레임 SS(슈퍼싱글), 내추럴', 622, 101, 'https://shopping-phinf.pstatic.net/main_5416778/54167786800.20250414115622.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             395000.0, 395000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             860, '레이디가구 푸딩 기능성 패브릭 데이베드 SS/Q (오픈형/가드형/도어형)', 369, 100, 'https://shopping-phinf.pstatic.net/main_5407361/54073617086.1.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             519000.0, 519000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             861, '이브 호텔 침대 프레임 신혼부부 호텔식 서랍형 베드 Q/K 공용', 1431, 101, 'https://shopping-phinf.pstatic.net/main_5044444/50444447623.20240923122645.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             699000.0, 699000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             862, '홈앤힐 푸린 호텔침대 저상형침대 프레임 라지킹 LK', 1481, 101, 'https://shopping-phinf.pstatic.net/main_8880470/88804703589.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             349000.0, 349000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             863, '베드리움 리밍 LED 수납침대 Q', 596, 101, 'https://shopping-phinf.pstatic.net/main_4390080/43900804619.20231108170324.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             379890.0, 379890.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             864, '파로마 타이디2 수납 침대 프레임 SS', 1314, 101, 'https://shopping-phinf.pstatic.net/main_5039830/50398301621.20240920143210.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             83900.0, 83900.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             865, '휴도 나른한 선유 E0등급 저상형 무헤드 원목형 침대 깔판 프레임 Q', 1488, 101, 'https://shopping-phinf.pstatic.net/main_4835652/48356525618.20240805101043.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             89900.0, 89900.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             866, '까르엠가구 루이스 평상형 LED 고무나무 수납 침대 프레임 Q(퀸), 내추럴', 131, 101, 'https://shopping-phinf.pstatic.net/main_5250457/52504573529.20250115114946.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             369000.0, 369000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             867, '[특선물] 바네스데코 모렌 원목 슈퍼싱글 침대 프레임 라이트브라운 SS 기본형', 553, 101, 'https://shopping-phinf.pstatic.net/main_8667850/86678509574.12.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             169000.0, 169000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             868, '퍼니코 레아 SE0등급 사계절 고무나무 원목침대 프레임 SS(슈퍼싱글), 레트로오크', 1330, 101, 'https://shopping-phinf.pstatic.net/main_5569379/55693790804.20250708112932.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             189000.0, 189000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             869, '베드리움 파인드 LED 서랍형 침대 프레임 SS', 596, 101, 'https://shopping-phinf.pstatic.net/main_1566158/15661580640.20210506115110.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             272420.0, 272420.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             870, '라클라우드 헤라스 프리미엄 패브릭 호텔 침대 프레임 SS+SS(슈퍼싱글+슈퍼싱글), 오트밀베이지', 348, 101, 'https://shopping-phinf.pstatic.net/main_5509855/55098554552.20250603142544.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             1149000.0, 1149000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             871, '노르웨이숲 편백나무 원목 침대 깔판 프레임 매트리스 받침대 SS(슈퍼싱글), 내추럴', 188, 101, 'https://shopping-phinf.pstatic.net/main_5293878/52938786058.20250211161636.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             69900.0, 69900.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             872, '일룸 쿠시노 저상형 침대 SS 데이베드형', 1117, 101, 'https://shopping-phinf.pstatic.net/main_3956580/39565805620.20230424152633.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             1090000.0, 1090000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             873, '휴도 다감한 선유 조야 패브릭 쿠션형 호텔침대 LED 빅서랍 수납 슈퍼싱글침대 세트 매트리스 포함', 1488, 101, 'https://shopping-phinf.pstatic.net/main_8807891/88078911891.4.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             279000.0, 279000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             874, '하포스 로망스 LED 수납헤드 퀸사이즈 침대 파워본넬 자가드 매트 Q', 1424, 101, 'https://shopping-phinf.pstatic.net/main_5326302/53263021731.20250707113807.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             279000.0, 279000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             875, '동서가구 세렌 편백선반 LED 침대 Q', 289, 101, 'https://shopping-phinf.pstatic.net/main_2570020/25700202523.20250611145552.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             391000.0, 391000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             876, '[PE폼 선물 이벤트]파로마 LED조명 에밋 기본형 낮은 저상형 침대 프레임 SS', 1314, 101, 'https://shopping-phinf.pstatic.net/main_8192883/81928836033.3.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             74900.0, 74900.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             877, '규수방 무헤드 침대 프레임 슈퍼싱글 사이즈 저상형 평상형 침대프레임 매트리스 깔판', 111, 101, 'https://shopping-phinf.pstatic.net/main_8805447/88054475474.1.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             95000.0, 95000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             878, '스칸디아 에센셜 템바보드 호텔 수납침대 프레임 LK(라지킹), 화이트', 774, 101, 'https://shopping-phinf.pstatic.net/main_5220500/52205000630.20241231123931.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             449000.0, 449000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             879, '이케아 GRIMSBU 그림스부 침대프레임 Q(퀸), 그레이', 1100, 101, 'https://shopping-phinf.pstatic.net/main_5293982/52939821931.20250211173033.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             50000.0, 50000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             880, '리바트 데이지 침대 프레임 Q(퀸), 빈티지화이트', 422, 101, 'https://shopping-phinf.pstatic.net/main_5246785/52467851232.20250113153932.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             485400.0, 485400.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             881, '리바트 피아프 호텔형 침대 프레임 수납형 조명포함 Q', 422, 101, 'https://shopping-phinf.pstatic.net/main_5496865/54968655917.20250526170156.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             576000.0, 576000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             882, '한샘 포엠 호텔침대 프레임 SS', 1430, 101, 'https://shopping-phinf.pstatic.net/main_2256914/22569142600.20230615131140.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             334000.0, 334000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             883, '앙티브 템바보드 원목 수납 침대프레임 LK', 1121, 101, 'https://shopping-phinf.pstatic.net/main_8579822/85798222291.4.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             469000.0, 469000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             884, '에이스침대 BMA 1086-A CA2 침대 SS', 939, 101, 'https://shopping-phinf.pstatic.net/main_1910834/19108345867.20240619101159.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             1156200.0, 1156200.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             885, '먼데이하우스 클라우드 아쿠아텍스/부클레 패브릭 호텔식 침대프레임 SS/Q/K/LK/CK', 486, 101, 'https://shopping-phinf.pstatic.net/main_4392354/43923546330.8.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             199000.0, 199000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             886, '국내생산 달리안 가죽 쿠션침대 매트리스세트 SS 맞춤제작 화이트 본넬매트', 542, 101, 'https://shopping-phinf.pstatic.net/main_8125479/81254797773.18.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             395000.0, 395000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             887, '동서가구 순수 히노끼 수납헤드 편백나무 원목 침대 프레임 Q(퀸), 내추럴', 289, 101, 'https://shopping-phinf.pstatic.net/main_5226903/52269039630.20250625141013.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             446900.0, 446900.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             888, '골든스트릿 그로우 EO등급 템파보드 슬라이딩 빅수납 침대프레임SS', 101, 101, 'https://shopping-phinf.pstatic.net/main_8447468/84474686911.5.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             224000.0, 224000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             889, '알파침대 클레어 LED 2단 수납 침대프레임 Q', 898, 101, 'https://shopping-phinf.pstatic.net/main_2080142/20801424366.20220524122552.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             259000.0, 259000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             890, 'NUUB 이지 무헤드 4단 멀티 수납 침대 프레임 SS', 49, 101, 'https://shopping-phinf.pstatic.net/main_5248391/52483918548.20250115105052.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             139900.0, 139900.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             891, '앙티브 템바보드 원목 수납 침대프레임 Q', 1121, 101, 'https://shopping-phinf.pstatic.net/main_8409019/84090197228.6.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             359000.0, 359000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             892, '[에이스침대] BMA 1139-E CA등급/SS(슈퍼싱글사이즈)', 939, 101, 'https://shopping-phinf.pstatic.net/main_8296210/82962101081.2.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             801900.0, 801900.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             893, '이케아 데이베드프레임+서랍3 헴네스 HEMNES 그레이 80x200cm 304.278.31', 1100, 101, 'https://shopping-phinf.pstatic.net/main_5492787/54927873763.1.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             399000.0, 399000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             894, '리바트 뉴트 저상형 침대 프레임 기본형 SS(슈퍼싱글), 오크', 422, 101, 'https://shopping-phinf.pstatic.net/main_5219072/52190723618.20241230162624.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             138700.0, 138700.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             895, '올쏘 진저 헤링본 원목 침대 프레임 Q(퀸), 브라운', 1017, 101, 'https://shopping-phinf.pstatic.net/main_5214543/52145434618.20250123111415.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             325410.0, 325410.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             896, '한샘 샘베딩 플레인 하부서랍형 침대프레임 SS', 1430, 101, 'https://shopping-phinf.pstatic.net/main_3510810/35108107618.20221007112955.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             335900.0, 335900.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             897, '시몬스 로피2 뷰티레스트 시트러스 침대 SS', 800, 101, 'https://shopping-phinf.pstatic.net/main_4595632/45956326618.20240222104006.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             1898000.0, 1898000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             898, '홈앤힐 아루 트윈 저상형 패밀리 침대 프레임 (SS+K)', 1481, 101, 'https://shopping-phinf.pstatic.net/main_8847781/88477817031.1.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             438000.0, 438000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             899, '에이스침대 BRA 1432-E CA SS', 939, 101, 'https://shopping-phinf.pstatic.net/main_3918366/39183669618.20240418105915.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             888880.0, 888880.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             900, '[일룸] 쿠시노 코지 저상형 침대(패브릭,SS)-범퍼형', 1117, 101, 'https://shopping-phinf.pstatic.net/main_8602677/86026773676.4.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             1240000.0, 1240000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             901, '홈앤힐 알렉 조명 원목 침대 프레임 LK(라지킹), 월넛', 1481, 101, 'https://shopping-phinf.pstatic.net/main_5218654/52186544627.20241230093438.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             614010.0, 614010.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             902, '지누스 아이언라인 하이브리드 침대 프레임 Q', 1171, 101, 'https://shopping-phinf.pstatic.net/main_1680360/16803602236.20201020105306.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             264480.0, 264480.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             903, '누어 룬드 평상형 수납 침대 프레임 저상형 싱글 슈퍼싱글 SS', 48, 101, 'https://shopping-phinf.pstatic.net/main_8761911/87619110412.9.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             359000.0, 359000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             904, '모모드 디오르 패브릭 LED조명 원목 침대 프레임 SS(슈퍼싱글), 내추럴', 126, 101, 'https://shopping-phinf.pstatic.net/main_5500385/55003850114.20250528144657.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             487000.0, 487000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             905, '잉글랜더 앙티브 템바보드 원목 수납 침대 프레임 SS(슈퍼싱글), 월넛', 1121, 101, 'https://shopping-phinf.pstatic.net/main_5218808/52188089629.20241230123523.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             299000.0, 299000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             906, '동서가구 브론헤리티지 호텔형 수납침대 프레임 K(킹), 월넛', 289, 101, 'https://shopping-phinf.pstatic.net/main_5579747/55797472017.20250715144041.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             299000.0, 299000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             907, '일룸 반트 수납침대 SS', 1117, 101, 'https://shopping-phinf.pstatic.net/main_3601235/36012351623.20221122123017.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             957000.0, 957000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             908, '한국갤러리 세레노 원목 고목나무 침대 프레임 SS(슈퍼싱글), 웜내추럴', 1425, 101, 'https://shopping-phinf.pstatic.net/main_5320706/53207061288.20250225090603.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             590000.0, 590000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             909, '슬립퍼 실비 신혼 부부 트윈 템바보드 원목 호텔 호텔형 침대 프레임 LK 라지킹 A타입 150', 796, 101, 'https://shopping-phinf.pstatic.net/main_8383480/83834808465.1.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             1244000.0, 1244000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             910, '국내 제작 침대 헤드 벽 보드 머리판 틈새 수납 선반 저상 평상 원목 그레이 올화이트 프레임 주니어 J 낮은 LED 조명', 126, 101, 'https://shopping-phinf.pstatic.net/main_8803930/88039309827.7.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             59400.0, 59400.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             911, '라미에스 무헤드 오우드 패브릭 원목 수납 침대 프레임 SS(슈퍼싱글), 모카브라운', 329, 101, 'https://shopping-phinf.pstatic.net/main_5380477/53804772334.20250327115715.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             259000.0, 259000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             912, '오우드 패브릭 원목 수납 침대 프레임 SS', 329, 101, 'https://shopping-phinf.pstatic.net/main_8655219/86552197057.1.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             359000.0, 359000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             913, '삼익가구 NEW어라운드 원목 침대 프레임 SS', 693, 101, 'https://shopping-phinf.pstatic.net/main_3731217/37312172618.20230119135835.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             179000.0, 179000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             914, '레드플래닛 이든 패브릭 슬라이딩 트윈침대 SS+SS', 362, 101, 'https://shopping-phinf.pstatic.net/main_8844734/88447348153.1.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             1780000.0, 1780000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             915, '에몬스 샤이닝온 LED조명 수납침대 프레임 SS', 927, 101, 'https://shopping-phinf.pstatic.net/main_4579020/45790208618.20240213134607.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             458000.0, 458000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             916, '퍼니코 샤르망 앤틱 매립형 벨벳 패브릭 침대 슈퍼싱글 크림 아이보리', 1330, 101, 'https://shopping-phinf.pstatic.net/main_8214081/82140812552.9.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             259000.0, 259000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             917, '도담 슬립웰 본넬 일체형 침대 SS 1인용 원룸', 281, 101, 'https://shopping-phinf.pstatic.net/main_8137195/81371956077.5.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             79900.0, 79900.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             918, '파로마 이즈 우든 LED 원목 수납침대 SS 일반스프링, 내추럴', 1314, 101, 'https://shopping-phinf.pstatic.net/main_5323150/53231508594.20250226171434.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             279000.0, 279000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             919, '스스디 리프트업 수납침대 퀸(Q) 프레임 높이 400', 771, 101, 'https://shopping-phinf.pstatic.net/main_8838707/88387077907.6.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             379000.0, 379000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             920, '샘베딩 플레인 침대 프레임 Q(퀸), 메이플', 1430, 101, 'https://shopping-phinf.pstatic.net/main_5645464/56454648322.20250827115722.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             334900.0, 334900.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             921, '에이스침대 BRA 1439-N CA2 침대 SS', 939, 101, 'https://shopping-phinf.pstatic.net/main_3037516/30375163623.20211231121707.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             1417780.0, 1417780.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             922, 'NOOER 데이 고무나무 원목 침대 프레임 SS', 48, 101, 'https://shopping-phinf.pstatic.net/main_4996561/49965613619.20241016110656.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             359000.0, 359000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             923, '에스테틱 호텔형 침대 프레임', 422, 101, 'https://shopping-phinf.pstatic.net/main_3308825/33088250046.3.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             865000.0, 865000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             924, '스스디 평상형 수납 침대 프레임 슈퍼싱글 SS 계단제외', 771, 101, 'https://shopping-phinf.pstatic.net/main_1266583/12665835866.12.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             489000.0, 489000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             925, '엔투엔퍼니쳐 노아 LED 조명 짜맞춤 가로살 원목 평상형 침대 프레임 SS(슈퍼싱글), 애쉬브라운', 955, 101, 'https://shopping-phinf.pstatic.net/main_5500343/55003434745.20250528142551.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             569000.0, 569000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             926, '레드플래닛 로뎀 전동 모션 슬라이딩 트윈침대 SS+SS', 362, 101, 'https://shopping-phinf.pstatic.net/main_8887435/88874350109.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             1650000.0, 1650000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             927, '한샘 아임빅 슬림 수납 헤드 침대 SS', 1430, 101, 'https://shopping-phinf.pstatic.net/main_1065867/10658678505.20200818182200.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             562500.0, 562500.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             928, '삼익가구 모네어 호텔 원목 침대프레임 LK(라지킹), 월넛', 693, 101, 'https://shopping-phinf.pstatic.net/main_5663841/56638414213.20250908110248.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             244790.0, 244790.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             929, '파로마 우든 LED 원목 수납침대 프레임 SS(슈퍼싱글) IDH011, 내추럴', 1314, 101, 'https://shopping-phinf.pstatic.net/main_5467114/54671143775.20250509144022.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             173160.0, 173160.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             930, '웨스트프롬 뮤뮤 원목 침대프레임 SS', 1044, 101, 'https://shopping-phinf.pstatic.net/main_4475000/44750005618.20231219100034.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             282690.0, 282690.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             931, '포더홈 파운드 파티션 빅 확장형 수납침대 프레임 SS + 미니책장', 1351, 101, 'https://shopping-phinf.pstatic.net/main_4148023/41480231618.20230802144735.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             309000.0, 309000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             932, '[우드퍼니쳐] 토퍼겸용 깔판 저상형 원목 받침대 매트리스 침대프레임 S싱글토퍼겸용 (96x199x3 cm)', 126, 101, 'https://shopping-phinf.pstatic.net/main_8640607/86406073703.2.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             58700.0, 58700.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             933, '[베드리움]NEW 스마트메이트 편백 LED 수납침대 Q_릴렉서 허리특허 유로탑', 596, 101, 'https://shopping-phinf.pstatic.net/main_8401882/84018823543.55.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             699000.0, 699000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             934, '모브 조명 헤링본 원목 침대 프레임 다리형 Q.K(퀸.킹겸용), 진저브라운', 1431, 101, 'https://shopping-phinf.pstatic.net/main_5293996/52939961280.20250211173551.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             739000.0, 739000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             935, '잉글랜더 루이스 고무나무 원목 슈퍼싱글침대 프레임 SS', 1121, 101, 'https://shopping-phinf.pstatic.net/main_8577281/8577281487.11.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             159000.0, 159000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             936, '버터하우스 포포 미드 E0 무헤드 수납 침대프레임 슈퍼싱글 SS', 588, 101, 'https://shopping-phinf.pstatic.net/main_8617745/86177453199.2.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             219000.0, 219000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             937, '파로마 이즈 카이 헤드리스 3단 수납 침대 프레임 SS', 1314, 101, 'https://shopping-phinf.pstatic.net/main_8234317/82343176196.10.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             79000.0, 79000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             938, '리샘 루이스 빅서랍 무헤드 수납침대 프레임 SS', 438, 101, 'https://shopping-phinf.pstatic.net/main_5207980/52079802620.20241223165515.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             109000.0, 109000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             939, 'e스마트 라일 LED조명 템바 튼튼한 빅수납 서랍 침대 SS', 79, 101, 'https://shopping-phinf.pstatic.net/main_5569634/55696343755.20250722105319.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             329000.0, 329000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             940, '[매트구매 시 방수커버 선물] 파로마 포마드 LED 조명 서랍 수납침대 SS 프레임', 1314, 101, 'https://shopping-phinf.pstatic.net/main_1126454/11264540877.19.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             179000.0, 179000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             941, '오크빌 리니아 통깔판 원목침대 매트리스 포함 SS', 1001, 101, 'https://shopping-phinf.pstatic.net/main_5045943/50459438618.20240924103925.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             149000.0, 149000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             942, '보루네오 루나Po LED 4서랍 수납 침대 SS', 622, 101, 'https://shopping-phinf.pstatic.net/main_4633776/46337766620.20240312162927.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             277200.0, 277200.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             943, '자네트가구 소나무 파인 원목 침대 깔판 저상형 매트리스 패밀리 받침대 싱글', 1122, 101, 'https://shopping-phinf.pstatic.net/main_8311636/83116362773.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             49900.0, 49900.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             944, '레이디가구 스칸딕 원목 데이베드 침대 프레임 SS', 369, 101, 'https://shopping-phinf.pstatic.net/main_1285973/12859734921.20220526090210.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             297000.0, 297000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             945, '젠티스 스너그온 LED PU 가죽 저상형 침대프레임 패밀리침대 헤드형, 퀸 Q, 아이보리 화이트', 1157, 101, 'https://shopping-phinf.pstatic.net/main_8965909/89659091921.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             189000.0, 189000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             946, '에몬스 엘리 LED 서랍형 침대 SS', 927, 101, 'https://shopping-phinf.pstatic.net/main_4669639/46696399621.20240328114349.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             719100.0, 719100.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             947, '에몬스 뉴헤로 LED 수납침대 Q', 927, 101, 'https://shopping-phinf.pstatic.net/main_3422994/34229946623.20220823102528.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             629100.0, 629100.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             948, '올쏘 아이비 원목 침대 프레임 SS 내추럴', 1017, 101, 'https://shopping-phinf.pstatic.net/main_1070955/10709553216.29.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             169900.0, 169900.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             949, 'NOOER 리케 고무나무 원목 침대 프레임 SS', 48, 101, 'https://shopping-phinf.pstatic.net/main_4996613/49966134621.20240826101257.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             289000.0, 289000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             950, '보니애가구 큐브 저상 패밀리침대 높은 평상형 가족침대 프레임 Q(퀸), 라이트그레이', 620, 101, 'https://shopping-phinf.pstatic.net/main_5264915/52649154719.20250124162140.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             239000.0, 239000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             951, '슬립퍼 티라 침대프레임 저상형 호텔 호텔형 패브릭 라지킹 LK 사이즈 침대', 796, 101, 'https://shopping-phinf.pstatic.net/main_8530618/85306183048.7.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             1689000.0, 1689000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             952, '바네스데코 로이든 센토 고무나무 원목 침대 프레임 기본형 SS(슈퍼싱글), 라이트브라운', 553, 101, 'https://shopping-phinf.pstatic.net/main_5621145/56211454365.20250811153942.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             174000.0, 174000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             953, '잉글랜더 허그 무헤드 미니 싱글 침대프레임 MS', 1121, 101, 'https://shopping-phinf.pstatic.net/main_3398037/33980375618.20250403131846.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             99000.0, 99000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             954, '보루네오 우드 원목 부부 트윈침대 프레임 + 중앙패널 1개 SS+SS(슈퍼싱글+슈퍼싱글), 월넛', 622, 101, 'https://shopping-phinf.pstatic.net/main_5448688/54486886768.20250429102221.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             964260.0, 964260.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             955, '리바트 뉴트 저상형 침대 프레임 기본형 Q(퀸), 오크', 422, 101, 'https://shopping-phinf.pstatic.net/main_5219070/52190702653.20241230163107.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             209950.0, 209950.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             956, '삼익가구 태리 LED 4단 수납 원목 침대 SS 라텍스+7존독립스프링, 내추럴', 693, 101, 'https://shopping-phinf.pstatic.net/main_5309256/53092563536.20250219112604.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             316200.0, 316200.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             957, '보루네오 조엔Po LED 3서랍 수납 침대 SS', 622, 101, 'https://shopping-phinf.pstatic.net/main_4594422/45944227618.20240221165208.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             227000.0, 227000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             958, '한샘 노뜨 일체형침대 SS 라텍스+독립스프링, 화이트', 1430, 101, 'https://shopping-phinf.pstatic.net/main_5282006/52820060704.20250205144238.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             349000.0, 349000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             959, '마켓비 RISHULT 데이베드 침대프레임 S 100200', 471, 101, 'https://shopping-phinf.pstatic.net/main_3936542/39365420618.20241014095550.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             119000.0, 119000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             960, '삼익가구 더메인 LED 프리미엄 가죽헤드 수납 호텔 침대 SS', 693, 101, 'https://shopping-phinf.pstatic.net/main_4123791/41237914619.20230717154553.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             336260.0, 336260.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             961, '삼익가구 빅터 슬라이딩 빅수납 침대프레임 Q(퀸) + 안전가드 + 계단, 화이트', 693, 101, 'https://shopping-phinf.pstatic.net/main_5232315/52323153621.20250106145136.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             409000.0, 409000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             962, '이케아 VEVELSTAD 베벨스타드 침대프레임 90x200cm S(싱글), 화이트', 1100, 101, 'https://shopping-phinf.pstatic.net/main_5626122/56261225784.20250814123206.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             99900.0, 99900.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             963, '그남자의가구 세레나 원목 호텔 수납 침대 프레임 LK', 113, 101, 'https://shopping-phinf.pstatic.net/main_5498012/54980122015.20250527153458.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             667000.0, 667000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             964, '코쿤 저상형 데이베드 아기침대 범퍼가드 (방수커버/수유등)', 369, 101, 'https://shopping-phinf.pstatic.net/main_3083651/30836513387.2.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             389000.0, 389000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             965, '크라운퍼니쳐 노아 06 무헤드 빅수납 서랍침대 수납침대 프레임만 SS', 1248, 101, 'https://shopping-phinf.pstatic.net/main_8540618/85406185190.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             102650.0, 102650.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             966, '침대 매트리스 깔판 받침대 원목 패밀리 저상형 침대프레임 소나무 접이식 미니 싱글 60cm', 515, 101, 'https://shopping-phinf.pstatic.net/main_8312375/83123758923.18.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             27900.0, 27900.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             967, '[일룸] 쿠시노 코지 범퍼형 저상형침대(SS) 프리미엄 올인원 패키지', 1117, 101, 'https://shopping-phinf.pstatic.net/main_8955058/89550582544.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             2148000.0, 2148000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             968, '동서가구 이즈 카이 LED조명 수납 침대 프레임 SS', 289, 101, 'https://shopping-phinf.pstatic.net/main_8239460/82394607188.5.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             139000.0, 139000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             969, '헤드/보드원목 매트리스 침대 소나무헤드 싱글(S)', 126, 101, 'https://shopping-phinf.pstatic.net/main_8204391/82043914852.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             62900.0, 62900.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             970, '라클라우드 프리미엄 퀸시 호텔식 수납형 침대프레임 SS(슈퍼싱글), 오트밀베이지', 348, 101, 'https://shopping-phinf.pstatic.net/main_5525479/55254796333.20250611175709.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             633100.0, 633100.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             971, '레이디가구 모노 수납 침대 프레임 SS', 369, 101, 'https://shopping-phinf.pstatic.net/main_2319982/23199828490.20210629100054.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             229000.0, 229000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             972, '안데르센 엘로이 클래식 원목 어린이 슈퍼싱글 침대 SS', 892, 101, 'https://shopping-phinf.pstatic.net/main_8113635/81136356528.12.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             1634000.0, 1634000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             973, '삼익가구 루시드 LED 4단서랍 수납 침대 프레임 SS', 693, 101, 'https://shopping-phinf.pstatic.net/main_1970466/19704667960.20210125093607.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             243000.0, 243000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             974, '삼익가구 어라운드 원목 침대 SS', 693, 101, 'https://shopping-phinf.pstatic.net/main_3785720/37857206618.20230210151447.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             289520.0, 289520.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             975, '요즘공간 엘리 LED 서랍형 침대 Q', 1027, 101, 'https://shopping-phinf.pstatic.net/main_1615201/16152014791.20211026170346.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             764100.0, 764100.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             976, '일룸 바젤 침대 프레임 K(킹), 화이트', 1117, 101, 'https://shopping-phinf.pstatic.net/main_5219128/52191289639.20241230172446.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             849000.0, 849000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             977, '한샘 샘베딩 클로즈 침대 프레임 Q/K', 1430, 101, 'https://shopping-phinf.pstatic.net/main_1613634/16136342334.20231214173341.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             494250.0, 494250.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             978, '아렌델 무헤드 라지킹 침대 프레임 원목 서랍형 1800LK', 818, 101, 'https://shopping-phinf.pstatic.net/main_8298158/82981585581.6.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             561000.0, 561000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             979, '아이앤 루벨린 삼나무 LED 낮은헤드 저상형 침대 프레임 SS', 868, 101, 'https://shopping-phinf.pstatic.net/main_4786135/47861354622.20240520175411.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             64760.0, 64760.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             980, '니스툴그로우 스틴스덴마크 분리수면 슈퍼싱글 가드침대(SS)', 209, 101, 'https://shopping-phinf.pstatic.net/main_8301533/83015332930.6.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             549000.0, 549000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             981, '수납형 원목 호텔 침대프레임 슈퍼싱글 SS 조명 서랍 침대 우드렌 로라', 1029, 101, 'https://shopping-phinf.pstatic.net/main_8352718/83527188582.3.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             840000.0, 840000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             982, '[한정기획] [일룸] 헤이즐 침대(Q K KK 공용) (매트리스 미포함)', 1117, 101, 'https://shopping-phinf.pstatic.net/main_8298557/82985579983.2.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             699000.0, 699000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             983, '에이스침대 BMA 1139-E HT-L 침대 LQ', 939, 101, 'https://shopping-phinf.pstatic.net/main_1910634/19106347497.20211111174843.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             1813020.0, 1813020.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             984, '베드리움 파운데이션 침대 SS', 596, 101, 'https://shopping-phinf.pstatic.net/main_4394280/43942809622.20231110175224.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             403240.0, 403240.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             985, '아씨방 트윈 가죽 침대 SS', 850, 101, 'https://shopping-phinf.pstatic.net/main_5122554/51225543618.20241105111213.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             298990.0, 298990.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             986, '한샘 샘베딩 플레인 침대 SS', 1430, 101, 'https://shopping-phinf.pstatic.net/main_1223526/12235264742.20170911090416.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             414900.0, 414900.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             987, '리바트 데이지 침대 프레임 SS(슈퍼싱글), 빈티지화이트', 422, 101, 'https://shopping-phinf.pstatic.net/main_5246785/52467852774.20250113154357.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             384700.0, 384700.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             988, '[베드리움] 미니멀 수납침대 SS 매트리스 제외', 123, 101, 'https://shopping-phinf.pstatic.net/main_1195139/11951392131.12.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             169000.0, 169000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             989, '베드리움 리밍 LED 서랍 침대 프레임 SS', 596, 101, 'https://shopping-phinf.pstatic.net/main_2505692/25056925523.20201201173241.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             255860.0, 255860.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             990, '보루네오 그린Po 무헤드 3서랍 수납 침대 프레임 SS', 622, 101, 'https://shopping-phinf.pstatic.net/main_4678619/46786195624.20240401162557.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             98000.0, 98000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             991, '에보니아 라미 파티션 책장 공간분리 서랍 수납 기본형 침대 프레임 SS(슈퍼싱글), 크림화이트', 929, 101, 'https://shopping-phinf.pstatic.net/main_5520881/55208815901.20250609092120.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             399000.0, 399000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             992, '지누스 퀵스냅 침대 프레임 SS', 1171, 101, 'https://shopping-phinf.pstatic.net/main_1680222/16802225758.20201020120937.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             152000.0, 152000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             993, '스칸디아 에센셜 템바보드 LED 조명 호텔 수납침대 / 매트리스 제외 SS', 774, 101, 'https://shopping-phinf.pstatic.net/main_8574549/85745499592.3.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             299900.0, 299900.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             994, '아달라 무케 원목 LED조명 2단 수납침대 프레임 SS', 126, 101, 'https://shopping-phinf.pstatic.net/main_8208425/82084253829.1.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             490000.0, 490000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             995, '레이디가구 코쿤 슬림 저상형 데이베드 침대 프레임 SS', 369, 101, 'https://shopping-phinf.pstatic.net/main_8231133/82311335423.11.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             379000.0, 379000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             996, '포스트모던 룩셈 LED 수납 침대 프레임 SS', 1354, 101, 'https://shopping-phinf.pstatic.net/main_2323299/23232996491.20250725104309.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             189900.0, 189900.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             997, '에이스침대 BMA 1150-LC CA2 침대 SS', 939, 101, 'https://shopping-phinf.pstatic.net/main_1913438/19134381406.20240530080333.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             1263620.0, 1263620.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             998, '보루네오 네이블 무헤드 3서랍 고무나무 원목 침대 수납 프레임 SS(슈퍼싱글), 내추럴', 622, 101, 'https://shopping-phinf.pstatic.net/main_5214529/52145297618.20241227110830.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             198800.0, 198800.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             999, '그남자의가구 베이직 원목 호텔 수납 침대 프레임 라지킹 LK 맞춤제작', 113, 101, 'https://shopping-phinf.pstatic.net/main_8294652/82946524822.8.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             598000.0, 598000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
+    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
+    product_color, material, capacity, stock_quantity, view_count, sales_count,
+    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
+) VALUES (
+             1000, '루디 수납형 원목 침대프레임 LED 조명 라지킹 침대 1800LK', 818, 101, 'https://shopping-phinf.pstatic.net/main_8512040/85120401841.4.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
+             1043000.0, 1043000.0, 0.0, 0, 0, 0,
+             0, '일반 소재', '표준 사이즈', 0, 0, 0,
+             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
+         );
+
+product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
     review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at

@@ -68,13 +68,32 @@
             <!-- Previous -->
             <a th:if="${productList.hasPrevious()}"
                th:href="@{/api/admin/products(page=${productList.number - 1}, searchType=${param.searchType}, searchValue=${param.searchValue})}">‹</a>
-            <!-- Page Numbers -->
-            <th:block th:each="pageNum : ${#numbers.sequence(0, productList.totalPages - 1)}">
-                <span th:if="${pageNum == productList.number}" class="current" th:text="${pageNum + 1}">1</span>
-                <a th:unless="${pageNum == productList.number}"
-                   th:href="@{/api/admin/products(page=${pageNum}, searchType=${param.searchType}, searchValue=${param.searchValue})}"
-                   th:text="${pageNum + 1}">1</a>
+
+            <!-- Page Numbers (max 10 pages) -->
+            <th:block th:with="currentPage=${productList.number},
+                              totalPages=${productList.totalPages},
+                              startPage=${currentPage - (currentPage % 10)},
+                              endPage=${(startPage + 10 > totalPages) ? totalPages - 1 : startPage + 9}">
+
+                <!-- Previous Page Group -->
+                <a th:if="${startPage > 0}"
+                   th:href="@{/api/admin/products(page=${startPage - 1}, searchType=${param.searchType}, searchValue=${param.searchValue})}"
+                   class="page-group">«</a>
+
+                <!-- Current Page Group -->
+                <th:block th:each="pageNum : ${#numbers.sequence(startPage, endPage)}">
+                    <span th:if="${pageNum == currentPage}" class="current" th:text="${pageNum + 1}">1</span>
+                    <a th:unless="${pageNum == currentPage}"
+                       th:href="@{/api/admin/products(page=${pageNum}, searchType=${param.searchType}, searchValue=${param.searchValue})}"
+                       th:text="${pageNum + 1}">1</a>
+                </th:block>
+
+                <!-- Next Page Group -->
+                <a th:if="${endPage + 1 < totalPages}"
+                   th:href="@{/api/admin/products(page=${endPage + 1}, searchType=${param.searchType}, searchValue=${param.searchValue})}"
+                   class="page-group">»</a>
             </th:block>
+
             <!-- Next -->
             <a th:if="${productList.hasNext()}"
                th:href="@{/api/admin/products(page=${productList.number + 1}, searchType=${param.searchType}, searchValue=${param.searchValue})}">›</a>
@@ -91,6 +110,8 @@
             .pagination a, .pagination span { padding: 8px 12px; border: 1px solid #ddd; text-decoration: none; color: #007bff; }
             .pagination a:hover { background-color: #f5f5f5; }
             .pagination .current { background-color: #007bff; color: white; border-color: #007bff; }
+            .pagination .page-group { font-weight: bold; }
+            .pagination .page-group:hover { background-color: #e9ecef; }
             .btn {
                 padding: 8px 16px;
                 border-radius: 4px;
