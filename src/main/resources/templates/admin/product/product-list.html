@@ -37,11 +37,19 @@
         <div class="data-table">
             <table>
                 <thead>
-                    <tr><th>상품명</th><th>브랜드</th><th>원가</th><th>판매가</th><th>재고</th><th>상태</th></tr>
+                    <tr><th>이미지</th><th>상품명</th><th>브랜드</th><th>원가</th><th>판매가</th><th>재고</th><th>상태</th></tr>
                 </thead>
                 <tbody>
                     <tr th:each="product : ${productList.content}">
-                        <td><a th:href="@{/api/admin/products/{productId}(productId=${product.productId})}" 
+                        <td class="image-cell">
+                            <img th:if="${product.mainImageUrl != null and !product.mainImageUrl.isEmpty()}"
+                                 th:src="${product.mainImageUrl}"
+                                 th:alt="${product.productTitle}"
+                                 class="product-thumbnail">
+                            <div th:unless="${product.mainImageUrl != null and !product.mainImageUrl.isEmpty()}"
+                                 class="no-image">📷</div>
+                        </td>
+                        <td><a th:href="@{/api/admin/products/{productId}(productId=${product.productId})}"
                                style="text-decoration: none; color: #007bff;" th:text="${product.productTitle}">상품명</a></td>
                         <td th:text="${product.brandName ?: '-'}">브랜드</td>
                         <td th:text="${product.originalPrice != null ? #numbers.formatCurrency(product.originalPrice) : '-'}">원가</td>
@@ -50,7 +58,7 @@
                         <td><span th:class="${product.productStatus == '판매중' ? 'status-active' : 'status-inactive'}"
                                   th:text="${product.productStatus ?: '-'}">상태</span></td>
                     </tr>
-                    <tr th:if="${productList.content.empty}"><td colspan="6" style="padding: 40px; color: #666; text-align: center;">등록된 상품이 없습니다.</td></tr>
+                    <tr th:if="${productList.content.empty}"><td colspan="7" style="padding: 40px; color: #666; text-align: center;">등록된 상품이 없습니다.</td></tr>
                 </tbody>
             </table>
         </div>
@@ -115,6 +123,30 @@
             }
             .icon {
                 font-size: 14px;
+            }
+            .image-cell {
+                width: 80px;
+                text-align: center;
+                padding: 8px;
+            }
+            .product-thumbnail {
+                width: 60px;
+                height: 60px;
+                object-fit: cover;
+                border-radius: 8px;
+                border: 1px solid #ddd;
+            }
+            .no-image {
+                width: 60px;
+                height: 60px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background-color: #f8f9fa;
+                border: 1px solid #ddd;
+                border-radius: 8px;
+                color: #6c757d;
+                font-size: 24px;
             }
         </style>
     </th:block>
