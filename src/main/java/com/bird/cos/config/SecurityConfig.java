@@ -70,6 +70,9 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
+                        // 0) 이메일 인증 허용
+                        .requestMatchers("/auth/email/**").permitAll()
+
                         // 1) 정적 리소스 전부 허용
                         .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                         .requestMatchers(
@@ -81,7 +84,10 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET,
                                 "/",
                                 "/account/register",
-                                "/controller/register/login"
+                                "/controller/register/login",
+                                "/shop",
+                                "/community",
+                                "/events"
                         ).permitAll()
 
                         // 3) 회원가입/로그인/로그아웃 공개 API(POST)

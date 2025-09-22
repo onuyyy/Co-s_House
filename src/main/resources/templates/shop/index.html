@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/layout :: head('코딩의 집 | 쇼핑')"></head>
+<body class="page font-body">
+  <header th:replace="fragments/layout :: header"></header>
+  <main class="page-main container">
+    <section class="section">
+      <div class="section-head">
+        <h1 class="text-h2">오늘의 딜</h1>
+      </div>
+      <div class="product-grid grid-4">
+        <article class="p-card" th:each="p : ${todayDeals}">
+          <a class="thumb" th:href="@{'/product/' + ${p.id}}"><div class="ph" role="img" aria-label="상품 이미지"></div></a>
+          <div class="body">
+            <h3 class="title" th:text="${p.title}">상품명</h3>
+            <div class="price"><b th:text="${#numbers.formatInteger(p.salePrice != null ? p.salePrice : p.price, 0)}">0</b><span class="unit">원</span></div>
+          </div>
+        </article>
+      </div>
+    </section>
+    <section class="section">
+      <div class="section-head">
+        <h2 class="text-h2">인기 상품</h2>
+      </div>
+      <div class="product-grid grid-4">
+        <article class="p-card" th:each="p : ${popularProducts}">
+          <a class="thumb" th:href="@{'/product/' + ${p.id}}"><div class="ph" role="img" aria-label="상품 이미지"></div></a>
+          <div class="body">
+            <h3 class="title" th:text="${p.title}">상품명</h3>
+            <div class="price"><b th:text="${#numbers.formatInteger(p.salePrice != null ? p.salePrice : p.price, 0)}">0</b><span class="unit">원</span></div>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+  <footer th:replace="fragments/layout :: footer"></footer>
+  <link rel="stylesheet" th:href="@{/css/sections.css}">
+</body>
+</html>

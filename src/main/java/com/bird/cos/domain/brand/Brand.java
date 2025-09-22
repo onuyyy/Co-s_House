@@ -49,4 +49,5 @@ public class Brand {
             this.brandDescription = request.getBrandDescription().trim();
         }
     }
+
 }

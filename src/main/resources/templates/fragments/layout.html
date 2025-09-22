@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head(title)">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title th:text="${title}">코딩의 집</title>
+  <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body class="page font-body">
+  <header th:fragment="header" class="app-header">
+    <div class="container inner">
+      <a class="brand" th:href="@{/}">
+        <img class="logo" th:src="@{/images/logo.png}" alt="브랜드 로고" />
+        <span class="name">코딩의 집</span>
+      </a>
+      <nav class="nav-main" aria-label="주요 메뉴">
+        <a class="hover-primary" th:href="@{/shop}">쇼핑</a>
+        <a class="hover-primary" th:href="@{/community}">커뮤니티</a>
+        <a class="hover-primary" th:href="@{/events}">이벤트</a>
+      </nav>
+      <nav class="app-nav" aria-label="유틸 메뉴" style="margin-left:auto;">
+        <span th:if="${session.user == null}">
+          <a class="btn btn-outline" th:href="@{/controller/register/login}">로그인</a>
+          <a class="btn" th:href="@{/account/register}">회원가입</a>
+        </span>
+        <span th:if="${session.user != null}" class="flex gap-2">
+          <a class="btn btn-outline" th:href="@{/mypage}">마이페이지</a>
+          <form th:action="@{/controller/register/logout}" method="post">
+            <button type="submit" class="btn btn-outline">로그아웃</button>
+            <input type="hidden" th:if="${_csrf != null}" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+          </form>
+        </span>
+      </nav>
+    </div>
+  </header>
+
+  <footer th:fragment="footer" class="app-footer" style="--foot-bg:linear-gradient(135deg, var(--brand-50) 0%, var(--brand-200) 100%); --foot-fg:#0b1d4d;">
+    <div class="container">
+      <div class="foot-columns">
+        <div>
+          <div class="brand" style="gap:10px;">
+            <img class="logo" th:src="@{/images/logo.png}" alt="로고" />
+            <span class="name">코딩의 집</span>
+          </div>
+          <div class="text-muted" style="opacity:.9;">© <span th:text="${#dates.format(#dates.createNow(),'yyyy')}">2025</span> 코딩의 집</div>
+        </div>
+        <div class="flex gap-3" style="justify-content:flex-end; align-items:center;">
+          <a th:href="@{/policy/terms}">이용약관</a>
+          <a th:href="@{/policy/privacy}">개인정보처리방침</a>
+          <a th:href="@{/support}">고객센터</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" 
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/admin-layout}"
       lang="ko">
 <head>
@@ -45,34 +45,34 @@
                 <div class="detail-grid">
                     <div class="detail-label">사용자 ID</div>
                     <div class="detail-value" th:text="${user.userId}">1</div>
-                    
+
                     <div class="detail-label">이름</div>
                     <div class="detail-value user-name" th:text="${user.userName}">사용자명</div>
-                    
+
                     <div class="detail-label">닉네임</div>
                     <div class="detail-value" th:text="${user.userNickname}">닉네임</div>
-                    
+
                     <div class="detail-label">이메일</div>
                     <div class="detail-value email-display" th:text="${user.userEmail}">이메일</div>
-                    
+
                     <div class="detail-label">역할</div>
                     <div class="detail-value">
                         <span th:class="${user.admin ? 'role-badge admin-role' : 'role-badge user-role'}"
                               th:text="${user.userRoleName}">역할</span>
                     </div>
-                    
+
                     <div class="detail-label">주소</div>
                     <div class="detail-value" th:text="${user.userAddress ?: '정보 없음'}">주소</div>
-                    
+
                     <div class="detail-label">연락처</div>
                     <div class="detail-value" th:text="${user.userPhone ?: '정보 없음'}">연락처</div>
-                    
+
                     <div class="detail-label">소셜 로그인</div>
                     <div class="detail-value" th:text="${user.socialProvider ?: '일반 회원'}">소셜 로그인</div>
-                    
+
                     <div class="detail-label">소셜 ID</div>
                     <div class="detail-value" th:text="${user.socialId ?: '-'}">소셜 ID</div>
-                    
+
                     <div class="detail-label">약관 동의</div>
                     <div class="detail-value">
                         <span th:class="${user.termsAgreed != null and user.termsAgreed ? 'status-badge status-active' : 'status-badge status-inactive'}"
@@ -83,7 +83,7 @@
 
                     <div class="detail-label">가입일자</div>
                     <div class="detail-value" th:text="${user.userCreatedAt != null ? #temporals.format(user.userCreatedAt, 'yyyy-MM-dd HH:mm') : '-'}">가입일자</div>
-                    
+
                     <div class="detail-label">수정일자</div>
                     <div class="detail-value" th:text="${user.userUpdatedAt != null ? #temporals.format(user.userUpdatedAt, 'yyyy-MM-dd HH:mm') : '-'}">수정일자</div>
                 </div>
@@ -100,39 +100,39 @@
                     <div class="form-row">
                         <div class="form-group">
                             <label for="userName" class="required">이름 *</label>
-                            <input type="text" id="userName" name="userName" th:value="${user.userName}" 
+                            <input type="text" id="userName" name="userName" th:value="${user.userName}"
                                    class="form-control" required maxlength="50"
                                    placeholder="사용자 이름을 입력하세요">
                             <small class="form-text">필수 입력 항목입니다. (최대 50자)</small>
                         </div>
-                        
+
                         <div class="form-group">
                             <label for="userNickname" class="required">닉네임 *</label>
-                            <input type="text" id="userNickname" name="userNickname" th:value="${user.userNickname}" 
+                            <input type="text" id="userNickname" name="userNickname" th:value="${user.userNickname}"
                                    class="form-control" required maxlength="20"
                                    placeholder="닉네임을 입력하세요">
                             <small class="form-text">필수 입력 항목입니다. (최대 20자)</small>
                         </div>
                     </div>
-                    
+
                     <div class="form-row">
                         <div class="form-group">
                             <label for="userEmail" class="required">이메일 *</label>
-                            <input type="email" id="userEmail" name="userEmail" th:value="${user.userEmail}" 
+                            <input type="email" id="userEmail" name="userEmail" th:value="${user.userEmail}"
                                    class="form-control" required maxlength="255"
                                    placeholder="example@email.com">
                             <small class="form-text">필수 입력 항목입니다. 로그인 ID로 사용됩니다.</small>
                         </div>
-                        
+
                         <div class="form-group">
                             <label for="userPhone">연락처</label>
-                            <input type="tel" id="userPhone" name="userPhone" th:value="${user.userPhone}" 
+                            <input type="tel" id="userPhone" name="userPhone" th:value="${user.userPhone}"
                                    class="form-control" maxlength="20"
                                    placeholder="010-0000-0000">
                             <small class="form-text">휴대폰 번호를 입력하세요.</small>
                         </div>
                     </div>
-                    
+
                     <div class="form-row">
                         <div class="form-group">
                             <label for="userAddress">주소</label>
@@ -156,7 +156,7 @@
                             <small class="form-text">사용자의 권한 역할을 설정합니다.</small>
                         </div>
                     </div>
-                    
+
                     <div class="form-row">
                         <div class="form-group">
                             <label for="termsAgreed" class="required">약관 동의 상태 *</label>
@@ -168,7 +168,7 @@
                             <small class="form-text">사용자의 서비스 이용약관 동의 상태를 설정합니다.</small>
                         </div>
                     </div>
-                    
+
                     <div class="form-actions">
                         <button type="submit" class="btn btn-primary">
                             <i class="icon">💾</i> 수정 저장
@@ -242,7 +242,7 @@
                 const viewSection = document.getElementById('viewSection');
                 const editSection = document.getElementById('editSection');
                 const readonlyMessage = document.getElementById('readonlyMessage');
-                
+
                 if (mode === 'view') {
                     viewBtn.classList.add('active');
                     editBtn.classList.remove('active');

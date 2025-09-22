@@ -1,0 +1,81 @@
+/* CSS 변수 정의 */
+:root {
+    --primary-color: #35c5f0;
+    --primary-dark: #2ba5d1;
+    --secondary-color: #ff7867;
+    --gray-100: #f1f3f4;
+    --gray-200: #e8eaed;
+    --border-light: #e8eaed;
+    --text-primary: #202124;
+    --text-secondary: #5f6368;
+}
+
+/* 기본 컨테이너 */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 16px;
+}
+
+/* 헤더 스타일 */
+.header {
+    background: white;
+    border-bottom: 1px solid var(--border-light);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 0;
+}
+
+.nav-left {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+/* 헤더 카테고리 버튼 스타일 */
+.category-buttons {
+    display: flex;
+    gap: 24px;
+    margin-left: 32px;
+}
+
+.category-btn {
+    background: transparent;
+    border: none;
+    padding: 8px 16px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    cursor: pointer;
+    border-radius: 20px;
+    transition: all 0.2s;
+    position: relative;
+}
+
+.category-btn:hover {
+    background: var(--gray-100);
+    color: var(--text-primary);
+}
+
+.category-btn.active {
+    background: var(--primary-color);
+    color: white;
+}
+
+.category-btn.active:hover {
+    background: var(--primary-dark);
+}

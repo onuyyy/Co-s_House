@@ -10,7 +10,7 @@ public class RegisterPageController {
 
     @GetMapping("/register")
     public String registerPage() {
-        // templates/register.html 렌더링
-        return "register";
+        // templates/register/register.html 렌더링
+        return "register/register";
     }
 }
