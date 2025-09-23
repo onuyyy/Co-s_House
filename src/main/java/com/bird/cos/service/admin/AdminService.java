@@ -8,6 +8,8 @@ import com.bird.cos.domain.product.ProductCategory;
 import com.bird.cos.domain.user.User;
 import com.bird.cos.domain.user.UserRole;
 import com.bird.cos.dto.admin.*;
+import com.bird.cos.exception.BusinessException;
+import com.bird.cos.exception.ErrorCode;
 import com.bird.cos.repository.brand.BrandRepository;
 import com.bird.cos.repository.common.CommonCodeGroupRepository;
 import com.bird.cos.repository.common.CommonCodeRepository;
@@ -172,21 +174,21 @@ public class AdminService {
     @Transactional(readOnly = true)
     public ProductManageResponse getProductDetail(Long productId) {
         Product product = productRepository.findById(productId)
-                .orElseThrow(() -> new RuntimeException("상품을 찾을 수 없습니다."));
+                .orElseThrow(() -> BusinessException.productNotFound(productId));
 
         return ProductManageResponse.from(product);
     }
 
     public void updateProduct(Long productId, ProductUpdateRequest request) {
         Product product = productRepository.findById(productId)
-                .orElseThrow(() -> new RuntimeException("상품을 찾을 수 없습니다."));
+                .orElseThrow(() -> BusinessException.productNotFound(productId));
 
         product.update(request);
     }
 
     public void deleteProduct(Long productId) {
         if (!productRepository.existsById(productId)) {
-            throw new RuntimeException("삭제할 상품이 없습니다.");
+            throw BusinessException.of(ErrorCode.PRODUCT_NOT_FOUND);
         }
         productRepository.deleteById(productId);
     }

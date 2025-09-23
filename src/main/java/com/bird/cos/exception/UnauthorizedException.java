@@ -1,12 +1,14 @@
 package com.bird.cos.exception;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.ResponseStatus;
+import lombok.Getter;
 
-@ResponseStatus(HttpStatus.UNAUTHORIZED)
+@Getter
 public class UnauthorizedException extends RuntimeException {
-    public UnauthorizedException(String message) {
-        super(message);
+    private final ErrorCode errorCode;
+
+    public UnauthorizedException(ErrorCode errorCode) {
+        super(errorCode.getMessage());
+        this.errorCode = errorCode;
     }
 }
 
