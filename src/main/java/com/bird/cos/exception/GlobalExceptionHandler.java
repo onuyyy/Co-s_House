@@ -15,49 +15,89 @@ import java.util.Map;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
+    /**
+     * DTO @Valid 검증 실패
+     */
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorResponse> handleValidation(MethodArgumentNotValidException ex, HttpServletRequest req) {
         Map<String, String> errors = new HashMap<>();
         for (FieldError fieldError : ex.getBindingResult().getFieldErrors()) {
             errors.put(fieldError.getField(), fieldError.getDefaultMessage());
         }
-        String message = errors.values().stream().findFirst().orElse("Validation failed");
-        ErrorResponse body = ErrorResponse.of(HttpStatus.BAD_REQUEST, message, req.getRequestURI(), errors);
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(body);
+        ErrorResponse body = ErrorResponse.of(ErrorCode.INVALID_OPERATION, req.getRequestURI(), errors);
+        return ResponseEntity.status(ErrorCode.INVALID_OPERATION.getStatus()).body(body);
     }
 
+    /**
+     * 잘못된 요청
+     */
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<ErrorResponse> handleBadRequest(IllegalArgumentException ex, HttpServletRequest req) {
-        ErrorResponse body = ErrorResponse.of(HttpStatus.BAD_REQUEST, ex.getMessage(), req.getRequestURI());
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(body);
+        ErrorResponse body = ErrorResponse.of(ErrorCode.INVALID_OPERATION, req.getRequestURI());
+        return ResponseEntity.status(ErrorCode.INVALID_OPERATION.getStatus()).body(body);
     }
 
+    /**
+     * 인증 실패
+     */
     @ExceptionHandler(UnauthorizedException.class)
     public ResponseEntity<ErrorResponse> handleUnauthorized(UnauthorizedException ex, HttpServletRequest req) {
-        ErrorResponse body = ErrorResponse.of(HttpStatus.UNAUTHORIZED, ex.getMessage(), req.getRequestURI());
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(body);
+        ErrorResponse body = ErrorResponse.of(ErrorCode.UNAUTHORIZED, req.getRequestURI());
+        return ResponseEntity.status(ErrorCode.UNAUTHORIZED.getStatus()).body(body);
     }
 
+    /**
+     * 그 외 모든 에러
+     */
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> handleOthers(Exception ex, HttpServletRequest req) {
-        ErrorResponse body = ErrorResponse.of(HttpStatus.INTERNAL_SERVER_ERROR, "Internal server error", req.getRequestURI());
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(body);
+        ErrorResponse body = ErrorResponse.of(ErrorCode.INVALID_OPERATION, req.getRequestURI());
+        return ResponseEntity.status(ErrorCode.INVALID_OPERATION.getStatus()).body(body);
     }
 
+    /**
+     * 비즈니스 로직 에러
+     */
+    @ExceptionHandler(BusinessException.class)
+    public ResponseEntity<ErrorResponse> handleBusiness(BusinessException ex, HttpServletRequest req) {
+        ErrorResponse body = ErrorResponse.of(ex.getErrorCode(), req.getRequestURI());
+        return ResponseEntity.status(ex.getErrorCode().getStatus()).body(body);
+    }
+
+    /**
+     * 공통 응답 DTO
+     */
     public record ErrorResponse(
             Instant timestamp,
             int status,
             String error,
+            String code,
             String message,
             String path,
             Map<String, String> details
     ) {
-        public static ErrorResponse of(HttpStatus status, String message, String path) {
-            return new ErrorResponse(Instant.now(), status.value(), status.getReasonPhrase(), message, path, null);
+        public static ErrorResponse of(ErrorCode errorCode, String path) {
+            return new ErrorResponse(
+                    Instant.now(),
+                    errorCode.getStatus().value(),
+                    errorCode.getStatus().getReasonPhrase(),
+                    errorCode.getCode(),
+                    errorCode.getMessage(),
+                    path,
+                    null
+            );
         }
 
-        public static ErrorResponse of(HttpStatus status, String message, String path, Map<String, String> details) {
-            return new ErrorResponse(Instant.now(), status.value(), status.getReasonPhrase(), message, path, details);
+        public static ErrorResponse of(ErrorCode errorCode, String path, Map<String, String> details) {
+            return new ErrorResponse(
+                    Instant.now(),
+                    errorCode.getStatus().value(),
+                    errorCode.getStatus().getReasonPhrase(),
+                    errorCode.getCode(),
+                    errorCode.getMessage(),
+                    path,
+                    details
+            );
         }
     }
 }

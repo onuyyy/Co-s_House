@@ -1,6 +1,7 @@
 package com.bird.cos.service.auth;
 
 import com.bird.cos.domain.user.User;
+import com.bird.cos.exception.ErrorCode;
 import com.bird.cos.exception.UnauthorizedException;
 import com.bird.cos.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -16,10 +17,10 @@ public class AuthService {
 
     public User login(String email, String rawPassword) throws UnauthorizedException {
         User user = userRepository.findByUserEmail(email)
-                .orElseThrow(() -> new UnauthorizedException("invalid credentials"));
+                .orElseThrow(() -> new UnauthorizedException(ErrorCode.USER_NOT_FOUND));
 
         if (!passwordEncoder.matches(rawPassword, user.getUserPassword())) {
-            throw new UnauthorizedException("invalid credentials");
+            throw new UnauthorizedException(ErrorCode.PASSWORD_NOT_MATCH);
         }
 
         return user;
