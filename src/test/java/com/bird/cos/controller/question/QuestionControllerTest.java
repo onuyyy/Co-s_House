@@ -6,6 +6,7 @@ import com.bird.cos.domain.common.CommonCode;
 import com.bird.cos.dto.question.QuestionUpdateRequest;
 import com.bird.cos.dto.question.QuestionManageResponse;
 import com.bird.cos.service.question.QuestionService;
+import com.bird.cos.repository.user.UserRepository;
 import com.bird.cos.repository.CommonCodeRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;

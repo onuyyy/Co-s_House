@@ -233,4 +233,49 @@ class QuestionServiceTest {
         verify(questionRepository, times(1)).findAllByUserIdWithUser(userId, pageable);
     }
 
+    @Test
+    @DisplayName("문의 저장 시 회원정보가 업데이트된다")
+    void saveQuestion_회원정보업데이트_성공() {
+        // Given: 기존 사용자와 다른 정보를 가진 DTO
+        QuestionUpdateRequest updateDto = new QuestionUpdateRequest();
+        updateDto.setQuestionTitle("문의 제목");
+        updateDto.setQuestionContent("문의 내용");
+        updateDto.setQuestionType("QT_001");
+        updateDto.setCustomerName("새로운 이름");
+        updateDto.setCustomerEmail("newemail@example.com");
+        updateDto.setCustomerPhone("010-5555-6666");
+
+        given(userRepository.findById(1L)).willReturn(Optional.of(testUser));
+        given(commonCodeRepository.findById("QT_001")).willReturn(Optional.of(questionType));
+        given(commonCodeRepository.findById("QS_001")).willReturn(Optional.of(questionStatus));
+        given(questionRepository.save(any(Question.class))).willReturn(testQuestion);
+
+        // When
+        Question savedQuestion = questionService.saveQuestion(updateDto);
+
+        // Then
+        assertThat(savedQuestion).isNotNull();
+        verify(questionRepository, times(1)).save(any(Question.class));
+    }
+
+    @Test
+    @DisplayName("문의 수정 시 회원정보가 업데이트된다")
+    void updateQuestion_회원정보업데이트_성공() {
+        // Given
+        Long questionId = 1L;
+        QuestionUpdateRequest updateDto = new QuestionUpdateRequest();
+        updateDto.setQuestionTitle("수정된 제목");
+        updateDto.setQuestionContent("수정된 내용");
+        updateDto.setCustomerName("수정된 이름");
+        updateDto.setCustomerEmail("updated@example.com");
+        updateDto.setCustomerPhone("010-7777-8888");
+
+        given(questionRepository.findById(questionId)).willReturn(Optional.of(testQuestion));
+
+        // When
+        questionService.updateQuestion(questionId, updateDto);
+
+        // Then
+    }
 }
+

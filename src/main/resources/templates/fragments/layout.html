@@ -4,35 +4,90 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title th:text="${title}">코딩의 집</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlKq2a7mS5tnEEn9F/nx0xwu1jHq+8a6B1Z4x1N2R5xjw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" th:href="@{/css/app.css}">
+  <link rel="stylesheet" th:href="@{/css/main/header.css}">
 </head>
 <body class="page font-body">
-  <header th:fragment="header" class="app-header">
-    <div class="container inner">
-      <a class="brand" th:href="@{/}">
-        <img class="logo" th:src="@{/images/logo.png}" alt="브랜드 로고" />
-        <span class="name">코딩의 집</span>
-      </a>
-      <nav class="nav-main" aria-label="주요 메뉴">
-        <a class="hover-primary" th:href="@{/shop}">쇼핑</a>
-        <a class="hover-primary" th:href="@{/community}">커뮤니티</a>
-        <a class="hover-primary" th:href="@{/events}">이벤트</a>
-      </nav>
-      <nav class="app-nav" aria-label="유틸 메뉴" style="margin-left:auto;">
-        <span th:if="${session.user == null}">
-          <a class="btn btn-outline" th:href="@{/controller/register/login}">로그인</a>
-          <a class="btn" th:href="@{/account/register}">회원가입</a>
-        </span>
-        <span th:if="${session.user != null}" class="flex gap-2">
-          <a class="btn btn-outline" th:href="@{/myPage}">마이페이지</a>
-          <form th:action="@{/controller/register/logout}" method="post">
-            <button type="submit" class="btn btn-outline">로그아웃</button>
-            <input type="hidden" th:if="${_csrf != null}" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-          </form>
-        </span>
-      </nav>
+  <header th:fragment="header" class="site-header">
+    <div class="header-banner">
+      코딩의집 DESIGN AWARD 2025 출품작 다시 한 번!
     </div>
+    <nav class="navbar" aria-label="주요 메뉴">
+      <div class="nav-container">
+        <a th:href="@{/}" class="logo">코딩의집</a>
+        <ul class="nav-menu">
+          <li><a th:href="@{/product}" th:classappend="${#httpServletRequest != null and #strings.startsWith(#httpServletRequest.requestURI, '/product')} ? 'is-active' : ''">쇼핑</a></li>
+          <li><a th:href="@{/community}">집들이</a></li>
+          <li><a th:href="@{/events}">이벤트</a></li>
+        </ul>
+        <div class="nav-right">
+          <div class="search-container">
+            <form th:action="@{/search}" method="get" class="search-form">
+              <input type="text" name="keyword" class="search-input-global" placeholder="통합검색" />
+              <button type="submit" class="search-btn-global"><i class="fas fa-search"></i></button>
+            </form>
+          </div>
+          <div class="nav-icons">
+            <a th:href="@{/cart}" class="nav-icon">
+              <img th:src="@{/images/장바구니.png}" alt="장바구니" class="icon-img" />
+            </a>
+            <a th:href="@{/heart}" class="nav-icon">
+              <img th:src="@{/images/좋아요전.png}" alt="하트" class="icon-img" />
+            </a>
+            <a th:href="@{/history}" class="nav-icon">
+              <img th:src="@{/images/알림.png}" alt="알림" class="icon-img" />
+            </a>
+            <a th:href="@{/customer}" class="nav-icon">
+              <img th:src="@{/images/mypage.png}" alt="마이페이지" class="icon-img" />
+            </a>
+          </div>
+          <div class="user-actions">
+            <span th:if="${session.user == null}" class="auth-links">
+              <a th:href="@{/controller/register/login}" class="link-auth">로그인</a>
+              <a th:href="@{/account/register}" class="link-auth primary">회원가입</a>
+            </span>
+            <span th:if="${session.user != null}" class="auth-links">
+              <a th:href="@{/mypage}" class="link-auth">마이페이지</a>
+              <form th:action="@{/controller/register/logout}" method="post" class="logout-form">
+                <button type="submit" class="link-auth">로그아웃</button>
+                <input type="hidden" th:if="${_csrf != null}" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+              </form>
+            </span>
+            <button type="button" class="user-btn">글쓰기 ▼</button>
+          </div>
+        </div>
+      </div>
+    </nav>
   </header>
+
+  <script>
+    (function () {
+      var header = document.querySelector('.site-header');
+      if (!header || !document.body) {
+        return;
+      }
+
+      function updateHeaderOffset() {
+        document.body.style.setProperty('--header-offset', header.offsetHeight + 'px');
+      }
+
+      if (window.ResizeObserver) {
+        var observer = new ResizeObserver(function () {
+          updateHeaderOffset();
+        });
+        observer.observe(header);
+      }
+
+      window.addEventListener('resize', updateHeaderOffset, { passive: true });
+      window.addEventListener('load', updateHeaderOffset, { once: true });
+      if (document.readyState === 'loading') {
+        window.addEventListener('DOMContentLoaded', updateHeaderOffset, { once: true });
+      } else {
+        updateHeaderOffset();
+      }
+    })();
+  </script>
 
   <footer th:fragment="footer" class="app-footer" style="--foot-bg:linear-gradient(135deg, var(--brand-50) 0%, var(--brand-200) 100%); --foot-fg:#0b1d4d;">
     <div class="container">

@@ -23,6 +23,7 @@ public class ProductController {
         List<Product> products = productService.getProductsByCategory(categoryId);
 
         model.addAttribute("products", products);
+        model.addAttribute("totalCount", products != null ? products.size() : 0);
         return "product/productList";
     }
 
@@ -31,6 +32,7 @@ public class ProductController {
     public String showProductsByCategoryOrderByPriceAsc(Model model, @PathVariable Long categoryId) {
         List<Product> products = productService.getProductsByCategoryOrderBySalePriceAsc(categoryId);
         model.addAttribute("products", products);
+        model.addAttribute("totalCount", products != null ? products.size() : 0);
         return "product/productList";
     }
 
@@ -39,6 +41,7 @@ public class ProductController {
     public String showProductsByCategoryOrderByPriceDesc(Model model, @PathVariable Long categoryId) {
         List<Product> products = productService.getProductsByCategoryOrderBySalePriceDesc(categoryId);
         model.addAttribute("products", products);
+        model.addAttribute("totalCount", products != null ? products.size() : 0);
         return "product/productList";
     }
 
@@ -48,6 +51,7 @@ public class ProductController {
         // Service에 정의된, 평점순으로 조회하는 메서드를 호출합니다.
         List<Product> products = productService.getProductsByCategoryOrderByRatingDesc(categoryId);
         model.addAttribute("products", products);
+        model.addAttribute("totalCount", products != null ? products.size() : 0);
         return "product/productList";
     }
 

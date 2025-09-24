@@ -1,345 +1,13 @@
-
-
-
-
-
-
 <!DOCTYPE html>
 <html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>상품 상세 - 오늘의집</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background-color: #f8f9fa;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        /* 헤더 */
-        .header {
-            background: white;
-            border-bottom: 1px solid #e9ecef;
-            padding: 1rem 0;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        .nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #35c5f0;
-            text-decoration: none;
-        }
-
-        .back-btn {
-            background: #f8f9fa;
-            border: 1px solid #dee2e6;
-            padding: 8px 16px;
-            border-radius: 4px;
-            text-decoration: none;
-            color: #666;
-            font-size: 14px;
-        }
-
-        .back-btn:hover {
-            background: #e9ecef;
-        }
-
-        /* 메인 컨텐츠 */
-        .product-detail {
-            background: white;
-            margin: 20px 0;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-
-        .product-header {
-            display: flex;
-            padding: 30px;
-            gap: 40px;
-        }
-
-        .product-image {
-            flex: 1;
-            max-width: 500px;
-        }
-
-        .image-placeholder {
-            width: 100%;
-            height: 400px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 18px;
-        }
-
-        .product-info {
-            flex: 1;
-            padding: 20px 0;
-        }
-
-        .brand-name {
-            color: #666;
-            font-size: 14px;
-            margin-bottom: 8px;
-            cursor: pointer;
-            transition: color 0.2s ease;
-        }
-
-        .brand-name:hover {
-            color: #35c5f0;
-            text-decoration: underline;
-        }
-
-        .brand-name.no-link {
-            cursor: default;
-        }
-
-        .brand-name.no-link:hover {
-            color: #666;
-            text-decoration: none;
-        }
-
-        .product-title {
-            font-size: 24px;
-            font-weight: bold;
-            margin-bottom: 16px;
-            line-height: 1.4;
-        }
-
-        .rating-section {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 20px;
-        }
-
-        .star-rating {
-            color: #ffc107;
-            font-size: 18px;
-        }
-
-        .rating-score {
-            font-weight: bold;
-            color: #333;
-        }
-
-        .review-count {
-            color: #666;
-            font-size: 14px;
-        }
-
-        .price-section {
-            margin-bottom: 30px;
-        }
-
-        .discount-rate {
-            color: #dc3545;
-            font-weight: bold;
-            font-size: 18px;
-            margin-right: 8px;
-        }
-
-        .current-price {
-            font-size: 28px;
-            font-weight: bold;
-            color: #333;
-            margin-right: 8px;
-        }
-
-        .original-price {
-            color: #999;
-            text-decoration: line-through;
-            font-size: 16px;
-        }
-
-        .shipping-info {
-            display: flex;
-            gap: 8px;
-            margin-bottom: 20px;
-        }
-
-        .badge {
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 12px;
-            font-weight: bold;
-        }
-
-        .badge.free-shipping {
-            background: #e8f5e8;
-            color: #28a745;
-        }
-
-        .badge.today-deal {
-            background: #35c5f0;
-            color: white;
-        }
-
-        .product-details {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 16px;
-            margin-bottom: 30px;
-        }
-
-        .detail-item {
-            display: flex;
-            justify-content: space-between;
-            padding: 12px 0;
-            border-bottom: 1px solid #f1f3f4;
-        }
-
-        .detail-label {
-            color: #666;
-            font-weight: 500;
-        }
-
-        .detail-value {
-            color: #333;
-        }
-
-        .option-section {
-            margin-bottom: 20px;
-        }
-
-        .option-section select {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #dee2e6;
-            border-radius: 4px;
-            font-size: 14px;
-            background: white;
-        }
-
-        .total-price-section {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 16px 0;
-            border-top: 1px solid #e9ecef;
-            margin-bottom: 20px;
-        }
-
-        .total-price-label {
-            font-size: 16px;
-            font-weight: bold;
-            color: #333;
-        }
-
-        .total-price-value {
-            font-size: 20px;
-            font-weight: bold;
-            color: #dc3545;
-        }
-
-        .action-buttons {
-            display: flex;
-            gap: 12px;
-        }
-
-        .btn {
-            padding: 12px 24px;
-            border: none;
-            border-radius: 6px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s ease;
-        }
-
-        .btn-primary {
-            background: #35c5f0;
-            color: white;
-            flex: 1;
-        }
-
-        .btn-primary:hover {
-            background: #2ba3cc;
-        }
-
-        /* 상품 설명 */
-        .product-description {
-            padding: 30px;
-            border-top: 1px solid #e9ecef;
-        }
-
-        .description-title {
-            font-size: 20px;
-            font-weight: bold;
-            margin-bottom: 16px;
-        }
-
-        .description-content {
-            color: #666;
-            line-height: 1.8;
-        }
-
-        /* 반응형 */
-        @media (max-width: 768px) {
-            .product-header {
-                flex-direction: column;
-                padding: 20px;
-                gap: 20px;
-            }
-
-            .product-details {
-                grid-template-columns: 1fr;
-            }
-
-            .action-buttons {
-                flex-direction: column;
-                gap: 12px;
-                margin-top: 24px;
-            }
-
-            .btn {
-                width: 100%;
-            }
-        }
-    </style>
-</head>
+<head th:replace="fragments/layout :: head('코딩의 집 | 쇼핑')"></head>
 <body>
 <!-- 헤더 -->
 <header class="header">
     <div class="container">
         <nav class="nav">
             <div class="nav-left">
-<<<<<<<< HEAD:src/main/resources/templates/product/product-detail.html
-                <a th:href="@{/static}" class="logo">🏠 오늘의집</a>
-========
-                <a href="#" class="logo">🏠 오늘의집</a>
->>>>>>>> dev:src/main/resources/templates/product/productDetail.html
+                <a th:href="@{/}" class="logo">🏠 오늘의집</a>
             </div>
             <div class="nav-right">
                 <a href="javascript:history.back()" class="back-btn">← 목록으로</a>
@@ -362,8 +30,17 @@
                 </div>
 
                 <!-- 상품 정보 -->
-                <div class="product-info"  th:data-product-id="${product.productId}"
-                     th:data-base-price="${product.originalPrice}">
+                <div class="product-info"
+                     th:data-product-id="${product.productId}"
+                     th:data-title="${product.productTitle}"
+                     th:data-image-url="${product.mainImageUrl}"
+                     th:data-brand-id="${brandId}"
+                     th:data-brand-name="${brand != null ? brand.brandName : ''}"
+                     th:data-unit-price="${product.originalPrice}"
+                     th:data-sale-price="${product.salePrice}"
+                     th:data-coupon-price="${product.couponPrice}"
+                     th:data-discount-rate="${product.discountRate}"
+                     th:data-base-price="${basePrice}">
                     <!-- 브랜드명 -->
                     <div class="brand-name" th:data-brand-id="${brandId}" onclick="goToBrandPage(this)">
                         <span th:text="${brand != null ? brand.brandName : '브랜드명'}">브랜드명</span>
@@ -429,6 +106,17 @@
                         </select>
                     </div>
 
+                    <!-- 상품 수량 -->
+                    <div class="detail-item">
+                        <span class="detail-label">수량</span>
+                        <span class="detail-value">
+                            <div class="qty-container">
+                                <button type="button" class="qty-btn" id="qty-decrease" aria-label="수량 감소">−</button>
+                                <input id="qty-input" type="number" inputmode="numeric" pattern="[0-9]*" min="1" value="1" />
+                                <button type="button" class="qty-btn" id="qty-increase" aria-label="수량 증가">＋</button>
+                            </div>
+                        </span>
+                    </div>
 
                     <!-- 총 가격 -->
                     <div class="total-price-section">
@@ -438,8 +126,8 @@
 
                     <!-- 액션 버튼 -->
                     <div class="action-buttons">
-                        <button class="btn btn-primary" onclick="addToCart()">장바구니 담기</button>
-                        <button class="btn btn-primary" onclick="buyNow()">구매하기</button>
+                        <button class="btn btn-primary" onclick="addToCart(false)">장바구니 담기</button>
+                        <button class="btn btn-primary" onclick="addToCart(true)">구매하기</button>
                     </div>
                 </div>
             </div>
@@ -456,68 +144,247 @@
 </main>
 
 <script>
-    // 브랜드 페이지로 이동
+    const GUEST_CART_KEY = 'cohouse_guest_cart_v1';
+
+    document.addEventListener('DOMContentLoaded', () => {
+        initOptionPriceUpdater();
+    });
+
     function goToBrandPage(element) {
         const brandId = element.getAttribute('data-brand-id');
-
         if (brandId && brandId !== 'null' && brandId.trim() !== '') {
-            console.log('브랜드 페이지로 이동:', brandId);
             window.location.href = '/brands/' + brandId;
-            //alert('브랜드 페이지로 이동: ' + brandId);
-        } else {
-            alert('해당 상품의 브랜드 페이지가 없습니다.');
         }
     }
 
-    // 장바구니 담기
-    function addToCart() {
-        const productId = document.querySelector('.product-info').dataset.productId;
-        const selectedOption = document.querySelector('#product-options').value;
+    async function addToCart(redirectToCart = false) {
+        const productInfo = document.querySelector('.product-info');
+        if (!productInfo) {
+            alert('상품 정보를 찾을 수 없습니다.');
+            return;
+        }
 
-        console.log('장바구니 담기:', { productId, selectedOption });
-        alert('장바구니에 담았습니다!');
+        const productId = parseNumber(productInfo.dataset.productId);
+        if (!productId) {
+            alert('상품 정보를 찾을 수 없습니다.');
+            return;
+        }
+
+        const quantityInput = document.getElementById('qty-input');
+        const quantity = parseInt(quantityInput.value, 10) || 1;
+
+        if (quantity < 1) {
+            alert('수량은 1개 이상이어야 합니다.');
+            return;
+        }
+
+        const optionSelect = document.getElementById('product-options');
+        const optionData = resolveSelectedOption(optionSelect);
+
+        const basePrice = computeBasePrice(productInfo);
+        const finalUnitPrice = Math.max(0, basePrice + optionData.additionalPrice);
+        const payload = buildCartPayload(productId, optionData.optionId, quantity);
+
+        try {
+            await sendAddToCartRequest(payload);
+            removeGuestCartItem(productId, optionData.optionId);
+            alert('장바구니에 담았습니다!');
+        } catch (error) {
+            if (error === 'unauthorized') {
+                saveGuestCartItem({
+                    productId,
+                    quantity: payload.quantity,
+                    optionId: optionData.optionId,
+                    optionLabel: optionData.optionLabel,
+                    title: productInfo.dataset.title || '',
+                    imageUrl: productInfo.dataset.imageUrl || '',
+                    finalUnitPrice,
+                    unitPrice: computeUnitPrice(productInfo),
+                    brandId: parseNumber(productInfo.dataset.brandId),
+                    brandName: productInfo.dataset.brandName || ''
+                });
+                alert('로그인 후 주문하면 보유 쿠폰이 적용돼요. 장바구니에 담았습니다!');
+            } else {
+                console.error(error);
+                alert('장바구니 담기에 실패했습니다. 잠시 후 다시 시도해주세요.');
+                return;
+            }
+        }
+
+        if (redirectToCart) {
+            window.location.href = '/cart';
+        }
     }
 
-    // 구매하기
-    function buyNow() {
-        const productId = document.querySelector('.product-info').dataset.productId;
-        const selectedOption = document.querySelector('#product-options').value;
-
-        console.log('구매하기:', { productId, selectedOption });
-        alert('구매 페이지로 이동합니다!');
-    }
-
-    // 옵션 선택에 따른 가격 변경
-    document.addEventListener('DOMContentLoaded', function() {
+    function initOptionPriceUpdater() {
         const productInfo = document.querySelector('.product-info');
         const optionsSelect = document.getElementById('product-options');
         const totalPriceElement = document.getElementById('total-price');
 
-        if (!optionsSelect || !productInfo || !totalPriceElement) {
+        if (!productInfo || !optionsSelect || !totalPriceElement) {
             return;
         }
 
-        const basePriceStr = productInfo.dataset.basePrice;
-        if (!basePriceStr) {
-            return;
-        }
+        const basePrice = computeBasePrice(productInfo);
+        updateTotalPrice(totalPriceElement, basePrice);
 
-        const basePrice = parseInt(basePriceStr, 10);
-
-        optionsSelect.addEventListener('change', function() {
-            const selectedOption = this.selectedOptions[0];
-            let additionalPrice = 0;
-
-            if (selectedOption && selectedOption.dataset.additionalPrice) {
-                additionalPrice = parseInt(selectedOption.dataset.additionalPrice, 10);
-            }
-
-            const totalPrice = basePrice + additionalPrice;
-            totalPriceElement.textContent = totalPrice.toLocaleString() + '원';
+        optionsSelect.addEventListener('change', () => {
+            const optionData = resolveSelectedOption(optionsSelect);
+            const totalPrice = basePrice + optionData.additionalPrice;
+            updateTotalPrice(totalPriceElement, totalPrice);
         });
-    });
+    }
+
+    function resolveSelectedOption(selectEl) {
+        if (!selectEl || selectEl.selectedIndex < 0) {
+            return { optionId: null, optionLabel: '', additionalPrice: 0 };
+        }
+        const option = selectEl.selectedOptions[0];
+        if (!option || !option.value) {
+            return { optionId: null, optionLabel: '', additionalPrice: 0 };
+        }
+        return {
+            optionId: parseNumber(option.value),
+            optionLabel: (option.textContent || '').trim(),
+            additionalPrice: parseMoney(option.dataset.additionalPrice)
+        };
+    }
+
+    function buildCartPayload(productId, optionId, quantity) {
+        const payload = {
+            productId,
+            quantity
+        };
+        if (optionId) {
+            payload.selectedOptions = String(optionId);
+        }
+        return payload;
+    }
+
+    async function sendAddToCartRequest(body) {
+        const response = await fetch('/api/cart', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include',
+            body: JSON.stringify(body)
+        });
+
+        if (response.ok) {
+            return;
+        }
+        if (response.status === 401 || response.status === 403) {
+            throw 'unauthorized';
+        }
+        const message = await response.text().catch(() => '');
+        throw new Error(message || 'Failed to add to cart');
+    }
+
+    function computeBasePrice(productInfo) {
+        const values = [
+            productInfo.dataset.basePrice,
+            productInfo.dataset.salePrice,
+            productInfo.dataset.couponPrice,
+            productInfo.dataset.unitPrice
+        ];
+        for (const value of values) {
+            const amount = parseMoney(value);
+            if (amount > 0) {
+                return amount;
+            }
+        }
+        return 0;
+    }
+
+    function computeUnitPrice(productInfo) {
+        const amount = parseMoney(productInfo.dataset.unitPrice);
+        return amount > 0 ? amount : computeBasePrice(productInfo);
+    }
+
+    function updateTotalPrice(targetEl, amount) {
+        if (!targetEl) {
+            return;
+        }
+        const formatted = formatCurrency(amount);
+        targetEl.textContent = formatted + '원';
+    }
+
+    function parseMoney(value) {
+        const num = Number(value);
+        return Number.isFinite(num) ? num : 0;
+    }
+
+    function parseNumber(value) {
+        const num = Number(value);
+        return Number.isFinite(num) ? num : null;
+    }
+
+    function formatCurrency(value) {
+        const num = parseMoney(value);
+        return Number.isFinite(num) ? num.toLocaleString('ko-KR') : '0';
+    }
+
+    function loadGuestCartItems() {
+        try {
+            const raw = localStorage.getItem(GUEST_CART_KEY);
+            if (!raw) {
+                return [];
+            }
+            const parsed = JSON.parse(raw);
+            return Array.isArray(parsed) ? parsed : [];
+        } catch (error) {
+            console.warn('Failed to parse guest cart', error);
+            return [];
+        }
+    }
+
+    function saveGuestCartItems(items) {
+        localStorage.setItem(GUEST_CART_KEY, JSON.stringify(items));
+    }
+
+    function saveGuestCartItem(item) {
+        const items = loadGuestCartItems();
+        const optionKey = item.optionId != null ? item.optionId : null;
+        const index = items.findIndex(existing => existing.productId === item.productId && normalizeOption(existing.optionId) === optionKey);
+        if (index >= 0) {
+            items[index].quantity = (items[index].quantity || 0) + item.quantity;
+            items[index].finalUnitPrice = item.finalUnitPrice;
+            items[index].unitPrice = item.unitPrice;
+            items[index].optionLabel = item.optionLabel;
+            items[index].title = item.title;
+            items[index].imageUrl = item.imageUrl;
+            items[index].brandId = item.brandId;
+            items[index].brandName = item.brandName;
+            items[index].updatedAt = new Date().toISOString();
+        } else {
+            items.push({
+                productId: item.productId,
+                quantity: item.quantity,
+                optionId: optionKey,
+                optionLabel: item.optionLabel,
+                title: item.title,
+                imageUrl: item.imageUrl,
+                finalUnitPrice: item.finalUnitPrice,
+                unitPrice: item.unitPrice,
+                brandId: item.brandId,
+                brandName: item.brandName,
+                updatedAt: new Date().toISOString()
+            });
+        }
+        saveGuestCartItems(items);
+    }
+
+    function removeGuestCartItem(productId, optionId) {
+        const optionKey = optionId != null ? optionId : null;
+        const items = loadGuestCartItems().filter(item => {
+            return !(item.productId === productId && normalizeOption(item.optionId) === optionKey);
+        });
+        saveGuestCartItems(items);
+    }
+
+    function normalizeOption(value) {
+        return value == null ? null : Number(value);
+    }
 </script>
 
 </body>
 </html>
-
