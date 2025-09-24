@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface MyPageRepository extends JpaRepository<User, Long> {
+public interface MypageRepository extends JpaRepository<User, Long> {
 
     @Query("SELECT u FROM User u WHERE u.userId = :userId")
     Optional<User> findUserForMyPage(@Param("userId") Long userId);

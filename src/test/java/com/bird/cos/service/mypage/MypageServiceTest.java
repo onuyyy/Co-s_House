@@ -1,10 +1,10 @@
-package com.bird.cos.service.myPage;
+package com.bird.cos.service.mypage;
 
 import com.bird.cos.domain.user.User;
 import com.bird.cos.domain.user.UserRole;
-import com.bird.cos.dto.myPage.MyPageUserManageResponse;
-import com.bird.cos.dto.myPage.MyPageUserUpdateRequest;
-import com.bird.cos.repository.myPage.MyPageRepository;
+import com.bird.cos.dto.mypage.MypageUserManageResponse;
+import com.bird.cos.dto.mypage.MypageUserUpdateRequest;
+import com.bird.cos.repository.mypage.MypageRepository;
 import com.bird.cos.repository.user.UserRepository;
 import com.bird.cos.repository.question.QuestionRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -22,7 +22,6 @@ import java.util.Optional;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.times;
@@ -30,11 +29,11 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.doNothing;
 
 @ExtendWith(MockitoExtension.class)
-@DisplayName("MyPageService 테스트")
-class MyPageServiceTest {
+@DisplayName("MypageService 테스트")
+class MypageServiceTest {
 
     @Mock
-    private MyPageRepository myPageRepository;
+    private MypageRepository myPageRepository;
 
     @Mock
     private UserRepository userRepository;
@@ -46,11 +45,11 @@ class MyPageServiceTest {
     private QuestionRepository questionRepository;
 
     @InjectMocks
-    private MyPageService myPageService;
+    private MypageService myPageService;
 
     private User testUser;
     private User socialUser;
-    private MyPageUserUpdateRequest updateRequest;
+    private MypageUserUpdateRequest updateRequest;
     private UserRole testUserRole;
 
     @BeforeEach
@@ -81,7 +80,7 @@ class MyPageServiceTest {
                 .termsAgreed(true)
                 .build();
 
-        updateRequest = new MyPageUserUpdateRequest();
+        updateRequest = new MypageUserUpdateRequest();
         updateRequest.setUserNickname("수정된닉네임");
         updateRequest.setUserPhone("010-9876-5432");
         updateRequest.setUserAddress("서울시 서초구");
@@ -94,7 +93,7 @@ class MyPageServiceTest {
         given(myPageRepository.findUserForMyPage(1L)).willReturn(Optional.of(testUser));
 
         // When
-        MyPageUserManageResponse result = myPageService.getUserInfoById(1L);
+        MypageUserManageResponse result = myPageService.getUserInfoById(1L);
 
         // Then
         assertThat(result).isNotNull();

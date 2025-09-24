@@ -227,7 +227,7 @@ function validatePassword(password, feedbackElementId, onValid, onInvalid) {
     }
 
     // 서버에 비밀번호 검증 요청
-    fetch('/myPage/validatePassword', {
+    fetch('/mypage/validatePassword', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
@@ -378,7 +378,7 @@ function handleWithdrawal() {
     // 별도의 form을 생성하여 탈퇴 요청
     const form = document.createElement('form');
     form.method = 'POST';
-    form.action = '/myPage/myPageUserDelete';
+    form.action = '/mypage/mypageUserDelete';
 
     // CSRF 토큰이 있다면 추가
     const csrfToken = document.querySelector('meta[name="_csrf"]');
