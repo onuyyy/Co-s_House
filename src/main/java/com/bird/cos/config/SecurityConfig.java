@@ -70,10 +70,6 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        // 공지사항 테스트용코드 merge후 지워도 됩니다
-                        .requestMatchers("/notices/**").permitAll()
-                        .requestMatchers("/admin/notices/**").permitAll()
-                        .requestMatchers("/api/**").permitAll()
 
                         // 1) 정적 리소스 전부 허용
                         .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
@@ -89,6 +85,8 @@ public class SecurityConfig {
                                 "/controller/register/login",
                                 "/shop",
                                 "/cart", //todo: 지우기
+                                "/product", //todo: 비회원에게 상품 목록 공개
+                                "/product/**", //todo: 상품 목록 공개
                                 "/community",
                                 "/events"
                         ).permitAll()

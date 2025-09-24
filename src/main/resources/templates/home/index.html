@@ -5,27 +5,18 @@
   <header th:replace="fragments/layout :: header"></header>
 
   <main class="page-main">
-    <!-- Top hero/search -->
+    <!-- Top hero -->
     <section class="home-hero">
       <div class="container hero-inner">
-        <div class="hero-text">
+        <div class="hero-copy">
+          <span class="hero-eyebrow">코딩의 집</span>
           <h1 class="hero-title">오늘, 우리 집 분위기를 바꾸다</h1>
-          <p class="hero-sub">가구 · 인테리어 · 집들이 영감까지 한 곳에서</p>
-          <form class="hero-search" role="search" th:action="@{/search}" method="get">
-            <input class="hero-input" name="q" type="search" placeholder="소파, 러그, 조명… 무엇을 찾고 있나요?" aria-label="검색" />
-            <button class="btn hero-btn" type="submit">검색</button>
-          </form>
-          <nav class="hero-shortcuts" aria-label="바로가기">
-            <a class="chip-btn hover-primary" th:href="@{/}">홈</a>
-            <a class="chip-btn hover-primary" href="#popular">인기</a>
-            <a class="chip-btn hover-primary" href="#today">오늘의 딜</a>
-          </nav>
+          <p class="hero-sub">햇살이 머무는 거실에서 영감 받은 최신 가구와 리빙 소품을 만나보세요.</p>
+          <a class="btn hero-cta" th:href="@{/product}">상품 둘러보기</a>
         </div>
-        <div class="hero-visual">
-          <div class="hero-card" aria-hidden="true">
-            <div class="ph ph-hero" role="img" aria-label="이미지 플레이스홀더"></div>
-          </div>
-        </div>
+        <figure class="hero-visual">
+          <img class="hero-image" th:src="@{/images/home.jpeg}" alt="햇살이 들어오는 거실과 원목 가구" loading="lazy" />
+        </figure>
       </div>
     </section>
 
@@ -61,7 +52,7 @@
     <section id="popular" class="section container">
       <div class="section-head">
         <h2 class="text-h2">인기 급상승</h2>
-        <a class="link-more" th:href="@{/shop}">더보기</a>
+        <a class="link-more" th:href="@{/product}">더보기</a>
       </div>
       <div class="product-grid grid-4">
         <article class="p-card small" th:each="p : ${popularProducts}">

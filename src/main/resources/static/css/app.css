@@ -70,10 +70,15 @@ body {
   color: var(--color-text);
   font-family: 'Pretendard', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, Apple SD Gothic Neo, "Noto Sans KR", "Malgun Gothic", "맑은 고딕", sans-serif;
   line-height: 1.5;
+  padding-top: var(--header-offset, 0px);
 }
 
 /* Page layout for sticky footer */
-body.page { min-height: 100vh; display: flex; flex-direction: column; }
+body.page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
 main.page-main { flex: 1; }
 
 /* Typography utilities */
@@ -115,35 +120,6 @@ main.page-main { flex: 1; }
 .brand .name { font-family: 'KkuBulLim','Pretendard',sans-serif; font-size: 1.5em; color: #000; }
 .brand .logo { width: 28px; height: 28px; display:block; object-fit: contain; }
 
-/* Header/Footer skeleton */
-.app-header { position: sticky; top: 0; background: rgba(255,255,255,.78); backdrop-filter: saturate(160%) blur(8px); border-bottom: 1px solid #eef1f5; z-index: 10; }
-.app-header .inner { height: 60px; display:flex; align-items:center; justify-content: space-between; gap: 16px; }
-.nav-main { display:flex; gap: 22px; font-weight:800; font-size:16px; }
-.nav-main a { text-decoration:none; color:inherit; transition: color .15s; }
-.nav-main a:hover { color: var(--color-primary); }
-.app-nav { display:flex; gap: 10px; }
-.app-nav a:not(.btn) { color: var(--color-text); text-decoration: none; font-weight: 600; }
-.app-nav a:not(.btn):hover { color: var(--color-primary); }
-.app-nav .btn { color: #fff; }
-
-/* Header blocks (shared) */
-.nav-main a.is-active { color: var(--color-primary); text-decoration: underline; text-underline-offset: 6px; }
-/* removed legacy header blocks not used on home */
-
-.app-footer { margin-top: auto; padding: var(--space-8) 0; font-size: 13px; background: var(--foot-bg, var(--brand-900)); color: var(--foot-fg, #ffffff); }
-.app-footer .container { max-width: 1024px; margin: 0 auto; padding: 0 var(--space-4); }
-.app-footer a { color: inherit; text-decoration: none; opacity: .6; }
-.app-footer a:hover { text-decoration: underline; opacity: 1; }
-.foot-columns { display:grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-
-/* removed horizontal category nav (unused) */
-
-/* removed table styles (unused on home) */
-
-/* removed badges/tags (unused) */
-
-/* removed tabs (unused on home) */
-
 /* Product grid */
 .product-grid { display:grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px; }
 /* removed old product-card styles (home uses .p-card in home.css) */
@@ -161,7 +137,6 @@ main.page-main { flex: 1; }
 @media (max-width: 640px) {
   .grid-2 { grid-template-columns: 1fr !important; }
   .container { padding-left: 12px; padding-right: 12px; }
-  .app-header .inner { height: 56px; }
   .product-grid { grid-template-columns: repeat(2, 1fr); }
   .header-line { flex-wrap: wrap; }
   .header-actions { min-width: 0; width: 100%; margin-top: 8px; }

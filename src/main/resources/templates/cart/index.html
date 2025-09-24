@@ -1,432 +1,271 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/layout :: head('코딩의 집 | 장바구니 미리보기')"></head>
+<head th:replace="fragments/layout :: head('코딩의 집 | 쇼핑')"></head>
 <body class="page font-body">
 <header th:replace="fragments/layout :: header"></header>
 
-<main class="page-main">
-  <section class="container cart-preview" aria-labelledby="cart-preview-title">
-    <div class="cart-summary">
-      <h1 id="cart-preview-title">장바구니 미리보기</h1>
-      <p class="summary-desc">주문 단계에서 쿠폰을 최종 적용합니다. 장바구니에서는 보유 쿠폰 기준 예상 금액만 확인할 수 있어요.</p>
-      <dl class="summary-list">
-        <div>
-          <dt>총 수량</dt>
-          <dd><span id="summary-quantity">0</span>개</dd>
+<main class="main-content">
+    <div class="page-card">
+        <div class="page-header">
+            <h1 class="page-title">장바구니</h1>
+            <p class="page-subtitle">주문 단계에서 보유 쿠폰을 최종 적용하고 결제 금액을 확정할 수 있습니다.</p>
+            <p class="page-meta">현재 장바구니는 예측 금액과 담긴 상품 정보를 미리 보여드립니다.</p>
         </div>
-        <div>
-          <dt>상품 금액</dt>
-          <dd><span id="summary-total">0</span>원</dd>
-        </div>
-        <div>
-          <dt>예상 할인</dt>
-          <dd><span id="summary-discount">0</span>원</dd>
-        </div>
-        <div>
-          <dt class="em">예상 결제 금액</dt>
-          <dd class="em"><span id="summary-expected">0</span>원</dd>
-        </div>
-      </dl>
-      <p class="summary-tip">브랜드별로 한 장의 쿠폰만 자동 선택되며, 서로 다른 브랜드 상품은 중복 적용됩니다.</p>
-    </div>
 
-    <section class="cart-items" aria-labelledby="cart-items-title">
-      <div class="section-head">
-        <h2 id="cart-items-title">담긴 상품</h2>
-        <span id="cart-count" class="count-badge">0</span>
-      </div>
-      <div id="cart-empty" class="empty-state" hidden>장바구니가 비어 있습니다.</div>
-      <div id="guest-info" class="info" hidden>
-        로그인하면 보유 쿠폰이 자동 적용되고, 게스트 장바구니는 서버 장바구니와 합쳐져요.
-      </div>
-      <ul id="cart-item-list" class="item-list" aria-live="polite"></ul>
-      <div id="cart-error" class="alert" hidden>장바구니를 불러오지 못했습니다. 잠시 후 다시 시도해주세요.</div>
-      <div id="cart-unauth" class="alert" hidden>로그인 후 장바구니를 확인할 수 있습니다.</div>
-    </section>
-  </section>
+        <div class="cart-layout">
+            <aside class="summary-card" aria-labelledby="cart-preview-title">
+                <h2 id="cart-preview-title">장바구니 미리보기</h2>
+                <p class="summary-desc">장바구니에서는 보유 쿠폰 기준 예상 금액을 확인할 수 있어요.</p>
+                <dl class="summary-list">
+                    <div>
+                        <dt>총 수량</dt>
+                        <dd><span id="summary-quantity">0</span>개</dd>
+                    </div>
+                    <div>
+                        <dt>상품 금액</dt>
+                        <dd><span id="summary-total">0</span>원</dd>
+                    </div>
+                    <div>
+                        <dt>예상 할인</dt>
+                        <dd><span id="summary-discount">0</span>원</dd>
+                    </div>
+                    <div>
+                        <dt class="em">예상 결제 금액</dt>
+                        <dd class="em"><span id="summary-expected">0</span>원</dd>
+                    </div>
+                </dl>
+                <p class="summary-tip">브랜드별로 한 장의 쿠폰만 자동 선택되며, 서로 다른 브랜드 상품은 중복 적용됩니다.</p>
+            </aside>
+
+            <section class="items-card" aria-labelledby="cart-items-title">
+                <div class="section-head">
+                    <h2 id="cart-items-title">담긴 상품</h2>
+                    <span id="cart-count" class="count-badge">0</span>
+                </div>
+                <div id="cart-empty" class="empty-state" hidden>장바구니가 비어 있습니다.</div>
+                <div id="guest-info" class="info" hidden>
+                    로그인하면 보유 쿠폰이 자동 적용되고, 게스트 장바구니는 서버 장바구니와 합쳐져요.
+                </div>
+                <ul id="cart-item-list" class="item-list" aria-live="polite"></ul>
+                <div id="cart-error" class="alert" hidden>장바구니를 불러오지 못했습니다. 잠시 후 다시 시도해주세요.</div>
+                <div id="cart-unauth" class="alert" hidden>로그인 후 장바구니를 확인할 수 있습니다.</div>
+            </section>
+        </div>
+    </div>
 </main>
 
 <footer th:replace="fragments/layout :: footer"></footer>
 
-<style>
-  .cart-preview {
-    display: grid;
-    gap: 2rem;
-    padding: 3rem 0 5rem;
-  }
-  @media (min-width: 992px) {
-    .cart-preview {
-      grid-template-columns: minmax(320px, 360px) 1fr;
-      align-items: start;
-    }
-  }
-  .cart-summary {
-    border: 1px solid #e5e7eb;
-    border-radius: 16px;
-    padding: 2rem;
-    background: #fafafa;
-    box-shadow: 0 12px 24px rgba(15, 23, 42, 0.08);
-  }
-  .cart-summary h1 {
-    font-size: 1.75rem;
-    margin-bottom: 0.5rem;
-  }
-  .summary-desc {
-    color: #64748b;
-    margin-bottom: 1.5rem;
-    line-height: 1.6;
-  }
-  .summary-list {
-    display: grid;
-    gap: 1rem;
-    margin: 0;
-  }
-  .summary-list div {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    font-size: 1rem;
-    padding-bottom: 0.75rem;
-    border-bottom: 1px solid #e5e7eb;
-  }
-  .summary-list div:last-child {
-    border-bottom: none;
-  }
-  .summary-list dt {
-    font-weight: 600;
-    color: #0f172a;
-  }
-  .summary-list dd {
-    margin: 0;
-    font-weight: 600;
-    color: #1f2937;
-  }
-  .summary-list .em {
-    color: #2563eb;
-    font-size: 1.125rem;
-  }
-  .summary-tip {
-    margin-top: 1.5rem;
-    font-size: 0.95rem;
-    color: #475569;
-    line-height: 1.5;
-  }
-  .cart-items {
-    border: 1px solid #e5e7eb;
-    border-radius: 16px;
-    padding: 2rem;
-    background: #fff;
-  }
-  .section-head {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 1rem;
-  }
-  .section-head h2 {
-    font-size: 1.5rem;
-    margin: 0;
-  }
-  .count-badge {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 34px;
-    padding: 0.25rem 0.75rem;
-    border-radius: 999px;
-    background: #2563eb;
-    color: #fff;
-    font-weight: 700;
-  }
-  .item-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: grid;
-    gap: 1.25rem;
-  }
-  .item-card {
-    display: grid;
-    grid-template-columns: 96px 1fr;
-    gap: 1rem;
-    padding-bottom: 1.25rem;
-    border-bottom: 1px solid #f1f5f9;
-  }
-  .item-card:last-child {
-    border-bottom: none;
-  }
-  .item-thumb {
-    position: relative;
-    width: 96px;
-    height: 96px;
-    border-radius: 12px;
-    overflow: hidden;
-    background: #f8fafc;
-    border: 1px solid #e2e8f0;
-  }
-  .item-thumb img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-  .item-body {
-    display: grid;
-    gap: 0.4rem;
-  }
-  .item-title {
-    font-size: 1.05rem;
-    margin: 0;
-    color: #0f172a;
-  }
-  .item-meta {
-    font-size: 0.95rem;
-    color: #475569;
-  }
-  .item-price {
-    font-weight: 700;
-    color: #0f172a;
-  }
-  .item-status {
-    font-size: 0.85rem;
-    color: #ef4444;
-  }
-  .empty-state,
-  .alert,
-  .info {
-    margin-top: 1.5rem;
-    padding: 1rem;
-    border-radius: 12px;
-    text-align: center;
-    background: #f8fafc;
-    color: #475569;
-    border: 1px dashed #cbd5f5;
-  }
-  .alert {
-    background: #fef2f2;
-    color: #991b1b;
-    border-color: #fecaca;
-  }
-  .info {
-    background: #ecfeff;
-    color: #0f172a;
-    border-color: #bae6fd;
-  }
-  .item-option {
-    font-size: 0.9rem;
-    color: #64748b;
-  }
-</style>
-
 <script>
-  const GUEST_CART_KEY = 'cohouse_guest_cart_v1';
+    const GUEST_CART_KEY = 'cohouse_guest_cart_v1';
 
-  document.addEventListener('DOMContentLoaded', loadCartPreview);
+    document.addEventListener('DOMContentLoaded', loadCartPreview);
 
-  async function loadCartPreview() {
-    const refs = {
-      emptyEl: document.getElementById('cart-empty'),
-      errorEl: document.getElementById('cart-error'),
-      unauthEl: document.getElementById('cart-unauth'),
-      guestInfoEl: document.getElementById('guest-info'),
-      listEl: document.getElementById('cart-item-list'),
-      countEl: document.getElementById('cart-count')
-    };
+    async function loadCartPreview() {
+        const refs = {
+            emptyEl: document.getElementById('cart-empty'),
+            errorEl: document.getElementById('cart-error'),
+            unauthEl: document.getElementById('cart-unauth'),
+            guestInfoEl: document.getElementById('guest-info'),
+            listEl: document.getElementById('cart-item-list'),
+            countEl: document.getElementById('cart-count')
+        };
 
-    resetCartState(refs);
+        resetCartState(refs);
 
-    try {
-      const response = await fetch('/api/cart', {
-        headers: { 'Accept': 'application/json' },
-        credentials: 'include'
-      });
+        try {
+            const response = await fetch('/api/cart', {
+                headers: { 'Accept': 'application/json' },
+                credentials: 'include'
+            });
 
-      if (response.status === 401 || response.status === 403) {
-        const rendered = renderGuestCart(refs);
-        if (!rendered) {
-          refs.unauthEl.hidden = false;
+            if (response.status === 401 || response.status === 403) {
+                const rendered = renderGuestCart(refs);
+                if (!rendered) {
+                    refs.unauthEl.hidden = false;
+                }
+                return;
+            }
+
+            if (!response.ok) {
+                throw new Error('Cart API error');
+            }
+
+            const data = await response.json();
+            const items = Array.isArray(data?.items) ? data.items : [];
+            refs.countEl.textContent = String(items.length);
+            renderSummary(data?.summary, refs);
+            renderItems(normalizeApiItems(items), refs);
+        } catch (error) {
+            console.error(error);
+            if (!renderGuestCart(refs)) {
+                refs.errorEl.hidden = false;
+            }
         }
-        return;
-      }
-
-      if (!response.ok) {
-        throw new Error('Cart API error');
-      }
-
-      const data = await response.json();
-      const items = Array.isArray(data?.items) ? data.items : [];
-      refs.countEl.textContent = String(items.length);
-      renderSummary(data?.summary, refs);
-      renderItems(normalizeApiItems(items), refs);
-    } catch (error) {
-      console.error(error);
-      if (!renderGuestCart(refs)) {
-        refs.errorEl.hidden = false;
-      }
-    }
-  }
-
-  function renderGuestCart(refs) {
-    const guestItems = loadGuestCartItems();
-    refs.countEl.textContent = String(guestItems.length);
-
-    if (guestItems.length === 0) {
-      updateSummary(null, refs);
-      refs.emptyEl.hidden = false;
-      refs.guestInfoEl.hidden = true;
-      return false;
     }
 
-    const normalized = guestItems.map(toGuestDisplayItem);
-    const guestSummary = calculateGuestSummary(normalized);
-    renderSummary(guestSummary, refs);
-    renderItems(normalized, refs);
-    refs.guestInfoEl.hidden = false;
-    return true;
-  }
+    function renderGuestCart(refs) {
+        const guestItems = loadGuestCartItems();
+        refs.countEl.textContent = String(guestItems.length);
 
-  function resetCartState(refs) {
-    refs.emptyEl.hidden = true;
-    refs.errorEl.hidden = true;
-    refs.unauthEl.hidden = true;
-    refs.guestInfoEl.hidden = true;
-    refs.listEl.innerHTML = '';
-    refs.countEl.textContent = '0';
-    updateSummary(null, refs);
-  }
+        if (guestItems.length === 0) {
+            updateSummary(null, refs);
+            refs.emptyEl.hidden = false;
+            refs.guestInfoEl.hidden = true;
+            return false;
+        }
 
-  function renderSummary(summary, refs) {
-    const fallback = {
-      totalQuantity: 0,
-      totalAmount: 0,
-      expectedDiscount: 0,
-      expectedAmount: 0
-    };
-    updateSummary(Object.assign(fallback, summary || {}), refs);
-  }
-
-  function renderItems(items, refs) {
-    const products = Array.isArray(items) ? items : [];
-
-    if (products.length === 0) {
-      refs.emptyEl.hidden = false;
-      return;
+        const normalized = guestItems.map(toGuestDisplayItem);
+        const guestSummary = calculateGuestSummary(normalized);
+        renderSummary(guestSummary, refs);
+        renderItems(normalized, refs);
+        refs.guestInfoEl.hidden = false;
+        return true;
     }
 
-    const fragment = document.createDocumentFragment();
-    products.forEach((item) => {
-      const title = item && item.title != null ? item.title : '상품';
-      const quantity = Number(item && item.quantity != null ? item.quantity : 0);
-      const unitPrice = Number(item && item.unitPrice != null ? item.unitPrice : 0);
-      const lineTotal = Number(item && item.lineTotal != null ? item.lineTotal : unitPrice * quantity);
-      const imageUrl = item && item.imageUrl ? item.imageUrl : '';
-      const isOut = item && item.outOfStock === true;
-      const optionLabel = item && item.optionLabel ? item.optionLabel : '';
-
-      const li = document.createElement('li');
-      li.className = 'item-card';
-      li.innerHTML = `
-        <div class="item-thumb">
-          ${imageUrl ? `<img src="${imageUrl}" alt="${escapeHtml(title)}" />` : ''}
-        </div>
-        <div class="item-body">
-          <h3 class="item-title">${escapeHtml(title)}</h3>
-          ${optionLabel ? `<div class="item-option">${escapeHtml(optionLabel)}</div>` : ''}
-          <div class="item-meta">수량 ${formatNumber(quantity)}개 · 단가 ${formatCurrency(unitPrice)}원</div>
-          <div class="item-price">합계 ${formatCurrency(lineTotal)}원</div>
-          ${isOut ? '<div class="item-status">재고가 부족한 상품입니다.</div>' : ''}
-        </div>
-      `;
-      fragment.appendChild(li);
-    });
-    refs.listEl.appendChild(fragment);
-  }
-
-  function normalizeApiItems(items) {
-    return items.map(item => ({
-      title: item?.title ?? '상품',
-      quantity: Number(item?.quantity ?? 0),
-      unitPrice: Number(item?.finalPrice ?? item?.unitPrice ?? 0),
-      lineTotal: Number(item?.lineTotal ?? 0),
-      imageUrl: item?.imageUrl ?? '',
-      outOfStock: Boolean(item?.outOfStock),
-      optionLabel: item?.optionLabel ?? ''
-    }));
-  }
-
-  function toGuestDisplayItem(item) {
-    const quantity = Number(item?.quantity ?? 0);
-    const unit = Number(item?.finalUnitPrice ?? item?.unitPrice ?? 0);
-    return {
-      title: item?.title ?? '상품',
-      quantity,
-      unitPrice: unit,
-      lineTotal: unit * quantity,
-      imageUrl: item?.imageUrl ?? '',
-      outOfStock: false,
-      optionLabel: item?.optionLabel ?? ''
-    };
-  }
-
-  function calculateGuestSummary(items) {
-    const totalQuantity = items.reduce((sum, item) => sum + Number(item.quantity ?? 0), 0);
-    const totalAmount = items.reduce((sum, item) => sum + Number(item.lineTotal ?? 0), 0);
-    return {
-      totalQuantity,
-      totalAmount,
-      expectedDiscount: 0,
-      expectedAmount: totalAmount
-    };
-  }
-
-  function updateSummary(summary, refs) {
-    const safeSummary = summary && typeof summary === 'object' ? summary : {};
-    const totalQuantity = Number(safeSummary.totalQuantity ?? 0);
-    const totalAmount = Number(safeSummary.totalAmount ?? 0);
-    const expectedDiscount = Number(safeSummary.expectedDiscount ?? 0);
-    const expectedAmount = Number(safeSummary.expectedAmount ?? totalAmount - expectedDiscount);
-
-    document.getElementById('summary-quantity').textContent = formatNumber(totalQuantity);
-    document.getElementById('summary-total').textContent = formatCurrency(totalAmount);
-    document.getElementById('summary-discount').textContent = formatCurrency(expectedDiscount);
-    document.getElementById('summary-expected').textContent = formatCurrency(expectedAmount);
-  }
-
-  function loadGuestCartItems() {
-    try {
-      const raw = localStorage.getItem(GUEST_CART_KEY);
-      if (!raw) {
-        return [];
-      }
-      const parsed = JSON.parse(raw);
-      return Array.isArray(parsed) ? parsed : [];
-    } catch (error) {
-      console.warn('Failed to parse guest cart data', error);
-      return [];
+    function resetCartState(refs) {
+        refs.emptyEl.hidden = true;
+        refs.errorEl.hidden = true;
+        refs.unauthEl.hidden = true;
+        refs.guestInfoEl.hidden = true;
+        refs.listEl.innerHTML = '';
+        refs.countEl.textContent = '0';
+        updateSummary(null, refs);
     }
-  }
 
-  function formatNumber(value) {
-    const num = Number(value ?? 0);
-    return Number.isFinite(num) ? num.toLocaleString('ko-KR') : '0';
-  }
-
-  function formatCurrency(value) {
-    const num = Number(value ?? 0);
-    if (!Number.isFinite(num)) {
-      return '0';
+    function renderSummary(summary, refs) {
+        const fallback = {
+            totalQuantity: 0,
+            totalAmount: 0,
+            expectedDiscount: 0,
+            expectedAmount: 0
+        };
+        updateSummary(Object.assign(fallback, summary || {}), refs);
     }
-    return num.toLocaleString('ko-KR');
-  }
 
-  function escapeHtml(value) {
-    const safe = value == null ? '' : value;
-    return safe.toString()
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;')
-      .replace(/"/g, '&quot;')
-      .replace(/'/g, '&#39;');
-  }
+    function renderItems(items, refs) {
+        const products = Array.isArray(items) ? items : [];
+
+        if (products.length === 0) {
+            refs.emptyEl.hidden = false;
+            return;
+        }
+
+        const fragment = document.createDocumentFragment();
+        products.forEach((item) => {
+            const title = item && item.title != null ? item.title : '상품';
+            const quantity = Number(item && item.quantity != null ? item.quantity : 0);
+            const unitPrice = Number(item && item.unitPrice != null ? item.unitPrice : 0);
+            const lineTotal = Number(item && item.lineTotal != null ? item.lineTotal : unitPrice * quantity);
+            const imageUrl = item && item.imageUrl ? item.imageUrl : '';
+            const isOut = item && item.outOfStock === true;
+            const optionLabel = item && item.optionLabel ? item.optionLabel : '';
+
+            const li = document.createElement('li');
+            li.className = 'item-card';
+            li.innerHTML = `
+                <div class="item-thumb">
+                    ${imageUrl ? `<img src="${imageUrl}" alt="${escapeHtml(title)}" />` : ''}
+                </div>
+                <div class="item-body">
+                    <h3 class="item-title">${escapeHtml(title)}</h3>
+                    ${optionLabel ? `<div class="item-option">${escapeHtml(optionLabel)}</div>` : ''}
+                    <div class="item-meta">수량 ${formatNumber(quantity)}개 · 단가 ${formatCurrency(unitPrice)}원</div>
+                    <div class="item-price">합계 ${formatCurrency(lineTotal)}원</div>
+                    ${isOut ? '<div class="item-status">재고가 부족한 상품입니다.</div>' : ''}
+                </div>
+            `;
+            fragment.appendChild(li);
+        });
+        refs.listEl.appendChild(fragment);
+    }
+
+    function normalizeApiItems(items) {
+        return items.map(item => ({
+            title: item?.title ?? '상품',
+            quantity: Number(item?.quantity ?? 0),
+            unitPrice: Number(item?.finalPrice ?? item?.unitPrice ?? 0),
+            lineTotal: Number(item?.lineTotal ?? 0),
+            imageUrl: item?.imageUrl ?? '',
+            outOfStock: Boolean(item?.outOfStock),
+            optionLabel: item?.optionLabel ?? ''
+        }));
+    }
+
+    function toGuestDisplayItem(item) {
+        const quantity = Number(item?.quantity ?? 0);
+        const unit = Number(item?.finalUnitPrice ?? item?.unitPrice ?? 0);
+        return {
+            title: item?.title ?? '상품',
+            quantity,
+            unitPrice: unit,
+            lineTotal: unit * quantity,
+            imageUrl: item?.imageUrl ?? '',
+            outOfStock: false,
+            optionLabel: item?.optionLabel ?? ''
+        };
+    }
+
+    function calculateGuestSummary(items) {
+        const totalQuantity = items.reduce((sum, item) => sum + Number(item.quantity ?? 0), 0);
+        const totalAmount = items.reduce((sum, item) => sum + Number(item.lineTotal ?? 0), 0);
+        return {
+            totalQuantity,
+            totalAmount,
+            expectedDiscount: 0,
+            expectedAmount: totalAmount
+        };
+    }
+
+    function updateSummary(summary, refs) {
+        const safeSummary = summary && typeof summary === 'object' ? summary : {};
+        const totalQuantity = Number(safeSummary.totalQuantity ?? 0);
+        const totalAmount = Number(safeSummary.totalAmount ?? 0);
+        const expectedDiscount = Number(safeSummary.expectedDiscount ?? 0);
+        const expectedAmount = Number(safeSummary.expectedAmount ?? totalAmount - expectedDiscount);
+
+        document.getElementById('summary-quantity').textContent = formatNumber(totalQuantity);
+        document.getElementById('summary-total').textContent = formatCurrency(totalAmount);
+        document.getElementById('summary-discount').textContent = formatCurrency(expectedDiscount);
+        document.getElementById('summary-expected').textContent = formatCurrency(expectedAmount);
+    }
+
+    function loadGuestCartItems() {
+        try {
+            const raw = localStorage.getItem(GUEST_CART_KEY);
+            if (!raw) {
+                return [];
+            }
+            const parsed = JSON.parse(raw);
+            return Array.isArray(parsed) ? parsed : [];
+        } catch (error) {
+            console.warn('Failed to parse guest cart data', error);
+            return [];
+        }
+    }
+
+    function formatNumber(value) {
+        const num = Number(value ?? 0);
+        return Number.isFinite(num) ? num.toLocaleString('ko-KR') : '0';
+    }
+
+    function formatCurrency(value) {
+        const num = Number(value ?? 0);
+        if (!Number.isFinite(num)) {
+            return '0';
+        }
+        return num.toLocaleString('ko-KR');
+    }
+
+    function escapeHtml(value) {
+        const safe = value == null ? '' : value;
+        return safe.toString()
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#39;');
+    }
 </script>
 </body>
 </html>

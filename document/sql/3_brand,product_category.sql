@@ -2,6 +2,8 @@
 -- Disable foreign key checks for faster insertion
 SET FOREIGN_KEY_CHECKS = 0;
 
+
+
 INSERT IGNORE INTO brand (brand_id, brand_name, logo_url, brand_description) VALUES (100, '삼성', 'test.image', 'test description');
 INSERT IGNORE INTO brand (brand_id, brand_name, logo_url, brand_description) VALUES (101, 'LG', 'test.image', 'test description');
 INSERT IGNORE INTO brand (brand_id, brand_name, logo_url, brand_description) VALUES (102, '이케아', 'test.image', 'test description');

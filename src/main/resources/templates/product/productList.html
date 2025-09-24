@@ -1,486 +1,281 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>코딩의집</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<head th:replace="fragments/layout :: head('코딩의 집 | 쇼핑')"></head>
+<body class="page font-body product-page">
+  <header th:replace="fragments/layout :: header"></header>
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background-color: #f8f9fa;
-            color: #333;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        /* 헤더 스타일 */
-        .header {
-            background: white;
-            padding: 20px 0;
-            border-bottom: 1px solid #e0e0e0;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #35C5F0;
-            text-decoration: none;
-        }
-
-        /* 카테고리 탭 스타일 */
-        .category-tabs {
-            background: white;
-            padding: 30px 0;
-        }
-
-        .category-list {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .category-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-decoration: none;
-            color: #666;
-            transition: color 0.3s ease;
-            padding: 10px;
-        }
-
-        .category-item:hover,
-        .category-item.active {
-            color: #35C5F0;
-        }
-
-        .category-icon {
-            font-size: 2.5rem;
-            margin-bottom: 8px;
-        }
-
-        .category-name {
-            font-size: 0.9rem;
-            font-weight: 500;
-        }
-
-        /* 메인 컨텐츠 */
-        .main-content {
-            padding: 40px 0;
-        }
-
-        .section-title {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #333;
-            margin-bottom: 20px;
-        }
-
-        .content-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
-            padding: 20px 0;
-            border-bottom: 1px solid #e0e0e0;
-        }
-
-        .sort-select {
-            padding: 12px 40px 12px 15px;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            background: white;
-            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
-            background-position: right 12px center;
-            background-repeat: no-repeat;
-            background-size: 16px;
-            font-size: 1rem;
-            font-weight: 500;
-            color: #333;
-            cursor: pointer;
-            min-width: 140px;
-            appearance: none;
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            transition: all 0.3s ease;
-        }
-
-        .sort-select:focus {
-            outline: none;
-            border-color: #35C5F0;
-            box-shadow: 0 0 0 3px rgba(53, 197, 240, 0.1);
-        }
-
-        .sort-select:hover {
-            border-color: #35C5F0;
-        }
-
-        .sort-container {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .sort-label {
-            font-size: 0.9rem;
-            color: #666;
-            white-space: nowrap;
-        }
-
-        /* 상품 그리드 */
-        .product-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 25px;
-        }
-
-        .product-card {
-            background: white;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-
-        .product-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-        }
-
-        .product-image {
-            position: relative;
-            width: 100%;
-            height: 280px;
-            background: #f0f2f5;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-        }
-
-        .product-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .product-info {
-            padding: 20px;
-        }
-
-        .product-title {
-            font-size: 1rem;
-            font-weight: 600;
-            color: #333;
-            margin-bottom: 8px;
-            line-height: 1.4;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-
-        .price-info {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 8px;
-        }
-
-        .original-price {
-            color: #999;
-            text-decoration: line-through;
-            font-size: 0.9rem;
-        }
-
-        .sale-price {
-            color: #333;
-            font-size: 1.1rem;
-            font-weight: bold;
-        }
-
-        .sale-price.discounted {
-            color: #e74c3c;
-        }
-
-        .rating-info {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            margin-bottom: 8px;
-        }
-
-        .star-rating {
-            color: #333;
-            font-size: 1rem;
-        }
-
-        .rating-score {
-            font-size: 0.9rem;
-            font-weight: 600;
-            color: #333;
-        }
-
-        .review-count {
-            font-size: 0.8rem;
-            color: #666;
-        }
-
-        .no-products {
-            text-align: center;
-            padding: 60px 20px;
-            background: white;
-            border-radius: 10px;
-            margin-top: 40px;
-            grid-column: 1 / -1;
-        }
-
-        .no-products p {
-            color: #666;
-            font-size: 1.1rem;
-        }
-
-        @media (max-width: 768px) {
-            .container {
-                padding: 0 15px;
-            }
-
-            .category-list {
-                overflow-x: auto;
-                justify-content: flex-start;
-                gap: 20px;
-                padding: 0 10px;
-                scrollbar-width: none;
-                -ms-overflow-style: none;
-            }
-
-            .category-list::-webkit-scrollbar {
-                display: none;
-            }
-
-            .category-item {
-                min-width: 70px;
-                flex-shrink: 0;
-            }
-
-            .category-icon {
-                font-size: 2rem;
-            }
-
-            .content-header {
-                flex-direction: column;
-                gap: 15px;
-                align-items: flex-start;
-            }
-
-            .product-grid {
-                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-                gap: 15px;
-            }
-
-            .main-content {
-                padding: 20px 0;
-            }
-        }
-    </style>
-</head>
-<body>
-<!-- 헤더 -->
-<header class="header">
-    <div class="container">
-        <a th:href="@{/}" class="logo">
-            <span>🏠</span>
-            <span>오늘의집</span>
-        </a>
-    </div>
-</header>
-
-<!-- 카테고리 탭 -->
-<section class="category-tabs">
-    <div class="container">
-        <div class="category-list">
-            <a href="/product" class="category-item">
-                <div class="category-icon">🏠</div>
-                <div class="category-name">전체</div>
-            </a>
-            <a href="/product/category/1" class="category-item">
-                <div class="category-icon">📦</div>
-                <div class="category-name">수납용품</div>
-            </a>
-            <a href="/product/category/2" class="category-item">
-                <div class="category-icon">🪑</div>
-                <div class="category-name">가구</div>
-            </a>
-            <a href="/product/category/3" class="category-item">
-                <div class="category-icon">🛏️</div>
-                <div class="category-name">침실</div>
-            </a>
-            <a href="/product/category/4" class="category-item">
-                <div class="category-icon">🍽️</div>
-                <div class="category-name">주방</div>
-            </a>
-            <a href="/product/category/5" class="category-item">
-                <div class="category-icon">🛁</div>
-                <div class="category-name">욕실</div>
-            </a>
-            <a href="/product/category/6" class="category-item">
-                <div class="category-icon">💡</div>
-                <div class="category-name">조명</div>
-            </a>
-        </div>
-    </div>
-</section>
-
-<!-- 메인 컨텐츠 -->
-<main class="main-content">
-    <div class="container">
-        <div class="content-header">
-            <h2 class="section-title">상품 목록</h2>
-
-            <!-- 정렬 옵션 - 간단한 버전으로 테스트 -->
-            <div class="sort-container">
-                <span class="sort-label">정렬:</span>
-                <select class="sort-select" onchange="handleSortChange(this.value)">
-                    <option value="default">기본순</option>
-                    <option value="price-asc">낮은가격순</option>
-                    <option value="price-desc">높은가격순</option>
-                    <option value="rating-desc">평점높은순</option>
-                </select>
+  <main class="page-main product-page__main"
+        th:with="uri=${#httpServletRequest.requestURI},
+                 isCategory=${#strings.startsWith(uri, '/product/category')},
+                 defaultHero=@{/images/home.jpeg},
+                 visibleSlides=${products != null ? (products.size() > 8 ? 8 : products.size()) : 0}">
+    <section class="product-hero">
+      <div class="hero-carousel" th:if="${visibleSlides > 0}">
+        <div class="hero-carousel__track">
+          <article class="hero-slide"
+                   th:each="item, iter : ${products}"
+                   th:if="${iter.index < visibleSlides}"
+                   th:data-index="${iter.index}"
+                   th:classappend="${iter.index == 0} ? ' is-active' : ''">
+            <div class="hero-slide__background"
+                 th:style="${item.mainImageUrl != null} ? 'background-image:url(' + item.mainImageUrl + ');' : 'background-image:url(' + defaultHero + ');'"></div>
+            <div class="hero-slide__layer"></div>
+            <div class="hero-slide__content">
+              <span class="hero-slide__eyebrow" th:text="${item.brand != null ? item.brand.brandName : '추천 상품'}">추천 상품</span>
+              <h2 class="hero-slide__title" th:text="${item.productTitle}">상품명</h2>
+              <p class="hero-slide__desc"
+                 th:text="${item.description != null && !item.description.isEmpty() ? item.description : '취향을 담은 공간을 지금 만나보세요.'}">취향을 담은 공간을 지금 만나보세요.</p>
+              <div class="hero-slide__meta">
+                <span class="hero-slide__price"
+                      th:text="${#numbers.formatInteger(item.salePrice != null ? item.salePrice : (item.originalPrice != null ? item.originalPrice : 0), 0, 'COMMA')} + '원부터'">0원부터</span>
+                <a class="hero-slide__cta" th:href="@{'/product/' + ${item.productId}}">자세히 보기</a>
+              </div>
             </div>
+          </article>
         </div>
-
-        <!-- 상품 그리드 -->
-        <div class="product-grid">
-            <!-- 상품 리스트 -->
-            <div th:each="product : ${products}" class="product-card">
-                <div class="product-image">
-                    <img th:if="${product.mainImageUrl != null}"
-                         th:src="${product.mainImageUrl}"
-                         th:alt="${product.productTitle}"
-                         class="product-img" />
-                    <div th:unless="${product.mainImageUrl != null}"
-                         style="font-size: 48px; color: #ccc;">📦</div>
-                </div>
-                <div class="product-info">
-                    <h3 class="product-title" th:text="${product.productTitle ?: '상품명'}">상품명</h3>
-                    <div class="price-info">
-                        <!-- 할인가가 있는 경우 원가 표시 -->
-                        <span th:if="${product.salePrice != null and product.originalPrice != null and product.salePrice < product.originalPrice}"
-                              class="original-price"
-                              th:text="'₩' + ${#numbers.formatInteger(product.originalPrice, 0, 'COMMA')}">₩원가</span>
-                        <!-- 현재 가격 -->
-                        <span class="sale-price"
-                              th:text="'₩' + ${#numbers.formatInteger(product.salePrice ?: product.originalPrice ?: 0, 0, 'COMMA')}">₩가격</span>
-                    </div>
-                    <div class="rating-info">
-                        <span th:if="${product.averageRating != null and product.averageRating > 0}" class="star-rating">★</span>
-                        <span th:if="${product.averageRating != null}" class="rating-score"
-                              th:text="${#numbers.formatDecimal(product.averageRating, 1, 1)}">0.0</span>
-                        <span class="review-count">판매중</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 상품이 없을 때 -->
-            <div th:if="${products == null or products.isEmpty()}" class="no-products">
-                <p>등록된 상품이 없습니다.</p>
-            </div>
+        <div class="hero-carousel__nav" aria-hidden="true" th:if="${visibleSlides > 1}">
+          <button type="button" class="hero-carousel__control prev" aria-label="이전 슬라이드"></button>
+          <button type="button" class="hero-carousel__control next" aria-label="다음 슬라이드"></button>
         </div>
-    </div>
-</main>
+        <div class="hero-carousel__dots" role="tablist" th:if="${visibleSlides > 1}">
+          <button type="button"
+                  class="hero-carousel__dot"
+                  th:each="item, iter : ${products}"
+                  th:if="${iter.index < visibleSlides}"
+                  th:data-index="${iter.index}"
+                  th:classappend="${iter.index == 0} ? ' is-active' : ''"
+                  th:aria-label="${'슬라이드 ' + (iter.index + 1)}"
+                  role="tab"></button>
+        </div>
+      </div>
+      <div class="product-hero__inner" th:if="${visibleSlides == 0}">
+        <div class="product-hero__copy">
+          <span class="product-hero__eyebrow">Living Inspiration</span>
+          <h1 class="product-hero__title">햇살 가득한 리빙룸을 완성해요</h1>
+          <p class="product-hero__desc">포근한 패브릭 소파부터 감각적인 조명까지, 취향에 맞는 아이템을 골라보세요.</p>
+          <span class="product-hero__count"
+                th:text="${totalCount != null ? '총 ' + totalCount + '개 상품' : (products != null ? '총 ' + #lists.size(products) + '개 상품' : '진열 준비중입니다')}">
+            총 0개 상품
+          </span>
+        </div>
+        <figure class="product-hero__visual" aria-hidden="true">
+          <img class="product-hero__image" th:src="${defaultHero}" alt="햇살이 들어오는 거실과 원목 가구" loading="lazy" />
+        </figure>
+      </div>
+    </section>
 
-<script th:inline="javascript">
+    <section class="product-toolbar" aria-label="상품 탐색">
+      <div class="container product-toolbar__inner">
+        <nav class="category-scroll" aria-label="상품 카테고리">
+          <a th:href="@{/product}" th:classappend="${uri == '/product' ? 'is-active' : ''}">전체</a>
+          <a th:href="@{/product/category/100}" th:classappend="${#strings.startsWith(uri, '/product/category/100') ? 'is-active' : ''}">수납용품</a>
+          <a th:href="@{/product/category/103}" th:classappend="${#strings.startsWith(uri, '/product/category/103') ? 'is-active' : ''}">가구</a>
+          <a th:href="@{/product/category/104}" th:classappend="${#strings.startsWith(uri, '/product/category/104') ? 'is-active' : ''}">침실</a>
+          <a th:href="@{/product/category/108}" th:classappend="${#strings.startsWith(uri, '/product/category/108') ? 'is-active' : ''}">주방</a>
+          <a th:href="@{/product/category/5}" th:classappend="${#strings.startsWith(uri, '/product/category/5') ? 'is-active' : ''}">욕실</a>
+          <a th:href="@{/product/category/6}" th:classappend="${#strings.startsWith(uri, '/product/category/6') ? 'is-active' : ''}">조명</a>
+        </nav>
+        <div class="product-toolbar__actions" th:if="${isCategory}">
+          <span class="sort-label">정렬</span>
+          <div class="sort-pills" role="tablist">
+            <button type="button" class="sort-pill" data-sort="default" role="tab">추천순</button>
+            <button type="button" class="sort-pill" data-sort="price-asc" role="tab">낮은 가격순</button>
+            <button type="button" class="sort-pill" data-sort="price-desc" role="tab">높은 가격순</button>
+            <button type="button" class="sort-pill" data-sort="rating-desc" role="tab">평점 높은순</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="product-list container">
+      <header class="product-list__head">
+        <h2 class="product-list__title" th:text="${isCategory ? '카테고리 상품' : '전체 상품'}">전체 상품</h2>
+        <span class="product-list__count"
+              th:text="${totalCount != null ? '총 ' + totalCount + '개' : (products != null ? '총 ' + #lists.size(products) + '개' : '0개')}">
+          총 0개
+        </span>
+      </header>
+
+      <div class="product-grid" th:if="${products != null and !#lists.isEmpty(products)}">
+        <article class="product-card" th:each="product : ${products}">
+          <a class="product-card__link" th:href="@{'/product/' + ${product.productId}}">
+            <div class="product-card__image">
+              <img th:if="${product.mainImageUrl != null}" th:src="${product.mainImageUrl}" th:alt="${product.productTitle}" loading="lazy" />
+              <div class="product-card__placeholder" th:unless="${product.mainImageUrl != null}">📦</div>
+              <span class="product-card__badge"
+                    th:if="${product.originalPrice != null and product.salePrice != null and product.originalPrice > product.salePrice and product.originalPrice > 0}"
+                    th:text="${'-' + #numbers.formatDecimal((1 - product.salePrice.doubleValue() / product.originalPrice.doubleValue()) * 100, 0, 0) + '%'}">
+                -0%
+              </span>
+            </div>
+            <div class="product-card__body">
+              <p class="product-card__brand"
+                 th:text="${product.brand != null ? product.brand.brandName : '브랜드 미등록'}">브랜드명</p>
+              <h3 class="product-card__title" th:text="${product.productTitle}">상품명</h3>
+              <div class="product-card__price">
+                <span class="product-card__sale"
+                      th:text="${#numbers.formatInteger(product.salePrice != null ? product.salePrice : (product.originalPrice != null ? product.originalPrice : 0), 0, 'COMMA')} + '원'">
+                  0원
+                </span>
+                <span class="product-card__original"
+                      th:if="${product.originalPrice != null and product.salePrice != null and product.originalPrice > product.salePrice}"
+                      th:text="${#numbers.formatInteger(product.originalPrice, 0, 'COMMA')} + '원'">
+                  0원
+                </span>
+              </div>
+              <div class="product-card__meta"
+                   th:if="${(product.averageRating != null and product.averageRating > 0) or (product.reviewCount != null)}">
+                <span class="product-card__rating"
+                      th:if="${product.averageRating != null and product.averageRating > 0}"
+                      th:text="${'★ ' + #numbers.formatDecimal(product.averageRating, 1, 1)}">
+                  ★ 0.0
+                </span>
+                <span class="product-card__reviews"
+                      th:if="${product.reviewCount != null}"
+                      th:text="${'후기 ' + product.reviewCount}">
+                  후기 0
+                </span>
+              </div>
+            </div>
+          </a>
+        </article>
+      </div>
+
+      <div class="product-empty" th:if="${products == null or #lists.isEmpty(products)}">
+        <div class="product-empty__card">
+          <div class="product-empty__icon">🛒</div>
+          <h3>등록된 상품이 없습니다</h3>
+          <p>곧 새로운 상품으로 채워질 예정이에요. 조금만 기다려 주세요!</p>
+          <a class="btn" th:href="@{/}">홈으로 가기</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer th:replace="fragments/layout :: footer"></footer>
+
+  <link rel="stylesheet" th:href="@{/css/product/product.css}">
+  <script th:inline="javascript">
     /*<![CDATA[*/
-    // 정렬 변경 핸들러
+    const currentUri = /*[[${#httpServletRequest.requestURI}]]*/ '';
+
+    (function initHeroCarousel() {
+      const carousel = document.querySelector('.hero-carousel');
+      if (!carousel) { return; }
+
+      const slides = Array.from(carousel.querySelectorAll('.hero-slide'));
+      if (slides.length === 0) { return; }
+
+      const dots = Array.from(carousel.querySelectorAll('.hero-carousel__dot'));
+      const prev = carousel.querySelector('.hero-carousel__control.prev');
+      const next = carousel.querySelector('.hero-carousel__control.next');
+      let current = slides.findIndex((slide) => slide.classList.contains('is-active'));
+      if (current < 0) {
+        current = 0;
+        slides[0].classList.add('is-active');
+        if (dots[0]) { dots[0].classList.add('is-active'); }
+      }
+
+      const hasControls = slides.length > 1 && prev && next;
+      const interval = 5000;
+      let timerId;
+
+      function setActive(index) {
+        if (index === current) { return; }
+        slides[current].classList.remove('is-active');
+        if (dots[current]) { dots[current].classList.remove('is-active'); }
+
+        current = index;
+        slides[current].classList.add('is-active');
+        if (dots[current]) { dots[current].classList.add('is-active'); }
+      }
+
+      function goStep(step) {
+        const nextIndex = (current + step + slides.length) % slides.length;
+        setActive(nextIndex);
+      }
+
+      function onDotClick(event) {
+        const index = Number(event.currentTarget.dataset.index || 0);
+        setActive(index);
+      }
+
+      function startAuto() {
+        stopAuto();
+        timerId = setInterval(() => goStep(1), interval);
+      }
+
+      function stopAuto() {
+        if (timerId) {
+          clearInterval(timerId);
+          timerId = null;
+        }
+      }
+
+      if (hasControls) {
+        prev.addEventListener('click', () => { goStep(-1); startAuto(); });
+        next.addEventListener('click', () => { goStep(1); startAuto(); });
+      }
+
+      if (dots.length > 0) {
+        dots.forEach((dot) => {
+          dot.addEventListener('click', (event) => {
+            onDotClick(event);
+            startAuto();
+          });
+        });
+      }
+
+      carousel.addEventListener('mouseenter', stopAuto);
+      carousel.addEventListener('mouseleave', startAuto);
+      carousel.addEventListener('touchstart', stopAuto, { passive: true });
+      carousel.addEventListener('touchend', startAuto, { passive: true });
+
+      if (slides.length > 1) {
+        startAuto();
+      }
+    })();
+
+    (function initProductSort(){
+      const pills = document.querySelectorAll('.sort-pill');
+      if (!pills.length) { return; }
+
+      let active = 'default';
+      if (currentUri.includes('/price-asc')) {
+        active = 'price-asc';
+      } else if (currentUri.includes('/price-desc')) {
+        active = 'price-desc';
+      } else if (currentUri.includes('/rating-desc')) {
+        active = 'rating-desc';
+      }
+
+      pills.forEach((pill) => {
+        const sort = pill.dataset.sort;
+        pill.classList.toggle('is-active', sort === active);
+        pill.addEventListener('click', () => {
+          handleSortChange(sort);
+        });
+      });
+    })();
+
     function handleSortChange(sortType) {
-        console.log('정렬 변경:', sortType);
-
-        // URL에서 현재 카테고리 ID 추출
-        const currentPath = window.location.pathname;
-        console.log('현재 경로:', currentPath);
-
-        const categoryMatch = currentPath.match(/\/product\/category\/(\d+)/);
-
-        if (categoryMatch) {
-            const categoryId = categoryMatch[1];
-            console.log('카테고리 ID:', categoryId);
-
-            let url = '';
-            switch(sortType) {
-                case 'price-asc':
-                    url = `/product/category/${categoryId}/price-asc`;
-                    break;
-                case 'price-desc':
-                    url = `/product/category/${categoryId}/price-desc`;
-                    break;
-                case 'rating-desc':
-                    url = `/product/category/${categoryId}/rating-desc`;
-                    break;
-                default:
-                    url = `/product/category/${categoryId}`;
-            }
-
-            console.log('이동할 URL:', url);
-            location.href = url;
-        } else {
-            // 전체 상품 페이지인 경우
-            console.log('카테고리가 선택되지 않음');
-            alert('카테고리를 먼저 선택해주세요.');
-        }
+      const path = window.location.pathname;
+      const match = path.match(/\/product\/category\/(\d+)/);
+      if (!match) {
+        return;
+      }
+      const categoryId = match[1];
+      let target = `/product/category/${categoryId}`;
+      if (sortType === 'price-asc') {
+        target += '/price-asc';
+      } else if (sortType === 'price-desc') {
+        target += '/price-desc';
+      } else if (sortType === 'rating-desc') {
+        target += '/rating-desc';
+      }
+      window.location.href = target;
     }
-
-    // 페이지 로드 시 현재 정렬 상태를 select에 반영
-    document.addEventListener('DOMContentLoaded', function() {
-        const selectElement = document.querySelector('.sort-select');
-        if (selectElement) {
-            const currentPath = window.location.pathname;
-
-            if (currentPath.includes('/price-asc')) {
-                selectElement.value = 'price-asc';
-            } else if (currentPath.includes('/price-desc')) {
-                selectElement.value = 'price-desc';
-            } else if (currentPath.includes('/rating-desc')) {
-                selectElement.value = 'rating-desc';
-            } else {
-                selectElement.value = 'default';
-            }
-        }
-    });
-
-    // 상품 카드 클릭 이벤트
-    document.querySelectorAll('.product-card').forEach(card => {
-        card.addEventListener('click', function() {
-            // 상품 ID가 있다면 상세 페이지로 이동 (나중에 구현)
-            console.log('상품 카드 클릭됨');
-        });
-    });
-
-    // 카테고리 클릭 시 정렬 상태 초기화
-    document.querySelectorAll('.category-item').forEach(item => {
-        item.addEventListener('click', function() {
-            const href = this.getAttribute('href');
-            if (href) {
-                location.href = href;
-            }
-        });
-    });
     /*]]>*/
-</script>
+  </script>
 </body>
 </html>

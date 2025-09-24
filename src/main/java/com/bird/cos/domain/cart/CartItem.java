@@ -48,7 +48,7 @@ public class CartItem {
         CartItem i = new CartItem();
         i.cart = cart;
         i.product = product;
-        i.quantity = Math.max(1, quantity);
+        i.quantity = Math.max(0, quantity);
         i.selectedOptions = selectedOptions;
         return i;
     }

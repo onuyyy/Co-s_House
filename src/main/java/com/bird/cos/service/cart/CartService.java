@@ -6,6 +6,7 @@ import com.bird.cos.domain.product.Coupon;
 import com.bird.cos.domain.product.Product;
 import com.bird.cos.domain.user.User;
 import com.bird.cos.domain.user.UserCoupon;
+import com.bird.cos.dto.cart.AddToCartRequest;
 import com.bird.cos.dto.cart.CartItemResponseDto;
 import com.bird.cos.dto.cart.CartListResponse;
 import com.bird.cos.dto.cart.CartSummaryDto;
@@ -45,7 +46,10 @@ public class CartService {
      * 장바구니에 상품 추가
      * - 사용자별 Cart 헤더를 만들고 (없으면 생성), CartItem을 upsert
      */
-    public void addCart(Long productId, User user, Integer quantity) {
+    public void addCart(AddToCartRequest request, User user) {
+
+        Long productId = request.productId();
+        Integer quantity = request.quantity();
 
         Product product = productRepository.findById(productId)
                 .orElseThrow(() -> new RuntimeException("상품을 찾을 수 없습니다."));
@@ -60,6 +64,7 @@ public class CartService {
 
         int desired = defaultZero(item.getQuantity()) + requestQty;
         int normalized = normalizeQuantity(desired, product.getStockQuantity());
+
         item.setQuantity(normalized);
         item.setCart(cart);
         cartItemRepository.save(item);

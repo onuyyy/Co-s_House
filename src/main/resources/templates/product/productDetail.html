@@ -1,334 +1,6 @@
-
-
-
-
-
-
 <!DOCTYPE html>
 <html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>상품 상세 - 코딩의집</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background-color: #f8f9fa;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        /* 헤더 */
-        .header {
-            background: white;
-            border-bottom: 1px solid #e9ecef;
-            padding: 1rem 0;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        .nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #35c5f0;
-            text-decoration: none;
-        }
-
-        .back-btn {
-            background: #f8f9fa;
-            border: 1px solid #dee2e6;
-            padding: 8px 16px;
-            border-radius: 4px;
-            text-decoration: none;
-            color: #666;
-            font-size: 14px;
-        }
-
-        .back-btn:hover {
-            background: #e9ecef;
-        }
-
-        /* 메인 컨텐츠 */
-        .product-detail {
-            background: white;
-            margin: 20px 0;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-
-        .product-header {
-            display: flex;
-            padding: 30px;
-            gap: 40px;
-        }
-
-        .product-image {
-            flex: 1;
-            max-width: 500px;
-        }
-
-        .image-placeholder {
-            width: 100%;
-            height: 400px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 18px;
-        }
-
-        .product-info {
-            flex: 1;
-            padding: 20px 0;
-        }
-
-        .brand-name {
-            color: #666;
-            font-size: 14px;
-            margin-bottom: 8px;
-            cursor: pointer;
-            transition: color 0.2s ease;
-        }
-
-        .brand-name:hover {
-            color: #35c5f0;
-            text-decoration: underline;
-        }
-
-        .brand-name.no-link {
-            cursor: default;
-        }
-
-        .brand-name.no-link:hover {
-            color: #666;
-            text-decoration: none;
-        }
-
-        .product-title {
-            font-size: 24px;
-            font-weight: bold;
-            margin-bottom: 16px;
-            line-height: 1.4;
-        }
-
-        .rating-section {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 20px;
-        }
-
-        .star-rating {
-            color: #ffc107;
-            font-size: 18px;
-        }
-
-        .rating-score {
-            font-weight: bold;
-            color: #333;
-        }
-
-        .review-count {
-            color: #666;
-            font-size: 14px;
-        }
-
-        .price-section {
-            margin-bottom: 30px;
-        }
-
-        .discount-rate {
-            color: #dc3545;
-            font-weight: bold;
-            font-size: 18px;
-            margin-right: 8px;
-        }
-
-        .current-price {
-            font-size: 28px;
-            font-weight: bold;
-            color: #333;
-            margin-right: 8px;
-        }
-
-        .original-price {
-            color: #999;
-            text-decoration: line-through;
-            font-size: 16px;
-        }
-
-        .shipping-info {
-            display: flex;
-            gap: 8px;
-            margin-bottom: 20px;
-        }
-
-        .badge {
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 12px;
-            font-weight: bold;
-        }
-
-        .badge.free-shipping {
-            background: #e8f5e8;
-            color: #28a745;
-        }
-
-        .badge.today-deal {
-            background: #35c5f0;
-            color: white;
-        }
-
-        .product-details {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 16px;
-            margin-bottom: 30px;
-        }
-
-        .detail-item {
-            display: flex;
-            justify-content: space-between;
-            padding: 12px 0;
-            border-bottom: 1px solid #f1f3f4;
-        }
-
-        .detail-label {
-            color: #666;
-            font-weight: 500;
-        }
-
-        .detail-value {
-            color: #333;
-        }
-
-        .option-section {
-            margin-bottom: 20px;
-        }
-
-        .option-section select {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #dee2e6;
-            border-radius: 4px;
-            font-size: 14px;
-            background: white;
-        }
-
-        .total-price-section {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 16px 0;
-            border-top: 1px solid #e9ecef;
-            margin-bottom: 20px;
-        }
-
-        .total-price-label {
-            font-size: 16px;
-            font-weight: bold;
-            color: #333;
-        }
-
-        .total-price-value {
-            font-size: 20px;
-            font-weight: bold;
-            color: #dc3545;
-        }
-
-        .action-buttons {
-            display: flex;
-            gap: 12px;
-        }
-
-        .btn {
-            padding: 12px 24px;
-            border: none;
-            border-radius: 6px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s ease;
-        }
-
-        .btn-primary {
-            background: #35c5f0;
-            color: white;
-            flex: 1;
-        }
-
-        .btn-primary:hover {
-            background: #2ba3cc;
-        }
-
-        /* 상품 설명 */
-        .product-description {
-            padding: 30px;
-            border-top: 1px solid #e9ecef;
-        }
-
-        .description-title {
-            font-size: 20px;
-            font-weight: bold;
-            margin-bottom: 16px;
-        }
-
-        .description-content {
-            color: #666;
-            line-height: 1.8;
-        }
-
-        /* 반응형 */
-        @media (max-width: 768px) {
-            .product-header {
-                flex-direction: column;
-                padding: 20px;
-                gap: 20px;
-            }
-
-            .product-details {
-                grid-template-columns: 1fr;
-            }
-
-            .action-buttons {
-                flex-direction: column;
-                gap: 12px;
-                margin-top: 24px;
-            }
-
-            .btn {
-                width: 100%;
-            }
-        }
-    </style>
-</head>
+<head th:replace="fragments/layout :: head('코딩의 집 | 쇼핑')"></head>
 <body>
 <!-- 헤더 -->
 <header class="header">
@@ -434,6 +106,17 @@
                         </select>
                     </div>
 
+                    <!-- 상품 수량 -->
+                    <div class="detail-item">
+                        <span class="detail-label">수량</span>
+                        <span class="detail-value">
+                            <div class="qty-container">
+                                <button type="button" class="qty-btn" id="qty-decrease" aria-label="수량 감소">−</button>
+                                <input id="qty-input" type="number" inputmode="numeric" pattern="[0-9]*" min="1" value="1" />
+                                <button type="button" class="qty-btn" id="qty-increase" aria-label="수량 증가">＋</button>
+                            </div>
+                        </span>
+                    </div>
 
                     <!-- 총 가격 -->
                     <div class="total-price-section">
@@ -487,12 +170,20 @@
             return;
         }
 
+        const quantityInput = document.getElementById('qty-input');
+        const quantity = parseInt(quantityInput.value, 10) || 1;
+
+        if (quantity < 1) {
+            alert('수량은 1개 이상이어야 합니다.');
+            return;
+        }
+
         const optionSelect = document.getElementById('product-options');
         const optionData = resolveSelectedOption(optionSelect);
 
         const basePrice = computeBasePrice(productInfo);
         const finalUnitPrice = Math.max(0, basePrice + optionData.additionalPrice);
-        const payload = buildCartPayload(productId, optionData.optionId);
+        const payload = buildCartPayload(productId, optionData.optionId, quantity);
 
         try {
             await sendAddToCartRequest(payload);
@@ -559,10 +250,10 @@
         };
     }
 
-    function buildCartPayload(productId, optionId) {
+    function buildCartPayload(productId, optionId, quantity) {
         const payload = {
             productId,
-            quantity: 1
+            quantity
         };
         if (optionId) {
             payload.selectedOptions = String(optionId);

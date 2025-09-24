@@ -1,8 +1,10 @@
 package com.bird.cos.service.register;
 
 import com.bird.cos.domain.user.User;
+import com.bird.cos.domain.user.UserRole;
 import com.bird.cos.dto.user.RegisterRequest;
 import com.bird.cos.repository.user.UserRepository;
+import com.bird.cos.repository.user.UserRoleRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,6 +17,7 @@ import java.util.Optional;
 public class RegisterService {
 
     private final UserRepository userRepository;
+    private final UserRoleRepository userRoleRepository;
     private final PasswordEncoder passwordEncoder;
 
     @Transactional
@@ -28,6 +31,10 @@ public class RegisterService {
             throw new IllegalArgumentException("이미 사용 중인 닉네임입니다.");
         }
 
+        // 기본 사용자 역할(ID=1) 조회
+        UserRole userRole = userRoleRepository.findById(1L)
+                .orElseThrow(() -> new IllegalStateException("기본 사용자 역할을 찾을 수 없습니다."));
+
         User user = User.builder()
                 .userEmail(req.email())
                 .userPassword(passwordEncoder.encode(req.password()))
@@ -36,6 +43,7 @@ public class RegisterService {
                 .userAddress(req.address())
                 .userPhone(req.phone())
                 .termsAgreed(Boolean.TRUE)
+                .userRole(userRole) // 역할 설정
                 .build();
 
         return userRepository.save(user);

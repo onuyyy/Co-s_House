@@ -3,11 +3,13 @@ package com.bird.cos.domain.cart;
 import com.bird.cos.domain.user.User;
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+@Setter
 @Getter
 @Entity
 @Table(name = "CART",

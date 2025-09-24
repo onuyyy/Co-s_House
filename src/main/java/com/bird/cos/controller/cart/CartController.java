@@ -5,6 +5,7 @@ import com.bird.cos.dto.cart.*;
 import com.bird.cos.repository.user.UserRepository;
 import com.bird.cos.service.cart.CartService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Arrays;
 import java.util.List;
 
+@Slf4j
 @RestController
 @RequestMapping("/api/cart")
 @RequiredArgsConstructor
@@ -24,7 +26,7 @@ public class CartController {
     @PostMapping
     public ResponseEntity<CartListResponse> add(@RequestBody AddToCartRequest req, Authentication auth) {
         User user = currentUser(auth);
-        cartService.addCart(req.productId(), user, req.quantity());
+        cartService.addCart(req, user);
         CartListResponse response = cartService.getCart(user);
         return ResponseEntity.ok(response);
     }

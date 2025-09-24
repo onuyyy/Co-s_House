@@ -37,9 +37,6 @@ public class RegisterController {
     private final SecurityContextRepository securityContextRepository;
     private final UserRepository userRepository;
 
-    
-
-
     // 회원가입 201 Created
     @PostMapping("/register")
     @ResponseStatus(HttpStatus.CREATED)
