@@ -31,7 +31,7 @@ public class Coupon {
     @JoinColumn(name = "brand_id")
     private Brand brand;
 
-    @Column(name = "coupon_title", length = 255, nullable = false)
+    @Column(name = "coupon_title", nullable = false)
     private String couponTitle;
 
     @Column(name = "coupon_description", columnDefinition = "TEXT")

@@ -1,4 +1,4 @@
-package com.bird.cos.repository.mypage;
+package com.bird.cos.repository.mypage.coupon;
 
 import com.bird.cos.domain.coupon.Coupon;
 import org.springframework.data.jpa.repository.JpaRepository;

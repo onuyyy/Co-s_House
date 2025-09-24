@@ -1,4 +1,4 @@
-package com.bird.cos.repository.mypage;
+package com.bird.cos.repository.mypage.coupon;
 
 import com.bird.cos.domain.coupon.Coupon;
 import com.bird.cos.domain.coupon.CouponScope;
@@ -12,7 +12,6 @@ public final class CouponSpecifications {
 
     private CouponSpecifications() {
     }
-
     public static Specification<Coupon> hasScope(CouponScope scope) {
         return (root, query, builder) -> builder.equal(root.get("scope"), scope);
     }
