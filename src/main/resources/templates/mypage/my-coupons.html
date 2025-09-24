@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>내 쿠폰함</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+    <style>
+        body { font-family: 'Noto Sans KR', sans-serif; background:#f8fafc; margin:0; }
+        .container { max-width:960px; margin:40px auto; padding:0 24px; }
+        h1 { font-size:24px; margin-bottom:24px; }
+        .coupon-meta { color:#6b7280; font-size:12px; margin-bottom:4px; }
+        .coupon-body { font-size:13px; color:#1f2937; margin-bottom:6px; flex:1; }
+        .coupon-footer { display:flex; justify-content:space-between; align-items:center; font-size:12px; color:#475569; }
+        .badge { display:inline-block; padding:4px 8px; border-radius:999px; font-size:11px; font-weight:600; }
+        .badge-usability { padding:4px 10px; border-radius:999px; font-size:11px; font-weight:600; }
+        .usable { background:#dcfce7; color:#047857; }
+        .used { background:#e2e8f0; color:#475569; }
+        .expired { background:#fee2e2; color:#b91c1c; }
+        .badge-global { background:#e0f2fe; color:#0369a1; }
+        .badge-brand { background:#fef3c7; color:#b45309; }
+        .badge-product { background:#dcfce7; color:#047857; }
+        .empty-state { text-align:center; padding:80px 0; color:#94a3b8; }
+        .pagination { display:flex; justify-content:center; gap:8px; margin-top:24px; }
+        .pagination a, .pagination span { padding:6px 10px; border-radius:6px; border:1px solid #d1d5db; font-size:12px; color:#1f2937; text-decoration:none; }
+        .pagination .active { background:#2563eb; color:white; border-color:#2563eb; }
+        .pagination .disabled { border-style:dashed; color:#9ca3af; cursor:default; }
+        .btn-primary { background:#2563eb; color:white; border:none; border-radius:8px; padding:8px 16px; font-size:13px; cursor:pointer; text-decoration:none; display:inline-flex; align-items:center; }
+        .btn-secondary { background:#e2e8f0; color:#1f2937; border:none; border-radius:8px; padding:8px 16px; font-size:13px; cursor:pointer; text-decoration:none; display:inline-flex; align-items:center; }
+        .coupon-list { display:grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap:16px; }
+        .coupon-card { background:white; border-radius:12px; padding:16px; box-shadow:0 12px 30px rgba(15,23,42,0.08); min-height:220px; display:flex; flex-direction:column; }
+        .coupon-title { font-size:16px; font-weight:700; margin:8px 0; }
+        .alert { padding:12px 16px; border-radius:8px; margin-bottom:16px; font-size:13px; }
+        .alert-success { background:#dcfce7; color:#166534; }
+        .alert-error { background:#fee2e2; color:#b91c1c; }
+        @media (max-width: 640px) {
+            .coupon-list { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>내 쿠폰함</h1>
+
+    <div th:if="${success}" class="alert alert-success" th:text="${success}"></div>
+    <div th:if="${error}" class="alert alert-error" th:text="${error}"></div>
+
+
+    <div class="filter-actions" style="justify-content:flex-start; margin-bottom:12px; gap:12px;">
+        <a class="btn-secondary" th:href="@{/mypage/coupons}">쿠폰 발급</a>
+        <button type="button" class="btn-secondary" style="background:#2563eb; color:white; cursor:default;">내 쿠폰함</button>
+    </div>
+
+    <div th:if="${#lists.isEmpty(userCoupons)}" class="empty-state">
+        보유한 쿠폰이 없습니다. 쿠폰 발급 페이지에서 쿠폰을 받아보세요.
+    </div>
+
+    <div th:if="${!#lists.isEmpty(userCoupons)}" class="coupon-list">
+        <article class="coupon-card" th:each="item : ${userCoupons}">
+            <div>
+                <span class="badge"
+                      th:classappend="${item.coupon.couponScope.name() == 'GLOBAL'} ? ' badge-global' :
+                                       (${item.coupon.couponScope.name() == 'BRAND'} ? ' badge-brand' : ' badge-product')"
+                      th:text="${item.coupon.couponScope.name() == 'GLOBAL' ? '전체' : (item.coupon.couponScope.name() == 'BRAND' ? '브랜드' : '상품전용')}">전체</span>
+            </div>
+            <div class="coupon-title" th:text="${item.coupon.couponTitle}">쿠폰 제목</div>
+            <div class="coupon-meta" th:if="${item.coupon.brandName != null}" th:text="|브랜드: ${item.coupon.brandName}|">브랜드</div>
+            <div class="coupon-meta" th:if="${item.coupon.productTitle != null}" th:text="|상품: ${item.coupon.productTitle}|">상품</div>
+            <div class="coupon-body" th:text="${item.coupon.couponDescription}">설명</div>
+            <div class="coupon-meta" th:if="${item.coupon.discountRate != null}" th:text="|할인율: ${item.coupon.discountRate}%|">할인율</div>
+            <div class="coupon-meta" th:if="${item.coupon.discountAmount != null}" th:text="|할인금액: ${#numbers.formatDecimal(item.coupon.discountAmount, 0, 'COMMA', 0, 'POINT')}원|">할인금액</div>
+            <div class="coupon-meta" th:if="${item.coupon.maxDiscountAmount != null}" th:text="|최대 ${#numbers.formatDecimal(item.coupon.maxDiscountAmount, 0, 'COMMA', 0, 'POINT')}원 할인|">최대 할인</div>
+            <div class="coupon-meta" th:if="${item.coupon.minPurchaseAmount != null}" th:text="|최소 주문금액 ${#numbers.formatDecimal(item.coupon.minPurchaseAmount, 0, 'COMMA', 0, 'POINT')}원|">최소 금액</div>
+            <div class="coupon-meta" th:text="|발급일: ${item.issuedAt != null ? #temporals.format(item.issuedAt, 'yyyy.MM.dd HH:mm') : '-'}|">발급일</div>
+            <div class="coupon-footer">
+                <span th:text="|사용 가능 기간: ${#temporals.format(item.coupon.startDate, 'yyyy.MM.dd')} ~ ${#temporals.format(item.coupon.expiredAt, 'yyyy.MM.dd')}|">기간</span>
+                <span class="badge-usability"
+                      th:classappend="${item.usable} ? ' usable' : (${item.expired} ? ' expired' : ' used')"
+                      th:text="${item.usable} ? '사용 가능' : (${item.expired} ? '만료' : '사용 완료')">상태</span>
+            </div>
+        </article>
+    </div>
+
+    <div th:if="${page != null && page.totalPages > 1}" class="pagination">
+        <span th:if="${page.first}" class="disabled">이전</span>
+        <a th:if="${!page.first}" th:href="@{/mypage/coupons/mine(page=${page.number - 1})}">이전</a>
+
+        <span th:each="i : ${#numbers.sequence(0, page.totalPages - 1)}"
+              th:if="${page.totalPages <= 7 || (i >= page.number - 2 && i <= page.number + 2)}">
+            <span th:if="${i == page.number}" th:text="${i + 1}" class="active"></span>
+            <a th:if="${i != page.number}"
+               th:text="${i + 1}" th:href="@{/mypage/coupons/mine(page=${i})}"></a>
+        </span>
+
+        <a th:if="${!page.last}" th:href="@{/mypage/coupons/mine(page=${page.number + 1})}">다음</a>
+        <span th:if="${page.last}" class="disabled">다음</span>
+    </div>
+</div>
+</body>
+</html>
