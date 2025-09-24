@@ -127,8 +127,7 @@ public class Product {
         }
         if (request.getProductColor() != null) {
             this.productColor = request.getProductColor().trim();
-        }
-        if (request.getMaterial() != null) {
+        }        if (request.getMaterial() != null) {
             this.material = request.getMaterial().trim();
         }
         if (request.getCapacity() != null) {

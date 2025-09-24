@@ -69,4 +69,5 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     @Query("SELECT u FROM User u WHERE u.userRole.userRoleName IN ('ADMIN', 'SUPER_ADMIN') AND u.userPhone LIKE %:userPhone%")
     Page<User> findAdminUsersByUserPhoneContaining(@Param("userPhone") String userPhone, Pageable pageable);
+
 }

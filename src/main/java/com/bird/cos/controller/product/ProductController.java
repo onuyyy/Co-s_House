@@ -55,7 +55,6 @@ public class ProductController {
         return "product/productList";
     }
 
-
     //상품 페이지
     @GetMapping("/product")
     public String selectProduct(Model model) {

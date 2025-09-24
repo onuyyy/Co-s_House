@@ -43,5 +43,9 @@ app:
   email:
     from: yju407@naver.com
 
+file:
+  upload-dir: /Users/a/IdeaProjects/Co-s_House/uploads/
+
+
 server:
   port: 8080
