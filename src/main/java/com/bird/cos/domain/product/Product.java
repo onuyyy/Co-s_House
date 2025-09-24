@@ -9,14 +9,21 @@ import com.bird.cos.domain.inventory.InventoryOutbound;
 import com.bird.cos.domain.inventory.InventoryReceipt;
 import com.bird.cos.domain.order.OrderItem;
 
+import com.bird.cos.dto.admin.ProductUpdateRequest;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Getter
 @Entity
 @Table(name = "PRODUCT")
@@ -106,7 +113,7 @@ public class Product {
     private List<ProductOption> options = new ArrayList<>();
 
     // 상품 정보 업데이트 메서드
-    public void update(com.bird.cos.dto.admin.ProductUpdateRequest request) {
+    public void update(ProductUpdateRequest request) {
         if (request.getProductTitle() != null && !request.getProductTitle().trim().isEmpty()) {
             this.productTitle = request.getProductTitle().trim();
         }

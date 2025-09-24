@@ -69,4 +69,6 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     // 색상으로 검색
     Page<Product> findProductsByProductColorContainingIgnoreCase(String productColor, Pageable pageable);
 
+    // 같은 브랜드, 같은 이름 존재하는지 검색
+    Boolean existsByProductTitleAndBrand_BrandId(String productTitle, Long brandId);
 }

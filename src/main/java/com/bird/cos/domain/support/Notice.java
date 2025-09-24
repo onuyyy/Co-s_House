@@ -45,5 +45,6 @@ public class Notice {
         }
         this.title = title.trim();
         this.content = content.trim();
+        this.noticeUpdateDate = LocalDateTime.now();
     }
 }

@@ -38,6 +38,8 @@
     input:focus, select:focus{ outline:none; border-color:var(--ring); box-shadow:0 0 0 3px color-mix(in oklab, var(--ring) 28%, transparent); }
     .grid-2{ display:grid; grid-template-columns: 1fr 180px; gap:10px; }
     .email-row{ display:grid; grid-template-columns: 1fr 48px 1fr 140px; gap:8px; align-items:center; }
+    .email-verify-area{ display:grid; gap:10px; margin-top:10px; }
+    .email-code-row{ display:grid; grid-template-columns: 1fr 150px; gap:8px; }
     .email-at{ text-align:center; color:#9ca3af; }
     .btn{ height:50px; border:none; border-radius:12px; background:var(--primary); color:#fff; font-weight:700; font-size:16px; cursor:pointer; }
     .btn:hover{ background:var(--primary-600); }
@@ -66,6 +68,9 @@
     .foot{ text-align:center; color:var(--muted); font-size:13px; margin-top:14px; }
   </style>
   <script>
+    let emailVerified = false;
+    let emailVerificationRequested = false;
+
     function emailValue(){
       const local = document.getElementById('emailLocal').value.trim();
       const sel = document.getElementById('emailDomain').value;
@@ -80,6 +85,29 @@
       const needCustom = sel.value === 'custom';
       custom.style.display = needCustom ? 'block' : 'none';
       if(!needCustom) custom.value = '';
+      handleEmailChange();
+    }
+
+    function handleEmailChange(){
+      emailVerified = false;
+      emailVerificationRequested = false;
+      const msg = document.getElementById('emailVerifyMsg');
+      if(msg){ msg.textContent = ''; msg.className = 'msg'; }
+      const codeRow = document.getElementById('emailCodeRow');
+      if(codeRow){ codeRow.style.display = 'none'; }
+      const codeInput = document.getElementById('emailCode');
+      if(codeInput){ codeInput.value = ''; codeInput.disabled = false; }
+      const btn = document.getElementById('emailVerifyBtn');
+      if(btn){
+        btn.disabled = false;
+        btn.classList.remove('btn-verified');
+        if(!btn.classList.contains('btn-outline')){
+          btn.classList.add('btn-outline');
+        }
+        btn.textContent = '이메일 인증하기';
+      }
+      const confirmBtn = document.getElementById('emailCodeConfirmBtn');
+      if(confirmBtn){ confirmBtn.disabled = false; }
     }
 
     function allAgreeToggle(chk){
@@ -97,6 +125,7 @@
       const pw = document.getElementById('password').value;
       const pw2 = document.getElementById('password2').value;
       if(!email){ out.textContent = '이메일을 입력해주세요.'; out.className='msg err'; return false; }
+      if(!emailVerified){ out.textContent = '이메일 인증을 완료해주세요.'; out.className='msg err'; return false; }
       if(pw.length < 8){ out.textContent = '비밀번호는 8자 이상이어야 합니다.'; out.className='msg err'; return false; }
       if(pw !== pw2){ out.textContent = '비밀번호 확인이 일치하지 않습니다.'; out.className='msg err'; return false; }
       if(!document.getElementById('agreeAge').checked || !document.getElementById('agreeTos').checked){
@@ -139,9 +168,107 @@
       }catch(err){ out.innerHTML = `<div class="err">네트워크 오류: ${err}</div>`; }
     }
 
-    function emailVerifyClick(){
+    async function emailVerifyClick(){
+      emailVerified = false;
+      const email = emailValue();
+      const name = document.getElementById('name').value.trim();
+      const msg = document.getElementById('emailVerifyMsg');
       const btn = document.getElementById('emailVerifyBtn');
-      if(btn){ btn.classList.add('btn-verified'); btn.classList.remove('btn-outline'); }
+
+      if(msg){ msg.textContent = ''; msg.className = 'msg'; }
+
+      if(!email){
+        if(msg){ msg.textContent = '이메일을 먼저 입력해주세요.'; msg.className = 'msg err'; }
+        return;
+      }
+
+      try{
+        if(btn){ btn.disabled = true; btn.textContent = '전송 중...'; }
+        const res = await fetch('/auth/email/verification/request', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, name })
+        });
+        const body = await res.json().catch(() => ({}));
+        if(res.ok){
+          emailVerificationRequested = true;
+          if(msg){
+            msg.textContent = body?.message || '인증번호를 이메일로 발송했습니다. 이메일을 확인해주세요.';
+            msg.className = 'msg ok';
+          }
+          const codeRow = document.getElementById('emailCodeRow');
+          if(codeRow){ codeRow.style.display = 'grid'; }
+        }else{
+          if(msg){
+            msg.textContent = body?.message || '인증번호 발송에 실패했습니다. 잠시 후 다시 시도해주세요.';
+            msg.className = 'msg err';
+          }
+        }
+      }catch(err){
+        if(msg){
+          msg.textContent = `인증번호 요청 중 오류가 발생했습니다: ${err}`;
+          msg.className = 'msg err';
+        }
+      }finally{
+        if(btn){
+          btn.disabled = false;
+          btn.textContent = '인증번호 다시보내기';
+        }
+      }
+    }
+
+    async function confirmEmailCode(){
+      const email = emailValue();
+      const code = document.getElementById('emailCode').value.trim();
+      const msg = document.getElementById('emailVerifyMsg');
+      const confirmBtn = document.getElementById('emailCodeConfirmBtn');
+
+      if(!email){
+        if(msg){ msg.textContent = '먼저 이메일을 입력해주세요.'; msg.className = 'msg err'; }
+        return;
+      }
+      if(!code){
+        if(msg){ msg.textContent = '이메일로 받은 인증번호를 입력해주세요.'; msg.className = 'msg err'; }
+        return;
+      }
+
+      try{
+        if(confirmBtn){ confirmBtn.disabled = true; confirmBtn.textContent = '확인 중...'; }
+        const res = await fetch('/auth/email/verification/confirm', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, code })
+        });
+        const body = await res.json().catch(() => ({}));
+        if(res.ok && body?.verified){
+          emailVerified = true;
+          if(msg){
+            msg.textContent = body?.message || '이메일 인증이 완료되었습니다.';
+            msg.className = 'msg ok';
+          }
+          const btn = document.getElementById('emailVerifyBtn');
+          if(btn){ btn.classList.add('btn-verified'); btn.classList.remove('btn-outline'); btn.disabled = true; btn.textContent = '인증 완료'; }
+          const codeInput = document.getElementById('emailCode');
+          if(codeInput){ codeInput.disabled = true; }
+        }else{
+          emailVerified = false;
+          if(msg){
+            msg.textContent = body?.message || '인증번호가 일치하지 않거나 만료되었습니다.';
+            msg.className = 'msg err';
+          }
+        }
+      }catch(err){
+        emailVerified = false;
+        if(msg){
+          msg.textContent = `인증 확인 중 오류가 발생했습니다: ${err}`;
+          msg.className = 'msg err';
+        }
+      }finally{
+        if(confirmBtn){
+          confirmBtn.disabled = emailVerified;
+          confirmBtn.textContent = emailVerified ? '인증 완료' : '인증번호 확인';
+        }
+      }
     }
 
     function openPostcode(){
@@ -200,7 +327,7 @@
         <section>
           <label>이메일
             <div class="email-row">
-              <input id="emailLocal" type="text" placeholder="이메일" required />
+              <input id="emailLocal" type="text" placeholder="이메일" required oninput="handleEmailChange()" />
               <div class="email-at">@</div>
               <select id="emailDomain" onchange="onDomainChange()">
                 <option value="gmail.com">gmail.com</option>
@@ -212,7 +339,14 @@
               </select>
               <button type="button" id="emailVerifyBtn" class="btn btn-outline hover-swap" onclick="emailVerifyClick()">이메일 인증하기</button>
             </div>
-            <input id="emailDomainCustom" type="text" placeholder="도메인을 입력하세요" style="display:none;margin-top:8px;" />
+            <input id="emailDomainCustom" type="text" placeholder="도메인을 입력하세요" style="display:none;margin-top:8px;" oninput="handleEmailChange()" />
+            <div class="email-verify-area">
+              <div id="emailCodeRow" class="email-code-row" style="display:none;">
+                <input id="emailCode" type="text" placeholder="인증번호 6자리" maxlength="6" inputmode="numeric" pattern="[0-9]*" />
+                <button type="button" id="emailCodeConfirmBtn" class="btn btn-outline hover-swap" onclick="confirmEmailCode()">인증번호 확인</button>
+              </div>
+              <div id="emailVerifyMsg" class="msg"></div>
+            </div>
           </label>
         </section>
 

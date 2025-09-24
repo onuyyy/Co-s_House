@@ -1,23 +1,27 @@
 package com.bird.cos.domain.common;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
 
 import java.time.LocalDateTime;
 
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Entity
 @Table(name = "COMMON_CODE")
-@NoArgsConstructor
-@AllArgsConstructor
 public class CommonCode {
 
     @Id
     @Column(name = "code_id", length = 50)
     private String codeId;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "group_id", referencedColumnName = "group_id", nullable = false)
     private CommonCodeGroup commonCodeGroup;
@@ -39,5 +43,13 @@ public class CommonCode {
 
     @Column(name = "updated_at", insertable = false, updatable = false)
     private LocalDateTime updatedAt;
+
+    public void updateCode(String codeName, String description, Integer sortOrder, Boolean isActive, CommonCodeGroup commonCodeGroup) {
+        this.codeName = codeName;
+        this.description = description;
+        this.sortOrder = sortOrder;
+        this.isActive = isActive;
+        this.commonCodeGroup = commonCodeGroup;
+    }
 
 }

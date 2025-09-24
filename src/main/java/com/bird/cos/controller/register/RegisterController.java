@@ -4,6 +4,7 @@ import com.bird.cos.domain.user.User;
 import com.bird.cos.dto.user.RegisterRequest;
 import com.bird.cos.dto.user.UserResponse;
 import com.bird.cos.dto.user.LoginRequest;
+import com.bird.cos.exception.ErrorCode;
 import com.bird.cos.exception.UnauthorizedException;
 import com.bird.cos.service.auth.AuthService;
 import com.bird.cos.service.register.RegisterService;
@@ -81,7 +82,7 @@ public class RegisterController {
     public UserResponse getCurrentUser(HttpSession session) throws UnauthorizedException {
         User user = (User) session.getAttribute("user");
         if (user == null) {
-            throw new UnauthorizedException("not logged in");
+            throw new UnauthorizedException(ErrorCode.UNAUTHORIZED);
         }
         return UserResponse.from(user);
     }

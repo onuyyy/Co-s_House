@@ -21,6 +21,7 @@ public class UserManageResponse {
     private String socialProvider;
     private String socialId;
     private Boolean termsAgreed;
+    private Long userRoleId;
     private String userRoleName;
     private String roleDescription;
     private LocalDateTime userCreatedAt;
@@ -37,6 +38,7 @@ public class UserManageResponse {
                 user.getSocialProvider(),
                 user.getSocialId(),
                 user.getTermsAgreed(),
+                user.getUserRole() != null ? user.getUserRole().getUserRoleId() : null,
                 user.getUserRole() != null ? user.getUserRole().getUserRoleName() : null,
                 user.getUserRole() != null ? user.getUserRole().getRoleDescription() : null,
                 user.getUserCreatedAt(),

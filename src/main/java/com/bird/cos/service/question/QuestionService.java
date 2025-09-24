@@ -6,9 +6,9 @@ import com.bird.cos.domain.user.User;
 import com.bird.cos.domain.common.CommonCode;
 import com.bird.cos.dto.question.QuestionUpdateRequest;
 import com.bird.cos.dto.question.QuestionManageResponse;
+import com.bird.cos.repository.common.CommonCodeRepository;
 import com.bird.cos.repository.question.QuestionRepository;
 import com.bird.cos.repository.user.UserRepository;
-import com.bird.cos.repository.CommonCodeRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -163,6 +163,7 @@ public class QuestionService {
                     .userPassword(user.getUserPassword())
                     .userPhone(newPhone != null && !newPhone.trim().isEmpty() ? newPhone.trim() : user.getUserPhone())
                     .userUpdatedAt(user.getUserUpdatedAt())
+                    .emailVerified(user.isEmailVerified())
                     .build();
 
             return userRepository.save(updatedUser);

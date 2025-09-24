@@ -1,20 +1,22 @@
 package com.bird.cos.domain.common;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
 @Entity
 @Table(name = "COMMON_CODE_GROUP")
-@Getter
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
 public class CommonCodeGroup {
 
     @Id
@@ -27,13 +29,23 @@ public class CommonCodeGroup {
     @Column(name = "description", length = 255)
     private String description;
 
+    @Column(name = "is_active")
+    private Boolean isActive;
+
     @Column(name = "created_at", insertable = false, updatable = false)
     private LocalDateTime createdAt;
 
     @Column(name = "updated_at", insertable = false, updatable = false)
     private LocalDateTime updatedAt;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "commonCodeGroup", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<CommonCode> commonCodes = new ArrayList<>();
+
+    public void updateGroup(String groupName, String description, Boolean isActive) {
+        this.groupName = groupName;
+        this.description = description;
+        this.isActive = isActive;
+    }
 
 }

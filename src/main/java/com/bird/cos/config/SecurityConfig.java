@@ -70,6 +70,8 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
+                        // 0) 이메일 인증 허용
+                        .requestMatchers("/auth/email/**").permitAll()
 
                         // 1) 정적 리소스 전부 허용
                         .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
@@ -84,9 +86,6 @@ public class SecurityConfig {
                                 "/account/register",
                                 "/controller/register/login",
                                 "/shop",
-                                "/cart", //todo: 지우기
-                                "/product", //todo: 비회원에게 상품 목록 공개
-                                "/product/**", //todo: 상품 목록 공개
                                 "/community",
                                 "/events"
                         ).permitAll()

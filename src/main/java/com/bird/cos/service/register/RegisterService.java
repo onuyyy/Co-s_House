@@ -1,29 +1,30 @@
 package com.bird.cos.service.register;
 
 import com.bird.cos.domain.user.User;
-import com.bird.cos.domain.user.UserRole;
 import com.bird.cos.dto.user.RegisterRequest;
 import com.bird.cos.repository.user.UserRepository;
-import com.bird.cos.repository.user.UserRoleRepository;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import com.bird.cos.service.auth.EmailVerificationService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
+import java.util.Locale;
 
 @Service
 @RequiredArgsConstructor
 public class RegisterService {
 
     private final UserRepository userRepository;
-    private final UserRoleRepository userRoleRepository;
     private final PasswordEncoder passwordEncoder;
+    private final EmailVerificationService emailVerificationService;
 
     @Transactional
     public User register(RegisterRequest req) {
+        String normalizedEmail = req.email().trim().toLowerCase(Locale.ROOT);
+
         // 이메일 중복 체크
-        if (userRepository.findByUserEmail(req.email()).isPresent()) {
+        if (userRepository.findByUserEmail(normalizedEmail).isPresent()) {
             throw new IllegalArgumentException("이미 사용 중인 이메일입니다.");
         }
         // 닉네임 중복 체크
@@ -31,21 +32,23 @@ public class RegisterService {
             throw new IllegalArgumentException("이미 사용 중인 닉네임입니다.");
         }
 
-        // 기본 사용자 역할(ID=1) 조회
-        UserRole userRole = userRoleRepository.findById(1L)
-                .orElseThrow(() -> new IllegalStateException("기본 사용자 역할을 찾을 수 없습니다."));
+        if (!emailVerificationService.isVerified(normalizedEmail)) {
+            throw new IllegalStateException("이메일 인증을 완료해주세요.");
+        }
 
         User user = User.builder()
-                .userEmail(req.email())
+                .userEmail(normalizedEmail)
                 .userPassword(passwordEncoder.encode(req.password()))
                 .userNickname(req.nickname())
                 .userName(req.name())
                 .userAddress(req.address())
                 .userPhone(req.phone())
+                .emailVerified(true)
                 .termsAgreed(Boolean.TRUE)
-                .userRole(userRole) // 역할 설정
                 .build();
 
-        return userRepository.save(user);
+        User savedUser = userRepository.save(user);
+        emailVerificationService.consumeVerification(normalizedEmail);
+        return savedUser;
     }
 }

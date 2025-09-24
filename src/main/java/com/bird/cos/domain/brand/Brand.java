@@ -2,13 +2,14 @@ package com.bird.cos.domain.brand;
 
 import com.bird.cos.domain.product.Product;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
-
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 @Entity
 @Table(name = "BRAND")
 @Getter
