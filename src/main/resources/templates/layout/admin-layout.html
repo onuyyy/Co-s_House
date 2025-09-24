@@ -72,7 +72,7 @@
                     <li><a href="#">재고 관리</a></li>
                     <li><a href="#">FAQ</a></li>
                     <li>
-                        <a th:href="@{/api/admin/Log}"
+                        <a th:href="@{/api/admin/log}"
                            th:class="${#httpServletRequest != null and #strings.contains(#httpServletRequest.requestURI, '/log') ? 'active' : ''}">
                             로그 관리
                         </a>
