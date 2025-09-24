@@ -1,8 +1,8 @@
-package com.bird.cos.controller.myPage;
+package com.bird.cos.controller.mypage;
 
-import com.bird.cos.dto.myPage.MyPageUserManageResponse;
-import com.bird.cos.dto.myPage.MyPageUserUpdateRequest;
-import com.bird.cos.service.myPage.MyPageService;
+import com.bird.cos.dto.mypage.MyPageUserManageResponse;
+import com.bird.cos.dto.mypage.MyPageUserUpdateRequest;
+import com.bird.cos.service.mypage.MyPageService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
