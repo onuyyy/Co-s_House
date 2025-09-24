@@ -6,6 +6,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 
@@ -14,6 +17,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Getter
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 @Table(name = "COMMON_CODE")
 public class CommonCode {
 
@@ -38,10 +42,12 @@ public class CommonCode {
     @Column(name = "is_active")
     private Boolean isActive = true;
 
-    @Column(name = "created_at", insertable = false, updatable = false)
+    @CreatedDate
+    @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
 
-    @Column(name = "updated_at", insertable = false, updatable = false)
+    @LastModifiedDate
+    @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
     public void updateCode(String codeName, String description, Integer sortOrder, Boolean isActive, CommonCodeGroup commonCodeGroup) {
