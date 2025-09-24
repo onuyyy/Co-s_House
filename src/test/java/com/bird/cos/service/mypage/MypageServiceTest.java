@@ -88,7 +88,7 @@ class MypageServiceTest {
 
     @Test
     @DisplayName("ID로 사용자 정보를 성공적으로 조회한다")
-    void getUserInfoById_성공() {
+    void getUserInfoById_success() {
         // Given
         given(myPageRepository.findUserForMyPage(1L)).willReturn(Optional.of(testUser));
 
@@ -105,7 +105,7 @@ class MypageServiceTest {
 
     @Test
     @DisplayName("존재하지 않는 ID로 조회 시 예외가 발생한다")
-    void getUserInfoById_사용자없음_예외() {
+    void getUserInfoById_exception() {
         // Given
         given(myPageRepository.findUserForMyPage(999L)).willReturn(Optional.empty());
 
@@ -119,7 +119,7 @@ class MypageServiceTest {
 
     @Test
     @DisplayName("비밀번호 없이 사용자 정보를 성공적으로 업데이트한다")
-    void updateUserInfoById_비밀번호없음_성공() {
+    void updateUserInfoById_no_pwd_success() {
         // Given
         given(userRepository.findById(1L)).willReturn(Optional.of(testUser));
         given(userRepository.save(any(User.class))).willReturn(testUser);
@@ -134,7 +134,7 @@ class MypageServiceTest {
 
     @Test
     @DisplayName("올바른 현재 비밀번호로 비밀번호를 성공적으로 변경한다")
-    void updateUserInfoById_비밀번호변경_성공() {
+    void updateUserInfoById_pwd_update_success() {
         // Given
         updateRequest.setUserPassword("newPassword");
         given(userRepository.findById(1L)).willReturn(Optional.of(testUser));
@@ -156,7 +156,7 @@ class MypageServiceTest {
 
     @Test
     @DisplayName("소셜 로그인 사용자의 비밀번호 변경 시도 시 예외가 발생한다")
-    void updateUserInfoById_소셜사용자_비밀번호변경_예외() {
+    void updateUserInfoById_social_pwd_update_exception() {
         // Given
         updateRequest.setUserPassword("newPassword");
         given(userRepository.findById(2L)).willReturn(Optional.of(socialUser));
@@ -171,7 +171,7 @@ class MypageServiceTest {
 
     @Test
     @DisplayName("현재 비밀번호가 일치하지 않을 때 예외가 발생한다")
-    void updateUserInfoById_잘못된현재비밀번호_예외() {
+    void updateUserInfoById_error_pwd_exception() {
         // Given
         updateRequest.setUserPassword("newPassword");
         given(userRepository.findById(1L)).willReturn(Optional.of(testUser));
@@ -188,7 +188,7 @@ class MypageServiceTest {
 
     @Test
     @DisplayName("새 비밀번호가 현재 비밀번호와 같을 때 예외가 발생한다")
-    void updateUserInfoById_동일한비밀번호_예외() {
+    void updateUserInfoById_same_pwd_exception() {
         // Given
         updateRequest.setUserPassword("currentPassword");
         given(userRepository.findById(1L)).willReturn(Optional.of(testUser));
@@ -205,7 +205,7 @@ class MypageServiceTest {
 
     @Test
     @DisplayName("현재 비밀번호 없이 비밀번호 변경 시도 시 예외가 발생한다")
-    void updateUserInfoById_현재비밀번호없음_예외() {
+    void updateUserInfoById_now_pwd_no_exception() {
         // Given
         updateRequest.setUserPassword("newPassword");
         given(userRepository.findById(1L)).willReturn(Optional.of(testUser));
@@ -220,7 +220,7 @@ class MypageServiceTest {
 
     @Test
     @DisplayName("ID 기반으로 사용자를 성공적으로 삭제한다")
-    void deleteUserInfoById_성공() {
+    void deleteUserInfoById_success() {
         // Given
         given(userRepository.findById(1L)).willReturn(Optional.of(testUser));
         doNothing().when(questionRepository).anonymizeQuestionsByUser(1L);
@@ -237,7 +237,7 @@ class MypageServiceTest {
 
     @Test
     @DisplayName("존재하지 않는 사용자 삭제 시 예외가 발생한다")
-    void deleteUserInfoById_사용자없음_예외() {
+    void deleteUserInfoById_no_user_exception() {
         // Given
         given(userRepository.findById(999L)).willReturn(Optional.empty());
 

@@ -39,9 +39,6 @@ class MypageControllerTest {
     @MockitoBean
     private MypageService myPageService;
 
-    @Autowired
-    private ObjectMapper objectMapper;
-
     private User testUser;
     private MypageUserManageResponse testUserResponse;
     private MypageUserUpdateRequest testUpdateRequest;
@@ -88,7 +85,7 @@ class MypageControllerTest {
     @Test
     @WithMockUser(username = "test@example.com")
     @DisplayName("마이페이지 홈을 성공적으로 조회한다")
-    void myPage_성공() throws Exception {
+    void mypage_success() throws Exception {
         // Given
         given(myPageService.getUserIdFromAuthentication(any())).willReturn(1L);
         given(myPageService.getUserInfoById(1L)).willReturn(testUserResponse);
@@ -110,7 +107,7 @@ class MypageControllerTest {
     @Test
     @WithMockUser(username = "test@example.com")
     @DisplayName("유저 정보 상세보기를 성공적으로 조회한다")
-    void myPageUserDetail_성공() throws Exception {
+    void mypageUserDetail_success() throws Exception {
         // Given
         given(myPageService.getUserIdFromAuthentication(any())).willReturn(1L);
         given(myPageService.getUserInfoById(1L)).willReturn(testUserResponse);
@@ -128,7 +125,7 @@ class MypageControllerTest {
     @Test
     @WithMockUser(username = "test@example.com")
     @DisplayName("유저 정보를 성공적으로 업데이트한다")
-    void myPageUserUpdate_성공() throws Exception {
+    void mypageUserUpdate_success() throws Exception {
         // Given
         given(myPageService.getUserIdFromAuthentication(any())).willReturn(1L);
         doNothing().when(myPageService).updateUserInfoById(eq(1L), any(MypageUserUpdateRequest.class), eq("currentPassword"));
@@ -151,7 +148,7 @@ class MypageControllerTest {
     @Test
     @WithMockUser(username = "test@example.com")
     @DisplayName("비밀번호 검증이 성공한다")
-    void validatePassword_성공() throws Exception {
+    void validatePassword_success() throws Exception {
         // Given
         given(myPageService.validateCurrentPassword(eq("correctPassword"), any(), any())).willReturn(true);
 
@@ -169,7 +166,7 @@ class MypageControllerTest {
     @Test
     @WithMockUser(username = "test@example.com")
     @DisplayName("비밀번호 검증이 실패한다")
-    void validatePassword_실패() throws Exception {
+    void validatePassword_fail() throws Exception {
         // Given
         given(myPageService.validateCurrentPassword(eq("wrongPassword"), any(), any())).willReturn(false);
 
@@ -187,7 +184,7 @@ class MypageControllerTest {
     @Test
     @WithMockUser(username = "test@example.com")
     @DisplayName("소셜 로그인 사용자의 비밀번호 검증이 실패한다")
-    void validatePassword_소셜로그인_실패() throws Exception {
+    void validatePassword_social_login_fail() throws Exception {
         // Given
         given(myPageService.validateCurrentPassword(eq("anyPassword"), any(), any())).willReturn(false);
 
@@ -205,7 +202,7 @@ class MypageControllerTest {
     @Test
     @WithMockUser(username = "test@example.com")
     @DisplayName("회원탈퇴를 성공적으로 처리한다")
-    void deleteUser_성공() throws Exception {
+    void mypageUserDelete_success() throws Exception {
         // Given
         given(myPageService.getUserIdFromAuthentication(any())).willReturn(1L);
         doNothing().when(myPageService).deleteUserInfoById(1L);
@@ -223,7 +220,7 @@ class MypageControllerTest {
     @Test
     @WithMockUser(username = "test@example.com")
     @DisplayName("존재하지 않는 사용자로 인해 회원탈퇴가 실패한다")
-    void deleteUser_사용자없음_실패() throws Exception {
+    void mypageUserDelete_fail() throws Exception {
         // Given
         given(myPageService.getUserIdFromAuthentication(any())).willThrow(new IllegalArgumentException("사용자를 찾을 수 없습니다."));
 
