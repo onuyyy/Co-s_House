@@ -1,4 +1,4 @@
-package com.bird.cos.dto.myPage;
+package com.bird.cos.dto.mypage;
 
 import com.bird.cos.domain.user.User;
 import lombok.AllArgsConstructor;

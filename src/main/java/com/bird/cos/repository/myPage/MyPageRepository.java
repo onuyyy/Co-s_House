@@ -1,4 +1,4 @@
-package com.bird.cos.repository.myPage;
+package com.bird.cos.repository.mypage;
 
 import com.bird.cos.domain.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;

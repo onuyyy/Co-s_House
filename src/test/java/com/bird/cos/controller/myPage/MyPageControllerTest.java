@@ -1,11 +1,11 @@
 package com.bird.cos.controller.myPage;
 
-import com.bird.cos.controller.myPage.MyPageController;
+import com.bird.cos.controller.mypage.MyPageController;
 import com.bird.cos.domain.user.User;
 import com.bird.cos.domain.user.UserRole;
-import com.bird.cos.dto.myPage.MyPageUserManageResponse;
-import com.bird.cos.dto.myPage.MyPageUserUpdateRequest;
-import com.bird.cos.service.myPage.MyPageService;
+import com.bird.cos.dto.mypage.MyPageUserManageResponse;
+import com.bird.cos.dto.mypage.MyPageUserUpdateRequest;
+import com.bird.cos.service.mypage.MyPageService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

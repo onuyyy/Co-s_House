@@ -1,9 +1,9 @@
-package com.bird.cos.service.myPage;
+package com.bird.cos.service.mypage;
 
 import com.bird.cos.domain.user.User;
-import com.bird.cos.dto.myPage.MyPageUserManageResponse;
-import com.bird.cos.dto.myPage.MyPageUserUpdateRequest;
-import com.bird.cos.repository.myPage.MyPageRepository;
+import com.bird.cos.dto.mypage.MyPageUserManageResponse;
+import com.bird.cos.dto.mypage.MyPageUserUpdateRequest;
+import com.bird.cos.repository.mypage.MyPageRepository;
 import com.bird.cos.repository.question.QuestionRepository;
 import com.bird.cos.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
