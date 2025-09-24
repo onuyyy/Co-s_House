@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class MyPageUserUpdateRequest {
+public class MypageUserUpdateRequest {
     private String userNickname;
     private String userPhone;
     private String userAddress;

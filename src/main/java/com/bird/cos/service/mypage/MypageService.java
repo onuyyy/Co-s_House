@@ -1,9 +1,9 @@
 package com.bird.cos.service.mypage;
 
 import com.bird.cos.domain.user.User;
-import com.bird.cos.dto.mypage.MyPageUserManageResponse;
-import com.bird.cos.dto.mypage.MyPageUserUpdateRequest;
-import com.bird.cos.repository.mypage.MyPageRepository;
+import com.bird.cos.dto.mypage.MypageUserManageResponse;
+import com.bird.cos.dto.mypage.MypageUserUpdateRequest;
+import com.bird.cos.repository.mypage.MypageRepository;
 import com.bird.cos.repository.question.QuestionRepository;
 import com.bird.cos.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -19,24 +19,24 @@ import jakarta.servlet.http.HttpServletRequest;
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 @Slf4j
-public class MyPageService {
+public class MypageService {
 
-    private final MyPageRepository myPageRepository;
+    private final MypageRepository myPageRepository;
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final QuestionRepository questionRepository;
 
     //UserId 정보 넘기기
-    public MyPageUserManageResponse getUserInfoById(Long userId){
+    public MypageUserManageResponse getUserInfoById(Long userId){
         User user = myPageRepository.findUserForMyPage(userId)
                 .orElseThrow(()-> new IllegalArgumentException("사용자를 찾을 수 없습니다."));
 
-        return MyPageUserManageResponse.from(user);
+        return MypageUserManageResponse.from(user);
     }
 
     //회원 정보 수정
     @Transactional
-    public void updateUserInfoById(Long userId, MyPageUserUpdateRequest request, String currentPassword){
+    public void updateUserInfoById(Long userId, MypageUserUpdateRequest request, String currentPassword){
         User existingUser = userRepository.findById(userId)
                 .orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다."));
 

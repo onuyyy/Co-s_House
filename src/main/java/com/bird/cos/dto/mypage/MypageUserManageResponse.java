@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class MyPageUserManageResponse {
+public class MypageUserManageResponse {
     private String userName;
     private String userEmail;
     private String userPhone;
@@ -27,8 +27,8 @@ public class MyPageUserManageResponse {
     private BigDecimal totalOrderAmount;
     private Integer membershipPoints;
 
-    public static MyPageUserManageResponse from(User user) {
-        return MyPageUserManageResponse.builder()
+    public static MypageUserManageResponse from(User user) {
+        return MypageUserManageResponse.builder()
                 .userName(user.getUserName())
                 .userEmail(user.getUserEmail())
                 .userPhone(user.getUserPhone())
