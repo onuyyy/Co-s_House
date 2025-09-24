@@ -10,6 +10,7 @@ import com.bird.cos.domain.inventory.InventoryReceipt;
 import com.bird.cos.domain.order.OrderItem;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 
 import java.math.BigDecimal;

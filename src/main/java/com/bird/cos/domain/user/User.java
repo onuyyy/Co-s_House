@@ -99,4 +99,8 @@ public class User {
     public boolean isUser() {
         return this.userRole != null && "USER".equals(this.userRole.getUserRoleName());
     }
+
+
+    public String getNickname() { return this.userNickname;
+    }
 }

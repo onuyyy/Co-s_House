@@ -1,6 +1,8 @@
 package com.bird.cos.service.product;
 
 import com.bird.cos.domain.product.Product;
+import com.bird.cos.domain.product.ProductOption;
+import com.bird.cos.repository.product.ProductOptionRepository;
 import com.bird.cos.repository.product.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,6 +16,7 @@ import java.util.Optional;
 public class ProductService {
 
     private final ProductRepository productRepository;
+    private final ProductOptionRepository productOptionRepository;
 
     // DB에 있는 모든 상품을 조회하는 메서드
     @Transactional(readOnly = true)
@@ -76,5 +79,9 @@ public class ProductService {
         return productRepository.findByBrand_BrandIdOrderByAverageRatingDesc(brandId);
     }
 
+    @Transactional(readOnly = true)
+    public List<ProductOption> getOptionsByProductId(Long productId) {
+        return productOptionRepository.findByProduct_ProductId(productId);
+    }
 }
 

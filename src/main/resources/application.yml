@@ -25,5 +25,9 @@ spring:
     encoding: UTF-8
     mode: HTML
 
+file:
+  upload-dir: /Users/a/IdeaProjects/Co-s_House/uploads/
+
+
 server:
   port: 8080

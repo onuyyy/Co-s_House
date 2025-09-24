@@ -1,6 +1,7 @@
 package com.bird.cos.repository.product;
 
 import com.bird.cos.domain.product.Product;
+import com.bird.cos.domain.product.ProductOption;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -59,4 +60,5 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     
     // 색상으로 검색
     Page<Product> findProductsByProductColorContainingIgnoreCase(String productColor, Pageable pageable);
+
 }
