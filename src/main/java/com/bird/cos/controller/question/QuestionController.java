@@ -4,11 +4,8 @@ import com.bird.cos.domain.product.Question;
 import com.bird.cos.domain.user.User;
 import com.bird.cos.dto.question.QuestionUpdateRequest;
 import com.bird.cos.dto.question.QuestionManageResponse;
-import com.bird.cos.repository.common.CommonCodeRepository;
 import com.bird.cos.service.question.QuestionService;
 import lombok.RequiredArgsConstructor;
-import com.bird.cos.repository.user.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -23,6 +20,7 @@ import org.springframework.security.core.Authentication;
 @RequestMapping("/question")
 public class QuestionController {
     private final QuestionService questionService;
+
     /**
      * 문의 목록 페이지 조회 (페이징)
      */
@@ -132,5 +130,3 @@ public class QuestionController {
     }
 
 }
-
-
