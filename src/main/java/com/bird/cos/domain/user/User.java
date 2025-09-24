@@ -1,4 +1,3 @@
-// *5. Lombok 어노테이션 추가 (@Getter, @NoArgsConstructor, @AllArgsConstructor)
 package com.bird.cos.domain.user;
 
 import com.bird.cos.dto.admin.UserUpdateRequest;
@@ -7,6 +6,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
@@ -55,6 +58,9 @@ public class User {
 
     @Column(name = "terms_agreed")
     private Boolean termsAgreed = false;
+
+    @Column(name = "email_verified", nullable = false)
+    private boolean emailVerified;
 
     @Column(name = "user_created_at", insertable = false, updatable = false)
     private LocalDateTime userCreatedAt;

@@ -5,6 +5,7 @@ import com.bird.cos.domain.user.User;
 import com.bird.cos.domain.common.CommonCode;
 import com.bird.cos.dto.question.QuestionUpdateRequest;
 import com.bird.cos.dto.question.QuestionManageResponse;
+import com.bird.cos.repository.common.CommonCodeRepository;
 import com.bird.cos.repository.question.QuestionRepository;
 import com.bird.cos.repository.user.UserRepository;
 import com.bird.cos.repository.CommonCodeRepository;
@@ -145,6 +146,24 @@ public class QuestionService {
         String userEmail = authentication.getName();
         if (userEmail == null) {
             throw new IllegalArgumentException("사용자 이메일 정보가 없습니다.");
+        if (needsUpdate) {
+            User updatedUser = User.builder()
+                    .userId(user.getUserId())
+                    .socialId(user.getSocialId())
+                    .socialProvider(user.getSocialProvider())
+                    .termsAgreed(user.getTermsAgreed())
+                    .userAddress(user.getUserAddress())
+                    .userCreatedAt(user.getUserCreatedAt())
+                    .userEmail(newEmail != null && !newEmail.trim().isEmpty() ? newEmail.trim() : user.getUserEmail())
+                    .userName(newName != null && !newName.trim().isEmpty() ? newName.trim() : user.getUserName())
+                    .userNickname(user.getUserNickname())
+                    .userPassword(user.getUserPassword())
+                    .userPhone(newPhone != null && !newPhone.trim().isEmpty() ? newPhone.trim() : user.getUserPhone())
+                    .userUpdatedAt(user.getUserUpdatedAt())
+                    .emailVerified(user.isEmailVerified())
+                    .build();
+
+            return userRepository.save(updatedUser);
         }
 
         return userRepository.findByUserEmail(userEmail)

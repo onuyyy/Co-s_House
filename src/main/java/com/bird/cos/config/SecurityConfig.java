@@ -70,6 +70,9 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
+                        // 0) 이메일 인증 허용
+                        .requestMatchers("/auth/email/**").permitAll()
+
                         // 1) 정적 리소스 전부 허용
                         .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                         .requestMatchers(

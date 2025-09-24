@@ -1,24 +1,50 @@
 package com.bird.cos.controller.admin;
 
+import com.bird.cos.dto.admin.BrandCreateRequest;
 import com.bird.cos.dto.admin.BrandManageResponse;
 import com.bird.cos.dto.admin.BrandManageSearchType;
 import com.bird.cos.dto.admin.BrandUpdateRequest;
 import com.bird.cos.service.admin.AdminService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Objects;
+
+@Slf4j
 @RequiredArgsConstructor
 @RequestMapping("/api/admin/brands")
 @Controller
 public class BrandManageController {
 
     private final AdminService adminService;
+
+    @GetMapping("/new")
+    public String createBrand()
+    {
+        return "admin/brand/create-form";
+    }
+
+    @PostMapping
+    public String createBrand(@Valid BrandCreateRequest request, BindingResult bindingResult)
+    {
+        if (bindingResult.hasErrors()) {
+            log.info("createBrand binding error: {}", Objects.requireNonNull(bindingResult.getFieldError()).getDefaultMessage());
+            return "admin/brand/create-form";
+        }
+
+        adminService.createBrand(request);
+
+        return "redirect:/api/admin/brands";
+    }
 
     @GetMapping
     public String brandManagePage(
@@ -31,7 +57,7 @@ public class BrandManageController {
                 adminService.getBrandList(searchType, searchValue, pageable);
 
         model.addAttribute("brandList", brandList);
-        return "admin/brand-list";
+        return "admin/brand/brand-list";
     }
 
     @GetMapping("/{brandId}")
@@ -39,7 +65,7 @@ public class BrandManageController {
             @PathVariable Long brandId, Model model
     ) {
         model.addAttribute("brand", adminService.getBrandDetail(brandId));
-        return "admin/brand-detail";
+        return "admin/brand/brand-detail";
     }
 
     @PostMapping("/{brandId}/update")

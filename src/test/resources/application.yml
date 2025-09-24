@@ -1,25 +1,29 @@
 spring:
+  docker:
+    compose:
+      enabled: true
+      file: ${COMPOSE_FILE:docker-compose.yml}
+      lifecycle-management: start-and-stop
+
   datasource:
-    # 테스트용 H2 인메모리 데이터베이스
-    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
-    username: sa
-    password:
-    driver-class-name: org.h2.Driver
+    # 로컬에서 Docker 컨테이너 MySQL에 접속 (root 계정 사용)
+    url: jdbc:mysql://localhost:13306/cos?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
     hibernate:
-      ddl-auto: create-drop  # 테스트 시작시 생성, 종료시 삭제
+      ddl-auto: update
     show-sql: true
-    database-platform: org.hibernate.dialect.H2Dialect
-    properties:
-      hibernate:
-        format_sql: true
+    database-platform: org.hibernate.dialect.MySQL8Dialect
 
-  h2:
-    console:
-      enabled: true  # 테스트 디버깅용
+  thymeleaf:
+    enabled: true
+    prefix: classpath:/templates/
+    suffix: .html
+    encoding: UTF-8
+    mode: HTML
 
-logging:
-  level:
-    org.hibernate.SQL: DEBUG
-    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+server:
+  port: 8080
