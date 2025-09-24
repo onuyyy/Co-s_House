@@ -1,9 +1,15 @@
-package com.bird.cos.domain.product;
+package com.bird.cos.domain.coupon;
 
+import com.bird.cos.domain.brand.Brand;
+import com.bird.cos.domain.product.Product;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-
+@Getter
+@Setter
 @Entity
 @Table(name = "COUPON")
 public class Coupon {
@@ -16,6 +22,14 @@ public class Coupon {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id")
     private Product product;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "scope", length = 20, nullable = false)
+    private CouponScope scope = CouponScope.PRODUCT;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "brand_id")
+    private Brand brand;
 
     @Column(name = "coupon_title", length = 255, nullable = false)
     private String couponTitle;
