@@ -53,7 +53,7 @@ public class NoticeManageController {
         model.addAttribute("pageTitle", "공지 관리");
         model.addAttribute("totalElements", noticeList.getTotalElements());
 
-        return "admin/admin-notice-list";
+        return "admin/notice/admin-notice-list";
     }
 
     // 상세 페이지
@@ -62,10 +62,10 @@ public class NoticeManageController {
         try {
             NoticeResponse notice = noticeService.getNotice(noticeId);
             model.addAttribute("notice", notice);
-            return "admin/admin-notice-detail";
+            return "admin/notice/admin-notice-detail";
         } catch (IllegalArgumentException e) {
             model.addAttribute("error", "공지사항을 찾을 수 없습니다.");
-            return "admin/admin-notice-list";
+            return "admin/notice/admin-notice-list";
         }
     }
 
@@ -73,7 +73,7 @@ public class NoticeManageController {
     @GetMapping("/create")
     public String createNoticePage(Model model) {
         model.addAttribute("notice", new NoticeRequest());
-        return "admin/admin-notice-create";
+        return "admin/notice/admin-notice-create";
     }
 
     // 공지 생성 처리
@@ -113,10 +113,10 @@ public class NoticeManageController {
 
             model.addAttribute("notice", request);
             model.addAttribute("noticeId", noticeId);
-            return "admin/admin-notice-detail";
+            return "admin/notice/admin-notice-detail";
         } catch (IllegalArgumentException e) {
             model.addAttribute("error", "공지사항을 찾을 수 없습니다.");
-            return "admin/admin-notice-detail";
+            return "admin/notice/admin-notice-detail";
         }
     }
 
