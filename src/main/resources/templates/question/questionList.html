@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>문의 목록 - 코딩의 집</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+    <link rel="stylesheet" th:href="@{/css/question/questionList.css}">
+</head>
+<body class="page font-body">
+    <div th:replace="fragments/layout :: header"></div>
+
+<!-- 메인 컨텐츠 -->
+<main class="main-content">
+    <div class="container">
+        <div class="question-list-header">
+            <div class="question-list-header-title">
+                <h1 class="question-list-title">나의 문의 목록</h1>
+                <span class="question-total-count" th:text="'전체 ' + ${totalElements} + '개'">전체 0개</span>
+            </div>
+            <div class="question-list-header-actions">
+                <a th:href="@{/question/info}" class="question-write-btn">문의 작성</a>
+            </div>
+        </div>
+
+        <!-- 문의 목록 테이블 -->
+        <div class="question-table-container">
+            <table th:if="${questions != null and !questions.isEmpty()}" class="question-table">
+                <thead>
+                    <tr>
+                        <th>번호</th>
+                        <th>문의유형</th>
+                        <th>제목</th>
+                        <th>작성자</th>
+                        <th>작성일</th>
+                        <th>상태</th>
+                        <th>관리</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="question, iterStat : ${questions}">
+                        <td th:text="${totalElements - (currentPage * pageSize) - iterStat.index}">1</td>
+                        <td>
+                            <span class="question-type-badge" th:text="${question.questionType == 'QT_001' ? '상품 문의' : (question.questionType == 'QT_002' ? '배송 문의' : '기타 문의')}">상품 문의</span>
+                        </td>
+                        <td class="question-title-cell">
+                            <span th:if="${question.isSecret}" class="secret-badge">🔒</span>
+                            <span th:text="${question.questionTitle}">문의 제목</span>
+                        </td>
+                        <td th:text="${question.userName}">작성자</td>
+                        <td th:text="${#temporals.format(question.questionCreatedAt, 'yyyy-MM-dd')}">2024-09-16</td>
+                        <td>
+                            <span class="status-badge"
+                                  th:classappend="${question.questionStatus != null and question.questionStatus == '답변대기'} ? 'pending' : 'completed'"
+                                  th:text="${question.questionStatus != null ? question.questionStatus : '답변대기'}">답변대기</span>
+                        </td>
+                        <td>
+                            <button class="btn-small" th:onclick="'viewDetail(' + ${question.questionId} + ')'">상세보기</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- 문의가 없을 때 -->
+            <div th:if="${questions == null or questions.isEmpty()}" class="empty-state">
+                <div class="empty-content">
+                    <div class="empty-icon">📝</div>
+                    <h3>등록된 문의가 없습니다</h3>
+                    <p>궁금한 사항이 있으시면 문의를 작성해보세요.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 페이징 -->
+        <div th:if="${totalPages != null and totalPages > 1}" class="question-pagination">
+            <nav class="question-pagination-nav">
+                <ul class="question-pagination-list">
+                    <!-- 맨 처음으로 -->
+                    <li class="question-page-item arrow">
+                        <a th:href="@{/question(page=0, size=${param.size})}"
+                           th:classappend="${currentPage == 0} ? 'disabled' : ''"
+                           class="question-page-link">≪</a>
+                    </li>
+
+                    <!-- 이전 페이지 -->
+                    <li class="question-page-item arrow">
+                        <a th:href="@{/question(page=${currentPage - 1}, size=${param.size})}"
+                           th:classappend="${!hasPrevious} ? 'disabled' : ''"
+                           class="question-page-link">‹</a>
+                    </li>
+
+                    <!-- 페이지 번호 (현재 페이지 주변 5개만 표시) -->
+                    <li th:each="pageNum : ${#numbers.sequence(
+                        T(java.lang.Math).max(0, currentPage - 2),
+                        T(java.lang.Math).min(totalPages - 1, currentPage + 2)
+                    )}"
+                        th:classappend="${pageNum == currentPage} ? 'question-page-item active' : 'question-page-item'">
+                        <a th:href="@{/question(page=${pageNum}, size=${param.size})}"
+                           th:text="${pageNum + 1}"
+                           class="question-page-link">1</a>
+                    </li>
+
+                    <!-- 다음 페이지 -->
+                    <li class="question-page-item arrow">
+                        <a th:href="@{/question(page=${currentPage + 1}, size=${param.size})}"
+                           th:classappend="${!hasNext} ? 'disabled' : ''"
+                           class="question-page-link">›</a>
+                    </li>
+
+                    <!-- 맨 마지막으로 -->
+                    <li class="question-page-item arrow">
+                        <a th:href="@{/question(page=${totalPages - 1}, size=${param.size})}"
+                           th:classappend="${currentPage == totalPages - 1} ? 'disabled' : ''"
+                           class="question-page-link">≫</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</main>
+
+    <div th:replace="fragments/layout :: footer"></div>
+
+<script>
+    function viewDetail(questionId) {
+        location.href = '/question/detail/' + questionId;
+    }
+</script>
+
+</body>
+</html>

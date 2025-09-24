@@ -1,15 +1,11 @@
 package com.bird.cos.domain.order;
 
 import com.bird.cos.domain.common.CommonCode;
-import com.bird.cos.domain.delivery.Delivery;
-import com.bird.cos.domain.inventory.InventoryOutbound;
 import com.bird.cos.domain.user.User;
-import com.bird.cos.domain.user.UserCoupon;
 import jakarta.persistence.*;
+
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Table(name = "`ORDER`")

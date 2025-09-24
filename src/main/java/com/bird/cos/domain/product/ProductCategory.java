@@ -2,7 +2,6 @@ package com.bird.cos.domain.product;
 
 import com.bird.cos.domain.common.CommonCode;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -24,7 +23,7 @@ public class ProductCategory {
     private String categoryName;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "parent_id")
+    @JoinColumn(name = "parent_category_id")
     @Setter
     private ProductCategory parentCategory;
 

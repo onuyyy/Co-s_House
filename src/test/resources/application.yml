@@ -1,0 +1,29 @@
+spring:
+  docker:
+    compose:
+      enabled: true
+      file: ${COMPOSE_FILE:docker-compose.yml}
+      lifecycle-management: start-and-stop
+
+  datasource:
+    # 로컬에서 Docker 컨테이너 MySQL에 접속 (root 계정 사용)
+    url: jdbc:mysql://localhost:13306/cos?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+
+  thymeleaf:
+    enabled: true
+    prefix: classpath:/templates/
+    suffix: .html
+    encoding: UTF-8
+    mode: HTML
+
+server:
+  port: 8080

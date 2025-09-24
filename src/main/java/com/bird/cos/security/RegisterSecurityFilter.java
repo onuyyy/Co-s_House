@@ -20,7 +20,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * 회원가입 엔드포인트(/controller/register/register)에 한정하여 적용되는 경량 보안 필터.
  * JSON Content-Type 강제
  * 동일 오리진(Origin/Referer) 확인
- * IP 기준 레이트 리밋 (기본: 60초에 5회)
+ * IP 기준 레이트 리밋 (기본: 60초에 60회)
  */
 public class RegisterSecurityFilter extends OncePerRequestFilter {
 
@@ -30,6 +30,16 @@ public class RegisterSecurityFilter extends OncePerRequestFilter {
     private static final int LIMIT_MAX_REQUESTS = 60;
 
     private final Map<String, Deque<Long>> ipBuckets = new ConcurrentHashMap<>();
+
+    private final boolean checkOrigin;
+
+    public RegisterSecurityFilter() {
+        this(false);
+    }
+
+    public RegisterSecurityFilter(boolean checkOrigin) {
+        this.checkOrigin = checkOrigin;
+    }
 
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) {
@@ -49,17 +59,19 @@ public class RegisterSecurityFilter extends OncePerRequestFilter {
             return;
         }
 
-        // 2) 동일 Origin/Referer 확인 (존재할 때만 검사)
-        String expectedOrigin = buildOrigin(request);
-        String origin = request.getHeader("Origin");
-        String referer = request.getHeader("Referer");
-        if (StringUtils.hasText(origin) && !origin.equalsIgnoreCase(expectedOrigin)) {
-            writeError(response, HttpStatus.FORBIDDEN, "invalid origin", request);
-            return;
-        }
-        if (!StringUtils.hasText(origin) && StringUtils.hasText(referer) && !referer.startsWith(expectedOrigin)) {
-            writeError(response, HttpStatus.FORBIDDEN, "invalid referer", request);
-            return;
+        // 2) 동일 Origin/Referer 확인 (옵션)
+        if (checkOrigin) {
+            String expectedOrigin = buildOrigin(request);
+            String origin = request.getHeader("Origin");
+            String referer = request.getHeader("Referer");
+            if (StringUtils.hasText(origin) && !origin.equalsIgnoreCase(expectedOrigin)) {
+                writeError(response, HttpStatus.FORBIDDEN, "invalid origin", request);
+                return;
+            }
+            if (!StringUtils.hasText(origin) && StringUtils.hasText(referer) && !referer.startsWith(expectedOrigin)) {
+                writeError(response, HttpStatus.FORBIDDEN, "invalid referer", request);
+                return;
+            }
         }
 
         // 3) 간단한 IP 기반 레이트 리밋

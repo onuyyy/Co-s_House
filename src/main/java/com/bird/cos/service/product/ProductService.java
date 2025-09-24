@@ -79,9 +79,11 @@ public class ProductService {
         return productRepository.findByBrand_BrandIdOrderByAverageRatingDesc(brandId);
     }
 
+
     @Transactional(readOnly = true)
     public List<ProductOption> getOptionsByProductId(Long productId) {
         return productOptionRepository.findByProduct_ProductId(productId);
     }
 }
+
 
