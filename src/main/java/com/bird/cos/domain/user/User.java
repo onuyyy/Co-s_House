@@ -1,14 +1,11 @@
-// *5. Lombok 어노테이션 추가 (@Getter, @NoArgsConstructor, @AllArgsConstructor)
 package com.bird.cos.domain.user;
 
 import com.bird.cos.dto.admin.UserUpdateRequest;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 
 import java.time.LocalDateTime;
 

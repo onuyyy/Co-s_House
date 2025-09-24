@@ -1,11 +1,13 @@
-// *4. Lombok 추가, @Builder.Default, @PrePersist로 questionCreatedAt 자동 설정
 package com.bird.cos.domain.product;
 
 import com.bird.cos.domain.common.CommonCode;
 import com.bird.cos.domain.user.User;
 import jakarta.persistence.*;
-import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
 import java.time.LocalDateTime;
 
 @Entity

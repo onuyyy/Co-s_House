@@ -2,13 +2,6 @@ package com.bird.cos.domain.product;
 
 import com.bird.cos.domain.brand.Brand;
 import com.bird.cos.domain.common.CommonCode;
-import com.bird.cos.domain.delivery.DeliveryInfo;
-import com.bird.cos.domain.inventory.Inventory;
-import com.bird.cos.domain.inventory.InventoryHistory;
-import com.bird.cos.domain.inventory.InventoryOutbound;
-import com.bird.cos.domain.inventory.InventoryReceipt;
-import com.bird.cos.domain.order.OrderItem;
-
 import com.bird.cos.dto.admin.ProductUpdateRequest;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
