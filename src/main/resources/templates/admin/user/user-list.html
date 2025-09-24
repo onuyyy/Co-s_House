@@ -77,7 +77,6 @@
                     <tr th:each="user : ${userList.content}">
                         <td>
                             <a th:href="@{/api/admin/users/{userId}(userId=${user.userId})}" 
-                               style="text-decoration: none; color: #007bff; font-weight: 500;"
                                th:text="${user.userName}">사용자명</a>
                         </td>
                         <td class="email-cell" th:text="${user.userEmail}">이메일</td>
@@ -96,7 +95,7 @@
                         <td th:text="${user.userCreatedAt != null ? #temporals.format(user.userCreatedAt, 'yyyy-MM-dd') : '-'}">가입일</td>
                     </tr>
                     <tr th:if="${userList.content.empty}">
-                        <td colspan="7" style="padding: 40px; color: #666; text-align: center;">등록된 사용자가 없습니다.</td>
+                        <td colspan="7">등록된 사용자가 없습니다.</td>
                     </tr>
                 </tbody>
             </table>
@@ -123,114 +122,7 @@
     </div>
 
     <th:block layout:fragment="extra-css">
-        <style>
-            /* 탭 스타일 */
-            .role-tabs {
-                display: flex;
-                border-bottom: 2px solid #e9ecef;
-                margin-bottom: 20px;
-                gap: 0;
-            }
-
-            .tab-button {
-                padding: 12px 24px;
-                text-decoration: none;
-                color: #6c757d;
-                font-weight: 500;
-                border-bottom: 3px solid transparent;
-                transition: all 0.3s ease;
-                display: flex;
-                align-items: center;
-                gap: 8px;
-            }
-
-            .tab-button:hover {
-                color: #007bff;
-                background-color: #f8f9fa;
-            }
-
-            .tab-button.active {
-                color: #007bff;
-                border-bottom-color: #007bff;
-                background-color: #fff;
-                font-weight: 600;
-            }
-
-            .tab-count {
-                background-color: #007bff;
-                color: white;
-                padding: 2px 8px;
-                border-radius: 12px;
-                font-size: 11px;
-                font-weight: bold;
-            }
-
-            .current-tab-info {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                margin-bottom: 20px;
-                padding: 16px 20px;
-                background-color: #f8f9fa;
-                border-radius: 8px;
-                border: 1px solid #e9ecef;
-            }
-
-            .current-tab-info h3 {
-                margin: 0;
-                color: #495057;
-                font-size: 18px;
-            }
-
-            .total-count {
-                color: #6c757d;
-                font-weight: 500;
-                font-size: 14px;
-            }
-            
-            .email-cell {
-                font-family: monospace;
-                font-size: 0.9em;
-            }
-            
-            .role-badge {
-                padding: 4px 12px;
-                border-radius: 12px;
-                font-size: 12px;
-                font-weight: bold;
-            }
-            
-            .admin-role {
-                background-color: #dc3545;
-                color: white;
-            }
-            
-            .user-role {
-                background-color: #28a745;
-                color: white;
-            }
-            
-            .social-badge {
-                background-color: #17a2b8;
-                color: white;
-                padding: 2px 8px;
-                border-radius: 8px;
-                font-size: 11px;
-            }
-            
-            .alert {
-                padding: 12px 16px;
-                margin-bottom: 20px;
-                border: 1px solid transparent;
-                border-radius: 4px;
-            }
-            
-            .alert-success {
-                color: #155724;
-                background-color: #d4edda;
-                border-color: #c3e6cb;
-            }
-        </style>
+        <link rel="stylesheet" th:href="@{/css/admin/user.css}">
     </th:block>
 </body>
 </html>

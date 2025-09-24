@@ -1,0 +1,26 @@
+.logo-cell {
+    text-align: center;
+    padding: 8px;
+}
+
+.logo-placeholder {
+    font-size: 24px;
+    color: #6c757d;
+}
+
+.product-count {
+    font-weight: 600;
+    color: #007bff;
+}
+
+.pagination .page-group {
+    font-weight: bold;
+}
+
+.pagination .page-group:hover {
+    background-color: #e9ecef;
+}
+
+.icon {
+    font-size: 14px;
+}

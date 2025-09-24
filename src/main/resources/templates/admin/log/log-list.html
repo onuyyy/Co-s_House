@@ -11,14 +11,14 @@
     <div layout:fragment="content-header" class="content-header">
         <h2 style="color: #333; font-size: 20px;">로그 관리</h2>
         <div class="search-section">
-            <form method="get" style="display: flex; gap: 10px; flex-wrap: wrap;">
+            <form method="get">
                 <input type="date" name="startDate" th:value="${param.startDate}"
-                       class="search-input" style="width: 150px;">
-                <span style="display: flex; align-items: center; color: #666;">~</span>
+                       class="search-input">
+                <span class="date-separator">~</span>
                 <input type="date" name="endDate" th:value="${param.endDate}"
-                       class="search-input" style="width: 150px;">
+                       class="search-input">
                 <input type="text" name="username" th:value="${param.username}"
-                       class="search-input" placeholder="사용자명" style="width: 120px;">
+                       class="search-input" placeholder="사용자명">
                 <button type="submit" class="btn btn-primary">검색</button>
                 <a th:href="@{/api/admin/log}" class="btn btn-secondary">초기화</a>
             </form>
@@ -38,12 +38,12 @@
                 <table>
                     <thead>
                         <tr>
-                            <th style="width: 140px;">활동 시간</th>
-                            <th style="width: 120px;">사용자</th>
-                            <th style="width: 80px;">역할</th>
-                            <th style="width: 110px;">IP 주소</th>
-                            <th style="min-width: 200px;">페이지 URL</th>
-                            <th style="min-width: 150px;">User Agent</th>
+                            <th>활동 시간</th>
+                            <th>사용자</th>
+                            <th>역할</th>
+                            <th>IP 주소</th>
+                            <th>페이지 URL</th>
+                            <th>User Agent</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -68,7 +68,7 @@
                                 th:title="${log.userAgent}">User Agent</td>
                         </tr>
                         <tr th:if="${logList.content.empty}">
-                            <td colspan="6" style="padding: 40px; color: #666; text-align: center;">등록된 로그가 없습니다.</td>
+                            <td colspan="6">등록된 로그가 없습니다.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -96,228 +96,7 @@
     </div>
 
     <th:block layout:fragment="extra-css">
-        <style>
-            .current-tab-info {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                margin-bottom: 20px;
-                padding: 16px 20px;
-                background-color: #f8f9fa;
-                border-radius: 8px;
-                border: 1px solid #e9ecef;
-            }
-
-            .current-tab-info h3 {
-                margin: 0;
-                color: #495057;
-                font-size: 18px;
-            }
-
-            .total-count {
-                color: #6c757d;
-                font-weight: 500;
-                font-size: 14px;
-            }
-
-            .search-section {
-                display: flex;
-                flex-wrap: wrap;
-                gap: 10px;
-                align-items: center;
-            }
-
-            .table-responsive {
-                overflow-x: auto;
-                max-width: 100%;
-            }
-
-            .time-cell {
-                font-family: monospace;
-                font-size: 0.9em;
-                white-space: nowrap;
-            }
-
-            .user-cell {
-                min-width: 120px;
-            }
-
-            .username {
-                font-weight: 500;
-                color: #333;
-            }
-
-            .email-sub {
-                font-size: 0.8em;
-                color: #6c757d;
-                margin-top: 2px;
-            }
-
-            .ip-cell {
-                font-family: monospace;
-                font-size: 0.9em;
-                color: #495057;
-            }
-
-            .url-cell {
-                font-family: monospace;
-                font-size: 0.85em;
-                color: #007bff;
-                cursor: pointer;
-                word-break: break-all;
-            }
-
-            .user-agent-cell {
-                font-family: monospace;
-                font-size: 0.8em;
-                color: #6c757d;
-                cursor: pointer;
-                word-break: break-all;
-            }
-
-            .role-badge {
-                padding: 4px 12px;
-                border-radius: 12px;
-                font-size: 12px;
-                font-weight: bold;
-            }
-
-            .admin-role {
-                background-color: #dc3545;
-                color: white;
-            }
-
-            .user-role {
-                background-color: #28a745;
-                color: white;
-            }
-
-            .btn {
-                padding: 8px 16px;
-                border-radius: 4px;
-                text-decoration: none;
-                font-weight: 500;
-                display: inline-flex;
-                align-items: center;
-                gap: 6px;
-                border: 1px solid transparent;
-                cursor: pointer;
-                transition: all 0.2s;
-                white-space: nowrap;
-            }
-
-            .btn-primary {
-                background-color: #007bff;
-                color: white;
-                border-color: #007bff;
-            }
-
-            .btn-primary:hover {
-                background-color: #0056b3;
-                border-color: #0056b3;
-            }
-
-            .btn-secondary {
-                background-color: #6c757d;
-                color: white;
-                border-color: #6c757d;
-            }
-
-            .btn-secondary:hover {
-                background-color: #545b62;
-                border-color: #4e555b;
-            }
-
-            .search-input {
-                padding: 8px 12px;
-                border: 1px solid #ddd;
-                border-radius: 4px;
-                font-size: 14px;
-            }
-
-            .search-input:focus {
-                outline: none;
-                border-color: #007bff;
-                box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
-            }
-
-            .pagination {
-                display: flex;
-                justify-content: center;
-                gap: 5px;
-                margin-top: 20px;
-                flex-wrap: wrap;
-            }
-
-            .pagination a, .pagination span {
-                padding: 8px 12px;
-                border: 1px solid #ddd;
-                text-decoration: none;
-                color: #007bff;
-                border-radius: 4px;
-            }
-
-            .pagination a:hover {
-                background-color: #f5f5f5;
-            }
-
-            .pagination .current {
-                background-color: #007bff;
-                color: white;
-                border-color: #007bff;
-            }
-
-            .data-table {
-                background: white;
-                border-radius: 8px;
-                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-                overflow: hidden;
-            }
-
-            .data-table table {
-                width: 100%;
-                border-collapse: collapse;
-                min-width: 900px;
-            }
-
-            .data-table th {
-                background-color: #f8f9fa;
-                padding: 12px 8px;
-                text-align: left;
-                font-weight: 600;
-                color: #495057;
-                border-bottom: 2px solid #e9ecef;
-                white-space: nowrap;
-            }
-
-            .data-table td {
-                padding: 12px 8px;
-                border-bottom: 1px solid #e9ecef;
-                vertical-align: top;
-            }
-
-            .data-table tr:hover {
-                background-color: #f8f9fa;
-            }
-
-            /* 반응형 디자인 */
-            @media (max-width: 768px) {
-                .search-section form {
-                    flex-direction: column;
-                    align-items: stretch;
-                }
-
-                .search-input {
-                    width: 100% !important;
-                }
-
-                .data-table th,
-                .data-table td {
-                    padding: 8px 4px;
-                    font-size: 0.9em;
-                }
-            }
-        </style>
+        <link rel="stylesheet" th:href="@{/css/admin/log.css}">
     </th:block>
 </body>
 </html>
