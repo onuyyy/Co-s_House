@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>마이페이지</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+    <link rel="stylesheet" th:href="@{/css/myPage/myPage.css}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div th:replace="fragments/layout :: header"></div>
+
+    <div class="container">
+        <div class="myPage-layout">
+            <!-- 사이드바 -->
+            <div class="myPage-sidebar">
+                <h3 style="margin-bottom: 24px; color: var(--color-text);">마이페이지</h3>
+                <ul class="sidebar-nav">
+                    <li><a class="active" href="/myPage"><i class="fas fa-user"></i>내 정보</a></li>
+                    <li><a href="/mypage/orders"><i class="fas fa-shopping-bag"></i>주문내역(미구현)</a></li>
+                    <li><a href="/mypage/wishlist"><i class="fas fa-heart"></i>위시리스트(미구현)</a></li>
+                    <li><a href="/mypage/reviews"><i class="fas fa-star"></i>리뷰관리(미구현)</a></li>
+                    <li><a href="/question"><i class="fas fa-question-circle"></i>문의내역</a></li>
+                    <li><a href="/mypage/coupons"><i class="fas fa-ticket-alt"></i>쿠폰함(미구현)</a></li>
+                    <li><a href="/myPage/myPageUserDetail"><i class="fas fa-edit"></i>정보수정</a></li>
+                </ul>
+            </div>
+
+            <!-- 메인 컨텐츠 -->
+            <div class="myPage-content">
+                <!-- 프로필 섹션 -->
+                <div class="profile-card">
+                    <div class="profile-header">
+                        <div class="profile-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div>
+                            <h2 th:text="${userInfo?.userName ?: '사용자'} + '님'">사용자님</h2>
+                            <p style="color: var(--color-muted); margin: 4px 0;" th:text="${userInfo?.userEmail ?: 'user@example.com'}">user@example.com</p>
+                            <p style="color: var(--color-muted); margin: 4px 0;" th:if="${userInfo?.userNickname}" th:text="'닉네임: ' + ${userInfo.userNickname}">닉네임: 닉네임</p>
+                            <p style="color: var(--color-muted); margin: 4px 0;" th:if="${userInfo?.userPhone}" th:text="'전화번호: ' + ${userInfo.userPhone}">전화번호: 전화번호</p>
+                            <p style="color: var(--color-muted); margin: 4px 0; font-size: 0.9em;" th:if="${userInfo?.userCreatedAt}" th:text="'가입일: ' + ${#temporals.format(userInfo.userCreatedAt, 'yyyy-MM-dd')}">가입일: 2024-01-01</p>
+                            <div style="margin-top: 8px;">
+                                <span class="badge" th:text="${userInfo?.userRole ?: 'USER'}">USER</span>
+                                <span class="badge" style="margin-left: 8px;" th:if="${userInfo?.socialProvider}" th:text="${userInfo.socialProvider}">소셜로그인</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 통계 카드 -->
+                <div class="stats-grid">
+                    <div class="stats-card">
+                        <h3 th:text="${orderCount ?: 0}">5</h3>
+                        <p>총 주문</p>
+                    </div>
+                    <div class="stats-card">
+                        <h3 th:text="${wishlistCount ?: 0}">12</h3>
+                        <p>위시리스트</p>
+                    </div>
+                    <div class="stats-card">
+                        <h3 th:text="${reviewCount ?: 0}">3</h3>
+                        <p>리뷰</p>
+                    </div>
+                    <div class="stats-card">
+                        <h3 th:text="${questionCount ?: 0}">2</h3>
+                        <p>문의</p>
+                    </div>
+                </div>
+
+                <!-- 빠른 메뉴 -->
+                <div class="quick-menu-grid">
+                    <div class="quick-menu-card">
+                        <div class="quick-menu-icon">
+                            <i class="fas fa-shipping-fast"></i>
+                        </div>
+                        <h4 style="margin: 0 0 8px 0;">배송조회</h4>
+                        <p style="color: var(--color-muted); margin: 0 0 16px 0; font-size: 14px;">배송 중인 상품을 확인하세요</p>
+                        <a href="/mypage/orders" class="btn btn-outline">바로가기</a>
+                    </div>
+                    <div class="quick-menu-card">
+                        <div class="quick-menu-icon">
+                            <i class="fas fa-undo"></i>
+                        </div>
+                        <h4 style="margin: 0 0 8px 0;">교환/반품</h4>
+                        <p style="color: var(--color-muted); margin: 0 0 16px 0; font-size: 14px;">교환/반품 신청 및 조회</p>
+                        <a href="/mypage/returns" class="btn btn-outline">바로가기</a>
+                    </div>
+                    <div class="quick-menu-card">
+                        <div class="quick-menu-icon">
+                            <i class="fas fa-headset"></i>
+                        </div>
+                        <h4 style="margin: 0 0 8px 0;">고객센터</h4>
+                        <p style="color: var(--color-muted); margin: 0 0 16px 0; font-size: 14px;">문의사항이 있으신가요?</p>
+                        <a href="/question/info" class="btn btn-outline">바로가기</a>
+                    </div>
+                </div>
+
+                <!-- 최근 활동 -->
+                <div class="recent-activity">
+                    <div class="activity-section">
+                        <h4 style="margin-bottom: 16px;"><i class="fas fa-shopping-bag" style="margin-right: 8px;"></i>최근 주문</h4>
+                        <ul class="activity-list">
+                            <li th:if="${recentOrders != null and !recentOrders.isEmpty()}" th:each="order : ${recentOrders}" class="activity-item">
+                                <span th:text="${order.orderNumber}">주문번호</span>
+                                <span class="activity-date" th:text="${order.orderDate}">주문일</span>
+                            </li>
+                            <li th:if="${recentOrders == null or recentOrders.isEmpty()}" class="activity-item" style="justify-content: center; color: var(--color-muted);">
+                                최근 주문 내역이 없습니다.
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="activity-section">
+                        <h4 style="margin-bottom: 16px;"><i class="fas fa-question-circle" style="margin-right: 8px;"></i>최근 문의</h4>
+                        <ul class="activity-list">
+                            <li th:if="${recentQuestions != null and !recentQuestions.isEmpty()}" th:each="question : ${recentQuestions}" class="activity-item">
+                                <span th:text="${question.questionTitle}">문의제목</span>
+                                <span class="activity-date" th:text="${question.questionCreatedAt}">문의일</span>
+                            </li>
+                            <li th:if="${recentQuestions == null or recentQuestions.isEmpty()}" class="activity-item" style="justify-content: center; color: var(--color-muted);">
+                                최근 문의 내역이 없습니다.
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div th:replace="fragments/layout :: footer"></div>
+</body>
+</html>

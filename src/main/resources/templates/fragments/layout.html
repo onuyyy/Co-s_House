@@ -24,7 +24,7 @@
           <a class="btn" th:href="@{/account/register}">회원가입</a>
         </span>
         <span th:if="${session.user != null}" class="flex gap-2">
-          <a class="btn btn-outline" th:href="@{/mypage}">마이페이지</a>
+          <a class="btn btn-outline" th:href="@{/myPage}">마이페이지</a>
           <form th:action="@{/controller/register/logout}" method="post">
             <button type="submit" class="btn btn-outline">로그아웃</button>
             <input type="hidden" th:if="${_csrf != null}" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />

@@ -1,0 +1,537 @@
+/* 사용자 정보 수정 페이지 스타일 */
+
+/* 헤더 버튼 색상 보호 */
+.app-header .btn {
+    color: #fff !important;
+}
+.app-header .btn-outline {
+    color: var(--brand-600) !important;
+    background: #fff !important;
+}
+
+/* 사용자 정보 수정 컨테이너 */
+.user-update-container {
+    background: white;
+    border-radius: 12px;
+    padding: 32px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+/* 업데이트 헤더 */
+.update-header {
+    border-bottom: 2px solid #f1f3f4;
+    padding-bottom: 24px;
+    margin-bottom: 32px;
+}
+
+.update-header h2 {
+    margin: 0 0 8px 0;
+    color: var(--color-text);
+    font-size: 28px;
+    font-weight: 600;
+}
+
+.update-header h2 i {
+    margin-right: 12px;
+    color: var(--brand-600);
+}
+
+.update-description {
+    margin: 0;
+    color: var(--color-muted);
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+/* 폼 섹션 */
+.form-section {
+    margin-bottom: 40px;
+    border: 1px solid #f1f3f4;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+/* 멤버십 정보 섹션 - 컴팩트하게 */
+.form-section.membership-section {
+    margin-bottom: 32px;
+}
+
+.membership-section > .form-row,
+.membership-section > .form-group {
+    padding: 16px 24px !important;
+}
+
+.membership-section .form-row {
+    gap: 16px !important;
+}
+
+/* 비밀번호 변경 섹션 - 여유롭게 */
+.form-section.password-section {
+    margin-bottom: 48px;
+}
+
+.password-section > .form-row,
+.password-section > .form-group,
+.password-section > div {
+    padding: 32px 24px !important;
+}
+
+.password-section .form-row {
+    gap: 32px !important;
+}
+
+.section-title {
+    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+    color: var(--color-text);
+    margin: 0;
+    padding: 16px 24px;
+    font-size: 18px;
+    font-weight: 600;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.section-title i {
+    margin-right: 10px;
+    color: var(--brand-600);
+}
+
+/* 폼 레이아웃 */
+.form-section > .form-row,
+.form-section > .form-group {
+    padding: 24px;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+}
+
+.form-group {
+    margin-bottom: 0;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: var(--color-text);
+    font-size: 14px;
+}
+
+.form-control {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid #e9ecef;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: all 0.2s ease;
+    background: white;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: var(--brand-600);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.form-control:disabled {
+    background-color: #f8f9fa;
+    color: #6c757d;
+    cursor: not-allowed;
+    border-color: #e9ecef;
+}
+
+.form-text {
+    display: block;
+    margin-top: 6px;
+    font-size: 13px;
+    color: var(--color-muted);
+    line-height: 1.4;
+}
+
+.form-text.text-muted {
+    color: #6c757d;
+}
+
+.form-text i {
+    margin-right: 4px;
+}
+
+/* 주소 검색 그룹 */
+.address-input-group {
+    display: flex;
+    gap: 12px;
+}
+
+.address-input-group .form-control {
+    flex: 1;
+}
+
+.address-search-btn {
+    padding: 12px 20px;
+    white-space: nowrap;
+    font-size: 14px;
+}
+
+/* 소셜 제공자 정보 */
+.social-provider-info {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.social-badge {
+    display: inline-block;
+    padding: 6px 12px;
+    background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+    color: #1976d2;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    width: fit-content;
+}
+
+/* 버튼 그룹 */
+.button-group {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    padding-top: 32px;
+    border-top: 2px solid #f1f3f4;
+    margin-top: 40px;
+}
+
+.btn {
+    padding: 14px 28px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 120px;
+    justify-content: center;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--brand-600), var(--brand-700));
+    color: white;
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+.btn-primary:hover {
+    background: linear-gradient(135deg, var(--brand-700), var(--brand-800));
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(59, 130, 246, 0.4);
+}
+
+.btn-outline {
+    background: white;
+    color: var(--color-text);
+    border: 2px solid #e9ecef;
+}
+
+.btn-outline:hover {
+    background: #f8f9fa;
+    border-color: var(--brand-600);
+    color: var(--brand-600);
+    transform: translateY(-1px);
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+    .user-update-container {
+        padding: 20px;
+        margin: 10px;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .address-input-group {
+        flex-direction: column;
+    }
+
+    .button-group {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .btn {
+        width: 100%;
+    }
+
+    .update-header h2 {
+        font-size: 24px;
+    }
+}
+
+@media (max-width: 576px) {
+    .form-section > .form-row,
+    .form-section > .form-group {
+        padding: 16px;
+    }
+
+    .section-title {
+        padding: 12px 16px;
+        font-size: 16px;
+    }
+}
+
+/* 포커스 및 접근성 */
+.form-control:focus,
+.btn:focus {
+    outline: 2px solid var(--brand-600);
+    outline-offset: 2px;
+}
+
+/* 애니메이션 */
+.form-section {
+    animation: slideInUp 0.3s ease-out;
+}
+
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 유효성 검사 스타일 */
+.form-control:invalid {
+    border-color: #dc3545;
+}
+
+.form-control:valid {
+    border-color: #28a745;
+}
+
+/* 로딩 상태 */
+.btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none !important;
+}
+
+.btn:disabled:hover {
+    transform: none !important;
+}
+
+/* 회원탈퇴 섹션 */
+.danger-section {
+    margin-top: 48px;
+    margin-bottom: 40px;
+    padding: 24px;
+    border: 2px solid #ffeaa7;
+    background: linear-gradient(135deg, #fff9e6, #fffbf0);
+    border-radius: 12px;
+}
+
+.danger-section .section-title {
+    background: linear-gradient(135deg, #fff3cd, #ffe69c);
+    color: #856404;
+    margin: -24px -24px 24px -24px;
+    padding: 20px 24px;
+    border-bottom: 2px solid #ffeaa7;
+    border-radius: 12px 12px 0 0;
+}
+
+.danger-section .section-title.text-danger {
+    color: #721c24;
+}
+
+.danger-section .section-title i {
+    color: #d63384;
+}
+
+/* 탈퇴 안내 */
+.withdrawal-notice {
+    margin-bottom: 24px;
+}
+
+.alert {
+    padding: 16px 20px;
+    border-radius: 8px;
+    border: 1px solid transparent;
+}
+
+.alert-warning {
+    background-color: #fff3cd;
+    border-color: #ffeaa7;
+    color: #856404;
+}
+
+.alert-info {
+    background-color: #d1ecf1;
+    border-color: #bee5eb;
+    color: #0c5460;
+}
+
+.alert h5 {
+    margin: 0 0 8px 0;
+    font-weight: 600;
+}
+
+.alert ul {
+    margin: 8px 0 0 0;
+    padding-left: 20px;
+}
+
+.alert li {
+    margin-bottom: 4px;
+}
+
+/* 탈퇴 폼 */
+.withdrawal-form {
+    background: white;
+    padding: 24px;
+    border-radius: 8px;
+    border: 1px solid #e9ecef;
+}
+
+/* 체크박스 스타일 */
+.checkbox-container {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    cursor: pointer;
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--color-text);
+}
+
+.checkbox-container input[type="checkbox"] {
+    margin: 0;
+    transform: scale(1.2);
+}
+
+.checkmark {
+    width: 18px;
+    height: 18px;
+    border: 2px solid #ffffff;
+    border-radius: 4px;
+    position: relative;
+    flex-shrink: 0;
+}
+
+.checkmark {
+    border: 2px solid #ffffff; /* 기본 테두리 추가 */
+}
+
+
+/* 탈퇴 버튼 */
+.btn-danger {
+    background: linear-gradient(135deg, #dc3545, #c82333);
+    color: white;
+    border: none;
+}
+
+.btn-danger:hover:not(:disabled) {
+    background: linear-gradient(135deg, #c82333, #bd2130);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(220, 53, 69, 0.4);
+}
+
+.btn-danger:disabled {
+    background: #6c757d;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.withdrawal-btn {
+    margin-top: 20px;
+    margin-bottom: 4px;
+}
+
+/* 비밀번호 피드백 */
+.password-feedback {
+    margin-top: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    min-height: 18px; /* 고정 높이로 레이아웃 밀림 방지 */
+}
+
+/* 소셜 로그인 안내 */
+.social-login-notice {
+    margin-bottom: 20px;
+}
+
+/* 비밀번호 변경 필드 색상 */
+.password-change-field {
+    border-color: #dc3545 !important; /* 기본: 빨간색 */
+    transition: border-color 0.3s ease;
+}
+
+.password-change-field:disabled {
+    border-color: #e9ecef !important; /* disabled: 회색 */
+    background-color: #f8f9fa !important;
+}
+
+.password-change-field.filled {
+    border-color: #28a745 !important; /* 입력완료: 초록색 */
+}
+
+.password-change-field:focus {
+    border-color: var(--brand-600) !important;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1) !important;
+}
+
+/* 회원탈퇴 토글 기능 */
+.withdrawal-toggle {
+    cursor: pointer;
+    user-select: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+
+.withdrawal-toggle:hover {
+    background: linear-gradient(135deg, #ffe69c, #ffd93d);
+}
+
+.withdrawal-arrow {
+    transition: transform 0.3s ease;
+    font-size: 14px;
+}
+
+.withdrawal-arrow.rotated {
+    transform: rotate(180deg);
+}
+
+.withdrawal-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease-in-out, padding 0.3s ease;
+    padding: 0 24px;
+}
+
+.withdrawal-content.expanded {
+    padding: 24px;
+}
+
+/* 탈퇴 폼 필드 색상 관리 */
+.withdrawal-field {
+    border-color: #dc3545 !important; /* 기본: 빨간색 */
+    transition: border-color 0.3s ease;
+}
+
+.withdrawal-field.filled {
+    border-color: #ffc107 !important; /* 입력됨: 노란색 */
+}
+
+.withdrawal-field:focus {
+    border-color: var(--brand-600) !important;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1) !important;
+}

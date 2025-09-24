@@ -1,4 +1,3 @@
-// *2. CommonCode 연결, user_id=1 하드코딩, questionStatus=QS_001 기본값, 조회 메서드들 추가
 package com.bird.cos.service.question;
 
 import com.bird.cos.domain.product.Question;
@@ -9,35 +8,29 @@ import com.bird.cos.dto.question.QuestionManageResponse;
 import com.bird.cos.repository.common.CommonCodeRepository;
 import com.bird.cos.repository.question.QuestionRepository;
 import com.bird.cos.repository.user.UserRepository;
+import com.bird.cos.repository.CommonCodeRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class QuestionService {
 
     private final QuestionRepository questionRepository;
     private final UserRepository userRepository;
     private final CommonCodeRepository commonCodeRepository;
 
-    public QuestionService(QuestionRepository questionRepository, UserRepository userRepository, CommonCodeRepository commonCodeRepository) {
-        this.questionRepository = questionRepository;
-        this.userRepository = userRepository;
-        this.commonCodeRepository = commonCodeRepository;
-    }
-
-    // 문의 저장 (user_id = 1로 하드코딩)
+    // 문의 저장
     @Transactional
-    public Question saveQuestion(QuestionUpdateRequest questionDto) {
-        // 첫 번째 사용자로 하드코딩
-        User user = userRepository.findById(1L)
-                .orElseThrow(() -> new RuntimeException("User not found"));
-
-        // 회원 정보 업데이트 (이메일, 연락처가 변경된 경우)
-        updateUserInfo(user, questionDto);
+    public Question saveQuestion(QuestionUpdateRequest questionDto, Long userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다."));
 
         // 문의 유형 CommonCode 조회
         CommonCode questionType = null;
@@ -63,21 +56,15 @@ public class QuestionService {
     }
 
 
-    // 특정 문의 ID로 조회
-    @Transactional(readOnly = true)
-    public Optional<Question> getQuestionById(Long questionId) {
-        return questionRepository.findById(questionId);
-    }
-
-
     //문의 내역 수정
     @Transactional
-    public void updateQuestion(Long id, QuestionUpdateRequest request) {
+    public void updateQuestion(Long id, QuestionUpdateRequest request, Long userId) {
         Question existingQuestion = questionRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Question not found"));
+                .orElseThrow(() -> new IllegalArgumentException("문의를 찾을 수 없습니다."));
 
-        // 회원 정보 업데이트
-        User updatedUser = updateUserInfo(existingQuestion.getUser(), request);
+        if(!existingQuestion.getUser().getUserId().equals(userId)) {
+            throw new IllegalArgumentException("본인이 작성한 문의만 수정할 수 있습니다.");
+        }
 
         // 문의 유형 조회
         CommonCode questionType = null;
@@ -91,13 +78,13 @@ public class QuestionService {
         // Builder로 새로운 Question 생성
         Question updatedQuestion = Question.builder()
                 .questionId(existingQuestion.getQuestionId())
-                .user(updatedUser)
+                .user(existingQuestion.getUser())
                 .product(existingQuestion.getProduct())
                 .questionType(questionType)
                 .questionStatus(existingQuestion.getQuestionStatus())
                 .questionTitle(request.getQuestionTitle() != null ? request.getQuestionTitle() : existingQuestion.getQuestionTitle())
                 .questionContent(request.getQuestionContent() != null ? request.getQuestionContent() : existingQuestion.getQuestionContent())
-                .isSecret(request.getIsSecret() != null ? request.getIsSecret() : false)
+                .isSecret(request.getIsSecret() != null ? request.getIsSecret() : existingQuestion.getIsSecret())
                 .questionCreatedAt(existingQuestion.getQuestionCreatedAt())
                 .build();
 
@@ -105,14 +92,14 @@ public class QuestionService {
     }
 
     @Transactional
-    public void deleteQuestion(Long id) {
-        questionRepository.deleteById(id);
-    }
+    public void deleteQuestion(Long questionId, Long userId) {
+        Question question = questionRepository.findById(questionId)
+                        .orElseThrow(()-> new IllegalArgumentException("문의를 찾을 수 없습니다."));
 
-    @Transactional(readOnly = true)
-    public Page<QuestionManageResponse> getQuestionList(Pageable pageable) {
-        Page<Question> questions = questionRepository.findAllWithUser(pageable);
-        return questions.map(QuestionManageResponse::from);
+        if(!question.getUser().getUserId().equals(userId)) {
+            throw new IllegalArgumentException("본인이 작성한 질문만 삭제할 수 있습니다.");
+        }
+        questionRepository.delete(question);
     }
 
     @Transactional(readOnly = true)
@@ -122,33 +109,43 @@ public class QuestionService {
     }
 
     @Transactional(readOnly = true)
-    public QuestionManageResponse getQuestionDetail(Long questionId) {
+    public QuestionManageResponse getQuestionDetail(Long questionId, Long userId) {
         Question question = questionRepository.findById(questionId)
-                .orElseThrow(() -> new RuntimeException("문의를 찾을 수 없습니다."));
+                .orElseThrow(() -> new IllegalArgumentException("문의를 찾을 수 없습니다."));
+
+        if(!question.getUser().getUserId().equals(userId)) {
+            throw new IllegalArgumentException("본인이 작성한 문의만 조회할 수 있습니다.");
+        }
+
         return QuestionManageResponse.from(question);
     }
 
-
-    // 회원 정보 업데이트 (Builder 방식)
-    private User updateUserInfo(User user, QuestionUpdateRequest request) {
-        // 업데이트할 값들 확인
-        String newEmail = request.getCustomerEmail();
-        String newPhone = request.getCustomerPhone();
-        String newName = request.getCustomerName();
-
-        // 변경이 필요한 경우에만 새로운 User 생성
-        boolean needsUpdate = false;
-
-        if (newEmail != null && !newEmail.trim().isEmpty() && !newEmail.equals(user.getUserEmail())) {
-            needsUpdate = true;
-        }
-        if (newPhone != null && !newPhone.trim().isEmpty() && !newPhone.equals(user.getUserPhone())) {
-            needsUpdate = true;
-        }
-        if (newName != null && !newName.trim().isEmpty() && !newName.equals(user.getUserName())) {
-            needsUpdate = true;
+    // Authentication에서 userId 추출
+    public Long getUserIdFromAuthentication(Authentication authentication) {
+        if (authentication == null) {
+            throw new IllegalArgumentException("인증 정보가 없습니다.");
         }
 
+        String userEmail = authentication.getName();
+        if (userEmail == null) {
+            throw new IllegalArgumentException("사용자 이메일 정보가 없습니다.");
+        }
+
+        User user = userRepository.findByUserEmail(userEmail)
+                .orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다."));
+
+        return user.getUserId();
+    }
+
+    // Authentication에서 User 정보 추출 (Controller용)
+    public User getUserFromAuthentication(Authentication authentication) {
+        if (authentication == null) {
+            throw new IllegalArgumentException("인증 정보가 없습니다.");
+        }
+
+        String userEmail = authentication.getName();
+        if (userEmail == null) {
+            throw new IllegalArgumentException("사용자 이메일 정보가 없습니다.");
         if (needsUpdate) {
             User updatedUser = User.builder()
                     .userId(user.getUserId())
@@ -169,6 +166,8 @@ public class QuestionService {
             return userRepository.save(updatedUser);
         }
 
-        return user;
+        return userRepository.findByUserEmail(userEmail)
+                .orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다."));
     }
+
 }

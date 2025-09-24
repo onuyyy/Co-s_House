@@ -173,3 +173,22 @@ textarea {
     display: block;
     text-align: right;
 }
+
+/* disabled 필드 스타일 */
+.form-group input:disabled,
+.form-group select:disabled,
+.form-group textarea:disabled {
+    background-color: #f5f5f5;
+    color: #666;
+    cursor: not-allowed;
+    border-color: #e0e0e0;
+}
+
+/* 폼 안내 텍스트 */
+.form-info {
+    color: #666;
+    font-size: 0.85em;
+    margin-top: 5px;
+    display: block;
+    font-style: italic;
+}
