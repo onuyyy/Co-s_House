@@ -2,8 +2,17 @@ package com.bird.cos.domain.user;
 
 import com.bird.cos.domain.common.CommonCode;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
 import java.time.LocalDateTime;
 
+@Getter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "POINT")
 public class Point {

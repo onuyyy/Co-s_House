@@ -14,7 +14,7 @@ import org.springframework.http.ResponseEntity;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/myPage")
+@RequestMapping("/mypage")
 @Slf4j
 public class MyPageController {
 

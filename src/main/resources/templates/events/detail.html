@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('코딩의 집 | 이벤트 상세')}"></head>
+<body class="page font-body">
+  <header th:replace="~{fragments/layout :: header}"></header>
+  <main class="page-main event-detail">
+    <div class="event-detail__inner container">
+      <a class="event-detail__back" th:href="@{/events}">
+        <span aria-hidden="true">←</span>
+        <span>이벤트 목록으로</span>
+      </a>
+
+      <section class="event-hero">
+        <div class="event-alert"
+             th:if="${actionMessage != null}"
+             th:classappend="${actionSuccess} ? ' event-alert--success' : ' event-alert--info'">
+          <span th:text="${actionMessage}"></span>
+          <span th:if="${actionPointAmount != null}" th:text="' (+' + ${#numbers.formatInteger(actionPointAmount, 0)} + 'P)' "></span>
+        </div>
+        <div class="event-hero__info">
+          <span class="event-badge">진행중</span>
+          <h1 class="event-hero__title" th:text="${event.title}"></h1>
+          <div class="event-hero__meta">
+            <span class="event-hero__period" th:text="${event.period != null ? event.period : '상시 진행'}"></span>
+          </div>
+          <form class="event-hero__cta-form"
+                th:action="@{'/events/' + ${event.slug} + '/action'}"
+                method="post">
+            <input type="hidden" th:if="${_csrf != null}" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+            <button class="event-hero__cta"
+                    type="submit"
+                    th:classappend="${actionCompleted} ? ' event-hero__cta--disabled' : ''"
+                    th:disabled="${actionCompleted}"
+                    th:text="${actionCompleted} ? '혜택 발급 완료' : '혜택 받기'"></button>
+          </form>
+        </div>
+        <div class="event-hero__visual"
+             th:classappend="${event.image} == null ? ' event-hero__visual--placeholder' : ''"
+             th:style="${event.image} != null ? |background-image:url(${event.image})| : null"
+             role="img"
+             th:aria-label="${event.title}">
+          <span class="event-hero__visual-text" th:if="${event.image} == null">EVENT</span>
+        </div>
+      </section>
+
+      <section class="event-section" id="benefit">
+        <h2 class="event-section__title">이벤트 혜택</h2>
+        <p class="event-section__description" th:text="${event.benefitText}"></p>
+      </section>
+
+      <section class="event-section event-section--coupons" th:if="${event.coupons != null && !event.coupons.isEmpty()}">
+        <h2 class="event-section__title">참여 쿠폰</h2>
+        <ul class="event-coupon-list">
+          <li class="event-coupon" th:each="coupon : ${event.coupons}">
+            <div class="event-coupon__header">
+              <p class="event-coupon__title" th:text="${coupon.title}"></p>
+              <span class="event-coupon__discount" th:text="${coupon.discountText}"></span>
+            </div>
+            <p class="event-coupon__description" th:text="${coupon.description}"></p>
+            <div class="event-coupon__footer">
+              <span class="event-coupon__period" th:text="${coupon.validDateText}"></span>
+              <span class="event-coupon__status" th:text="${coupon.alreadyClaimed} ? '이미 발급됨' : '발급 가능'"></span>
+            </div>
+          </li>
+        </ul>
+      </section>
+    </div>
+  </main>
+  <footer th:replace="~{fragments/layout :: footer}"></footer>
+  <link rel="stylesheet" th:href="@{/css/sections.css}">
+  <link rel="stylesheet" th:href="@{/css/events/events.css}">
+  <link rel="stylesheet" th:href="@{/css/events/event-detail.css}">
+</body>
+</html>

@@ -87,7 +87,7 @@ public class SecurityConfig {
                                 "/controller/register/login",
                                 "/shop",
                                 "/community",
-                                "/events"
+                                "/events/**"
                         ).permitAll()
 
                         // 3) 회원가입/로그인/로그아웃 공개 API(POST)
