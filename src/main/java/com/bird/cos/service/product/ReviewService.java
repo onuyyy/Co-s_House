@@ -79,24 +79,34 @@ public class ReviewService {
     }
 
     // 상품별 리뷰 조회 (페이징 포함)
-    @Transactional(readOnly = true) // readOnly 명시
+    @Transactional(readOnly = true)
     public Map<String, Object> findReviewsByProductIdWithFilterPage(Long productId, String filter, String sort,
                                                                     String ratingRange, Long optionId, int page, int size) {
         Pageable pageable = createPageable(page - 1, size, sort);
 
         Page<Review> reviewPage;
 
-
-        if (optionId != null) {
-            reviewPage = reviewRepository.findByProduct_ProductIdAndProductOption_OptionId(productId, optionId, pageable);
+        // 필터에 따라 다른 리포지토리 메서드 호출
+        if ("photo".equals(filter)) {
+            if (optionId != null) {
+                reviewPage = reviewRepository.findPhotoReviewsByProductIdAndOptionId(productId, optionId, pageable);
+            } else {
+                reviewPage = reviewRepository.findPhotoReviewsByProductId(productId, pageable);
+            }
         } else {
-            reviewPage = reviewRepository.findByProduct_ProductId(productId, pageable);
+            if (optionId != null) {
+                reviewPage = reviewRepository.findByProduct_ProductIdAndProductOption_OptionId(productId, optionId, pageable);
+            } else {
+                reviewPage = reviewRepository.findByProduct_ProductId(productId, pageable);
+            }
         }
 
         List<Review> reviews = reviewPage.getContent();
 
-
-        reviews = applyFilters(reviews, filter, ratingRange); // 서비스 계층에서 추가 필터링
+        // 별점 필터만 서비스에서 적용 (DB 쿼리로 처리하기 어려운 경우)
+        if (ratingRange != null && !ratingRange.isEmpty()) {
+            reviews = applyRatingFilter(reviews, ratingRange);
+        }
 
         List<ReviewResponse> reviewResponses = reviews.stream()
                 .map(ReviewResponse::fromEntity)
@@ -111,6 +121,22 @@ public class ReviewService {
         result.put("hasPrevious", reviewPage.hasPrevious());
 
         return result;
+    }
+
+    private List<Review> applyRatingFilter(List<Review> reviews, String ratingRange) {
+        if (ratingRange == null || ratingRange.isEmpty()) {
+            return reviews;
+        }
+
+        switch (ratingRange) {
+            case "5":
+                return reviews.stream()
+                        .filter(r -> r.getRating() != null && r.getRating().compareTo(BigDecimal.valueOf(5)) == 0)
+                        .collect(Collectors.toList());
+           
+            default:
+                return reviews;
+        }
     }
 
     // 상품별 리뷰 조회 (페이징 없음)
@@ -154,9 +180,11 @@ public class ReviewService {
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 사용자입니다: " + userNickname));
         Product product = productRepository.findById(productId)
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 상품입니다: " + productId));
-        ProductOption productOption = productOptionRepository.findById(requestDto.getOptionId())
-                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 옵션입니다: " + requestDto.getOptionId()));
-
+        ProductOption productOption = null;
+        if (requestDto.getOptionId() != null) {
+            productOption = productOptionRepository.findById(requestDto.getOptionId())
+                    .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 옵션입니다: " + requestDto.getOptionId()));
+        }
         boolean isPhotoReview = (imageFiles != null && !imageFiles.stream().allMatch(MultipartFile::isEmpty));
 
         Review review = Review.builder()
@@ -186,6 +214,7 @@ public class ReviewService {
 
         return ReviewResponse.fromEntity(fullyLoadedReview);
     }
+
 
     // 리뷰 수정
     @Transactional
@@ -390,7 +419,7 @@ public class ReviewService {
                     .collect(Collectors.toList());
         }
 
-        // 별점 필터 적용 (수정된 로직)
+        // 별점 필터 적용
         if (ratingRange != null && !ratingRange.isEmpty()) {
             switch (ratingRange) {
                 case "5":
@@ -447,7 +476,7 @@ public class ReviewService {
         return reviews;
     }
 
-    // 정렬 적용 메서드 (기존 유지)
+    // 정렬 적용 메서드
     private List<Review> applySorting(List<Review> reviews, String sort) {
         if (reviews.isEmpty()) {
             return reviews;
@@ -497,7 +526,7 @@ public class ReviewService {
         }
     }
 
-    // 페이지 정보 생성 메서드 (기존 유지)
+    // 페이지 정보 생성 메서드
     private Pageable createPageable(int page, int size, String sort) {
         Sort.Direction direction = Sort.Direction.DESC;
         String property = "createdAt";
@@ -518,5 +547,34 @@ public class ReviewService {
                 break;
         }
         return PageRequest.of(page, size, Sort.by(direction, property));
+    }
+
+
+    @Transactional
+    public void ensureDefaultOptionExists(Long productId) {
+        List<ProductOption> existingOptions = productOptionRepository.findByProduct_ProductId(productId);
+
+        if (existingOptions.isEmpty()) {
+            Product product = productRepository.findById(productId)
+                    .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 상품입니다: " + productId));
+
+            ProductOption defaultOption = ProductOption.builder()
+                    .product(product)
+                    .optionName("기본")
+                    .optionValue("기본 옵션")
+                    .additionalPrice(BigDecimal.ZERO)
+                    .build();
+
+            productOptionRepository.save(defaultOption);
+        }
+    }
+
+    //리뷰 작성 시 옵션 목록 조회 (기본 옵션 보장)
+    public List<ProductOption> getOptionsByProductIdForReview(Long productId) {
+        // 먼저 기본 옵션 존재 확인
+        ensureDefaultOptionExists(productId);
+
+        // 옵션 목록 반환
+        return productOptionRepository.findByProductProductId(productId);
     }
 }

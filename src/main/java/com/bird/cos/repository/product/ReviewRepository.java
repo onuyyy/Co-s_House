@@ -48,6 +48,14 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
     @Query("SELECT COUNT(r) FROM Review r WHERE r.product.productId = :productId AND r.isVerifiedPurchase = true")
     Long countVerifiedReviewsByProductId(@Param("productId") Long productId);
 
+    // 포토리뷰 조회 메서드
+    @Query("SELECT r FROM Review r WHERE r.product.productId = :productId AND SIZE(r.reviewImages) > 0")
+    Page<Review> findPhotoReviewsByProductId(@Param("productId") Long productId, Pageable pageable);
+
+    // 옵션별 포토리뷰 조회 메서드
+    @Query("SELECT r FROM Review r WHERE r.product.productId = :productId AND r.productOption.optionId = :optionId AND SIZE(r.reviewImages) > 0")
+    Page<Review> findPhotoReviewsByProductIdAndOptionId(@Param("productId") Long productId, @Param("optionId") Long optionId, Pageable pageable);
+
     List<Review> findByProduct_ProductId(Long productId);
 
     Page<Review> findByProduct_ProductId(Long productId, Pageable pageable);
