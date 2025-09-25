@@ -1,0 +1,18 @@
+.events-main {
+  padding-top: calc(var(--header-offset, 72px) + 48px);
+}
+
+.events-main .grid-4 {
+  margin-top: 24px;
+  gap: 24px;
+}
+
+@media (max-width: 768px) {
+  .events-main {
+    padding-top: calc(var(--header-offset, 60px) + 32px);
+  }
+
+  .events-main .grid-4 {
+    gap: 20px;
+  }
+}

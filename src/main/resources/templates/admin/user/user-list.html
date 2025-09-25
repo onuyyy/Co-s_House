@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+      layout:decorate="~{layout/admin-layout}"
+      lang="ko">
+<head>
+    <title th:text="${pageTitle ?: '사용자 관리'}">사용자 관리</title>
+    <link rel="stylesheet" href="/css/app.css" />
+</head>
+<body>
+    <!-- Content Header -->
+    <div layout:fragment="content-header" class="content-header">
+        <h2 style="color: #333; font-size: 20px;">사용자 관리</h2>
+        <div class="search-section">
+            <form method="get" style="display: flex; gap: 10px;">
+                <input type="hidden" name="roleFilter" th:value="${roleFilter}">
+                <select name="searchType" style="padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+                    <option value="NAME" th:selected="${param.searchType} == 'NAME'">이름</option>
+                    <option value="EMAIL" th:selected="${param.searchType} == 'EMAIL'">이메일</option>
+                    <option value="NICKNAME" th:selected="${param.searchType} == 'NICKNAME'">닉네임</option>
+                    <option value="PHONE" th:selected="${param.searchType} == 'PHONE'">연락처</option>
+                    <option value="ROLE" th:selected="${param.searchType} == 'ROLE'">역할</option>
+                </select>
+                <input type="text" name="searchValue" th:value="${param.searchValue}"
+                       class="search-input" placeholder="검색어를 입력하세요">
+                <button type="submit" class="btn btn-primary">검색</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div layout:fragment="content">
+        <!-- 알림 메시지 -->
+        <div th:if="${param.deleted}" class="alert alert-success">
+            사용자가 성공적으로 삭제되었습니다.
+        </div>
+
+        <!-- 역할 필터 탭 -->
+        <div class="role-tabs">
+            <a th:href="@{/api/admin/users(searchType=${param.searchType}, searchValue=${param.searchValue})}"
+               th:class="${roleFilter == 'ALL' ? 'tab-button active' : 'tab-button'}">
+                전체 사용자
+                <span class="tab-count" th:if="${roleFilter == 'ALL'}" th:text="'(' + ${userList.totalElements} + ')'"></span>
+            </a>
+            <a th:href="@{/api/admin/users(roleFilter='USER', searchType=${param.searchType}, searchValue=${param.searchValue})}"
+               th:class="${roleFilter == 'USER' ? 'tab-button active' : 'tab-button'}">
+                일반 사용자
+                <span class="tab-count" th:if="${roleFilter == 'USER'}" th:text="'(' + ${userList.totalElements} + ')'"></span>
+            </a>
+            <a th:href="@{/api/admin/users(roleFilter='ADMIN', searchType=${param.searchType}, searchValue=${param.searchValue})}"
+               th:class="${roleFilter == 'ADMIN' ? 'tab-button active' : 'tab-button'}">
+                관리자
+                <span class="tab-count" th:if="${roleFilter == 'ADMIN'}" th:text="'(' + ${userList.totalElements} + ')'"></span>
+            </a>
+        </div>
+
+        <!-- 현재 탭 정보 -->
+        <div class="current-tab-info">
+            <h3 th:text="${pageTitle}">사용자 관리</h3>
+            <span class="total-count" th:text="'총 ' + ${userList.totalElements} + '명'">총 0명</span>
+        </div>
+
+        <div class="data-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>이름</th>
+                        <th>이메일</th>
+                        <th>닉네임</th>
+                        <th>역할</th>
+                        <th>연락처</th>
+                        <th>소셜</th>
+                        <th>가입일</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="user : ${userList.content}">
+                        <td>
+                            <a th:href="@{/api/admin/users/{userId}(userId=${user.userId})}" 
+                               style="text-decoration: none; color: #007bff; font-weight: 500;"
+                               th:text="${user.userName}">사용자명</a>
+                        </td>
+                        <td class="email-cell" th:text="${user.userEmail}">이메일</td>
+                        <td th:text="${user.userNickname}">닉네임</td>
+                        <td>
+                            <span th:class="${user.admin ? 'role-badge admin-role' : 'role-badge user-role'}"
+                                  th:text="${user.userRoleName}">역할</span>
+                        </td>
+                        <td th:text="${user.userPhone ?: '-'}">연락처</td>
+                        <td>
+                            <span th:if="${user.socialProvider}" 
+                                  class="social-badge"
+                                  th:text="${user.socialProvider}">소셜</span>
+                            <span th:unless="${user.socialProvider}">-</span>
+                        </td>
+                        <td th:text="${user.userCreatedAt != null ? #temporals.format(user.userCreatedAt, 'yyyy-MM-dd') : '-'}">가입일</td>
+                    </tr>
+                    <tr th:if="${userList.content.empty}">
+                        <td colspan="7" style="padding: 40px; color: #666; text-align: center;">등록된 사용자가 없습니다.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Pagination -->
+        <div class="pagination" th:if="${userList.totalPages > 0}">
+            <!-- Previous -->
+            <a th:if="${userList.hasPrevious()}"
+               th:href="@{/api/admin/users(page=${userList.number - 1}, roleFilter=${roleFilter}, searchType=${param.searchType}, searchValue=${param.searchValue})}">‹</a>
+
+            <!-- Page Numbers -->
+            <th:block th:each="pageNum : ${#numbers.sequence(0, userList.totalPages - 1)}">
+                <span th:if="${pageNum == userList.number}" class="current" th:text="${pageNum + 1}">1</span>
+                <a th:unless="${pageNum == userList.number}"
+                   th:href="@{/api/admin/users(page=${pageNum}, roleFilter=${roleFilter}, searchType=${param.searchType}, searchValue=${param.searchValue})}"
+                   th:text="${pageNum + 1}">1</a>
+            </th:block>
+
+            <!-- Next -->
+            <a th:if="${userList.hasNext()}"
+               th:href="@{/api/admin/users(page=${userList.number + 1}, roleFilter=${roleFilter}, searchType=${param.searchType}, searchValue=${param.searchValue})}">›</a>
+        </div>
+    </div>
+
+    <th:block layout:fragment="extra-css">
+        <style>
+            /* 탭 스타일 */
+            .role-tabs {
+                display: flex;
+                border-bottom: 2px solid #e9ecef;
+                margin-bottom: 20px;
+                gap: 0;
+            }
+
+            .tab-button {
+                padding: 12px 24px;
+                text-decoration: none;
+                color: #6c757d;
+                font-weight: 500;
+                border-bottom: 3px solid transparent;
+                transition: all 0.3s ease;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+            }
+
+            .tab-button:hover {
+                color: #007bff;
+                background-color: #f8f9fa;
+            }
+
+            .tab-button.active {
+                color: #007bff;
+                border-bottom-color: #007bff;
+                background-color: #fff;
+                font-weight: 600;
+            }
+
+            .tab-count {
+                background-color: #007bff;
+                color: white;
+                padding: 2px 8px;
+                border-radius: 12px;
+                font-size: 11px;
+                font-weight: bold;
+            }
+
+            .current-tab-info {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 20px;
+                padding: 16px 20px;
+                background-color: #f8f9fa;
+                border-radius: 8px;
+                border: 1px solid #e9ecef;
+            }
+
+            .current-tab-info h3 {
+                margin: 0;
+                color: #495057;
+                font-size: 18px;
+            }
+
+            .total-count {
+                color: #6c757d;
+                font-weight: 500;
+                font-size: 14px;
+            }
+            
+            .email-cell {
+                font-family: monospace;
+                font-size: 0.9em;
+            }
+            
+            .role-badge {
+                padding: 4px 12px;
+                border-radius: 12px;
+                font-size: 12px;
+                font-weight: bold;
+            }
+            
+            .admin-role {
+                background-color: #dc3545;
+                color: white;
+            }
+            
+            .user-role {
+                background-color: #28a745;
+                color: white;
+            }
+            
+            .social-badge {
+                background-color: #17a2b8;
+                color: white;
+                padding: 2px 8px;
+                border-radius: 8px;
+                font-size: 11px;
+            }
+            
+            .alert {
+                padding: 12px 16px;
+                margin-bottom: 20px;
+                border: 1px solid transparent;
+                border-radius: 4px;
+            }
+            
+            .alert-success {
+                color: #155724;
+                background-color: #d4edda;
+                border-color: #c3e6cb;
+            }
+        </style>
+    </th:block>
+</body>
+</html>

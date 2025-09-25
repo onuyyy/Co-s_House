@@ -25,7 +25,7 @@ public class User {
     private Long userId;
 
     @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "user_role_id")
+    @JoinColumn(name = "user_role")
     private UserRole userRole;
 
     @Column(name = "user_email", length = 255, unique = true, nullable = false)
@@ -54,6 +54,9 @@ public class User {
 
     @Column(name = "terms_agreed")
     private Boolean termsAgreed = false;
+
+    @Column(name = "email_verified", nullable = false)
+    private boolean emailVerified;
 
     @Column(name = "user_created_at", insertable = false, updatable = false)
     private LocalDateTime userCreatedAt;
