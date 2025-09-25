@@ -82,27 +82,19 @@ public class ReviewService {
                 .collect(Collectors.toList());
     }
 
-    // 상품별 리뷰 조회 (페이징 포함)
-    @Transactional(readOnly = true)
+    @Transactional(readOnly = true) // readOnly 명시
     public Map<String, Object> findReviewsByProductIdWithFilterPage(Long productId, String filter, String sort,
                                                                     String ratingRange, Long optionId, int page, int size) {
         Pageable pageable = createPageable(page - 1, size, sort);
 
         Page<Review> reviewPage;
 
-        // 필터에 따라 다른 리포지토리 메서드 호출
-        if ("photo".equals(filter)) {
-            if (optionId != null) {
-                reviewPage = reviewRepository.findPhotoReviewsByProductIdAndOptionId(productId, optionId, pageable);
-            } else {
-                reviewPage = reviewRepository.findPhotoReviewsByProductId(productId, pageable);
-            }
+        // Repository에 복잡한 쿼리를 위임하는 것이 좋습니다.
+        // 예를 들어, Querydsl 또는 Spring Data JPA의 Specification을 사용하면 Service 계층의 필터링 로직을 줄일 수 있습니다.
+        if (optionId != null) {
+            reviewPage = reviewRepository.findByProduct_ProductIdAndProductOption_OptionId(productId, optionId, pageable);
         } else {
-            if (optionId != null) {
-                reviewPage = reviewRepository.findByProduct_ProductIdAndProductOption_OptionId(productId, optionId, pageable);
-            } else {
-                reviewPage = reviewRepository.findByProduct_ProductId(productId, pageable);
-            }
+            reviewPage = reviewRepository.findByProduct_ProductId(productId, pageable);
         }
 
         List<Review> reviews = reviewPage.getContent();
@@ -149,7 +141,7 @@ public class ReviewService {
                 .map(ReviewResponse::fromEntity)
                 .collect(Collectors.toList());
     }
-
+  
     private List<Review> applyRatingFilter(List<Review> reviews, String ratingRange) {
         if (ratingRange == null || ratingRange.isEmpty()) {
             return reviews;
@@ -206,6 +198,7 @@ public class ReviewService {
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 사용자입니다: " + userNickname));
         Product product = productRepository.findById(productId)
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 상품입니다: " + productId));
+
         ProductOption productOption = null;
         if (requestDto.getOptionId() != null && requestDto.getOptionId() > 0) {
             productOption = productOptionRepository.findById(requestDto.getOptionId())
@@ -277,7 +270,6 @@ public class ReviewService {
                 productOption
         );
 
-
         // 2. 이미지 처리
         // 2-1. 삭제할 기존 이미지 처리
         if (updateRequest.getDeletedImageIds() != null && !updateRequest.getDeletedImageIds().isEmpty()) {
@@ -307,6 +299,8 @@ public class ReviewService {
         }
 
         // 2-3. isPhotoReview 상태 업데이트
+        // 현재 남아있는 이미지가 하나라도 있으면 isPhotoReview = true
+        // 남아있는 이미지가 없으면 isPhotoReview = false
         review.setIsPhotoReview(!review.getReviewImages().isEmpty());
 
         Review updatedReview = reviewRepository.save(review);
