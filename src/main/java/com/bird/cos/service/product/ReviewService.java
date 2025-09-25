@@ -49,6 +49,8 @@ public class ReviewService {
         return ReviewResponse.fromEntity(review);
     }
 
+    // 사용자 권한 확인 (컨트롤러 또는 PreAuthorize에서 처리하는 것이 일반적)
+    // 이 메서드는 `updateReview`나 `deleteReview` 내부에서 사용될 수 있습니다.
     private void checkReviewPermission(Long reviewId, String userNickname) {
         Review review = reviewRepository.findById(reviewId)
                 .orElseThrow(() -> new NoSuchElementException("존재하지 않는 리뷰입니다: " + reviewId));
@@ -59,14 +61,16 @@ public class ReviewService {
 
     // 모든 리뷰 조회 (필터링 포함)
     public List<ReviewResponse> findAllReviewsWithFilter(String filter, String sort, String ratingRange, Long productId) {
-
+        // 이 부분은 `findByProduct_ProductId` 같은 메서드를 직접 호출하는 대신,
+        // Repository에서 직접 필터링된 Page<Review>를 반환하도록 하는 것이 효율적입니다.
+        // 현재는 모든 리뷰를 불러와서 서비스 계층에서 필터링하는 방식.
         List<Review> reviews;
 
         if (productId != null) {
-            //fetch join 사용 고려
+            // N+1 문제 방지를 위해 fetch join 사용 고려
             reviews = reviewRepository.findByProduct_ProductId(productId);
         } else {
-            // fetch join 사용 고려 (ex: findAllWithUserAndProductAndImages())
+            // N+1 문제 방지를 위해 fetch join 사용 고려 (ex: findAllWithUserAndProductAndImages())
             reviews = reviewRepository.findAll();
         }
 
@@ -78,41 +82,27 @@ public class ReviewService {
                 .collect(Collectors.toList());
     }
 
-
     // 상품별 리뷰 조회 (페이징 포함)
-
-    @Transactional(readOnly = true)
+    @Transactional(readOnly = true) // readOnly 명시
     public Map<String, Object> findReviewsByProductIdWithFilterPage(Long productId, String filter, String sort,
                                                                     String ratingRange, Long optionId, int page, int size) {
         Pageable pageable = createPageable(page - 1, size, sort);
 
         Page<Review> reviewPage;
 
-        // 필터에 따라 다른 리포지토리 메서드 호출
-        if ("photo".equals(filter)) {
-            if (optionId != null) {
-                reviewPage = reviewRepository.findPhotoReviewsByProductIdAndOptionId(productId, optionId, pageable);
-            } else {
-                reviewPage = reviewRepository.findPhotoReviewsByProductId(productId, pageable);
-            }
+        // Repository에 복잡한 쿼리를 위임하는 것이 좋습니다.
+        // 예를 들어, Querydsl 또는 Spring Data JPA의 Specification을 사용하면 Service 계층의 필터링 로직을 줄일 수 있습니다.
+        if (optionId != null) {
+            reviewPage = reviewRepository.findByProduct_ProductIdAndProductOption_OptionId(productId, optionId, pageable);
         } else {
-            if (optionId != null) {
-                reviewPage = reviewRepository.findByProduct_ProductIdAndProductOption_OptionId(productId, optionId, pageable);
-            } else {
-                reviewPage = reviewRepository.findByProduct_ProductId(productId, pageable);
-            }
+            reviewPage = reviewRepository.findByProduct_ProductId(productId, pageable);
         }
 
         List<Review> reviews = reviewPage.getContent();
 
-
-        // 별점 필터만 서비스에서 적용
-
-        // 별점 필터만 서비스에서 적용 (DB 쿼리로 처리하기 어려운 경우)
-
-        if (ratingRange != null && !ratingRange.isEmpty()) {
-            reviews = applyRatingFilter(reviews, ratingRange);
-        }
+        // **주의**: 페이징된 결과를 다시 필터링하면 실제 페이지 크기가 줄어들 수 있습니다.
+        // Repository 쿼리 자체에서 필터링을 수행하는 것이 가장 정확합니다.
+        reviews = applyFilters(reviews, filter, ratingRange); // 서비스 계층에서 추가 필터링
 
         List<ReviewResponse> reviewResponses = reviews.stream()
                 .map(ReviewResponse::fromEntity)
@@ -129,102 +119,42 @@ public class ReviewService {
         return result;
     }
 
-    private List<Review> applyRatingFilter(List<Review> reviews, String ratingRange) {
-        if (ratingRange == null || ratingRange.isEmpty()) {
-            return reviews;
-        }
-
-        switch (ratingRange) {
-            case "5":
-                return reviews.stream()
-                        .filter(r -> r.getRating() != null && r.getRating().compareTo(BigDecimal.valueOf(5)) == 0)
-                        .collect(Collectors.toList());
-            case "4":
-                return reviews.stream()
-                        .filter(r -> r.getRating() != null && r.getRating().compareTo(BigDecimal.valueOf(4)) == 0)
-                        .collect(Collectors.toList());
-            case "3":
-                return reviews.stream()
-                        .filter(r -> r.getRating() != null && r.getRating().compareTo(BigDecimal.valueOf(3)) == 0)
-                        .collect(Collectors.toList());
-            case "2":
-                return reviews.stream()
-                        .filter(r -> r.getRating() != null && r.getRating().compareTo(BigDecimal.valueOf(2)) == 0)
-                        .collect(Collectors.toList());
-            case "1":
-                return reviews.stream()
-                        .filter(r -> r.getRating() != null && r.getRating().compareTo(BigDecimal.valueOf(1)) == 0)
-                        .collect(Collectors.toList());
-            case "4-5":
-                return reviews.stream()
-                        .filter(r -> r.getRating() != null
-                                && r.getRating().compareTo(BigDecimal.valueOf(4)) >= 0
-                                && r.getRating().compareTo(BigDecimal.valueOf(5)) <= 0)
-                        .collect(Collectors.toList());
-            case "3-5":
-                return reviews.stream()
-                        .filter(r -> r.getRating() != null
-                                && r.getRating().compareTo(BigDecimal.valueOf(3)) >= 0
-                                && r.getRating().compareTo(BigDecimal.valueOf(5)) <= 0)
-                        .collect(Collectors.toList());
-            case "1-2":
-                return reviews.stream()
-                        .filter(r -> r.getRating() != null
-                                && r.getRating().compareTo(BigDecimal.valueOf(1)) >= 0
-                                && r.getRating().compareTo(BigDecimal.valueOf(2)) <= 0)
-                        .collect(Collectors.toList());
-
-            default:
-                return reviews;
-        }
-    }
-
     // 상품별 리뷰 조회 (페이징 없음)
-    @Transactional(readOnly = true)
+    @Transactional(readOnly = true) // readOnly 명시
     public List<ReviewResponse> findReviewsByProductIdWithFilter(Long productId, String filter, String sort,
                                                                  String ratingRange, Long optionId) {
-        log.info("리뷰 조회 시작 - productId: {}, filter: {}, sort: {}, ratingRange: {}, optionId: {}",
-                productId, filter, sort, ratingRange, optionId);
+        // 이 메서드는 `findReviewsByProductIdWithFilterPage`와 중복되므로,
+        // 필요하다면 `findReviewsByProductIdWithFilterPage`를 호출하고 모든 페이지를 합치는 방식으로 구현하거나,
+        // Repository에서 모든 데이터를 불러오는 전용 메서드를 만드는 것이 좋습니다.
+        // 현재 구현은 `largePageSize`를 사용하는데, 데이터가 매우 많으면 성능 문제가 될 수 있습니다.
+        int largePageSize = 10000;
+        Pageable pageable = createPageable(0, largePageSize, sort);
 
-        List<Review> reviews;
-
-        // 옵션 ID로 필터링
+        Page<Review> reviewPage;
         if (optionId != null) {
-            reviews = reviewRepository.findByProduct_ProductIdAndProductOption_OptionId(productId, optionId);
+            reviewPage = reviewRepository.findByProduct_ProductIdAndProductOption_OptionId(productId, optionId, pageable);
         } else {
-            reviews = reviewRepository.findByProduct_ProductId(productId);
+            reviewPage = reviewRepository.findByProduct_ProductId(productId, pageable);
         }
 
-        log.info("DB에서 조회한 리뷰 수: {}", reviews.size());
-
-        // 필터 적용
+        List<Review> reviews = reviewPage.getContent();
         reviews = applyFilters(reviews, filter, ratingRange);
-        log.info("필터 적용 후 리뷰 수: {}", reviews.size());
 
-        // 정렬 적용
-        reviews = applySorting(reviews, sort);
-
-        List<ReviewResponse> result = reviews.stream()
+        return reviews.stream()
                 .map(ReviewResponse::fromEntity)
                 .collect(Collectors.toList());
-
-        log.info("최종 반환할 리뷰 수: {}", result.size());
-        return result;
     }
 
-
-    // 리뷰 생성
-    @Transactional // 쓰기 작업
+    // 리뷰 생성 (Transactional 추가)
+    @Transactional // 쓰기 작업이므로 @Transactional 필요
     public ReviewResponse createReview(Long productId, ReviewRequest requestDto, String userNickname, List<MultipartFile> imageFiles) throws IOException {
         User user = userRepository.findByUserNickname(userNickname)
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 사용자입니다: " + userNickname));
         Product product = productRepository.findById(productId)
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 상품입니다: " + productId));
-        ProductOption productOption = null;
-        if (requestDto.getOptionId() != null) {
-            productOption = productOptionRepository.findById(requestDto.getOptionId())
-                    .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 옵션입니다: " + requestDto.getOptionId()));
-        }
+        ProductOption productOption = productOptionRepository.findById(requestDto.getOptionId())
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 옵션입니다: " + requestDto.getOptionId()));
+
         boolean isPhotoReview = (imageFiles != null && !imageFiles.stream().allMatch(MultipartFile::isEmpty));
 
         Review review = Review.builder()
@@ -244,17 +174,21 @@ public class ReviewService {
             List<String> storedFileNames = reviewImageService.storeFiles(imageFiles);
             for (String storedFileName : storedFileNames) {
                 ReviewImage reviewImage = new ReviewImage(storedFileName, savedReview);
-
+                // Review 엔티티에 `cascade = CascadeType.ALL`이 설정되어 있다면
+                // `savedReview.addReviewImage(reviewImage);`만으로도 저장됩니다.
+                // 명시적 저장을 원한다면 `reviewImageRepository.save(reviewImage);`를 사용.
                 savedReview.addReviewImage(reviewImage); // 양방향 관계 설정
             }
         }
 
+        // `reviewRepository.save(review)` 호출 후 `savedReview`는 `reviewImages` 컬렉션을 포함하지 않을 수 있습니다.
+        // 특히 cascade 설정을 사용하지 않거나, 영속성 컨텍스트가 Flush되기 전이라면 그렇습니다.
+        // 따라서 이미지가 완전히 로드된 Review 엔티티를 반환하려면 다시 조회하는 것이 안전합니다.
         Review fullyLoadedReview = reviewRepository.findById(savedReview.getReviewId())
                 .orElseThrow(() -> new IllegalStateException("리뷰를 다시 불러올 수 없습니다."));
 
         return ReviewResponse.fromEntity(fullyLoadedReview);
     }
-
 
     // 리뷰 수정
     @Transactional
@@ -267,9 +201,8 @@ public class ReviewService {
             throw new AccessDeniedException("리뷰를 수정할 권한이 없습니다.");
         }
 
-        log.info("리뷰 수정 시작 - reviewId: {}, 삭제할 이미지 인덱스: {}", reviewId, updateRequest.getDeletedImageIndexes());
-
         // 1. 리뷰 내용 업데이트
+        // 옵션 ID를 통해 ProductOption 엔티티를 찾아서 설정
         ProductOption productOption = productOptionRepository.findById(updateRequest.getOptionId())
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 옵션입니다: " + updateRequest.getOptionId()));
 
@@ -284,66 +217,49 @@ public class ReviewService {
                 productOption
         );
 
+
+
         // 2. 이미지 처리
-        // 2-1. 삭제할 기존 이미지 처리 (인덱스 기반)
-        if (updateRequest.getDeletedImageIndexes() != null && !updateRequest.getDeletedImageIndexes().isEmpty()) {
-            // 현재 리뷰의 이미지 목록을 인덱스 순서로 가져오기
-            List<ReviewImage> currentImages = new ArrayList<>(review.getReviewImages());
-
-            // 삭제할 인덱스들을 내림차순 정렬 (뒤에서부터 삭제)
-            List<Integer> sortedIndexes = updateRequest.getDeletedImageIndexes().stream()
-                    .sorted(Collections.reverseOrder())
-                    .collect(Collectors.toList());
-
-            log.info("삭제할 이미지 인덱스 (정렬됨): {}", sortedIndexes);
-
-            for (Integer index : sortedIndexes) {
-                if (index >= 0 && index < currentImages.size()) {
-                    ReviewImage imageToDelete = currentImages.get(index);
-                    log.info("이미지 삭제 중 - 인덱스: {}, 파일명: {}", index, imageToDelete.getStoredFileName());
-
-                    // 물리적 파일 삭제
-                    reviewImageService.deleteFile(imageToDelete.getStoredFileName());
-
-                    // DB에서 삭제
-                    reviewImageRepository.delete(imageToDelete);
-
-                    // Review 엔티티 컬렉션에서도 제거
-                    review.getReviewImages().remove(imageToDelete);
-                } else {
-                    log.warn("잘못된 이미지 인덱스: {} (전체 이미지 수: {})", index, currentImages.size());
-                }
+        // 2-1. 삭제할 기존 이미지 처리
+        if (updateRequest.getDeletedImageIds() != null && !updateRequest.getDeletedImageIds().isEmpty()) {
+            for (Long imageId : updateRequest.getDeletedImageIds()) {
+                reviewImageRepository.findById(imageId).ifPresent(reviewImage -> {
+                    reviewImageService.deleteFile(reviewImage.getStoredFileName()); // 물리적 파일 삭제
+                    reviewImageRepository.delete(reviewImage); // DB 엔티티 삭제
+                    review.getReviewImages().remove(reviewImage); // Review 엔티티 컬렉션에서도 제거
+                });
             }
         }
 
         // 2-2. 새로 업로드할 이미지 처리
-        boolean hasNewImageFiles = (updateRequest.getNewImages() != null &&
-                !updateRequest.getNewImages().stream().allMatch(MultipartFile::isEmpty));
+        boolean hasNewImageFiles = (updateRequest.getNewImageFiles() != null &&
+                !updateRequest.getNewImageFiles().stream().allMatch(MultipartFile::isEmpty));
 
         if (hasNewImageFiles) {
-            List<MultipartFile> actualNewFiles = updateRequest.getNewImages().stream()
+            List<MultipartFile> actualNewFiles = updateRequest.getNewImageFiles().stream()
                     .filter(f -> !f.isEmpty())
                     .collect(Collectors.toList());
-
-            log.info("새 이미지 파일 수: {}", actualNewFiles.size());
-
             List<String> newStoredFileNames = reviewImageService.storeFiles(actualNewFiles);
             for (String storedFileName : newStoredFileNames) {
                 ReviewImage newReviewImage = new ReviewImage(storedFileName, review);
-                review.addReviewImage(newReviewImage);
-                reviewImageRepository.save(newReviewImage);
+                review.addReviewImage(newReviewImage); // Review 엔티티 컬렉션에 추가
+                reviewImageRepository.save(newReviewImage); // 명시적 저장 (cascade 없어도 됨)
             }
         }
 
         // 2-3. isPhotoReview 상태 업데이트
+        // 현재 남아있는 이미지가 하나라도 있으면 isPhotoReview = true
+        // 남아있는 이미지가 없으면 isPhotoReview = false
         review.setIsPhotoReview(!review.getReviewImages().isEmpty());
 
-        // 변경사항 저장
+
+        // 변경사항 저장 (review 엔티티는 Dirty Checking에 의해 자동 저장되거나,
+        // 관계 변경 시 reviewRepository.save(review)를 호출할 수 있습니다.)
+        // 여기서는 명시적으로 호출합니다.
         Review updatedReview = reviewRepository.save(review);
 
-        log.info("리뷰 수정 완료 - reviewId: {}, 남은 이미지 수: {}", reviewId, updatedReview.getReviewImages().size());
-
-        // DB에서 새로 로드하여 최신 상태를 가져옴
+        // DB에서 새로 로드하여 최신 상태 (이미지 컬렉션 포함)를 가져옴
+        // (review.getReviewImages()가 Lazy Loading이거나 업데이트 후 바로 반영되지 않을 경우 필요)
         Review fullyLoadedReview = reviewRepository.findById(updatedReview.getReviewId())
                 .orElseThrow(() -> new IllegalStateException("리뷰를 다시 불러올 수 없습니다."));
 
@@ -351,7 +267,7 @@ public class ReviewService {
     }
 
     // 리뷰 삭제
-    @Transactional
+    @Transactional // 쓰기 작업이므로 @Transactional 필요
     public void deleteReview(Long reviewId, String userNickname) { // userNickname으로 변경
         Review review = reviewRepository.findById(reviewId)
                 .orElseThrow(() -> new NoSuchElementException("존재하지 않는 리뷰입니다: " + reviewId));
@@ -360,7 +276,7 @@ public class ReviewService {
             throw new AccessDeniedException("삭제 권한이 없습니다.");
         }
 
-        // 관련된 모든 이미지 파일 삭제
+        // 관련된 모든 이미지 파일 삭제 (물리적 파일 및 DB 엔티티)
         for (ReviewImage image : review.getReviewImages()) {
             reviewImageService.deleteFile(image.getStoredFileName()); // 물리적 파일 삭제
         }
@@ -372,18 +288,12 @@ public class ReviewService {
     // 평균 평점 계산
     public double calculateAverageRating(List<ReviewResponse> reviews) {
         if (reviews == null || reviews.isEmpty()) {
-            log.debug("리뷰가 없어서 평균 평점 0.0 반환");
             return 0.0;
         }
-
-        double average = reviews.stream()
-                .filter(r -> r.getRating() != null)  // null 체크 추가
-                .mapToDouble(r -> r.getRating().doubleValue())
+        return reviews.stream()
+                .mapToDouble(r -> r.getRating() != null ? r.getRating().doubleValue() : 0.0)
                 .average()
                 .orElse(0.0);
-
-        log.debug("평균 평점 계산 완료 - 리뷰 수: {}, 평균: {}", reviews.size(), average);
-        return average;
     }
 
 
@@ -396,10 +306,6 @@ public class ReviewService {
             reviews = reviewRepository.findAll();
         }
 
-        if (reviews == null) {
-            reviews = new ArrayList<>();
-        }
-
         Map<String, Integer> counts = new HashMap<>();
         counts.put("all", reviews.size());
         counts.put("photo", (int) reviews.stream()
@@ -408,9 +314,6 @@ public class ReviewService {
         counts.put("verified", (int) reviews.stream()
                 .filter(r -> Boolean.TRUE.equals(r.getIsVerifiedPurchase()))
                 .count());
-
-        log.debug("필터 카운트 - all: {}, photo: {}, verified: {}",
-                counts.get("all"), counts.get("photo"), counts.get("verified"));
         return counts;
     }
 
@@ -423,32 +326,20 @@ public class ReviewService {
             reviews = reviewRepository.findAll();
         }
 
-        if (reviews == null) {
-            reviews = new ArrayList<>();
-        }
-
         Map<String, Integer> ratingCounts = new HashMap<>();
         for (int i = 1; i <= 5; i++) {
             final int rating = i;
-            int count = (int) reviews.stream()
+            ratingCounts.put(String.valueOf(i), (int) reviews.stream()
                     .filter(review -> review.getRating() != null
                             && review.getRating().compareTo(BigDecimal.valueOf(rating)) == 0)
-                    .count();
-            ratingCounts.put(String.valueOf(i), count);
+                    .count());
         }
-
-        log.debug("별점 카운트 - 1: {}, 2: {}, 3: {}, 4: {}, 5: {}",
-                ratingCounts.get("1"), ratingCounts.get("2"), ratingCounts.get("3"),
-                ratingCounts.get("4"), ratingCounts.get("5"));
         return ratingCounts;
     }
 
 
     // 필터 적용 메서드
     private List<Review> applyFilters(List<Review> reviews, String filter, String ratingRange) {
-        log.info("필터 적용 시작 - filter: {}, ratingRange: {}, 초기 리뷰 수: {}", filter, ratingRange, reviews.size());
-
-        // 기본 필터 적용
         if ("photo".equals(filter)) {
             reviews = reviews.stream()
                     .filter(r -> Boolean.TRUE.equals(r.getIsPhotoReview()))
@@ -459,7 +350,6 @@ public class ReviewService {
                     .collect(Collectors.toList());
         }
 
-        // 별점 필터 적용
         if (ratingRange != null && !ratingRange.isEmpty()) {
             switch (ratingRange) {
                 case "5":
@@ -467,27 +357,6 @@ public class ReviewService {
                             .filter(r -> r.getRating() != null && r.getRating().compareTo(BigDecimal.valueOf(5)) == 0)
                             .collect(Collectors.toList());
                     break;
-                case "4":
-                    reviews = reviews.stream()
-                            .filter(r -> r.getRating() != null && r.getRating().compareTo(BigDecimal.valueOf(4)) == 0)
-                            .collect(Collectors.toList());
-                    break;
-                case "3":
-                    reviews = reviews.stream()
-                            .filter(r -> r.getRating() != null && r.getRating().compareTo(BigDecimal.valueOf(3)) == 0)
-                            .collect(Collectors.toList());
-                    break;
-                case "2":
-                    reviews = reviews.stream()
-                            .filter(r -> r.getRating() != null && r.getRating().compareTo(BigDecimal.valueOf(2)) == 0)
-                            .collect(Collectors.toList());
-                    break;
-                case "1":
-                    reviews = reviews.stream()
-                            .filter(r -> r.getRating() != null && r.getRating().compareTo(BigDecimal.valueOf(1)) == 0)
-                            .collect(Collectors.toList());
-                    break;
-                // 기존 범위 필터들 (필요한 경우)
                 case "4-5":
                     reviews = reviews.stream()
                             .filter(r -> r.getRating() != null
@@ -511,62 +380,35 @@ public class ReviewService {
                     break;
             }
         }
-
-        log.info("필터 적용 완료 - 결과 리뷰 수: {}", reviews.size());
         return reviews;
     }
 
-    // 정렬 적용 메서드
-    private List<Review> applySorting(List<Review> reviews, String sort) {
-        if (reviews.isEmpty()) {
-            return reviews;
-        }
 
+    // 정렬 적용 메서드 (기존 유지)
+    private List<Review> applySorting(List<Review> reviews, String sort) {
         switch (sort) {
             case "latest":
                 return reviews.stream()
-                        .sorted((r1, r2) -> {
-                            if (r1.getCreatedAt() == null && r2.getCreatedAt() == null) return 0;
-                            if (r1.getCreatedAt() == null) return 1;
-                            if (r2.getCreatedAt() == null) return -1;
-                            return r2.getCreatedAt().compareTo(r1.getCreatedAt());
-                        })
+                        .sorted((r1, r2) -> r2.getCreatedAt().compareTo(r1.getCreatedAt()))
                         .collect(Collectors.toList());
             case "oldest":
                 return reviews.stream()
-                        .sorted((r1, r2) -> {
-                            if (r1.getCreatedAt() == null && r2.getCreatedAt() == null) return 0;
-                            if (r1.getCreatedAt() == null) return 1;
-                            if (r2.getCreatedAt() == null) return -1;
-                            return r1.getCreatedAt().compareTo(r2.getCreatedAt());
-                        })
+                        .sorted((r1, r2) -> r1.getCreatedAt().compareTo(r2.getCreatedAt()))
                         .collect(Collectors.toList());
-            case "rating-high":
             case "rating_high":
                 return reviews.stream()
-                        .sorted((r1, r2) -> {
-                            if (r1.getRating() == null && r2.getRating() == null) return 0;
-                            if (r1.getRating() == null) return 1;
-                            if (r2.getRating() == null) return -1;
-                            return r2.getRating().compareTo(r1.getRating());
-                        })
+                        .sorted((r1, r2) -> r2.getRating().compareTo(r1.getRating()))
                         .collect(Collectors.toList());
-            case "rating-low":
             case "rating_low":
                 return reviews.stream()
-                        .sorted((r1, r2) -> {
-                            if (r1.getRating() == null && r2.getRating() == null) return 0;
-                            if (r1.getRating() == null) return 1;
-                            if (r2.getRating() == null) return -1;
-                            return r1.getRating().compareTo(r2.getRating());
-                        })
+                        .sorted((r1, r2) -> r1.getRating().compareTo(r2.getRating()))
                         .collect(Collectors.toList());
             default:
                 return reviews;
         }
     }
 
-    // 페이지 정보 생성 메서드
+    // 페이지 정보 생성 메서드 (기존 유지)
     private Pageable createPageable(int page, int size, String sort) {
         Sort.Direction direction = Sort.Direction.DESC;
         String property = "createdAt";
@@ -574,47 +416,9 @@ public class ReviewService {
         switch (sort) {
             case "latest": property = "createdAt"; direction = Sort.Direction.DESC; break;
             case "oldest": property = "createdAt"; direction = Sort.Direction.ASC; break;
-
-            case "rating-high":
-            case "rating_high":
-                property = "rating";
-                direction = Sort.Direction.DESC;
-                break;
-            case "rating-low":
-            case "rating_low":
-                property = "rating";
-                direction = Sort.Direction.ASC;
-                break;
+            case "rating_high": property = "rating"; direction = Sort.Direction.DESC; break;
+            case "rating_low": property = "rating"; direction = Sort.Direction.ASC; break;
         }
         return PageRequest.of(page, size, Sort.by(direction, property));
-    }
-
-
-    @Transactional
-    public void ensureDefaultOptionExists(Long productId) {
-        List<ProductOption> existingOptions = productOptionRepository.findByProduct_ProductId(productId);
-
-        if (existingOptions.isEmpty()) {
-            Product product = productRepository.findById(productId)
-                    .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 상품입니다: " + productId));
-
-            ProductOption defaultOption = ProductOption.builder()
-                    .product(product)
-                    .optionName("기본")
-                    .optionValue("기본 옵션")
-                    .additionalPrice(BigDecimal.ZERO)
-                    .build();
-
-            productOptionRepository.save(defaultOption);
-        }
-    }
-
-    //리뷰 작성 시 옵션 목록 조회 (기본 옵션 보장)
-    public List<ProductOption> getOptionsByProductIdForReview(Long productId) {
-        // 먼저 기본 옵션 존재 확인
-        ensureDefaultOptionExists(productId);
-
-        // 옵션 목록 반환
-        return productOptionRepository.findByProductProductId(productId);
     }
 }

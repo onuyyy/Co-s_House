@@ -697,264 +697,264 @@
 
 
 
-    <!-- 에러 메시지 -->
-    <div th:if="${error}" class="alert alert-danger" style="margin: 20px 0; padding: 15px; background: #f8d7da; border: 1px solid #f5c6cb; border-radius: 4px; color: #721c24;">
-        <strong>오류:</strong> <span th:text="${error}"></span>
+        <!-- 에러 메시지 -->
+        <div th:if="${error}" class="alert alert-danger" style="margin: 20px 0; padding: 15px; background: #f8d7da; border: 1px solid #f5c6cb; border-radius: 4px; color: #721c24;">
+            <strong>오류:</strong> <span th:text="${error}"></span>
+        </div>
     </div>
-</div>
 
-<script th:inline="javascript">
-    // Thymeleaf에서 전달받은 데이터
-    const productId = /*[[${productId}]]*/ null;
-    const currentFilter = /*[[${currentFilter}]]*/ 'all';
-    const currentSort = /*[[${currentSort}]]*/ 'latest';
-    const currentRatingRange = /*[[${currentRatingRange}]]*/ null;
-    const currentOptionId = /*[[${currentOptionId}]]*/ null;
-    const overallAverageRating = /*[[${overallAverageRating}]]*/ 0.0;
-    const totalReviewCount = /*[[${totalReviewCount}]]*/ 0;
+    <script th:inline="javascript">
+        // Thymeleaf에서 전달받은 데이터
+        const productId = /*[[${productId}]]*/ null;
+        const currentFilter = /*[[${currentFilter}]]*/ 'all';
+        const currentSort = /*[[${currentSort}]]*/ 'latest';
+        const currentRatingRange = /*[[${currentRatingRange}]]*/ null;
+        const currentOptionId = /*[[${currentOptionId}]]*/ null;
+        const overallAverageRating = /*[[${overallAverageRating}]]*/ 0.0;
+        const totalReviewCount = /*[[${totalReviewCount}]]*/ 0;
 
-    // 리뷰 이미지 클릭 시 확대 보기
-    document.querySelectorAll('.review-image').forEach(img => {
-        img.addEventListener('click', () => {
-            window.open(img.src, '_blank');
-        });
-    });
-
-    // 페이지 로드 시 초기화
-    document.addEventListener('DOMContentLoaded', () => {
-        updateOverallStars();
-        updateAverageStars();
-
-        // 드롭다운 변경 이벤트 리스너
-        const optionFilter = document.getElementById('optionFilter');
-        if (optionFilter) {
-            optionFilter.addEventListener('change', handleFilterChange);
-        }
-
-        // 드롭다운 외부 클릭 시 닫기
-        document.addEventListener('click', function(e) {
-            if (!document.getElementById('ratingDropdown').contains(e.target)) {
-                closeRatingDropdown();
-            }
-        });
-
-        // 현재 선택된 별점 표시
-        updateSelectedRating();
-    });
-
-    // 전체 별점 업데이트 (변경되지 않음)
-    function updateOverallStars() {
-        const overallStarsElement = document.querySelector('#overallStars');
-        if (overallStarsElement) {
-            overallStarsElement.innerHTML = generateStars(overallAverageRating);
-        }
-    }
-
-    // 별점 드롭다운 토글
-    function toggleRatingDropdown() {
-        const header = document.querySelector('.dropdown-header');
-        const content = document.getElementById('ratingDropdownContent');
-
-        header.classList.toggle('open');
-        content.classList.toggle('show');
-    }
-
-    // 별점 드롭다운 닫기
-    function closeRatingDropdown() {
-        const header = document.querySelector('.dropdown-header');
-        const content = document.getElementById('ratingDropdownContent');
-
-        header.classList.remove('open');
-        content.classList.remove('show');
-    }
-
-    // 별점 선택
-    function selectRating(value, text) {
-        document.getElementById('selectedRating').textContent = text;
-        closeRatingDropdown();
-
-        const optionId = document.getElementById('optionFilter') ?
-            document.getElementById('optionFilter').value || null : null;
-
-        updateURL({
-            filter: currentFilter,
-            sort: currentSort,
-            ratingRange: value || null,
-            optionId: optionId
-        });
-    }
-
-    // 현재 선택된 별점 표시 업데이트
-    function updateSelectedRating() {
-        const selectedElement = document.getElementById('selectedRating');
-        if (currentRatingRange) {
-            switch(currentRatingRange) {
-                case '5': selectedElement.textContent = '5점'; break;
-                case '4': selectedElement.textContent = '4점'; break;
-                case '3': selectedElement.textContent = '3점'; break;
-                case '2': selectedElement.textContent = '2점'; break;
-                case '1': selectedElement.textContent = '1점'; break;
-                default: selectedElement.textContent = '전체 별점';
-            }
-        } else {
-            selectedElement.textContent = '전체 별점';
-        }
-    }
-
-    // 필터 변경 처리
-    function handleFilterChange() {
-        const optionFilter = document.getElementById('optionFilter');
-        const optionId = optionFilter ? optionFilter.value || null : null;
-        const ratingRange = currentRatingRange; // 별점은 커스텀 드롭다운에서 처리
-
-        updateURL({
-            filter: currentFilter,
-            sort: currentSort,
-            ratingRange: ratingRange,
-            optionId: optionId
-        });
-    }
-
-    // 필터 탭 클릭
-    function applyFilter(filter) {
-        const optionFilter = document.getElementById('optionFilter');
-        const optionId = optionFilter ? optionFilter.value || null : null;
-        const ratingRange = currentRatingRange;
-
-        updateURL({
-            filter: filter,
-            sort: currentSort,
-            ratingRange: ratingRange,
-            optionId: optionId
-        });
-    }
-
-    // 정렬 탭 클릭
-    function applySort(sort) {
-        const optionFilter = document.getElementById('optionFilter');
-        const optionId = optionFilter ? optionFilter.value || null : null;
-        const ratingRange = currentRatingRange;
-
-        updateURL({
-            filter: currentFilter,
-            sort: sort,
-            ratingRange: ratingRange,
-            optionId: optionId
-        });
-    }
-
-    // URL 업데이트 및 페이지 이동
-    function updateURL(params) {
-        const url = new URL(window.location.href);
-        const searchParams = new URLSearchParams();
-
-        if (params.filter && params.filter !== 'all') {
-            searchParams.append('filter', params.filter);
-        }
-        if (params.sort && params.sort !== 'latest') {
-            searchParams.append('sort', params.sort);
-        }
-        if (params.ratingRange) {
-            searchParams.append('ratingRange', params.ratingRange);
-        }
-        if (params.optionId) {
-            searchParams.append('optionId', params.optionId);
-        }
-        if (params.page && params.page > 1) {
-            searchParams.append('page', params.page);
-        }
-
-        url.search = searchParams.toString();
-        window.location.href = url.toString();
-    }
-
-    //페이지 버튼 호출 함수
-    function goToPage(page) {
-        const optionId = document.getElementById('optionFilter') ? document.getElementById('optionFilter').value || null : null;
-
-        updateURL({
-            filter: currentFilter,
-            sort: currentSort,
-            ratingRange: currentRatingRange,
-            optionId: optionId,
-            page: page
-        });
-    }
-
-
-    // 필터된 결과의 평균 별점 업데이트
-    function updateAverageStars() {
-        const averageRatingElement = document.querySelector('.current-filter-rating'); // 새로운 클래스
-        const starsElement = document.querySelector('#currentFilterStars'); // 새로운 ID
-
-        if (averageRatingElement && starsElement) {
-            const averageRating = parseFloat(averageRatingElement.textContent);
-            if (!isNaN(averageRating)) {
-                starsElement.innerHTML = generateStars(averageRating);
-            }
-        }
-    }
-
-    // 별점 생성 함수
-    function generateStars(rating) {
-        let stars = '';
-        for (let i = 1; i <= 5; i++) {
-            if (i <= rating) {
-                stars += '★';
-            } else if (i - 0.5 <= rating) {
-                stars += '★';
-            } else {
-                stars += '☆';
-            }
-        }
-        return stars;
-    }
-
-    // AJAX를 통한 필터링 (선택사항)
-    function loadReviewsAjax(filter, sort, ratingRange, optionId) {
-        if (!productId) return;
-
-        const params = new URLSearchParams();
-        params.append('filter', filter || 'all');
-        params.append('sort', sort || 'latest');
-        if (ratingRange) params.append('ratingRange', ratingRange);
-        if (optionId) params.append('optionId', optionId);
-
-        const url = `/api/product/${productId}/reviews?${params.toString()}`;
-
-        fetch(url)
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    updateReviewList(data.reviews);
-                    updateStatistics(data.averageRating, data.reviewCount, data.filterCounts);
-                } else {
-                    console.error('리뷰 로딩 실패:', data.error);
-                }
-            })
-            .catch(error => {
-                console.error('AJAX 오류:', error);
+        // 리뷰 이미지 클릭 시 확대 보기
+        document.querySelectorAll('.review-image').forEach(img => {
+            img.addEventListener('click', () => {
+                window.open(img.src, '_blank');
             });
-    }
+        });
 
-    // 리뷰 목록 업데이트 (AJAX용)
-    function updateReviewList(reviews) {
-        const reviewList = document.querySelector('.review-list');
+        // 페이지 로드 시 초기화
+        document.addEventListener('DOMContentLoaded', () => {
+            updateOverallStars();
+            updateAverageStars();
 
-        if (reviews.length === 0) {
-            reviewList.innerHTML = `
+            // 드롭다운 변경 이벤트 리스너
+            const optionFilter = document.getElementById('optionFilter');
+            if (optionFilter) {
+                optionFilter.addEventListener('change', handleFilterChange);
+            }
+
+            // 드롭다운 외부 클릭 시 닫기
+            document.addEventListener('click', function(e) {
+                if (!document.getElementById('ratingDropdown').contains(e.target)) {
+                    closeRatingDropdown();
+                }
+            });
+
+            // 현재 선택된 별점 표시
+            updateSelectedRating();
+        });
+
+        // 전체 별점 업데이트 (변경되지 않음)
+        function updateOverallStars() {
+            const overallStarsElement = document.querySelector('#overallStars');
+            if (overallStarsElement) {
+                overallStarsElement.innerHTML = generateStars(overallAverageRating);
+            }
+        }
+
+        // 별점 드롭다운 토글
+        function toggleRatingDropdown() {
+            const header = document.querySelector('.dropdown-header');
+            const content = document.getElementById('ratingDropdownContent');
+
+            header.classList.toggle('open');
+            content.classList.toggle('show');
+        }
+
+        // 별점 드롭다운 닫기
+        function closeRatingDropdown() {
+            const header = document.querySelector('.dropdown-header');
+            const content = document.getElementById('ratingDropdownContent');
+
+            header.classList.remove('open');
+            content.classList.remove('show');
+        }
+
+        // 별점 선택
+        function selectRating(value, text) {
+            document.getElementById('selectedRating').textContent = text;
+            closeRatingDropdown();
+
+            const optionId = document.getElementById('optionFilter') ?
+                document.getElementById('optionFilter').value || null : null;
+
+            updateURL({
+                filter: currentFilter,
+                sort: currentSort,
+                ratingRange: value || null,
+                optionId: optionId
+            });
+        }
+
+        // 현재 선택된 별점 표시 업데이트
+        function updateSelectedRating() {
+            const selectedElement = document.getElementById('selectedRating');
+            if (currentRatingRange) {
+                switch(currentRatingRange) {
+                    case '5': selectedElement.textContent = '5점'; break;
+                    case '4': selectedElement.textContent = '4점'; break;
+                    case '3': selectedElement.textContent = '3점'; break;
+                    case '2': selectedElement.textContent = '2점'; break;
+                    case '1': selectedElement.textContent = '1점'; break;
+                    default: selectedElement.textContent = '전체 별점';
+                }
+            } else {
+                selectedElement.textContent = '전체 별점';
+            }
+        }
+
+        // 필터 변경 처리
+        function handleFilterChange() {
+            const optionFilter = document.getElementById('optionFilter');
+            const optionId = optionFilter ? optionFilter.value || null : null;
+            const ratingRange = currentRatingRange; // 별점은 커스텀 드롭다운에서 처리
+
+            updateURL({
+                filter: currentFilter,
+                sort: currentSort,
+                ratingRange: ratingRange,
+                optionId: optionId
+            });
+        }
+
+        // 필터 탭 클릭
+        function applyFilter(filter) {
+            const optionFilter = document.getElementById('optionFilter');
+            const optionId = optionFilter ? optionFilter.value || null : null;
+            const ratingRange = currentRatingRange;
+
+            updateURL({
+                filter: filter,
+                sort: currentSort,
+                ratingRange: ratingRange,
+                optionId: optionId
+            });
+        }
+
+        // 정렬 탭 클릭
+        function applySort(sort) {
+            const optionFilter = document.getElementById('optionFilter');
+            const optionId = optionFilter ? optionFilter.value || null : null;
+            const ratingRange = currentRatingRange;
+
+            updateURL({
+                filter: currentFilter,
+                sort: sort,
+                ratingRange: ratingRange,
+                optionId: optionId
+            });
+        }
+
+        // URL 업데이트 및 페이지 이동
+        function updateURL(params) {
+            const url = new URL(window.location.href);
+            const searchParams = new URLSearchParams();
+
+            if (params.filter && params.filter !== 'all') {
+                searchParams.append('filter', params.filter);
+            }
+            if (params.sort && params.sort !== 'latest') {
+                searchParams.append('sort', params.sort);
+            }
+            if (params.ratingRange) {
+                searchParams.append('ratingRange', params.ratingRange);
+            }
+            if (params.optionId) {
+                searchParams.append('optionId', params.optionId);
+            }
+            if (params.page && params.page > 1) {
+                searchParams.append('page', params.page);
+            }
+
+            url.search = searchParams.toString();
+            window.location.href = url.toString();
+        }
+
+        //페이지 버튼 호출 함수
+        function goToPage(page) {
+            const optionId = document.getElementById('optionFilter') ? document.getElementById('optionFilter').value || null : null;
+
+            updateURL({
+                filter: currentFilter,
+                sort: currentSort,
+                ratingRange: currentRatingRange,
+                optionId: optionId,
+                page: page
+            });
+        }
+
+
+        // 필터된 결과의 평균 별점 업데이트
+        function updateAverageStars() {
+            const averageRatingElement = document.querySelector('.current-filter-rating'); // 새로운 클래스
+            const starsElement = document.querySelector('#currentFilterStars'); // 새로운 ID
+
+            if (averageRatingElement && starsElement) {
+                const averageRating = parseFloat(averageRatingElement.textContent);
+                if (!isNaN(averageRating)) {
+                    starsElement.innerHTML = generateStars(averageRating);
+                }
+            }
+        }
+
+        // 별점 생성 함수
+        function generateStars(rating) {
+            let stars = '';
+            for (let i = 1; i <= 5; i++) {
+                if (i <= rating) {
+                    stars += '★';
+                } else if (i - 0.5 <= rating) {
+                    stars += '★';
+                } else {
+                    stars += '☆';
+                }
+            }
+            return stars;
+        }
+
+        // AJAX를 통한 필터링 (선택사항)
+        function loadReviewsAjax(filter, sort, ratingRange, optionId) {
+            if (!productId) return;
+
+            const params = new URLSearchParams();
+            params.append('filter', filter || 'all');
+            params.append('sort', sort || 'latest');
+            if (ratingRange) params.append('ratingRange', ratingRange);
+            if (optionId) params.append('optionId', optionId);
+
+            const url = `/api/product/${productId}/reviews?${params.toString()}`;
+
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        updateReviewList(data.reviews);
+                        updateStatistics(data.averageRating, data.reviewCount, data.filterCounts);
+                    } else {
+                        console.error('리뷰 로딩 실패:', data.error);
+                    }
+                })
+                .catch(error => {
+                    console.error('AJAX 오류:', error);
+                });
+        }
+
+        // 리뷰 목록 업데이트 (AJAX용)
+        function updateReviewList(reviews) {
+            const reviewList = document.querySelector('.review-list');
+
+            if (reviews.length === 0) {
+                reviewList.innerHTML = `
                 <div class="empty-state">
                     <div class="empty-icon">💬</div>
                     <h3>조건에 맞는 리뷰가 없습니다</h3>
                     <p>다른 필터를 선택해보세요!</p>
                 </div>
             `;
-            return;
-        }
+                return;
+            }
 
-        let html = '';
-        reviews.forEach(review => {
-            html += `
+            let html = '';
+            reviews.forEach(review => {
+                html += `
                 <div class="review-item">
                     <div class="review-header">
                         <div class="reviewer-info">
@@ -979,49 +979,49 @@
                     ${review.isPhotoReview ? `
                         <div class="review-images">
                             ${review.imageUrls && review.imageUrls.length > 0 ?
-                review.imageUrls.map(url => `<img src="${url}" alt="리뷰 이미지" class="review-image">`).join('') :
-                '<img src="https://via.placeholder.com/80x80/35c5f0/white?text=📷" alt="리뷰 이미지" class="review-image">'
-            }
+                    review.imageUrls.map(url => `<img src="${url}" alt="리뷰 이미지" class="review-image">`).join('') :
+                    '<img src="https://via.placeholder.com/80x80/35c5f0/white?text=📷" alt="리뷰 이미지" class="review-image">'
+                }
                         </div>
                     ` : ''}
                 </div>
             `;
-        });
-
-        reviewList.innerHTML = html;
-
-        // 이미지 클릭 이벤트 재등록
-        document.querySelectorAll('.review-image').forEach(img => {
-            img.addEventListener('click', () => {
-                window.open(img.src, '_blank');
             });
-        });
-    }
 
-    // 통계 업데이트 (AJAX용)
-    function updateStatistics(averageRating, reviewCount, filterCounts) {
-        document.querySelector('.average-rating').textContent = averageRating.toFixed(1);
-        document.querySelector('.review-count').textContent = `총 ${reviewCount}개의 리뷰`;
+            reviewList.innerHTML = html;
 
-        // 필터 카운트 업데이트
-        if (filterCounts) {
-            const tabs = document.querySelectorAll('.filter-tab');
-            tabs.forEach(tab => {
-                const countSpan = tab.querySelector('.count');
-                if (countSpan) {
-                    if (tab.textContent.includes('전체')) {
-                        countSpan.textContent = `(${filterCounts.all || 0})`;
-                    } else if (tab.textContent.includes('포토리뷰')) {
-                        countSpan.textContent = `(${filterCounts.photo || 0})`;
-                    } else if (tab.textContent.includes('구매자')) {
-                        countSpan.textContent = `(${filterCounts.verified || 0})`;
-                    }
-                }
+            // 이미지 클릭 이벤트 재등록
+            document.querySelectorAll('.review-image').forEach(img => {
+                img.addEventListener('click', () => {
+                    window.open(img.src, '_blank');
+                });
             });
         }
 
-        updateAverageStars();
-    }
-</script>
+        // 통계 업데이트 (AJAX용)
+        function updateStatistics(averageRating, reviewCount, filterCounts) {
+            document.querySelector('.average-rating').textContent = averageRating.toFixed(1);
+            document.querySelector('.review-count').textContent = `총 ${reviewCount}개의 리뷰`;
+
+            // 필터 카운트 업데이트
+            if (filterCounts) {
+                const tabs = document.querySelectorAll('.filter-tab');
+                tabs.forEach(tab => {
+                    const countSpan = tab.querySelector('.count');
+                    if (countSpan) {
+                        if (tab.textContent.includes('전체')) {
+                            countSpan.textContent = `(${filterCounts.all || 0})`;
+                        } else if (tab.textContent.includes('포토리뷰')) {
+                            countSpan.textContent = `(${filterCounts.photo || 0})`;
+                        } else if (tab.textContent.includes('구매자')) {
+                            countSpan.textContent = `(${filterCounts.verified || 0})`;
+                        }
+                    }
+                });
+            }
+
+            updateAverageStars();
+        }
+    </script>
 </body>
 </html>
