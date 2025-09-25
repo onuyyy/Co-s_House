@@ -9,12 +9,12 @@
 <body>
     <div layout:fragment="content-header" class="content-header">
         <div>
-            <h2 style="color: #333; font-size: 20px;">상품관리</h2>
+            <h2 class="page-title">상품관리</h2>
         </div>
-        <div style="display: flex; gap: 20px; align-items: center;">
+        <div class="search-container">
             <div class="search-section">
-                <form method="get" style="display: flex; gap: 10px;">
-                    <select name="searchType" style="padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+                <form method="get" class="search-form">
+                    <select name="searchType" class="search-select">
                         <option value="TITLE" th:selected="${param.searchType} == 'TITLE'">상품명</option>
                         <option value="BRAND" th:selected="${param.searchType} == 'BRAND'">브랜드</option>
                         <option value="CATEGORY" th:selected="${param.searchType} == 'CATEGORY'">카테고리</option>
@@ -50,7 +50,7 @@
                                  class="no-image">📷</div>
                         </td>
                         <td><a th:href="@{/api/admin/products/{productId}(productId=${product.productId})}"
-                               style="text-decoration: none; color: #007bff;" th:text="${product.productTitle}">상품명</a></td>
+                               class="product-link" th:text="${product.productTitle}">상품명</a></td>
                         <td th:text="${product.brandName ?: '-'}">브랜드</td>
                         <td th:text="${product.originalPrice != null ? #numbers.formatCurrency(product.originalPrice) : '-'}">원가</td>
                         <td th:text="${product.salePrice != null ? #numbers.formatCurrency(product.salePrice) : '-'}">판매가</td>
@@ -58,7 +58,7 @@
                         <td><span th:class="${product.productStatus == '판매중' ? 'status-active' : 'status-inactive'}"
                                   th:text="${product.productStatus ?: '-'}">상태</span></td>
                     </tr>
-                    <tr th:if="${productList.content.empty}"><td colspan="7" style="padding: 40px; color: #666; text-align: center;">등록된 상품이 없습니다.</td></tr>
+                    <tr th:if="${productList.content.empty}"><td colspan="7" class="product-empty-state">등록된 상품이 없습니다.</td></tr>
                 </tbody>
             </table>
         </div>
@@ -101,75 +101,8 @@
     </div>
 
     <th:block layout:fragment="extra-css">
-        <style>
-            .status-active { background-color: #28a745; color: white; padding: 4px 8px; border-radius: 4px; font-size: 12px; }
-            .status-inactive { background-color: #dc3545; color: white; padding: 4px 8px; border-radius: 4px; font-size: 12px; }
-            .alert { padding: 12px 16px; margin-bottom: 20px; border: 1px solid transparent; border-radius: 4px; }
-            .alert-success { color: #155724; background-color: #d4edda; border-color: #c3e6cb; }
-            .pagination { display: flex; justify-content: center; gap: 5px; margin-top: 20px; }
-            .pagination a, .pagination span { padding: 8px 12px; border: 1px solid #ddd; text-decoration: none; color: #007bff; }
-            .pagination a:hover { background-color: #f5f5f5; }
-            .pagination .current { background-color: #007bff; color: white; border-color: #007bff; }
-            .pagination .page-group { font-weight: bold; }
-            .pagination .page-group:hover { background-color: #e9ecef; }
-            .btn {
-                padding: 8px 16px;
-                border-radius: 4px;
-                text-decoration: none;
-                font-weight: 500;
-                display: inline-flex;
-                align-items: center;
-                gap: 6px;
-                border: 1px solid transparent;
-                cursor: pointer;
-                transition: all 0.2s;
-            }
-            .btn-success {
-                background-color: #28a745;
-                color: white;
-                border-color: #28a745;
-            }
-            .btn-success:hover {
-                background-color: #218838;
-                border-color: #1e7e34;
-            }
-            .btn-primary {
-                background-color: #007bff;
-                color: white;
-                border-color: #007bff;
-            }
-            .btn-primary:hover {
-                background-color: #0056b3;
-                border-color: #0056b3;
-            }
-            .icon {
-                font-size: 14px;
-            }
-            .image-cell {
-                width: 80px;
-                text-align: center;
-                padding: 8px;
-            }
-            .product-thumbnail {
-                width: 60px;
-                height: 60px;
-                object-fit: cover;
-                border-radius: 8px;
-                border: 1px solid #ddd;
-            }
-            .no-image {
-                width: 60px;
-                height: 60px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                background-color: #f8f9fa;
-                border: 1px solid #ddd;
-                border-radius: 8px;
-                color: #6c757d;
-                font-size: 24px;
-            }
-        </style>
+        <link rel="stylesheet" th:href="@{/css/admin/admin-common.css}">
+        <link rel="stylesheet" th:href="@{/css/admin/product.css}">
     </th:block>
 </body>
 </html>

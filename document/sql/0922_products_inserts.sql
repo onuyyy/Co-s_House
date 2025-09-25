@@ -5,7 +5,7 @@ INSERT INTO product (
     product_color, material, capacity, stock_quantity, view_count, sales_count,
     review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
 ) VALUES (
-             1, '클렙튼 1인용 리클라이너 소파 전동 K05M', 1257, 100, 'https://shopping-phinf.pstatic.net/main_2792711/27927112522.20210714133301.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 소파)',
+             1, '클렙튼 1인용 리클라이너 소파 전동 K05M', 127, 100, 'https://shopping-phinf.pstatic.net/main_2792711/27927112522.20210714133301.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 소파)',
              244000.0, 244000.0, 0.0, 0, 0, 0,
              0, '일반 소재', '표준 사이즈', 0, 0, 0,
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()

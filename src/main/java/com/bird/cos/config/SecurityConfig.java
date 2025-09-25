@@ -86,6 +86,9 @@ public class SecurityConfig {
                                 "/account/register",
                                 "/controller/register/login",
                                 "/shop",
+                                "/cart", //todo: 장바구니 권한
+                                "/product/**", //todo: 상품 권한
+                                "/product", //todo: 상품 권한
                                 "/community",
                                 "/events/**"
                         ).permitAll()

@@ -1,8 +1,10 @@
 package com.bird.cos.service.register;
 
 import com.bird.cos.domain.user.User;
+import com.bird.cos.domain.user.UserRole;
 import com.bird.cos.dto.user.RegisterRequest;
 import com.bird.cos.repository.user.UserRepository;
+import com.bird.cos.repository.user.UserRoleRepository;
 import com.bird.cos.service.auth.EmailVerificationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -18,6 +20,7 @@ public class RegisterService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final EmailVerificationService emailVerificationService;
+    private final UserRoleRepository userRoleRepository;
 
     @Transactional
     public User register(RegisterRequest req) {
@@ -36,7 +39,11 @@ public class RegisterService {
             throw new IllegalStateException("이메일 인증을 완료해주세요.");
         }
 
+        UserRole defaultRole = userRoleRepository.findById(1L)
+                .orElseThrow(() -> new IllegalStateException("기본 역할(id=1)을 찾을 수 없습니다."));
+
         User user = User.builder()
+                .userRole(defaultRole)
                 .userEmail(normalizedEmail)
                 .userPassword(passwordEncoder.encode(req.password()))
                 .userNickname(req.nickname())

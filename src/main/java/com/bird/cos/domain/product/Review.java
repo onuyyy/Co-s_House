@@ -83,12 +83,9 @@ public class Review {
         this.reviewContent = content;
         this.rating = rating;
         this.productOption = productOption;
-        // 옵션 ID는 ProductOption 객체 자체를 받아와서 설정해야 할 수 있습니다.
-        // this.productOption = productOptionRepository.findById(optionId).orElseThrow(...)
-        // 여기서는 간단히 필드 업데이트만 예시로 둡니다. 실제로는 ProductOption 객체를 받아와야 함.
     }
 
-    // isPhotoReview 업데이트 (ReviewService에서 직접 해도 됨)
+    // isPhotoReview 업데이트
     public void setIsPhotoReview(boolean isPhotoReview) {
         this.isPhotoReview = isPhotoReview;
     }

@@ -1,11 +1,10 @@
-package com.bird.cos.controller.myPage;
+package com.bird.cos.controller.mypage;
 
-import com.bird.cos.controller.mypage.MyPageController;
 import com.bird.cos.domain.user.User;
 import com.bird.cos.domain.user.UserRole;
-import com.bird.cos.dto.mypage.MyPageUserManageResponse;
-import com.bird.cos.dto.mypage.MyPageUserUpdateRequest;
-import com.bird.cos.service.mypage.MyPageService;
+import com.bird.cos.dto.mypage.MypageUserManageResponse;
+import com.bird.cos.dto.mypage.MypageUserUpdateRequest;
+import com.bird.cos.service.mypage.MypageService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -19,10 +18,8 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.times;
@@ -32,22 +29,19 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 
-@WebMvcTest(MyPageController.class)
+@WebMvcTest(MypageController.class)
 @DisplayName("MyPageController 테스트")
-class MyPageControllerTest {
+class MypageControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
 
     @MockitoBean
-    private MyPageService myPageService;
-
-    @Autowired
-    private ObjectMapper objectMapper;
+    private MypageService myPageService;
 
     private User testUser;
-    private MyPageUserManageResponse testUserResponse;
-    private MyPageUserUpdateRequest testUpdateRequest;
+    private MypageUserManageResponse testUserResponse;
+    private MypageUserUpdateRequest testUpdateRequest;
     private UserRole testUserRole;
 
     @BeforeEach
@@ -68,7 +62,7 @@ class MyPageControllerTest {
                 .termsAgreed(true)
                 .build();
 
-        testUserResponse = MyPageUserManageResponse.builder()
+        testUserResponse = MypageUserManageResponse.builder()
                 .userName("테스트사용자")
                 .userEmail("test@example.com")
                 .userNickname("테스트닉네임")
@@ -82,7 +76,7 @@ class MyPageControllerTest {
                 .membershipPoints(0)
                 .build();
 
-        testUpdateRequest = new MyPageUserUpdateRequest();
+        testUpdateRequest = new MypageUserUpdateRequest();
         testUpdateRequest.setUserNickname("수정된닉네임");
         testUpdateRequest.setUserPhone("010-9876-5432");
         testUpdateRequest.setUserAddress("서울시 서초구");
@@ -91,15 +85,15 @@ class MyPageControllerTest {
     @Test
     @WithMockUser(username = "test@example.com")
     @DisplayName("마이페이지 홈을 성공적으로 조회한다")
-    void myPage_성공() throws Exception {
+    void mypage_success() throws Exception {
         // Given
         given(myPageService.getUserIdFromAuthentication(any())).willReturn(1L);
         given(myPageService.getUserInfoById(1L)).willReturn(testUserResponse);
 
         // When & Then
-        mockMvc.perform(get("/myPage"))
+        mockMvc.perform(get("/mypage"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("myPage/myPage"))
+                .andExpect(view().name("mypage/mypage"))
                 .andExpect(model().attributeExists("userInfo"))
                 .andExpect(model().attributeExists("orderCount"))
                 .andExpect(model().attributeExists("wishlistCount"))
@@ -113,15 +107,15 @@ class MyPageControllerTest {
     @Test
     @WithMockUser(username = "test@example.com")
     @DisplayName("유저 정보 상세보기를 성공적으로 조회한다")
-    void myPageUserDetail_성공() throws Exception {
+    void mypageUserDetail_success() throws Exception {
         // Given
         given(myPageService.getUserIdFromAuthentication(any())).willReturn(1L);
         given(myPageService.getUserInfoById(1L)).willReturn(testUserResponse);
 
         // When & Then
-        mockMvc.perform(get("/myPage/myPageUserDetail"))
+        mockMvc.perform(get("/mypage/mypageUserDetail"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("myPage/myPageUserUpdate"))
+                .andExpect(view().name("mypage/mypageUserUpdate"))
                 .andExpect(model().attributeExists("userInfo"));
 
         verify(myPageService, times(1)).getUserIdFromAuthentication(any());
@@ -131,13 +125,13 @@ class MyPageControllerTest {
     @Test
     @WithMockUser(username = "test@example.com")
     @DisplayName("유저 정보를 성공적으로 업데이트한다")
-    void myPageUserUpdate_성공() throws Exception {
+    void mypageUserUpdate_success() throws Exception {
         // Given
         given(myPageService.getUserIdFromAuthentication(any())).willReturn(1L);
-        doNothing().when(myPageService).updateUserInfoById(eq(1L), any(MyPageUserUpdateRequest.class), eq("currentPassword"));
+        doNothing().when(myPageService).updateUserInfoById(eq(1L), any(MypageUserUpdateRequest.class), eq("currentPassword"));
 
         // When & Then
-        mockMvc.perform(post("/myPage/myPageUserUpdate")
+        mockMvc.perform(post("/mypage/mypageUserUpdate")
                         .with(csrf())
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                         .param("userNickname", "수정된닉네임")
@@ -145,21 +139,21 @@ class MyPageControllerTest {
                         .param("userAddress", "서울시 서초구")
                         .param("currentPassword", "currentPassword"))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("/myPage/myPageUserDetail"));
+                .andExpect(redirectedUrl("/mypage/mypageUserDetail"));
 
         verify(myPageService, times(1)).getUserIdFromAuthentication(any());
-        verify(myPageService, times(1)).updateUserInfoById(eq(1L), any(MyPageUserUpdateRequest.class), eq("currentPassword"));
+        verify(myPageService, times(1)).updateUserInfoById(eq(1L), any(MypageUserUpdateRequest.class), eq("currentPassword"));
     }
 
     @Test
     @WithMockUser(username = "test@example.com")
     @DisplayName("비밀번호 검증이 성공한다")
-    void validatePassword_성공() throws Exception {
+    void validatePassword_success() throws Exception {
         // Given
         given(myPageService.validateCurrentPassword(eq("correctPassword"), any(), any())).willReturn(true);
 
         // When & Then
-        mockMvc.perform(post("/myPage/validatePassword")
+        mockMvc.perform(post("/mypage/validatePassword")
                         .with(csrf())
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                         .param("currentPassword", "correctPassword"))
@@ -172,12 +166,12 @@ class MyPageControllerTest {
     @Test
     @WithMockUser(username = "test@example.com")
     @DisplayName("비밀번호 검증이 실패한다")
-    void validatePassword_실패() throws Exception {
+    void validatePassword_fail() throws Exception {
         // Given
         given(myPageService.validateCurrentPassword(eq("wrongPassword"), any(), any())).willReturn(false);
 
         // When & Then
-        mockMvc.perform(post("/myPage/validatePassword")
+        mockMvc.perform(post("/mypage/validatePassword")
                         .with(csrf())
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                         .param("currentPassword", "wrongPassword"))
@@ -190,12 +184,12 @@ class MyPageControllerTest {
     @Test
     @WithMockUser(username = "test@example.com")
     @DisplayName("소셜 로그인 사용자의 비밀번호 검증이 실패한다")
-    void validatePassword_소셜로그인_실패() throws Exception {
+    void validatePassword_social_login_fail() throws Exception {
         // Given
         given(myPageService.validateCurrentPassword(eq("anyPassword"), any(), any())).willReturn(false);
 
         // When & Then
-        mockMvc.perform(post("/myPage/validatePassword")
+        mockMvc.perform(post("/mypage/validatePassword")
                         .with(csrf())
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                         .param("currentPassword", "anyPassword"))
@@ -208,13 +202,13 @@ class MyPageControllerTest {
     @Test
     @WithMockUser(username = "test@example.com")
     @DisplayName("회원탈퇴를 성공적으로 처리한다")
-    void deleteUser_성공() throws Exception {
+    void mypageUserDelete_success() throws Exception {
         // Given
         given(myPageService.getUserIdFromAuthentication(any())).willReturn(1L);
         doNothing().when(myPageService).deleteUserInfoById(1L);
 
         // When & Then
-        mockMvc.perform(post("/myPage/myPageUserDelete")
+        mockMvc.perform(post("/mypage/mypageUserDelete")
                         .with(csrf()))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/"));
@@ -226,15 +220,15 @@ class MyPageControllerTest {
     @Test
     @WithMockUser(username = "test@example.com")
     @DisplayName("존재하지 않는 사용자로 인해 회원탈퇴가 실패한다")
-    void deleteUser_사용자없음_실패() throws Exception {
+    void mypageUserDelete_fail() throws Exception {
         // Given
         given(myPageService.getUserIdFromAuthentication(any())).willThrow(new IllegalArgumentException("사용자를 찾을 수 없습니다."));
 
         // When & Then
-        mockMvc.perform(post("/myPage/myPageUserDelete")
+        mockMvc.perform(post("/mypage/mypageUserDelete")
                         .with(csrf()))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("/myPage/myPageUserDetail?error=withdrawal_failed"));
+                .andExpect(redirectedUrl("/mypage/mypageUserDetail?error=withdrawal_failed"));
 
         verify(myPageService, times(1)).getUserIdFromAuthentication(any());
     }

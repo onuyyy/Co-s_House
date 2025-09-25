@@ -42,7 +42,7 @@ public class QuestionController {
         model.addAttribute("hasNext", questionPage.hasNext());
         model.addAttribute("hasPrevious", questionPage.hasPrevious());
 
-        return "question/questionList";
+        return "/question/question-list";
     }
 
 
@@ -60,7 +60,7 @@ public class QuestionController {
         questionRequest.setCustomerPhone(currentUser.getUserPhone());
         model.addAttribute("questionDto", questionRequest);
 
-        return "question/questionInfo";
+        return "/question/question-info";
     }
 
     /**
@@ -74,7 +74,7 @@ public class QuestionController {
             return "redirect:/question";
         } catch (Exception e) {
             model.addAttribute("error", "문의 등록 중 오류가 발생했습니다.");
-            return "question/questionInfo";
+            return "/question/question-info";
         }
     }
 
@@ -87,7 +87,7 @@ public class QuestionController {
             Long currentUserId = questionService.getUserIdFromAuthentication(authentication);
             QuestionManageResponse question = questionService.getQuestionDetail(id, currentUserId);
             model.addAttribute("question", question);
-            return "question/questionDetail";
+            return "/question/question-detail";
         } catch (RuntimeException e) {
             return "redirect:/question";
         }
@@ -102,7 +102,7 @@ public class QuestionController {
             Long currentUserId = questionService.getUserIdFromAuthentication(authentication);
             QuestionManageResponse question = questionService.getQuestionDetail(id, currentUserId);
             model.addAttribute("questionDto", question.toUpdateRequest());
-            return "question/questionInfo";
+            return "/question/question-info";
         } catch (RuntimeException e) {
             return "redirect:/question";
         }

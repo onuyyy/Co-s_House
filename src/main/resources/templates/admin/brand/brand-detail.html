@@ -8,7 +8,7 @@
 </head>
 <body>
     <div layout:fragment="content-header" class="content-header">
-        <h2 style="color: #333; font-size: 20px;">브랜드 상세정보</h2>
+        <h2 class="page-title">브랜드 상세정보</h2>
         <div class="header-actions">
             <a th:href="@{/api/admin/brands}" class="btn btn-secondary">목록으로</a>
         </div>
@@ -28,7 +28,7 @@
             <h3>🏷️ 브랜드 정보</h3>
             <div class="brand-info">
                 <div th:if="${brand.logoUrl}" class="brand-logo-large">
-                    <img th:src="${brand.logoUrl}" alt="브랜드 로고" style="width: 120px; height: 120px; object-fit: cover; border-radius: 8px;">
+                    <img th:src="${brand.logoUrl}" alt="브랜드 로고" class="brand-logo-large">
                 </div>
                 <div class="brand-details">
                     <div class="detail-grid">
@@ -41,7 +41,7 @@
         </div>
 
         <!-- 수정 폼 -->
-        <div class="detail-card" id="editSection" style="display: none;">
+        <div class="detail-card hidden" id="editSection">
             <h3>✏️ 브랜드 정보 수정</h3>
             <form th:action="@{/api/admin/brands/{brandId}/update(brandId=${brand.brandId})}" method="post">
                 <div class="form-group">
@@ -71,22 +71,8 @@
     </div>
 
     <th:block layout:fragment="extra-css">
-        <style>
-            .mode-selector { display: flex; gap: 10px; margin-bottom: 20px; padding: 10px; background-color: #f8f9fa; border-radius: 8px; }
-            .mode-btn { padding: 8px 16px; border: 1px solid #dee2e6; background-color: #ffffff; color: #6c757d; border-radius: 6px; cursor: pointer; }
-            .mode-btn.active { background-color: #007bff; color: white; }
-            .brand-info { display: flex; gap: 20px; align-items: flex-start; }
-            .detail-grid { display: grid; grid-template-columns: 120px 1fr; gap: 12px 20px; }
-            .detail-label { font-weight: 600; background-color: #f8f9fa; padding: 8px 12px; border-radius: 6px; }
-            .detail-value { padding: 8px 12px; border: 1px solid #e9ecef; border-radius: 6px; }
-            .form-group { margin-bottom: 15px; }
-            .form-control { width: 100%; padding: 10px; border: 1px solid #ced4da; border-radius: 6px; }
-            .form-actions { display: flex; gap: 10px; margin-top: 20px; }
-            .readonly-message { background-color: #e7f3ff; padding: 16px; border-radius: 8px; margin-top: 20px; }
-            .alert { padding: 12px; margin-bottom: 20px; border-radius: 4px; }
-            .alert-success { color: #155724; background-color: #d4edda; }
-            .alert-danger { color: #721c24; background-color: #f8d7da; }
-        </style>
+        <link rel="stylesheet" th:href="@{/css/admin/admin-common.css}">
+        <link rel="stylesheet" th:href="@{/css/admin/brand.css}">
     </th:block>
 
     <th:block layout:fragment="extra-scripts">
