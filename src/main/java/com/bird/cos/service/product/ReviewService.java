@@ -78,25 +78,34 @@ public class ReviewService {
                 .collect(Collectors.toList());
     }
 
-    // 상품별 리뷰 조회 (페이징 포함)
-    @Transactional(readOnly = true) // readOnly 명시
+    @Transactional(readOnly = true)
     public Map<String, Object> findReviewsByProductIdWithFilterPage(Long productId, String filter, String sort,
                                                                     String ratingRange, Long optionId, int page, int size) {
         Pageable pageable = createPageable(page - 1, size, sort);
 
         Page<Review> reviewPage;
 
-
-        if (optionId != null) {
-            reviewPage = reviewRepository.findByProduct_ProductIdAndProductOption_OptionId(productId, optionId, pageable);
+        // 필터에 따라 다른 리포지토리 메서드 호출
+        if ("photo".equals(filter)) {
+            if (optionId != null) {
+                reviewPage = reviewRepository.findPhotoReviewsByProductIdAndOptionId(productId, optionId, pageable);
+            } else {
+                reviewPage = reviewRepository.findPhotoReviewsByProductId(productId, pageable);
+            }
         } else {
-            reviewPage = reviewRepository.findByProduct_ProductId(productId, pageable);
+            if (optionId != null) {
+                reviewPage = reviewRepository.findByProduct_ProductIdAndProductOption_OptionId(productId, optionId, pageable);
+            } else {
+                reviewPage = reviewRepository.findByProduct_ProductId(productId, pageable);
+            }
         }
 
         List<Review> reviews = reviewPage.getContent();
 
-
-        reviews = applyFilters(reviews, filter, ratingRange); // 서비스 계층에서 추가 필터링
+        // 별점 필터만 서비스에서 적용
+        if (ratingRange != null && !ratingRange.isEmpty()) {
+            reviews = applyRatingFilter(reviews, ratingRange);
+        }
 
         List<ReviewResponse> reviewResponses = reviews.stream()
                 .map(ReviewResponse::fromEntity)
@@ -111,6 +120,55 @@ public class ReviewService {
         result.put("hasPrevious", reviewPage.hasPrevious());
 
         return result;
+    }
+
+    private List<Review> applyRatingFilter(List<Review> reviews, String ratingRange) {
+        if (ratingRange == null || ratingRange.isEmpty()) {
+            return reviews;
+        }
+
+        switch (ratingRange) {
+            case "5":
+                return reviews.stream()
+                        .filter(r -> r.getRating() != null && r.getRating().compareTo(BigDecimal.valueOf(5)) == 0)
+                        .collect(Collectors.toList());
+            case "4":
+                return reviews.stream()
+                        .filter(r -> r.getRating() != null && r.getRating().compareTo(BigDecimal.valueOf(4)) == 0)
+                        .collect(Collectors.toList());
+            case "3":
+                return reviews.stream()
+                        .filter(r -> r.getRating() != null && r.getRating().compareTo(BigDecimal.valueOf(3)) == 0)
+                        .collect(Collectors.toList());
+            case "2":
+                return reviews.stream()
+                        .filter(r -> r.getRating() != null && r.getRating().compareTo(BigDecimal.valueOf(2)) == 0)
+                        .collect(Collectors.toList());
+            case "1":
+                return reviews.stream()
+                        .filter(r -> r.getRating() != null && r.getRating().compareTo(BigDecimal.valueOf(1)) == 0)
+                        .collect(Collectors.toList());
+            case "4-5":
+                return reviews.stream()
+                        .filter(r -> r.getRating() != null
+                                && r.getRating().compareTo(BigDecimal.valueOf(4)) >= 0
+                                && r.getRating().compareTo(BigDecimal.valueOf(5)) <= 0)
+                        .collect(Collectors.toList());
+            case "3-5":
+                return reviews.stream()
+                        .filter(r -> r.getRating() != null
+                                && r.getRating().compareTo(BigDecimal.valueOf(3)) >= 0
+                                && r.getRating().compareTo(BigDecimal.valueOf(5)) <= 0)
+                        .collect(Collectors.toList());
+            case "1-2":
+                return reviews.stream()
+                        .filter(r -> r.getRating() != null
+                                && r.getRating().compareTo(BigDecimal.valueOf(1)) >= 0
+                                && r.getRating().compareTo(BigDecimal.valueOf(2)) <= 0)
+                        .collect(Collectors.toList());
+            default:
+                return reviews;
+        }
     }
 
     // 상품별 리뷰 조회 (페이징 없음)
@@ -154,9 +212,11 @@ public class ReviewService {
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 사용자입니다: " + userNickname));
         Product product = productRepository.findById(productId)
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 상품입니다: " + productId));
-        ProductOption productOption = productOptionRepository.findById(requestDto.getOptionId())
-                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 옵션입니다: " + requestDto.getOptionId()));
-
+        ProductOption productOption = null;
+        if (requestDto.getOptionId() != null) {
+            productOption = productOptionRepository.findById(requestDto.getOptionId())
+                    .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 옵션입니다: " + requestDto.getOptionId()));
+        }
         boolean isPhotoReview = (imageFiles != null && !imageFiles.stream().allMatch(MultipartFile::isEmpty));
 
         Review review = Review.builder()
@@ -472,7 +532,7 @@ public class ReviewService {
                             return r1.getCreatedAt().compareTo(r2.getCreatedAt());
                         })
                         .collect(Collectors.toList());
-            case "rating-high":  // 컨트롤러/HTML에서 사용하는 형식에 맞춤
+            case "rating-high":
             case "rating_high":
                 return reviews.stream()
                         .sorted((r1, r2) -> {
@@ -482,7 +542,7 @@ public class ReviewService {
                             return r2.getRating().compareTo(r1.getRating());
                         })
                         .collect(Collectors.toList());
-            case "rating-low":   // 컨트롤러/HTML에서 사용하는 형식에 맞춤
+            case "rating-low":
             case "rating_low":
                 return reviews.stream()
                         .sorted((r1, r2) -> {

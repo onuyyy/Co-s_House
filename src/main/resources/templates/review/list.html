@@ -596,11 +596,11 @@
                 </a>
                 <a href="#" onclick="applyFilter('photo')"
                    th:class="'filter-tab' + (${currentFilter == 'photo'} ? ' active' : '')">
-                    포토리뷰 <span class="count" th:text="'(' + ${filterCounts.photo} + ')'"></span>
+                    포토리뷰
                 </a>
                 <a href="#" onclick="applyFilter('verified')"
                    th:class="'filter-tab' + (${currentFilter == 'verified'} ? ' active' : '')">
-                    구매자 <span class="count" th:text="'(' + ${filterCounts.verified} + ')'"></span>
+                    구매자
                 </a>
                 <a href="#" onclick="applySort('rating-high')"
                    th:class="'filter-tab' + (${currentSort == 'rating-high'} ? ' active' : '')">
