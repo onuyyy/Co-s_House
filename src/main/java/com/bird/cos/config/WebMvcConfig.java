@@ -26,7 +26,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         // "/images/**" URL로 요청이 들어오면
         // "file:///실제_파일_저장_경로/" 에서 파일을 찾도록 매핑합니다.
-        registry.addResourceHandler("/images/**")
+        registry.addResourceHandler("/images/uploaded/**")
                 .addResourceLocations("file:///" + uploadDir); // file:/// 주의 (슬래시 3개)
     }
 }

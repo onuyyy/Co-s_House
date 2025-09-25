@@ -82,7 +82,6 @@ public class ReviewService {
                 .collect(Collectors.toList());
     }
 
-    // 상품별 리뷰 조회 (페이징 포함)
     @Transactional(readOnly = true) // readOnly 명시
     public Map<String, Object> findReviewsByProductIdWithFilterPage(Long productId, String filter, String sort,
                                                                     String ratingRange, Long optionId, int page, int size) {
@@ -100,9 +99,10 @@ public class ReviewService {
 
         List<Review> reviews = reviewPage.getContent();
 
-        // **주의**: 페이징된 결과를 다시 필터링하면 실제 페이지 크기가 줄어들 수 있습니다.
-        // Repository 쿼리 자체에서 필터링을 수행하는 것이 가장 정확합니다.
-        reviews = applyFilters(reviews, filter, ratingRange); // 서비스 계층에서 추가 필터링
+        // 별점 필터만 서비스에서 적용 (DB 쿼리로 처리하기 어려운 경우)
+        if (ratingRange != null && !ratingRange.isEmpty()) {
+            reviews = applyRatingFilter(reviews, ratingRange);
+        }
 
         List<ReviewResponse> reviewResponses = reviews.stream()
                 .map(ReviewResponse::fromEntity)
@@ -123,10 +123,7 @@ public class ReviewService {
     @Transactional(readOnly = true) // readOnly 명시
     public List<ReviewResponse> findReviewsByProductIdWithFilter(Long productId, String filter, String sort,
                                                                  String ratingRange, Long optionId) {
-        // 이 메서드는 `findReviewsByProductIdWithFilterPage`와 중복되므로,
-        // 필요하다면 `findReviewsByProductIdWithFilterPage`를 호출하고 모든 페이지를 합치는 방식으로 구현하거나,
-        // Repository에서 모든 데이터를 불러오는 전용 메서드를 만드는 것이 좋습니다.
-        // 현재 구현은 `largePageSize`를 사용하는데, 데이터가 매우 많으면 성능 문제가 될 수 있습니다.
+
         int largePageSize = 10000;
         Pageable pageable = createPageable(0, largePageSize, sort);
 
@@ -144,6 +141,55 @@ public class ReviewService {
                 .map(ReviewResponse::fromEntity)
                 .collect(Collectors.toList());
     }
+  
+    private List<Review> applyRatingFilter(List<Review> reviews, String ratingRange) {
+        if (ratingRange == null || ratingRange.isEmpty()) {
+            return reviews;
+        }
+
+        switch (ratingRange) {
+            case "5":
+                return reviews.stream()
+                        .filter(r -> r.getRating() != null && r.getRating().compareTo(BigDecimal.valueOf(5)) == 0)
+                        .collect(Collectors.toList());
+            case "4":
+                return reviews.stream()
+                        .filter(r -> r.getRating() != null && r.getRating().compareTo(BigDecimal.valueOf(4)) == 0)
+                        .collect(Collectors.toList());
+            case "3":
+                return reviews.stream()
+                        .filter(r -> r.getRating() != null && r.getRating().compareTo(BigDecimal.valueOf(3)) == 0)
+                        .collect(Collectors.toList());
+            case "2":
+                return reviews.stream()
+                        .filter(r -> r.getRating() != null && r.getRating().compareTo(BigDecimal.valueOf(2)) == 0)
+                        .collect(Collectors.toList());
+            case "1":
+                return reviews.stream()
+                        .filter(r -> r.getRating() != null && r.getRating().compareTo(BigDecimal.valueOf(1)) == 0)
+                        .collect(Collectors.toList());
+            case "4-5":
+                return reviews.stream()
+                        .filter(r -> r.getRating() != null
+                                && r.getRating().compareTo(BigDecimal.valueOf(4)) >= 0
+                                && r.getRating().compareTo(BigDecimal.valueOf(5)) <= 0)
+                        .collect(Collectors.toList());
+            case "3-5":
+                return reviews.stream()
+                        .filter(r -> r.getRating() != null
+                                && r.getRating().compareTo(BigDecimal.valueOf(3)) >= 0
+                                && r.getRating().compareTo(BigDecimal.valueOf(5)) <= 0)
+                        .collect(Collectors.toList());
+            case "1-2":
+                return reviews.stream()
+                        .filter(r -> r.getRating() != null
+                                && r.getRating().compareTo(BigDecimal.valueOf(1)) >= 0
+                                && r.getRating().compareTo(BigDecimal.valueOf(2)) <= 0)
+                        .collect(Collectors.toList());
+            default:
+                return reviews;
+        }
+    }
 
     // 리뷰 생성 (Transactional 추가)
     @Transactional // 쓰기 작업이므로 @Transactional 필요
@@ -152,8 +198,12 @@ public class ReviewService {
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 사용자입니다: " + userNickname));
         Product product = productRepository.findById(productId)
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 상품입니다: " + productId));
-        ProductOption productOption = productOptionRepository.findById(requestDto.getOptionId())
-                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 옵션입니다: " + requestDto.getOptionId()));
+
+        ProductOption productOption = null;
+        if (requestDto.getOptionId() != null && requestDto.getOptionId() > 0) {
+            productOption = productOptionRepository.findById(requestDto.getOptionId())
+                    .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 옵션입니다: " + requestDto.getOptionId()));
+        }
 
         boolean isPhotoReview = (imageFiles != null && !imageFiles.stream().allMatch(MultipartFile::isEmpty));
 
@@ -203,8 +253,11 @@ public class ReviewService {
 
         // 1. 리뷰 내용 업데이트
         // 옵션 ID를 통해 ProductOption 엔티티를 찾아서 설정
-        ProductOption productOption = productOptionRepository.findById(updateRequest.getOptionId())
-                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 옵션입니다: " + updateRequest.getOptionId()));
+        ProductOption productOption = null;
+        if (updateRequest.getOptionId() != null && updateRequest.getOptionId() > 0) {
+            productOption = productOptionRepository.findById(updateRequest.getOptionId())
+                    .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 옵션입니다: " + updateRequest.getOptionId()));
+        }
 
         BigDecimal rating = updateRequest.getRating() != null
                 ? BigDecimal.valueOf(updateRequest.getRating())
@@ -216,8 +269,6 @@ public class ReviewService {
                 rating,
                 productOption
         );
-
-
 
         // 2. 이미지 처리
         // 2-1. 삭제할 기존 이미지 처리
@@ -252,14 +303,8 @@ public class ReviewService {
         // 남아있는 이미지가 없으면 isPhotoReview = false
         review.setIsPhotoReview(!review.getReviewImages().isEmpty());
 
-
-        // 변경사항 저장 (review 엔티티는 Dirty Checking에 의해 자동 저장되거나,
-        // 관계 변경 시 reviewRepository.save(review)를 호출할 수 있습니다.)
-        // 여기서는 명시적으로 호출합니다.
         Review updatedReview = reviewRepository.save(review);
 
-        // DB에서 새로 로드하여 최신 상태 (이미지 컬렉션 포함)를 가져옴
-        // (review.getReviewImages()가 Lazy Loading이거나 업데이트 후 바로 반영되지 않을 경우 필요)
         Review fullyLoadedReview = reviewRepository.findById(updatedReview.getReviewId())
                 .orElseThrow(() -> new IllegalStateException("리뷰를 다시 불러올 수 없습니다."));
 

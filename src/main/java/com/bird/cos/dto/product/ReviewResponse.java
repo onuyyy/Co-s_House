@@ -72,7 +72,7 @@ public class ReviewResponse {
         // 이미지 URL 목록 매핑 (저장된 파일명 -> 접근 가능한 URL)
         if (review.getReviewImages() != null) {
             response.imageUrls = review.getReviewImages().stream()
-                    .map(image -> "/images/" + image.getStoredFileName()) // URL 형식으로 변환
+                    .map(image -> "/images/uploaded/" + image.getStoredFileName()) // URL 형식으로 변환
                     .collect(Collectors.toList());
         } else {
             response.imageUrls = Collections.emptyList();
