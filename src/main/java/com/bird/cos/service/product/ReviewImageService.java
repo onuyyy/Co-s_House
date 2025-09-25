@@ -9,10 +9,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Component
 public class ReviewImageService {
-
+    private static final Logger log = LoggerFactory.getLogger(ReviewImageService.class);
     @Value("${file.upload-dir}")
     private String uploadDir;
 
@@ -71,17 +73,22 @@ public class ReviewImageService {
             File file = new File(getFullPath(storedFileName));
             if (file.exists()) { // 파일이 존재하는지 확인
                 if (file.delete()) {
-                    // 성공적으로 삭제됨)
+                    // 성공적으로 삭제됨
+                    log.info("파일 삭제 성공: {}", storedFileName); // 로그 추가 (필요시)
                 } else {
                     // 삭제 실패 (권한 문제 등)
+                    log.warn("파일 삭제 실패: {}", storedFileName); // 로그 추가 (필요시)
                 }
             } else {
-                // 파일이 존재하지 않음)
+                // 파일이 존재하지 않음
+                log.info("삭제하려는 파일이 존재하지 않습니다: {}", storedFileName); // 로그 추가 (필요시)
             }
         } catch (SecurityException e) {
             // 파일 삭제 권한 문제 등
+            log.error("파일 삭제 중 보안 오류 발생: {}, {}", storedFileName, e.getMessage()); // 로그 추가
         } catch (Exception e) {
             // 기타 예외 처리
+            log.error("파일 삭제 중 예상치 못한 오류 발생: {}, {}", storedFileName, e.getMessage()); // 로그 추가
         }
     }
 }
