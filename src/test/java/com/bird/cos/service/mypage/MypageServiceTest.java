@@ -1,10 +1,10 @@
-package com.bird.cos.service.myPage;
+package com.bird.cos.service.mypage;
 
 import com.bird.cos.domain.user.User;
 import com.bird.cos.domain.user.UserRole;
-import com.bird.cos.dto.myPage.MyPageUserManageResponse;
-import com.bird.cos.dto.myPage.MyPageUserUpdateRequest;
-import com.bird.cos.repository.myPage.MyPageRepository;
+import com.bird.cos.dto.mypage.MypageUserManageResponse;
+import com.bird.cos.dto.mypage.MypageUserUpdateRequest;
+import com.bird.cos.repository.mypage.MypageRepository;
 import com.bird.cos.repository.user.UserRepository;
 import com.bird.cos.repository.question.QuestionRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -22,7 +22,6 @@ import java.util.Optional;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.times;
@@ -30,11 +29,11 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.doNothing;
 
 @ExtendWith(MockitoExtension.class)
-@DisplayName("MyPageService 테스트")
-class MyPageServiceTest {
+@DisplayName("MypageService 테스트")
+class MypageServiceTest {
 
     @Mock
-    private MyPageRepository myPageRepository;
+    private MypageRepository myPageRepository;
 
     @Mock
     private UserRepository userRepository;
@@ -46,11 +45,11 @@ class MyPageServiceTest {
     private QuestionRepository questionRepository;
 
     @InjectMocks
-    private MyPageService myPageService;
+    private MypageService myPageService;
 
     private User testUser;
     private User socialUser;
-    private MyPageUserUpdateRequest updateRequest;
+    private MypageUserUpdateRequest updateRequest;
     private UserRole testUserRole;
 
     @BeforeEach
@@ -81,7 +80,7 @@ class MyPageServiceTest {
                 .termsAgreed(true)
                 .build();
 
-        updateRequest = new MyPageUserUpdateRequest();
+        updateRequest = new MypageUserUpdateRequest();
         updateRequest.setUserNickname("수정된닉네임");
         updateRequest.setUserPhone("010-9876-5432");
         updateRequest.setUserAddress("서울시 서초구");
@@ -89,12 +88,12 @@ class MyPageServiceTest {
 
     @Test
     @DisplayName("ID로 사용자 정보를 성공적으로 조회한다")
-    void getUserInfoById_성공() {
+    void getUserInfoById_success() {
         // Given
         given(myPageRepository.findUserForMyPage(1L)).willReturn(Optional.of(testUser));
 
         // When
-        MyPageUserManageResponse result = myPageService.getUserInfoById(1L);
+        MypageUserManageResponse result = myPageService.getUserInfoById(1L);
 
         // Then
         assertThat(result).isNotNull();
@@ -106,7 +105,7 @@ class MyPageServiceTest {
 
     @Test
     @DisplayName("존재하지 않는 ID로 조회 시 예외가 발생한다")
-    void getUserInfoById_사용자없음_예외() {
+    void getUserInfoById_exception() {
         // Given
         given(myPageRepository.findUserForMyPage(999L)).willReturn(Optional.empty());
 
@@ -120,7 +119,7 @@ class MyPageServiceTest {
 
     @Test
     @DisplayName("비밀번호 없이 사용자 정보를 성공적으로 업데이트한다")
-    void updateUserInfoById_비밀번호없음_성공() {
+    void updateUserInfoById_no_pwd_success() {
         // Given
         given(userRepository.findById(1L)).willReturn(Optional.of(testUser));
         given(userRepository.save(any(User.class))).willReturn(testUser);
@@ -135,7 +134,7 @@ class MyPageServiceTest {
 
     @Test
     @DisplayName("올바른 현재 비밀번호로 비밀번호를 성공적으로 변경한다")
-    void updateUserInfoById_비밀번호변경_성공() {
+    void updateUserInfoById_pwd_update_success() {
         // Given
         updateRequest.setUserPassword("newPassword");
         given(userRepository.findById(1L)).willReturn(Optional.of(testUser));
@@ -157,7 +156,7 @@ class MyPageServiceTest {
 
     @Test
     @DisplayName("소셜 로그인 사용자의 비밀번호 변경 시도 시 예외가 발생한다")
-    void updateUserInfoById_소셜사용자_비밀번호변경_예외() {
+    void updateUserInfoById_social_pwd_update_exception() {
         // Given
         updateRequest.setUserPassword("newPassword");
         given(userRepository.findById(2L)).willReturn(Optional.of(socialUser));
@@ -172,7 +171,7 @@ class MyPageServiceTest {
 
     @Test
     @DisplayName("현재 비밀번호가 일치하지 않을 때 예외가 발생한다")
-    void updateUserInfoById_잘못된현재비밀번호_예외() {
+    void updateUserInfoById_error_pwd_exception() {
         // Given
         updateRequest.setUserPassword("newPassword");
         given(userRepository.findById(1L)).willReturn(Optional.of(testUser));
@@ -189,7 +188,7 @@ class MyPageServiceTest {
 
     @Test
     @DisplayName("새 비밀번호가 현재 비밀번호와 같을 때 예외가 발생한다")
-    void updateUserInfoById_동일한비밀번호_예외() {
+    void updateUserInfoById_same_pwd_exception() {
         // Given
         updateRequest.setUserPassword("currentPassword");
         given(userRepository.findById(1L)).willReturn(Optional.of(testUser));
@@ -206,7 +205,7 @@ class MyPageServiceTest {
 
     @Test
     @DisplayName("현재 비밀번호 없이 비밀번호 변경 시도 시 예외가 발생한다")
-    void updateUserInfoById_현재비밀번호없음_예외() {
+    void updateUserInfoById_now_pwd_no_exception() {
         // Given
         updateRequest.setUserPassword("newPassword");
         given(userRepository.findById(1L)).willReturn(Optional.of(testUser));
@@ -221,7 +220,7 @@ class MyPageServiceTest {
 
     @Test
     @DisplayName("ID 기반으로 사용자를 성공적으로 삭제한다")
-    void deleteUserInfoById_성공() {
+    void deleteUserInfoById_success() {
         // Given
         given(userRepository.findById(1L)).willReturn(Optional.of(testUser));
         doNothing().when(questionRepository).anonymizeQuestionsByUser(1L);
@@ -238,7 +237,7 @@ class MyPageServiceTest {
 
     @Test
     @DisplayName("존재하지 않는 사용자 삭제 시 예외가 발생한다")
-    void deleteUserInfoById_사용자없음_예외() {
+    void deleteUserInfoById_no_user_exception() {
         // Given
         given(userRepository.findById(999L)).willReturn(Optional.empty());
 

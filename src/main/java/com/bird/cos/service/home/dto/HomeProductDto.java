@@ -11,4 +11,3 @@ public record HomeProductDto(
         BigDecimal rating,
         Integer reviewCount
 ) {}
-

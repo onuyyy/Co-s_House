@@ -5,39 +5,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>정보수정 - 마이페이지</title>
     <link rel="stylesheet" th:href="@{/css/app.css}">
-    <link rel="stylesheet" th:href="@{/css/myPage/myPage.css}">
-    <link rel="stylesheet" th:href="@{/css/myPage/myPageUserUpdate.css}">
+    <link rel="stylesheet" th:href="@{/css/mypage/mypage-user.css}">
+    <link rel="stylesheet" th:href="@{/css/main/header.css}">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 </head>
 <body>
     <div th:replace="fragments/layout :: header"></div>
 
     <div class="container">
-        <div class="myPage-layout">
+        <div class="mypage-layout">
             <!-- 사이드바 -->
-            <div class="myPage-sidebar">
+            <div class="mypage-sidebar">
                 <h3 style="margin-bottom: 24px; color: var(--color-text);">마이페이지</h3>
                 <ul class="sidebar-nav">
-                    <li><a href="/myPage"><i class="fas fa-user"></i>내 정보</a></li>
+                    <li><a href="/mypage"><i class="fas fa-user"></i>내 정보</a></li>
                     <li><a href="/mypage/orders"><i class="fas fa-shopping-bag"></i>주문내역(미구현)</a></li>
                     <li><a href="/mypage/wishlist"><i class="fas fa-heart"></i>위시리스트(미구현)</a></li>
                     <li><a href="/mypage/reviews"><i class="fas fa-star"></i>리뷰관리(미구현)</a></li>
                     <li><a href="/question"><i class="fas fa-question-circle"></i>문의내역</a></li>
                     <li><a href="/mypage/coupons"><i class="fas fa-ticket-alt"></i>쿠폰함(미구현)</a></li>
                     <li><a href="/mypage/points"><i class="fas fa-coins"></i>적립금(미구현)</a></li>
-                    <li><a class="active" href="/myPage/myPageUserDetail"><i class="fas fa-edit"></i>정보수정</a></li>
+                    <li><a class="active" href="/mypage/mypageUserDetail"><i class="fas fa-edit"></i>정보수정</a></li>
                 </ul>
             </div>
 
             <!-- 메인 컨텐츠 -->
-            <div class="myPage-content">
+            <div class="mypage-content">
                 <div class="user-update-container">
                     <div class="update-header">
                         <h2><i class="fas fa-edit"></i> 개인정보 수정</h2>
                         <p class="update-description">개인정보를 안전하게 관리하세요. 일부 정보는 보안상 수정이 제한될 수 있습니다.</p>
                     </div>
 
-                    <form class="user-update-form" action="/myPage/myPageUserUpdate" method="post">
+                    <form class="user-update-form" action="/mypage/mypageUserUpdate" method="post">
                         <!-- 기본 정보 섹션 -->
                         <div class="form-section">
                             <h3 class="section-title">
@@ -308,6 +308,6 @@
 
     <!-- 다음 우편번호 서비스 API -->
     <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-    <script th:src="@{/js/myPage/myPageUserUpdate.js}"></script>
+    <script th:src="@{/js/mypage/mypage-user.js}"></script>
 </body>
 </html>
