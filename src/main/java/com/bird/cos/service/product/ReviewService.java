@@ -78,6 +78,9 @@ public class ReviewService {
                 .collect(Collectors.toList());
     }
 
+
+    // 상품별 리뷰 조회 (페이징 포함)
+
     @Transactional(readOnly = true)
     public Map<String, Object> findReviewsByProductIdWithFilterPage(Long productId, String filter, String sort,
                                                                     String ratingRange, Long optionId, int page, int size) {
@@ -102,7 +105,11 @@ public class ReviewService {
 
         List<Review> reviews = reviewPage.getContent();
 
+
         // 별점 필터만 서비스에서 적용
+
+        // 별점 필터만 서비스에서 적용 (DB 쿼리로 처리하기 어려운 경우)
+
         if (ratingRange != null && !ratingRange.isEmpty()) {
             reviews = applyRatingFilter(reviews, ratingRange);
         }
@@ -166,6 +173,7 @@ public class ReviewService {
                                 && r.getRating().compareTo(BigDecimal.valueOf(1)) >= 0
                                 && r.getRating().compareTo(BigDecimal.valueOf(2)) <= 0)
                         .collect(Collectors.toList());
+
             default:
                 return reviews;
         }
@@ -246,6 +254,7 @@ public class ReviewService {
 
         return ReviewResponse.fromEntity(fullyLoadedReview);
     }
+
 
     // 리뷰 수정
     @Transactional
@@ -450,7 +459,7 @@ public class ReviewService {
                     .collect(Collectors.toList());
         }
 
-        // 별점 필터 적용 (수정된 로직)
+        // 별점 필터 적용
         if (ratingRange != null && !ratingRange.isEmpty()) {
             switch (ratingRange) {
                 case "5":
@@ -507,7 +516,7 @@ public class ReviewService {
         return reviews;
     }
 
-    // 정렬 적용 메서드 (기존 유지)
+    // 정렬 적용 메서드
     private List<Review> applySorting(List<Review> reviews, String sort) {
         if (reviews.isEmpty()) {
             return reviews;
@@ -557,7 +566,7 @@ public class ReviewService {
         }
     }
 
-    // 페이지 정보 생성 메서드 (기존 유지)
+    // 페이지 정보 생성 메서드
     private Pageable createPageable(int page, int size, String sort) {
         Sort.Direction direction = Sort.Direction.DESC;
         String property = "createdAt";
@@ -578,5 +587,34 @@ public class ReviewService {
                 break;
         }
         return PageRequest.of(page, size, Sort.by(direction, property));
+    }
+
+
+    @Transactional
+    public void ensureDefaultOptionExists(Long productId) {
+        List<ProductOption> existingOptions = productOptionRepository.findByProduct_ProductId(productId);
+
+        if (existingOptions.isEmpty()) {
+            Product product = productRepository.findById(productId)
+                    .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 상품입니다: " + productId));
+
+            ProductOption defaultOption = ProductOption.builder()
+                    .product(product)
+                    .optionName("기본")
+                    .optionValue("기본 옵션")
+                    .additionalPrice(BigDecimal.ZERO)
+                    .build();
+
+            productOptionRepository.save(defaultOption);
+        }
+    }
+
+    //리뷰 작성 시 옵션 목록 조회 (기본 옵션 보장)
+    public List<ProductOption> getOptionsByProductIdForReview(Long productId) {
+        // 먼저 기본 옵션 존재 확인
+        ensureDefaultOptionExists(productId);
+
+        // 옵션 목록 반환
+        return productOptionRepository.findByProductProductId(productId);
     }
 }
