@@ -23,7 +23,11 @@ public enum ErrorCode {
     // 상품 관련
     PRODUCT_NOT_FOUND(HttpStatus.NOT_FOUND, "P001", "상품을 찾을 수 없습니다"),
     PRODUCT_OUT_OF_STOCK(HttpStatus.BAD_REQUEST, "P002", "재고가 부족합니다"),
-    PRODUCT_UNAVAILABLE(HttpStatus.BAD_REQUEST, "P003", "판매 중단된 상품입니다");
+    PRODUCT_UNAVAILABLE(HttpStatus.BAD_REQUEST, "P003", "판매 중단된 상품입니다"),
+    OPTION_NOT_FOUND(HttpStatus.BAD_REQUEST, "OT001", "선택한 옵션을 찾을 수 없습니다."),
+    OPTION_BAD_REQUEST(HttpStatus.BAD_REQUEST, "OT002", "잘못된 상품 옵션입니다."),
+
+    CODE_NOT_FOUND(HttpStatus.BAD_REQUEST, "C001", "코드가 존재하지 않습니다.");
 
     private final HttpStatus status;
     private final String code;

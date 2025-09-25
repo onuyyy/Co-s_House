@@ -15,7 +15,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
     Page<User> findUsersByUserNameContainingIgnoreCase(String username, Pageable pageable);
     Page<User> findUsersByUserEmailContainingIgnoreCase(String email, Pageable pageable);
     Page<User> findUsersByUserNicknameContainingIgnoreCase(String nickname, Pageable pageable);
-    Page<User> findUsersByUserAddressContainingIgnoreCase(String address, Pageable pageable);
     Page<User> findUsersByUserPhoneContainingIgnoreCase(String phone, Pageable pageable);
 
     // 역할별 사용자 검색
@@ -48,7 +47,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     Optional<User> findByUserEmail(String userEmail);
     Optional<User> findByUserNickname(String userNickname);
-    Optional<User> findByUserName(String userName);
 
     // 중복 체크 (자신 제외)
     boolean existsByUserEmailAndUserIdNot(String userEmail, Long userId);

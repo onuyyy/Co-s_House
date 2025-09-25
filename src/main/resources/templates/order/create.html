@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/layout}">
+
+<head th:replace="fragments/layout :: head('주문/결제 - 코딩의집')">
+    <link rel="stylesheet" th:href="@{/css/order.css}">
+</head>
+
+<body class="page font-body">
+    <div th:replace="fragments/layout :: header"></div>
+
+    <main class="page-main">
+        <div class="container">
+            <h1 class="page-title">주문/결제</h1>
+            
+            <div class="order-layout">
+                <!-- 왼쪽 섹션 -->
+                <div class="left-section">
+                    <!-- 주문자 정보 -->
+                    <div class="section-card">
+                        <h2 class="section-title">주문자</h2>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">이름</label>
+                                <input type="text" class="input" th:value="${order.user.userName}" readonly>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">이메일</label>
+                                <input type="email" class="input" th:value="${order.user.userEmail}" readonly>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">전화번호</label>
+                                <select class="phone-select">
+                                    <option value="010">010</option>
+                                    <option value="011">011</option>
+                                    <option value="016">016</option>
+                                </select>
+                                <input type="text" class="phone-input" placeholder="전화번호 입력">
+                            </div>
+                        </div>
+                        <button class="btn btn-outline verification-btn">인증번호 발송</button>
+                    </div>
+
+                    <!-- 배송지 정보 -->
+                    <div class="section-card">
+                        <h2 class="section-title">배송지</h2>
+                        <div class="form-group">
+                            <label class="form-label">배송지명</label>
+                            <input type="text" class="input" placeholder="배송지명 입력">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">받는 사람</label>
+                            <input type="text" class="input" th:value="${order.user.userName}">
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">전화번호</label>
+                                <select class="phone-select">
+                                    <option value="010">010</option>
+                                    <option value="011">011</option>
+                                    <option value="016">016</option>
+                                </select>
+                                <input type="text" class="phone-input" placeholder="전화번호 입력">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">주소</label>
+                            <button class="btn btn-outline address-search-btn">주소찾기</button>
+                        </div>
+                    </div>
+
+                    <!-- 주문 상품 정보 -->
+                    <div class="section-card">
+                        <h2 class="section-title">주문상품
+                            <span class="item-count" th:text="${#lists.size(order.items)} + '건'"></span>
+                        </h2>
+                        <div class="order-items">
+                            <div th:each="item : ${order.items}" class="order-item">
+                                <div class="item-info">
+                                    <div class="item-image">
+                                        <img th:src="@{/images/product-placeholder.jpg}" alt="상품이미지" class="product-img">
+                                    </div>
+                                    <div class="item-details">
+                                        <p class="item-name" th:text="${item.productId}">상품명</p>
+                                        <p class="item-option"
+                                           th:text="${item.productOptionName != null ? item.productOptionName : '옵션 없음'}">
+                                            옵션 정보
+                                        </p>
+                                        <p class="item-price" th:text="${#numbers.formatInteger(item.price, 3, 'COMMA')} + '원'">89,700원</p>
+                                        <p class="item-quantity" th:text="${item.quantity} + '개'">3개</p>
+                                    </div>
+                                </div>
+                                <div class="item-shipping">
+                                    <span class="shipping-label">무료배송</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 장바구니 쿠폰 -->
+                    <div class="section-card">
+                        <h2 class="section-title">장바구니 쿠폰</h2>
+                        <p class="coupon-message">사용 가능한 쿠폰이 없어요.</p>
+                        <button class="coupon-link">쿠폰코드가 있으신가요? ▼</button>
+                    </div>
+
+                    <!-- 포인트 -->
+                    <div class="section-card">
+                        <h2 class="section-title">포인트</h2>
+                        <div class="point-input-group">
+                            <input type="number" class="point-input" placeholder="0" min="0">
+                            <button class="btn btn-outline point-all-btn">전액 사용</button>
+                        </div>
+                        <p class="point-available">사용 가능 포인트 <span class="point-amount">0 P</span></p>
+                    </div>
+                </div>
+
+                <!-- 오른쪽 섹션 - 결제 금액 -->
+                <div class="right-section">
+                    <div class="payment-summary">
+                        <h2 class="summary-title">결제금액</h2>
+                        
+                        <div class="price-row">
+                            <span class="price-label">총 상품 금액</span>
+                            <span class="price-value" th:text="${#numbers.formatInteger(order.totalPrice, 3, 'COMMA')} + '원'">179,400원</span>
+                        </div>
+                        
+                        <div class="price-row">
+                            <span class="price-label">배송비</span>
+                            <span class="price-value">0원</span>
+                        </div>
+                        
+                        <div class="price-row">
+                            <span class="price-label">쿠폰 사용</span>
+                            <span class="price-value">0원</span>
+                        </div>
+                        
+                        <div class="price-row">
+                            <span class="price-label">포인트 사용</span>
+                            <span class="price-value">0원</span>
+                        </div>
+
+                        <div class="total-row">
+                            <span class="total-label">최종 결제 금액</span>
+                            <span class="price-value" th:text="${#numbers.formatInteger(order.totalAmount, 3, 'COMMA')} + '원'"></span>
+                            <span class="installment-text">180 P 적립 예정</span>
+                        </div>
+
+                        <div class="terms-notice">
+                            본인은 만 14세 이상이며, 주문 내용을 확인하였습니다.<br><br>
+                            (주)버킷플레이스는 통신판매중개자로 거래 당사자가 아니므로, 판매자가 등록한 상품정보 및 거래 등에 대해 책임을 지지 않습니다 (단, (주)버킷플레이스가 판매자로 등록 판매한 상품은 판매자로서 책임을 부담합니다).
+                        </div>
+
+                        <button class="payment-btn" th:text="${#numbers.formatInteger(order.totalPrice, 3, 'COMMA')} + '원 결제하기'">179,400원 결제하기</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div th:replace="fragments/layout :: footer"></div>
+</body>
+</html>
