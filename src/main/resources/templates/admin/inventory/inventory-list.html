@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/admin-layout}"
+      lang="ko">
+<head>
+    <title>재고관리</title>
+
+    <style>
+        .low-stock {
+            background-color: #fff5f5;
+        }
+        .stock-warning {
+            color: #e53e3e;
+            font-weight: bold;
+        }
+        .badge {
+            display: inline-block;
+            padding: 4px 8px;
+            font-size: 12px;
+            border-radius: 4px;
+            color: white;
+            font-weight: bold;
+        }
+        .badge-danger {
+            background-color: #e53e3e;
+        }
+        .badge-warning {
+            background-color: #ed8936;
+        }
+        .badge-success {
+            background-color: #38a169;
+        }
+        .image-cell {
+            width: 60px;
+            text-align: center;
+        }
+        .product-thumbnail {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+        .no-image {
+            width: 50px;
+            height: 50px;
+            background-color: #f5f5f5;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: #999;
+        }
+        .product-info {
+            min-width: 200px;
+        }
+        .product-title {
+            font-weight: 500;
+            margin-bottom: 4px;
+            line-height: 1.3;
+        }
+        .product-id {
+            font-size: 12px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div layout:fragment="content-header" class="content-header">
+        <div>
+            <h2 style="color: #333; font-size: 20px;">재고관리</h2>
+        </div>
+        <div style="display: flex; gap: 20px; align-items: center;">
+            <div class="search-section">
+                <form method="get" style="display: flex; gap: 10px;">
+                    <select name="searchType" style="padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+                        <option value="PRODUCT_ID" th:selected="${param.searchType} == 'PRODUCT_ID'">상품ID</option>
+                        <option value="STOCK_STATUS" th:selected="${param.searchType} == 'STOCK_STATUS'">재고상태</option>
+                    </select>
+                    <input type="text" name="searchValue" th:value="${param.searchValue}"
+                           class="search-input" placeholder="검색어를 입력하세요">
+                    <button type="submit" class="btn btn-primary">검색</button>
+                </form>
+            </div>
+            <div class="summary-info" style="font-size: 14px; color: #666;">
+                총 <span th:text="${totalCount}">0</span>개 재고
+            </div>
+        </div>
+    </div>
+
+    <div layout:fragment="content">
+        <div class="data-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>이미지</th>
+                        <th>상품정보</th>
+                        <th>현재재고</th>
+                        <th>안전재고</th>
+                        <th>재고상태</th>
+                        <th>생성일시</th>
+                        <th>수정일시</th>
+                        <th>관리</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="inventory : ${inventoryList}"
+                        th:classappend="${inventory.currentQuantity <= inventory.safetyQuantity} ? 'low-stock' : ''">
+                        <td class="image-cell">
+                            <img th:if="${inventory.mainImageUrl != null and !inventory.mainImageUrl.isEmpty()}"
+                                 th:src="${inventory.mainImageUrl}"
+                                 th:alt="${inventory.productTitle}"
+                                 class="product-thumbnail">
+                            <div th:unless="${inventory.mainImageUrl != null and !inventory.mainImageUrl.isEmpty()}"
+                                 class="no-image">📷</div>
+                        </td>
+                        <td class="product-info">
+                            <div class="product-title" th:text="${inventory.productTitle}">상품명</div>
+                            <div class="product-id">ID: <span th:text="${inventory.productId}">1</span></div>
+                        </td>
+                        <td>
+                            <span th:text="${inventory.currentQuantity}">150</span>개
+                            <span th:if="${inventory.currentQuantity <= inventory.safetyQuantity}"
+                                  class="stock-warning">⚠️</span>
+                        </td>
+                        <td>
+                            <span th:text="${inventory.safetyQuantity}">20</span>개
+                        </td>
+                        <td>
+                            <span th:if="${inventory.currentQuantity <= inventory.safetyQuantity}"
+                                  class="badge badge-danger">재주문 필요</span>
+                            <span th:if="${inventory.currentQuantity > inventory.safetyQuantity and inventory.currentQuantity <= inventory.safetyQuantity * 2}"
+                                  class="badge badge-warning">주의</span>
+                            <span th:if="${inventory.currentQuantity > inventory.safetyQuantity * 2}"
+                                  class="badge badge-success">정상</span>
+                        </td>
+                        <td th:text="${#temporals.format(inventory.inventoryCreatedDate, 'yyyy-MM-dd HH:mm')}">2024-09-25 10:30</td>
+                        <td th:text="${#temporals.format(inventory.inventoryUpdatedDate, 'yyyy-MM-dd HH:mm')}">2024-09-25 10:30</td>
+                        <td>
+                            <button class="btn btn-sm btn-primary" th:onclick="|viewInventoryDetail(${inventory.inventoryId})|">상세보기</button>
+                        </td>
+                    </tr>
+                    <tr th:if="${#lists.isEmpty(inventoryList)}">
+                        <td colspan="8" style="text-align: center; padding: 40px; color: #999;">
+                            재고 데이터가 없습니다.
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+        <script>
+            function viewInventoryDetail(inventoryId) {
+                // 재고 상세보기 페이지로 이동 - 추후 구현
+                // 상세보기 페이지에서 재고 정보, 수정, 이력을 모두 볼 수 있음
+                alert('재고 상세보기 페이지로 이동합니다. (재고ID: ' + inventoryId + ')');
+
+                // 실제 구현시에는 다음과 같이 사용:
+                // window.location.href = '/api/admin/inventory/' + inventoryId;
+            }
+        </script>
+</body>
+</html>

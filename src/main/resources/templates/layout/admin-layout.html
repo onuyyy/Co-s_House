@@ -69,7 +69,9 @@
                             공통코드 관리
                         </a>
                     </li>
-                    <li><a href="#">재고 관리</a></li>
+                    <li><a th:href="@{/api/admin/inventory}"
+                           th:class="${#httpServletRequest != null and #strings.contains(#httpServletRequest.requestURI, '/log') ? 'active' : ''}">
+                        재고 관리</a></li>
                     <li><a href="#">FAQ</a></li>
                     <li>
                         <a th:href="@{/api/admin/Log}"
