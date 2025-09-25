@@ -197,6 +197,11 @@
             justify-content: center;
         }
 
+        /* 옵션 필드 숨김 처리 */
+        .hidden {
+            display: none !important;
+        }
+
         @media (max-width: 768px) {
             .container { padding: 20px 16px; }
             h1 { font-size: 1.5rem; }
@@ -245,11 +250,11 @@
             </div>
         </div>
 
-        <!-- 옵션 선택 -->
-        <div class="form-group">
+        <!-- 옵션 선택 - 조건부 표시 및 필수 속성 제거 -->
+        <div class="form-group" th:classappend="${productOptions == null or #lists.isEmpty(productOptions)} ? 'hidden' : ''">
             <label for="option-select" class="form-label">상품 옵션 선택</label>
-            <select id="option-select" name="optionId" class="form-input" required>
-                <option value="" disabled th:selected="${!isEditMode}">옵션을 선택해주세요</option>
+            <select id="option-select" name="optionId" class="form-input">
+                <option value="">옵션을 선택해주세요</option>
                 <option th:each="option : ${productOptions}"
                         th:value="${option.optionId}"
                         th:text="${option.optionName + ' - ' + option.optionValue}"
@@ -320,8 +325,16 @@
     const isEditMode = /*[[${isEditMode}]]*/ false;
     const hasExistingImages = /*[[${hasExistingImages}]]*/ false;
     const existingImageCount = /*[[${existingImageCount}]]*/ 0;
+    const hasProductOptions = /*[[${productOptions != null and !#lists.isEmpty(productOptions)}]]*/ false;
 
     let deletedExistingImages = []; // 삭제된 기존 이미지 인덱스 저장
+
+    // 상품 옵션이 없는 경우 처리
+    document.addEventListener('DOMContentLoaded', function() {
+        if (!hasProductOptions) {
+            console.log('상품 옵션이 없어서 옵션 선택 필드를 숨깁니다.');
+        }
+    });
 
     // 이미지 파일 첨부 시 미리보기 기능
     document.getElementById('image-files').addEventListener('change', function(event) {
@@ -406,6 +419,15 @@
             input.value = index;
             this.appendChild(input);
         });
+
+        // 옵션이 없는 경우 빈 값으로 설정
+        if (!hasProductOptions) {
+            const optionInput = document.createElement('input');
+            optionInput.type = 'hidden';
+            optionInput.name = 'optionId';
+            optionInput.value = '';
+            this.appendChild(optionInput);
+        }
     });
 </script>
 
