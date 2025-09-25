@@ -90,7 +90,7 @@ public class SecurityConfig {
                                 "/product/**", //todo: 상품 권한
                                 "/product", //todo: 상품 권한
                                 "/community",
-                                "/events"
+                                "/events/**"
                         ).permitAll()
 
                         // 3) 회원가입/로그인/로그아웃 공개 API(POST)

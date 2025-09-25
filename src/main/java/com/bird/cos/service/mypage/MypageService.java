@@ -148,6 +148,3 @@ public class MypageService {
         return request.getRemoteAddr();
     }
 }
-
-
-
