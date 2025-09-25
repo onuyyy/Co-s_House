@@ -5,10 +5,12 @@
       lang="ko">
 <head>
     <title>공지 생성</title>
+    <link rel="stylesheet" th:href="@{/css/admin/admin-common.css}">
+    <link rel="stylesheet" th:href="@{/css/admin/notice.css}">
 </head>
 <body>
 <div layout:fragment="content-header" class="content-header">
-    <h2 style="color: #333; font-size: 20px;">새 공지 등록</h2>
+    <h2 class="page-title">새 공지 등록</h2>
     <div class="header-actions">
         <a th:href="@{/api/admin/notices}" class="btn btn-secondary">목록으로</a>
     </div>
@@ -17,22 +19,22 @@
 <div layout:fragment="content">
     <div th:if="${error}" class="alert alert-danger" th:text="${error}">오류가 발생했습니다.</div>
 
-    <div class="detail-card">
+    <div class="notice-detail-card">
         <h3>📝 공지 내용 입력</h3>
         <p class="card-helper">공지 제목과 내용을 작성하고 저장을 눌러주세요.</p>
         <form th:action="@{/api/admin/notices/create}" method="post">
-            <div class="detail-grid">
-                <div class="detail-label">제목 *</div>
+            <div class="notice-detail-grid">
+                <div class="notice-detail-label">제목 *</div>
                 <div class="detail-input">
                     <input type="text" name="title" th:value="${notice.title}" class="form-control" placeholder="공지 제목을 입력하세요" required>
                 </div>
 
-                <div class="detail-label">작성자</div>
+                <div class="notice-detail-label">작성자</div>
                 <div class="detail-value muted">현재 로그인한 사용자</div>
             </div>
 
             <div class="content-section">
-                <label for="content" class="detail-label">내용 *</label>
+                <label for="content" class="notice-detail-label">내용 *</label>
                 <textarea id="content" name="content" th:text="${notice.content}"
                           class="form-control content-textarea" rows="12" placeholder="공지 내용을 입력하세요" required></textarea>
             </div>
@@ -46,7 +48,7 @@
                 </ul>
             </div>
 
-            <div class="form-actions">
+            <div class="notice-form-actions">
                 <button type="submit" class="btn btn-primary">📢 공지 등록</button>
                 <a th:href="@{/api/admin/notices}" class="btn btn-secondary">취소</a>
             </div>
@@ -54,129 +56,5 @@
     </div>
 </div>
 
-<th:block layout:fragment="extra-css">
-    <style>
-        .detail-card {
-            background: white;
-            border: 1px solid #dee2e6;
-            border-radius: 8px;
-            padding: 24px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-        }
-
-        .detail-card h3 {
-            color: #495057;
-            margin-bottom: 12px;
-            font-size: 18px;
-        }
-
-        .card-helper {
-            margin-bottom: 20px;
-            color: #6c757d;
-            font-size: 14px;
-        }
-
-        .detail-grid {
-            display: grid;
-            grid-template-columns: 150px 1fr;
-            gap: 12px 20px;
-            margin-bottom: 20px;
-        }
-
-        .detail-label {
-            font-weight: 600;
-            background-color: #f8f9fa;
-            padding: 8px 12px;
-            border-radius: 6px;
-            color: #495057;
-        }
-
-        .detail-input {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-        }
-
-        .detail-value {
-            padding: 8px 12px;
-            border-radius: 6px;
-            background-color: #ffffff;
-            border: 1px solid #e9ecef;
-        }
-
-        .detail-value.muted {
-            padding: 8px 12px;
-            border-radius: 6px;
-            background-color: #f8f9fa;
-            color: #6c757d;
-            border: 1px dashed #ced4da;
-        }
-
-        .content-section {
-            margin-top: 10px;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .form-control {
-            width: 100%;
-            padding: 10px 12px;
-            border: 1px solid #ced4da;
-            border-radius: 6px;
-            font-size: 14px;
-            transition: border-color 0.2s, box-shadow 0.2s;
-        }
-
-        .form-control:focus {
-            outline: none;
-            border-color: #007bff;
-            box-shadow: 0 0 0 2px rgba(0,123,255,0.25);
-        }
-
-        .content-textarea {
-            min-height: 220px;
-            resize: vertical;
-            font-family: inherit;
-            line-height: 1.6;
-        }
-
-        .guideline-box {
-            margin-top: 24px;
-            background: #f1f5f9;
-            border-left: 4px solid #0d6efd;
-            padding: 16px 20px;
-            border-radius: 8px;
-            color: #475569;
-        }
-
-        .guideline-box ul {
-            margin: 12px 0 0;
-            padding-left: 18px;
-        }
-
-        .guideline-box li {
-            margin-bottom: 6px;
-        }
-
-        .form-actions {
-            display: flex;
-            gap: 12px;
-            margin-top: 24px;
-            border-top: 1px solid #e9ecef;
-            padding-top: 20px;
-        }
-
-        @media (max-width: 768px) {
-            .detail-grid {
-                grid-template-columns: 1fr;
-            }
-            .form-actions {
-                flex-direction: column;
-                align-items: stretch;
-            }
-        }
-    </style>
-</th:block>
 </body>
 </html>

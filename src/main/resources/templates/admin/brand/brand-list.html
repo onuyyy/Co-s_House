@@ -9,12 +9,12 @@
 <body>
     <div layout:fragment="content-header" class="content-header">
         <div>
-            <h2 style="color: #333; font-size: 20px;">브랜드 관리</h2>
+            <h2 class="page-title">브랜드 관리</h2>
         </div>
-        <div style="display: flex; gap: 20px; align-items: center;">
+        <div class="search-container">
             <div class="search-section">
-                <form method="get" style="display: flex; gap: 10px;">
-                    <select name="searchType" style="padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+                <form method="get" class="search-form">
+                    <select name="searchType" class="search-select">
                         <option value="NAME" th:selected="${param.searchType} == 'NAME'">브랜드명</option>
                         <option value="DESCRIPTION" th:selected="${param.searchType} == 'DESCRIPTION'">브랜드 설명</option>
                     </select>
@@ -41,7 +41,7 @@
                     <tr th:each="brand : ${brandList.content}">
                         <td class="logo-cell">
                             <div th:if="${brand.logoUrl}" class="brand-logo">
-                                <img th:src="${brand.logoUrl}" alt="브랜드 로고" style="width: 40px; height: 40px; object-fit: cover; border-radius: 4px;">
+                                <img th:src="${brand.logoUrl}" alt="브랜드 로고" class="brand-logo">
                             </div>
                             <div th:unless="${brand.logoUrl}" class="logo-placeholder">🏷️</div>
                         </td>
@@ -98,6 +98,7 @@
     </div>
 
     <th:block layout:fragment="extra-css">
+        <link rel="stylesheet" th:href="@{/css/admin/admin-common.css}">
         <link rel="stylesheet" th:href="@{/css/admin/brand.css}">
     </th:block>
 </body>

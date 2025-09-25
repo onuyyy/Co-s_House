@@ -9,7 +9,7 @@
 </head>
 <body>
 <div layout:fragment="content-header" class="content-header">
-    <h2 style="color: #333; font-size: 20px;">공지관리</h2>
+    <h2 class="page-title">공지관리</h2>
     <div class="header-actions">
         <a th:href="@{/api/admin/notices/create}" class="btn btn-primary">공지 생성</a>
     </div>
@@ -83,6 +83,7 @@
 </div>
 
 <th:block layout:fragment="extra-css">
+    <link rel="stylesheet" th:href="@{/css/admin/admin-common.css}">
     <link rel="stylesheet" th:href="@{/css/admin/notice.css}">
 </th:block>
 </body>

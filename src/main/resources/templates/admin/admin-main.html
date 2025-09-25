@@ -8,7 +8,7 @@
 </head>
 <body>
     <div layout:fragment="content-header" class="content-header">
-        <h2 style="color: #333; font-size: 24px;">관리자 대시보드</h2>
+        <h2 class="page-title-large">관리자 대시보드</h2>
     </div>
 
     <div layout:fragment="content">
@@ -70,6 +70,7 @@
     </div>
 
     <th:block layout:fragment="extra-css">
+        <link rel="stylesheet" th:href="@{/css/admin/admin-common.css}">
         <link rel="stylesheet" th:href="@{/css/admin/main.css}">
     </th:block>
 </body>
