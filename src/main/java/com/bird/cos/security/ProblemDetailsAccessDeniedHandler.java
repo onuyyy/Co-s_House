@@ -42,8 +42,9 @@ public class ProblemDetailsAccessDeniedHandler implements AccessDeniedHandler {
         boolean isJsonRequest = acceptHeader != null &&
             (acceptHeader.contains("application/json") || acceptHeader.contains("application/problem+json"));
 
-        // API 요청이고 브라우저 요청이 아니거나 명시적으로 JSON을 요구하는 경우 JSON 응답
-        if (request.getRequestURI().startsWith("/api/") && !isBrowserRequest || isJsonRequest) {
+        // 명시적으로 JSON을 요구하는 경우에만 JSON 응답
+        // 관리자 페이지(/api/admin)는 브라우저 접근 시 HTML 에러 페이지를 표시해야 함
+        if (isJsonRequest || (request.getRequestURI().startsWith("/api/") && !isBrowserRequest && !request.getRequestURI().startsWith("/api/admin/"))) {
             ProblemDetail pd = ProblemDetail.forStatus(HttpStatus.FORBIDDEN);
             pd.setTitle("접근 거부");
             pd.setDetail(ex != null && ex.getMessage() != null ? ex.getMessage() : "권한이 부족합니다.");

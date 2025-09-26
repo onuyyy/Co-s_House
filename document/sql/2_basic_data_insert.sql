@@ -152,18 +152,18 @@ INSERT INTO common_code (code_id, group_id, code_name, description, sort_order, 
 -- ========================================
 
 -- 최고 관리자 (SUPER_ADMIN) 
-INSERT INTO user (user_role_id, email_verified, user_email, user_password, user_nickname, user_name, user_phone, user_address, terms_agreed) VALUES
+INSERT INTO user (user_role, email_verified, user_email, user_password, user_nickname, user_name, user_phone, user_address, terms_agreed) VALUES
 (3, true, 'superadmin@cos.com', '$2a$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2uheWG/igi.', 'SuperAdmin', '최고관리자', '010-0000-0001', '서울특별시 강남구 테헤란로 123', TRUE);
 
 -- 일반 관리자 (ADMIN) - 4명
-INSERT INTO user (user_role_id, email_verified, user_email, user_password, user_nickname, user_name, user_phone, user_address, terms_agreed) VALUES
+INSERT INTO user (user_role, email_verified, user_email, user_password, user_nickname, user_name, user_phone, user_address, terms_agreed) VALUES
 (2, true, 'admin1@cos.com', '$2a$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2uheWG/igi.', 'ProductAdmin', '상품관리자', '010-1111-0001', '서울특별시 서초구 서초대로 456', TRUE),
 (2, true, 'admin2@cos.com', '$2a$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2uheWG/igi.', 'OrderAdmin', '주문관리자', '010-1111-0002', '서울특별시 송파구 올림픽로 789', TRUE),
 (2, true, 'admin3@cos.com', '$2a$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2uheWG/igi.', 'CSAdmin', '고객서비스관리자', '010-1111-0003', '서울특별시 마포구 월드컵북로 111', TRUE),
 (2, true, 'admin4@cos.com', '$2a$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2uheWG/igi.', 'MarketingAdmin', '마케팅관리자', '010-1111-0004', '서울특별시 용산구 한강대로 222', TRUE);
 
 -- 일반 사용자 (USER) - 5명  
-INSERT INTO user (user_role_id, email_verified, user_email, user_password, user_nickname, user_name, user_phone, user_address, terms_agreed) VALUES
+INSERT INTO user (user_role, email_verified, user_email, user_password, user_nickname, user_name, user_phone, user_address, terms_agreed) VALUES
 (1, true, 'user1@example.com', '$2a$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2uheWG/igi.', 'HomeSeeker', '김집찾', '010-2222-0001', '경기도 성남시 분당구 판교로 333', TRUE),
 (1, true, 'user2@example.com', '$2a$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2uheWG/igi.', 'DesignLover', '박인테리어', '010-2222-0002', '경기도 수원시 영통구 광교로 444', TRUE),
 (1, true, 'user3@example.com', '$2a$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2uheWG/igi.', 'FurnitureFan', '이가구', '010-2222-0003', '인천광역시 연수구 컨벤시아대로 555', TRUE),
@@ -175,15 +175,15 @@ INSERT INTO user (user_role_id, email_verified, user_email, user_password, user_
 -- ========================================
 
 -- 카카오 소셜 사용자
-INSERT INTO user (user_role_id, email_verified, user_email, user_password, user_nickname, user_name, user_phone, user_address, social_provider, social_id, terms_agreed) VALUES
+INSERT INTO user (user_role, email_verified, user_email, user_password, user_nickname, user_name, user_phone, user_address, social_provider, social_id, terms_agreed) VALUES
 (1, true, 'kakao_user@kakao.com', NULL, 'KakaoUser', '카카오유저', '010-3333-0001', '광주광역시 서구 상무대로 888', 'KAKAO', 'kakao_12345', TRUE);
 
 -- 네이버 소셜 사용자  
-INSERT INTO user (user_role_id, email_verified,  user_email, user_password, user_nickname, user_name, user_phone, user_address, social_provider, social_id, terms_agreed) VALUES
+INSERT INTO user (user_role, email_verified,  user_email, user_password, user_nickname, user_name, user_phone, user_address, social_provider, social_id, terms_agreed) VALUES
 (1, true, 'naver_user@naver.com', NULL, 'NaverUser', '네이버유저', '010-3333-0002', '대전광역시 유성구 대학로 999', 'NAVER', 'naver_67890', TRUE);
 
 -- 구글 소셜 사용자
-INSERT INTO user (user_role_id, email_verified, user_email, user_password, user_nickname, user_name, user_phone, user_address, social_provider, social_id, terms_agreed) VALUES
+INSERT INTO user (user_role, email_verified, user_email, user_password, user_nickname, user_name, user_phone, user_address, social_provider, social_id, terms_agreed) VALUES
 (1, true, 'google_user@gmail.com', NULL, 'GoogleUser', '구글유저', '010-3333-0003', '울산광역시 남구 삼산로 101', 'GOOGLE', 'google_abcde', TRUE);
 
 -- ========================================
