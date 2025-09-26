@@ -5,15 +5,15 @@ import com.bird.cos.domain.product.ProductOption;
 import com.bird.cos.dto.product.ReviewResponse;
 import com.bird.cos.service.product.ProductService;
 import com.bird.cos.service.product.ReviewService;
+import com.bird.cos.service.question.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import java.util.List;
 import java.util.Map;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -23,6 +23,9 @@ public class ProductController {
 
     @Autowired
     ReviewService reviewService;
+
+    @Autowired
+    QuestionService questionService;
 
     //카테고리별 조회
     @GetMapping("/product/category/{categoryId}")
@@ -87,6 +90,9 @@ public class ProductController {
                                 @RequestParam(required = false) Long optionId,
                                 @RequestParam(required = false, defaultValue = "1") int page,
                                 @RequestParam(required = false, defaultValue = "10") int size,
+                                // 문의글 페이징을 위한 파라미터 추가 (리뷰와 겹치지 않게 q_ prefix 사용)
+                                @RequestParam(required = false, defaultValue = "1") int q_page,
+                                @RequestParam(required = false, defaultValue = "5") int q_size,
                                 Model model) {
         Optional<Product> productOpt = productService.getProductById(productId);
 
@@ -135,7 +141,15 @@ public class ProductController {
                 // 리뷰를 불러오다 에러가 발생해도 상품 상세 페이지는 보여주도록 처리
                 model.addAttribute("reviewError", "리뷰를 불러오는 중 오류가 발생했습니다.");
             }
-
+            try {
+                Map<String, Object> questionResult = questionService.findQuestionsByProductIdPaged(productId, q_page, q_size);
+                model.addAttribute("questions", questionResult.get("questions"));
+                model.addAttribute("questionTotalPages", questionResult.get("totalPages"));
+                model.addAttribute("currentQuestionPage", q_page);
+                model.addAttribute("totalQuestionCount", questionResult.get("totalElements"));
+            } catch (Exception e) {
+                model.addAttribute("questionError", "문의를 불러오는 중 오류가 발생했습니다.");
+            }
             return "product/productDetail";
         } else {
             return "redirect:/";
