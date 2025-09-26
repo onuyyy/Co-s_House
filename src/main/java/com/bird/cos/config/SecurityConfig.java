@@ -3,7 +3,9 @@ package com.bird.cos.config;
 import com.bird.cos.security.ProblemDetailsAccessDeniedHandler;
 import com.bird.cos.security.ProblemDetailsAuthenticationEntryPoint;
 import com.bird.cos.security.RegisterSecurityFilter;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.bird.cos.security.oauth.KakaoOAuth2UserService;
+import com.bird.cos.security.oauth.OAuth2LoginSuccessHandler;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
@@ -34,10 +36,12 @@ import org.springframework.security.web.context.SecurityContextRepository;
  */
 // 메서드 보안 애너테이션(@PreAuthorize, @Secured, @RolesAllowed) 활성화
 @EnableMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
+@RequiredArgsConstructor
 public class SecurityConfig {
 
-    @Autowired
-    private Environment environment;
+    private final Environment environment;
+    private final KakaoOAuth2UserService kakaoOAuth2UserService;
+    private final OAuth2LoginSuccessHandler oAuth2LoginSuccessHandler;
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
@@ -73,6 +77,9 @@ public class SecurityConfig {
                         // 0) 이메일 인증 허용
                         .requestMatchers("/auth/email/**").permitAll()
 
+                        // 0-1) OAuth2 인증 엔드포인트 전용 허용
+                        .requestMatchers("/oauth2/**", "/login/oauth2/**").permitAll()
+
                         // 1) 정적 리소스 전부 허용
                         .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                         .requestMatchers(
@@ -90,7 +97,7 @@ public class SecurityConfig {
                                 "/product/**", //todo: 상품 권한
                                 "/product", //todo: 상품 권한
                                 "/community",
-                                "/events"
+                                "/events/**"
                         ).permitAll()
 
                         // 3) 회원가입/로그인/로그아웃 공개 API(POST)
@@ -112,6 +119,11 @@ public class SecurityConfig {
                         .accessDeniedHandler(problemDetailsAccessDeniedHandler())
                 )
                 // 기본 폼 로그인은 비활성화(커스텀 로그인 사용). dev 프로파일일 때만 Basic 허용
+                .oauth2Login(oauth -> oauth
+                        .loginPage("/controller/register/login")
+                        .userInfoEndpoint(userInfo -> userInfo.userService(kakaoOAuth2UserService))
+                        .successHandler(oAuth2LoginSuccessHandler)
+                )
                 .formLogin(AbstractHttpConfigurer::disable);
 
         if (environment.acceptsProfiles(Profiles.of("dev"))) {

@@ -20,8 +20,8 @@
             <h1 class="page-title">관리자 시스템</h1>
         </div>
         <div class="header-actions">
-            <a href="#" class="btn">로그아웃</a>
-            <a href="#" class="btn">나가기</a>
+            <a th:href="@{/logout}" class="btn">로그아웃</a>
+            <a th:href="@{/}" class="btn">나가기</a>
         </div>
     </header>
 
@@ -69,10 +69,12 @@
                             공통코드 관리
                         </a>
                     </li>
-                    <li><a href="#">재고 관리</a></li>
+                    <li><a th:href="@{/api/admin/inventory}"
+                           th:class="${#httpServletRequest != null and #strings.contains(#httpServletRequest.requestURI, '/log') ? 'active' : ''}">
+                        재고 관리</a></li>
                     <li><a href="#">FAQ</a></li>
                     <li>
-                        <a th:href="@{/api/admin/Log}"
+                        <a th:href="@{/api/admin/log}"
                            th:class="${#httpServletRequest != null and #strings.contains(#httpServletRequest.requestURI, '/log') ? 'active' : ''}">
                             로그 관리
                         </a>

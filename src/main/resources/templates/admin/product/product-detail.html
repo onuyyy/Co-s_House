@@ -5,10 +5,12 @@
       lang="ko">
 <head>
     <title>상품 상세정보</title>
+    <link rel="stylesheet" th:href="@{/css/admin/admin-common.css}">
+    <link rel="stylesheet" th:href="@{/css/admin/product.css}">
 </head>
 <body>
     <div layout:fragment="content-header" class="content-header">
-        <h2 style="color: #333; font-size: 20px;">상품 상세정보</h2>
+        <h2 class="page-title">상품 상세정보</h2>
         <div class="header-actions">
             <a th:href="@{/api/admin/products}" class="btn btn-secondary">목록으로</a>
         </div>
@@ -18,9 +20,9 @@
         <div th:if="${param.success}" class="alert alert-success">상품 정보가 성공적으로 수정되었습니다.</div>
         <div th:if="${param.error}" class="alert alert-danger" th:text="${param.error}">오류가 발생했습니다.</div>
 
-        <div class="mode-selector">
-            <button id="viewMode" class="mode-btn active" onclick="toggleMode('view')">👁️ 보기 모드</button>
-            <button id="editMode" class="mode-btn" onclick="toggleMode('edit')">✏️ 수정 모드</button>
+        <div class="product-mode-selector">
+            <button id="viewMode" class="product-mode-btn active" onclick="toggleMode('view')">👁️ 보기 모드</button>
+            <button id="editMode" class="product-mode-btn" onclick="toggleMode('edit')">✏️ 수정 모드</button>
         </div>
 
         <!-- 읽기 전용 -->
@@ -38,20 +40,20 @@
                     </div>
                 </div>
                 <div class="product-info-section">
-                    <div class="detail-grid">
-                        <div class="detail-label">상품명</div><div class="detail-value" th:text="${product.productTitle}">상품명</div>
-                        <div class="detail-label">브랜드</div><div class="detail-value" th:text="${product.brandName ?: '-'}">브랜드</div>
-                        <div class="detail-label">원가</div><div class="detail-value" th:text="${product.originalPrice != null ? #numbers.formatCurrency(product.originalPrice) : '-'}">원가</div>
-                        <div class="detail-label">판매가</div><div class="detail-value" th:text="${product.salePrice != null ? #numbers.formatCurrency(product.salePrice) : '-'}">판매가</div>
-                        <div class="detail-label">재고</div><div class="detail-value" th:text="${product.stockQuantity ?: 0}">재고</div>
-                        <div class="detail-label">상태</div><div class="detail-value"><span th:class="${product.productStatus == '판매중' ? 'status-active' : 'status-inactive'}" th:text="${product.productStatus ?: '-'}">상태</span></div>
+                    <div class="product-detail-grid">
+                        <div class="product-detail-label">상품명</div><div class="product-detail-value" th:text="${product.productTitle}">상품명</div>
+                        <div class="product-detail-label">브랜드</div><div class="product-detail-value" th:text="${product.brandName ?: '-'}">브랜드</div>
+                        <div class="product-detail-label">원가</div><div class="product-detail-value" th:text="${product.originalPrice != null ? #numbers.formatCurrency(product.originalPrice) : '-'}">원가</div>
+                        <div class="product-detail-label">판매가</div><div class="product-detail-value" th:text="${product.salePrice != null ? #numbers.formatCurrency(product.salePrice) : '-'}">판매가</div>
+                        <div class="product-detail-label">재고</div><div class="product-detail-value" th:text="${product.stockQuantity ?: 0}">재고</div>
+                        <div class="product-detail-label">상태</div><div class="product-detail-value"><span th:class="${product.productStatus == '판매중' ? 'product-status-active' : 'product-status-inactive'}" th:text="${product.productStatus ?: '-'}">상태</span></div>
                     </div>
                 </div>
             </div>
         </div>
 
         <!-- 수정 폼 -->
-        <div class="detail-card" id="editSection" style="display: none;">
+        <div class="detail-card hidden" id="editSection">
             <h3>✏️ 상품 정보 수정</h3>
             <form th:action="@{/api/admin/products/{productId}/update(productId=${product.productId})}" method="post">
                 <div class="edit-layout">
@@ -70,32 +72,32 @@
                                 </div>
                                 <input type="url" id="productImage" name="productImage"
                                        th:value="${product.mainImageUrl}"
-                                       class="form-control"
+                                       class="product-form-control"
                                        placeholder="이미지 URL을 입력하세요"
                                        onchange="updateImagePreview()">
                             </div>
                         </div>
                     </div>
                     <div class="edit-info-section">
-                        <div class="form-group">
+                        <div class="product-form-group">
                             <label for="productTitle">상품명 *</label>
-                            <input type="text" id="productTitle" name="productTitle" th:value="${product.productTitle}" class="form-control" required>
+                            <input type="text" id="productTitle" name="productTitle" th:value="${product.productTitle}" class="product-form-control" required>
                         </div>
-                        <div class="form-group">
+                        <div class="product-form-group">
                             <label for="originalPrice">원가</label>
-                            <input type="number" id="originalPrice" name="originalPrice" th:value="${product.originalPrice}" step="0.01" class="form-control">
+                            <input type="number" id="originalPrice" name="originalPrice" th:value="${product.originalPrice}" step="0.01" class="product-form-control">
                         </div>
-                        <div class="form-group">
+                        <div class="product-form-group">
                             <label for="salePrice">판매가</label>
-                            <input type="number" id="salePrice" name="salePrice" th:value="${product.salePrice}" step="0.01" class="form-control">
+                            <input type="number" id="salePrice" name="salePrice" th:value="${product.salePrice}" step="0.01" class="product-form-control">
                         </div>
-                        <div class="form-group">
+                        <div class="product-form-group">
                             <label for="stockQuantity">재고수량</label>
-                            <input type="number" id="stockQuantity" name="stockQuantity" th:value="${product.stockQuantity}" class="form-control">
+                            <input type="number" id="stockQuantity" name="stockQuantity" th:value="${product.stockQuantity}" class="product-form-control">
                         </div>
                     </div>
                 </div>
-                <div class="form-actions">
+                <div class="product-form-actions">
                     <button type="submit" class="btn btn-primary">💾 수정 저장</button>
                     <button type="button" class="btn btn-danger" onclick="deleteProduct()">🗑️ 삭제</button>
                     <button type="button" class="btn btn-secondary" onclick="toggleMode('view')">❌ 취소</button>
@@ -103,121 +105,11 @@
             </form>
         </div>
 
-        <div class="readonly-message" id="readonlyMessage">
+        <div class="product-readonly-message" id="readonlyMessage">
             <strong>읽기 전용 모드</strong><br>현재 상품 정보 조회만 가능합니다.
         </div>
     </div>
 
-    <th:block layout:fragment="extra-css">
-        <style>
-            .mode-selector { display: flex; gap: 10px; margin-bottom: 20px; padding: 10px; background-color: #f8f9fa; border-radius: 8px; }
-            .mode-btn { padding: 8px 16px; border: 1px solid #dee2e6; background-color: #ffffff; color: #6c757d; border-radius: 6px; cursor: pointer; }
-            .mode-btn.active { background-color: #007bff; color: white; }
-            .detail-grid { display: grid; grid-template-columns: 150px 1fr; gap: 12px 20px; }
-            .detail-label { font-weight: 600; background-color: #f8f9fa; padding: 8px 12px; border-radius: 6px; }
-            .detail-value { padding: 8px 12px; border: 1px solid #e9ecef; border-radius: 6px; }
-            .form-group { margin-bottom: 15px; }
-            .form-control { width: 100%; padding: 10px; border: 1px solid #ced4da; border-radius: 6px; }
-            .form-actions { display: flex; gap: 10px; margin-top: 20px; }
-            .readonly-message { background-color: #e7f3ff; padding: 16px; border-radius: 8px; margin-top: 20px; }
-            .status-active { background-color: #28a745; color: white; padding: 4px 8px; border-radius: 4px; }
-            .status-inactive { background-color: #dc3545; color: white; padding: 4px 8px; border-radius: 4px; }
-            .alert { padding: 12px; margin-bottom: 20px; border-radius: 4px; }
-            .alert-success { color: #155724; background-color: #d4edda; }
-            .alert-danger { color: #721c24; background-color: #f8d7da; }
-
-            /* 상품 레이아웃 스타일 */
-            .product-layout {
-                display: grid;
-                grid-template-columns: 300px 1fr;
-                gap: 30px;
-                margin-top: 20px;
-            }
-            .product-image-section {
-                display: flex;
-                flex-direction: column;
-            }
-            .image-container {
-                width: 100%;
-                max-width: 300px;
-                aspect-ratio: 1;
-                border: 2px solid #e9ecef;
-                border-radius: 12px;
-                overflow: hidden;
-                background-color: #f8f9fa;
-            }
-            .product-main-image {
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
-            }
-            .no-image-large {
-                width: 100%;
-                height: 100%;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                font-size: 48px;
-                color: #6c757d;
-                background-color: #f8f9fa;
-            }
-
-            /* 수정 모드 레이아웃 */
-            .edit-layout {
-                display: grid;
-                grid-template-columns: 300px 1fr;
-                gap: 30px;
-                margin-bottom: 20px;
-            }
-            .edit-image-section {
-                display: flex;
-                flex-direction: column;
-            }
-            .image-upload-container {
-                display: flex;
-                flex-direction: column;
-                gap: 10px;
-            }
-            .current-image {
-                width: 100%;
-                max-width: 300px;
-                aspect-ratio: 1;
-                border: 2px solid #dee2e6;
-                border-radius: 12px;
-                overflow: hidden;
-                background-color: #f8f9fa;
-            }
-            .edit-preview-image {
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
-            }
-            .no-image-preview {
-                width: 100%;
-                height: 100%;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                font-size: 48px;
-                color: #6c757d;
-                background-color: #f8f9fa;
-            }
-
-            @media (max-width: 768px) {
-                .product-layout,
-                .edit-layout {
-                    grid-template-columns: 1fr;
-                    gap: 20px;
-                }
-                .image-container,
-                .current-image {
-                    max-width: 100%;
-                    width: 250px;
-                    margin: 0 auto;
-                }
-            }
-        </style>
-    </th:block>
 
     <th:block layout:fragment="extra-scripts">
         <script>
@@ -230,10 +122,10 @@
                 
                 if (mode === 'view') {
                     viewBtn.classList.add('active'); editBtn.classList.remove('active');
-                    viewSection.style.display = 'block'; editSection.style.display = 'none'; readonlyMessage.style.display = 'block';
+                    viewSection.style.display = 'block'; editSection.classList.add('hidden'); readonlyMessage.style.display = 'block';
                 } else {
                     editBtn.classList.add('active'); viewBtn.classList.remove('active');
-                    viewSection.style.display = 'none'; editSection.style.display = 'block'; readonlyMessage.style.display = 'none';
+                    viewSection.style.display = 'none'; editSection.classList.remove('hidden'); readonlyMessage.style.display = 'none';
                 }
             }
             function deleteProduct() {
