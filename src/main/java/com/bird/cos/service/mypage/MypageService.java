@@ -3,6 +3,7 @@ package com.bird.cos.service.mypage;
 import com.bird.cos.domain.user.User;
 import com.bird.cos.dto.mypage.MypageUserManageResponse;
 import com.bird.cos.dto.mypage.MypageUserUpdateRequest;
+import com.bird.cos.repository.log.UserActivityLogRepository;
 import com.bird.cos.repository.mypage.MypageRepository;
 import com.bird.cos.repository.question.QuestionRepository;
 import com.bird.cos.repository.user.UserRepository;
@@ -25,6 +26,7 @@ public class MypageService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final QuestionRepository questionRepository;
+    private final UserActivityLogRepository userActivityLogRepository;
 
     //UserId 정보 넘기기
     public MypageUserManageResponse getUserInfoById(Long userId){
@@ -71,9 +73,12 @@ public class MypageService {
                         : existingUser.getUserPassword())                 // 기존 비밀번호 유지
                 .userNickname(request.getUserNickname())             // 새 닉네임으로 변경
                 .userPhone(request.getUserPhone())                   // 새 전화번호로 변경
-                .userAddress(request.getUserAddress())               // 새 주소로 변경
+                .userAddress(combineAddress(request.getUserAddress(), request.getUserDetailAddress())) // 기본주소와 상세주소 합치기
                 .userRole(existingUser.getUserRole())                // 기존 권한 유지
                 .socialProvider(existingUser.getSocialProvider())    // 기존 소셜로그인 정보 유지
+                .socialId(existingUser.getSocialId())                // 기존 소셜 ID 유지
+                .termsAgreed(existingUser.getTermsAgreed())          // 기존 약관 동의 상태 유지
+                .emailVerified(existingUser.isEmailVerified())      // 기존 이메일 인증 상태 유지
                 .userCreatedAt(existingUser.getUserCreatedAt())      // 기존 가입일 유지
                 .build();
 
@@ -86,13 +91,16 @@ public class MypageService {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다."));
 
-        // 1. 문의글 익명화 (사용자 연결 해제)
+        // 1. 사용자 활동 로그 삭제 (외래키 제약조건으로 인해 먼저 삭제)
+        userActivityLogRepository.deleteByUserId(user);
+
+        // 2. 문의글 익명화 (사용자 연결 해제)
         questionRepository.anonymizeQuestionsByUser(userId);
 
-        // 2. 주문내역은 유지 (이 부분은 주문쪽 끝나면 구현될 예정 9.22)
+        // 3. 주문내역은 유지 (이 부분은 주문쪽 끝나면 구현될 예정 9.22)
         // orderRepository.anonymizeOrdersByUser(user);
 
-        // 3. 사용자 삭제
+        // 4. 사용자 삭제
         userRepository.delete(user);
     }
 
@@ -146,5 +154,17 @@ public class MypageService {
             return xForwardedFor.split(",")[0].trim();
         }
         return request.getRemoteAddr();
+    }
+
+    private String combineAddress(String baseAddress, String detailAddress) {
+        if (baseAddress == null || baseAddress.trim().isEmpty()) {
+            return detailAddress != null ? detailAddress.trim() : null;
+        }
+
+        if (detailAddress == null || detailAddress.trim().isEmpty()) {
+            return baseAddress.trim();
+        }
+
+        return baseAddress.trim() + ", " + detailAddress.trim();
     }
 }
