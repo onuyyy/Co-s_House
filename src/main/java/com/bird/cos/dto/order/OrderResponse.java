@@ -13,6 +13,7 @@ public class OrderResponse {
     private Long orderId;
     private List<OrderItemResponse> items;
     private BigDecimal totalPrice;
+    private BigDecimal totalAmount; // 최종 결제 금액 (쿠폰, 포인트 할인 적용 후)
     private UserResponse user;
 
     @Getter

@@ -127,6 +127,7 @@ public class OrderService {
                 .items(itemResponses)
                 .user(user)
                 .totalPrice(totalPrice)
+                .totalAmount(totalPrice) // 현재는 쿠폰/포인트 할인이 없으므로 totalPrice와 동일
                 .build();
     }
 }
