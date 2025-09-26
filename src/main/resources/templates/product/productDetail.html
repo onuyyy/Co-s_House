@@ -1000,40 +1000,6 @@
         }
     }
 
-    function directPurchase() {
-        if (selectedOptions.length === 0) {
-            alert('상품 옵션을 선택해주세요.');
-            return;
-        }
-
-        const productInfo = document.querySelector('.product-info');
-        const productId = parseNumber(productInfo.dataset.productId);
-
-        if (!productId) {
-            alert('상품 정보를 찾을 수 없습니다.');
-            return;
-        }
-
-        const form = document.createElement('form');
-        form.method = 'POST';
-        form.action = '/order'; // 주문 페이지 경로
-
-        const basePrice = computeBasePrice(productInfo);
-
-        selectedOptions.forEach((option, index) => {
-            const finalUnitPrice = Math.max(0, basePrice + option.additionalPrice);
-
-            // orderItems[0].productId, orderItems[1].productId ...
-            form.appendChild(createHiddenInput(`orderItems[${index}].productId`, productId));
-            form.appendChild(createHiddenInput(`orderItems[${index}].productOptionId`, option.id));
-            form.appendChild(createHiddenInput(`orderItems[${index}].quantity`, option.quantity));
-            form.appendChild(createHiddenInput(`orderItems[${index}].price`, finalUnitPrice));
-        });
-
-        document.body.appendChild(form);
-        form.submit();
-    }
-
     function createHiddenInput(name, value) {
         const input = document.createElement('input');
         input.type = 'hidden';
@@ -1607,6 +1573,12 @@
     }
 
     window.directPurchase = function () {
+        // 선택된 옵션이 있는지 확인
+        if (selectedOptions.length === 0) {
+            alert('상품 옵션을 선택해주세요.');
+            return;
+        }
+
         const productInfo = document.querySelector('.product-info');
         if (!productInfo) {
             alert('상품 정보를 찾을 수 없습니다.');
@@ -1619,61 +1591,22 @@
             return;
         }
 
-        const quantityInputEl = document.getElementById('qty-input');
-        const quantity = parseInt(quantityInputEl.value, 10) || 1;
-
-        if (quantity < 1) {
-            alert('수량은 1개 이상이어야 합니다.');
-            return;
-        }
-
-        const optionSelect = document.getElementById('product-options');
-
-        function resolveSelectedOption(select) {
-            const selected = select.options[select.selectedIndex];
-            if (!selected || !selected.value) return { optionId: null, additionalPrice: 0 };
-            const additionalPrice = parseInt(selected.dataset.additionalPrice, 10) || 0;
-            return { optionId: selected.value, additionalPrice };
-        }
-
-        function computeBasePrice(productInfo) {
-            return parseInt(productInfo.dataset.basePrice, 10) || 0;
-        }
-
-        const optionData = resolveSelectedOption(optionSelect);
-        const basePrice = computeBasePrice(productInfo);
-        const finalUnitPrice = Math.max(0, basePrice + optionData.additionalPrice);
-
         // 주문 정보를 form으로 전송
         const form = document.createElement('form');
         form.method = 'POST';
         form.action = '/order/preview';
 
-        const productIdInput = document.createElement('input');
-        productIdInput.type = 'hidden';
-        productIdInput.name = 'orderItems[0].productId';
-        productIdInput.value = productId.toString();
-        form.appendChild(productIdInput);
+        const basePrice = computeBasePrice(productInfo);
 
-        if (optionData.optionId) {
-            const optionIdInput = document.createElement('input');
-            optionIdInput.type = 'hidden';
-            optionIdInput.name = 'orderItems[0].productOptionId';
-            optionIdInput.value = optionData.optionId;
-            form.appendChild(optionIdInput);
-        }
+        selectedOptions.forEach((option, index) => {
+            const finalUnitPrice = Math.max(0, basePrice + option.additionalPrice);
 
-        const quantityInput = document.createElement('input');
-        quantityInput.type = 'hidden';
-        quantityInput.name = 'orderItems[0].quantity';
-        quantityInput.value = quantity.toString();
-        form.appendChild(quantityInput);
-
-        const priceInput = document.createElement('input');
-        priceInput.type = 'hidden';
-        priceInput.name = 'orderItems[0].price';
-        priceInput.value = finalUnitPrice.toString();
-        form.appendChild(priceInput);
+            // orderItems[0].productId, orderItems[1].productId ...
+            form.appendChild(createHiddenInput(`orderItems[${index}].productId`, productId));
+            form.appendChild(createHiddenInput(`orderItems[${index}].productOptionId`, option.id));
+            form.appendChild(createHiddenInput(`orderItems[${index}].quantity`, option.quantity));
+            form.appendChild(createHiddenInput(`orderItems[${index}].price`, finalUnitPrice));
+        });
 
         document.body.appendChild(form);
         form.submit();
