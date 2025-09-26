@@ -13,5 +13,6 @@ public class MypageUserUpdateRequest {
     private String userNickname;
     private String userPhone;
     private String userAddress;
+    private String userDetailAddress;
     private String userPassword;
 }

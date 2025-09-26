@@ -1,29 +1,12 @@
 /*<![CDATA[*/
-// 페이지 로드 시 주소 분리
+// 페이지 로드 시 주소 분리 (쉼표 기준)
 document.addEventListener('DOMContentLoaded', function() {
     var fullAddress = document.getElementById('userAddress').value;
-    if (fullAddress) {
-        // 일반적인 상세주소 패턴들 (동/호수, 층, 호, 빌딩명 등)
-        var detailPatterns = [
-            /\s+\d+동\s*\d+호.*$/,      // 101동 202호
-            /\s+\d+층\s*.*$/,           // 11층 패스트캠퍼스
-            /\s+\d+호.*$/,              // 202호
-            /\s+\d+번지.*$/,            // 123번지
-            /\s+[가-힣A-Za-z0-9]+빌딩.*$/, // 삼성빌딩
-            /\s+[가-힣A-Za-z0-9]+아파트.*$/ // 래미안아파트
-        ];
-
-        var baseAddr = fullAddress;
-        var detailAddr = '';
-
-        for (var i = 0; i < detailPatterns.length; i++) {
-            var match = fullAddress.match(detailPatterns[i]);
-            if (match) {
-                baseAddr = fullAddress.substring(0, match.index);
-                detailAddr = match[0].trim();
-                break;
-            }
-        }
+    if (fullAddress && fullAddress.includes(',')) {
+        // 쉼표로 분리: "기본주소, 상세주소" 형태
+        var addressParts = fullAddress.split(',');
+        var baseAddr = addressParts[0].trim();
+        var detailAddr = addressParts.slice(1).join(',').trim(); // 쉼표가 여러개인 경우 대비
 
         document.getElementById('userAddress').value = baseAddr;
         document.getElementById('userDetailAddress').value = detailAddr;
@@ -136,8 +119,8 @@ document.addEventListener('DOMContentLoaded', function() {
     updateWithdrawalFieldColors();
 });
 
-// 비밀번호 검증 상태 추적 변수
-let isWithdrawalPasswordValid = false;
+// 비밀번호 검증 상태 추적 변수 (소셜 로그인 사용자는 비밀번호 필드가 없으므로 초기값을 true로 설정)
+let isWithdrawalPasswordValid = !document.getElementById('withdrawalPassword');
 
 // 탈퇴 조건 확인 함수
 function checkWithdrawalConditions() {
@@ -153,15 +136,15 @@ function checkWithdrawalConditions() {
         isValid = false;
     }
 
-    // 비밀번호 확인 (소셜 로그인이 아닌 경우)
+    // 비밀번호 확인 (소셜 로그인이 아닌 경우에만)
     if (passwordField) {
         if (passwordField.value.trim() === '') {
             isValid = false;
         } else if (!isWithdrawalPasswordValid) {
-            // 비밀번호가 입력되었지만 검증에 실패한 경우
             isValid = false;
         }
     }
+    // 소셜 로그인 사용자는 passwordField가 null이므로 비밀번호 검증을 자동으로 건너뜀
 
     // 동의 체크박스 확인
     if (!agreeCheckbox.checked) {
@@ -398,14 +381,6 @@ function handleWithdrawal() {
 
 // 폼 제출 확인
 document.querySelector('.user-update-form').addEventListener('submit', function(e) {
-    // 기본 주소와 상세주소를 합치기
-    var baseAddress = document.getElementById('userAddress').value;
-    var detailAddress = document.getElementById('userDetailAddress').value;
-
-    if (baseAddress && detailAddress) {
-        document.getElementById('userAddress').value = baseAddress + ' ' + detailAddress;
-    }
-
     if (!confirm('정보를 수정하시겠습니까?')) {
         e.preventDefault();
     }

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>정보수정 - 마이페이지</title>
     <link rel="stylesheet" th:href="@{/css/app.css}">
+    <link rel="stylesheet" th:href="@{/css/mypage/mypage.css}">
     <link rel="stylesheet" th:href="@{/css/mypage/mypage-user.css}">
     <link rel="stylesheet" th:href="@{/css/main/header.css}">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
@@ -15,19 +16,7 @@
     <div class="container">
         <div class="mypage-layout">
             <!-- 사이드바 -->
-            <div class="mypage-sidebar">
-                <h3 style="margin-bottom: 24px; color: var(--color-text);">마이페이지</h3>
-                <ul class="sidebar-nav">
-                    <li><a href="/mypage"><i class="fas fa-user"></i>내 정보</a></li>
-                    <li><a href="/mypage/orders"><i class="fas fa-shopping-bag"></i>주문내역(미구현)</a></li>
-                    <li><a href="/mypage/wishlist"><i class="fas fa-heart"></i>위시리스트(미구현)</a></li>
-                    <li><a href="/mypage/reviews"><i class="fas fa-star"></i>리뷰관리(미구현)</a></li>
-                    <li><a href="/question"><i class="fas fa-question-circle"></i>문의내역</a></li>
-                    <li><a href="/mypage/coupons"><i class="fas fa-ticket-alt"></i>쿠폰함(미구현)</a></li>
-                    <li><a href="/mypage/points"><i class="fas fa-coins"></i>적립금(미구현)</a></li>
-                    <li><a class="active" href="/mypage/mypageUserDetail"><i class="fas fa-edit"></i>정보수정</a></li>
-                </ul>
-            </div>
+            <div th:replace="fragments/mypage-sidebar :: sidebar"></div>
 
             <!-- 메인 컨텐츠 -->
             <div class="mypage-content">
