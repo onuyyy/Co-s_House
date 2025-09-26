@@ -1,15 +1,16 @@
 package com.bird.cos.controller.order;
 
+import com.bird.cos.domain.coupon.Coupon;
+import com.bird.cos.dto.order.MyCouponResponse;
 import com.bird.cos.dto.order.OrderForm;
 import com.bird.cos.dto.order.OrderRequest;
 import com.bird.cos.dto.order.OrderResponse;
+import com.bird.cos.service.mypage.CouponService;
 import com.bird.cos.service.order.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -19,6 +20,7 @@ import java.util.List;
 public class OrderController {
 
     private final OrderService orderService;
+    private final CouponService couponService;
 
     @PostMapping
     public String createOrder(@ModelAttribute OrderForm orderForm, Model model) {
@@ -31,6 +33,13 @@ public class OrderController {
         model.addAttribute("order", order);
 
         return "order/create";
+    }
+
+    @GetMapping("/my-coupons")
+    @ResponseBody
+    public List<MyCouponResponse> getMyCoupons() {
+
+        return couponService.getMyCoupons();
     }
 
 }
