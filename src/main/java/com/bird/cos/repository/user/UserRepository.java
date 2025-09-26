@@ -50,6 +50,14 @@ public interface UserRepository extends JpaRepository<User, Long> {
     Optional<User> findByUserNickname(String userNickname);
     Optional<User> findByUserName(String userName);
 
+    @Query("select u from User u left join fetch u.userRole where u.userId = :userId")
+    Optional<User> findWithRoleByUserId(@Param("userId") Long userId);
+
+    @Query("select u from User u left join fetch u.userRole where u.userEmail = :userEmail")
+    Optional<User> findWithRoleByEmail(@Param("userEmail") String userEmail);
+
+    Optional<User> findBySocialProviderAndSocialId(String socialProvider, String socialId);
+
     // 중복 체크 (자신 제외)
     boolean existsByUserEmailAndUserIdNot(String userEmail, Long userId);
     boolean existsByUserNicknameAndUserIdNot(String userNickname, Long userId);
