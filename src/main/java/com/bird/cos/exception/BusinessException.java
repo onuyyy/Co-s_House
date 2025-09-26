@@ -22,6 +22,16 @@ public class BusinessException extends RuntimeException {
                 "상품을 찾을 수 없습니다: " + productId);
     }
 
+    public static BusinessException orderNotFound(Long orderId) {
+        return new BusinessException(ErrorCode.ORDER_NOT_FOUND,
+                "주문을 찾을 수 없습니다: " + orderId);
+    }
+
+    public static BusinessException orderAccessDenied() {
+        return new BusinessException(ErrorCode.ORDER_ACCESS_DENIED,
+                "주문에 접근할 수 있는 권한이 없습니다.");
+    }
+
     public static BusinessException userNotFound() {
         return new BusinessException(ErrorCode.USER_NOT_FOUND);
     }

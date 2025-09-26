@@ -481,6 +481,230 @@
     }
 }
 
+/* 서브 섹션 타이틀 */
+.sub-section-title {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 16px;
+    color: #333;
+}
+
+/* 쿠폰/포인트 섹션 */
+.coupon-section, .point-section {
+    margin-bottom: 32px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.coupon-section:last-child, .point-section:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+/* 선택된 쿠폰 표시 */
+.coupon-selected {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px;
+    background: #e8f4fd;
+    border: 1px solid #35c5f0;
+    border-radius: 8px;
+    margin-bottom: 12px;
+}
+
+.selected-coupon-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.selected-coupon-name {
+    font-weight: 600;
+    color: #1565c0;
+}
+
+.selected-coupon-discount {
+    font-size: 14px;
+    color: #35c5f0;
+    font-weight: 500;
+}
+
+.coupon-cancel-btn {
+    background: #fff;
+    border: 1px solid #35c5f0;
+    color: #35c5f0;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.coupon-cancel-btn:hover {
+    background: #f8fcff;
+}
+
+/* 모달 스타일 */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 5% auto;
+    padding: 0;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 600px;
+    max-height: 80vh;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.modal-header {
+    padding: 24px;
+    background: #35c5f0;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-header h2 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.close {
+    color: white;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    line-height: 1;
+}
+
+.close:hover {
+    opacity: 0.8;
+}
+
+.modal-body {
+    padding: 24px;
+    max-height: 60vh;
+    overflow-y: auto;
+}
+
+/* 쿠폰 목록 */
+.coupon-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.coupon-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    background: #fff;
+    transition: all 0.2s;
+}
+
+.coupon-item:hover:not(.disabled) {
+    border-color: #35c5f0;
+    box-shadow: 0 2px 8px rgba(53, 197, 240, 0.1);
+}
+
+.coupon-item.disabled {
+    opacity: 0.6;
+    background: #f8f9fa;
+}
+
+.coupon-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.coupon-title {
+    font-weight: 600;
+    color: #333;
+    font-size: 16px;
+}
+
+.coupon-description {
+    color: #666;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+.coupon-discount-type {
+    background: #e8f4fd;
+    color: #1565c0;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+    display: inline-block;
+    margin-bottom: 4px;
+}
+
+.coupon-discount {
+    color: #35c5f0;
+    font-weight: 600;
+    font-size: 15px;
+}
+
+.coupon-expire {
+    color: #999;
+    font-size: 13px;
+}
+
+.coupon-use-btn {
+    padding: 10px 20px;
+    background: #35c5f0;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 14px;
+    min-width: 80px;
+    transition: background-color 0.2s;
+}
+
+.coupon-use-btn:hover:not(.disabled) {
+    background: #2bb5e0;
+}
+
+.coupon-use-btn.disabled {
+    background: #ccc;
+    cursor: not-allowed;
+}
+
+/* 메시지 스타일 */
+.loading-message, .no-coupons, .error-message {
+    text-align: center;
+    padding: 40px 20px;
+    color: #666;
+    font-size: 16px;
+}
+
+.error-message {
+    color: #d32f2f;
+}
+
 /* 추가 유틸리티 */
 .text-blue {
     color: #35c5f0 !important;
@@ -492,4 +716,35 @@
 
 .mb-0 {
     margin-bottom: 0 !important;
+}
+
+/* 반응형 - 모달 */
+@media (max-width: 768px) {
+    .modal-content {
+        width: 95%;
+        margin: 10% auto;
+        max-height: 75vh;
+    }
+
+    .modal-header, .modal-body {
+        padding: 20px 16px;
+    }
+
+    .coupon-item {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 16px;
+        padding: 16px;
+    }
+
+    .coupon-use-btn {
+        width: 100%;
+        align-self: stretch;
+    }
+
+    .coupon-selected {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+    }
 }

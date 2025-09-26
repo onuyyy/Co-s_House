@@ -16,6 +16,7 @@ public interface UserCouponRepository extends JpaRepository<UserCoupon, Long> {
     boolean existsByUser_UserIdAndCoupon_CouponId(Long userId, Long couponId);
 
     Page<UserCoupon> findByUser_UserId(Long userId, Pageable pageable);
+    List<UserCoupon> findByUser_UserId(Long userId);
 
     @EntityGraph(attributePaths = {
             "coupon",

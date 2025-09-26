@@ -6,16 +6,23 @@ import com.bird.cos.domain.user.User;
 import com.bird.cos.domain.coupon.UserCoupon;
 import com.bird.cos.dto.mypage.CouponResponse;
 import com.bird.cos.dto.mypage.UserCouponResponse;
+import com.bird.cos.dto.order.MyCouponResponse;
 import com.bird.cos.repository.mypage.coupon.CouponRepository;
 import com.bird.cos.repository.mypage.coupon.CouponSpecifications;
 import com.bird.cos.repository.mypage.coupon.UserCouponRepository;
 import com.bird.cos.repository.user.UserRepository;
+import com.bird.cos.security.CustomUserDetails;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -83,5 +90,14 @@ public class CouponService {
     public Page<UserCouponResponse> findUserCoupons(Long userId, Pageable pageable) {
         return userCouponRepository.findByUser_UserId(userId, pageable)
                 .map(UserCouponResponse::from);
+    }
+
+    public List<MyCouponResponse> getMyCoupons() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        CustomUserDetails customUserDetails = (CustomUserDetails) authentication.getPrincipal();
+
+        Long userId = customUserDetails.getUserId();
+
+        return userCouponRepository.findByUser_UserId(userId).stream().map(MyCouponResponse::from).toList();
     }
 }

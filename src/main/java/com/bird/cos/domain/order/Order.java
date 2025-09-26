@@ -50,8 +50,7 @@ public class Order {
     @Column(name = "confirmed_date")
     private LocalDateTime confirmedDate;
 
-    @Builder.Default
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<OrderItem> orderItems = new ArrayList<>();
 
     @CreatedDate
@@ -63,7 +62,17 @@ public class Order {
     private LocalDateTime orderUpdatedAt;
 
     public void addOrderItem(OrderItem item) {
-        orderItems.add(item);
+        if (this.orderItems == null) {
+            this.orderItems = new ArrayList<>();
+        }
+        this.orderItems.add(item);
         item.setOrder(this);
+    }
+
+    public List<OrderItem> getOrderItems() {
+        if (this.orderItems == null) {
+            this.orderItems = new ArrayList<>();
+        }
+        return this.orderItems;
     }
 }

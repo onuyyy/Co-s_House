@@ -1,8 +1,8 @@
 <!doctype html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/layout :: head('주문/결제')">
-  <link rel="stylesheet" th:href="@{/css/order.css}">
-</head>
+<head th:replace="fragments/layout :: head('주문/결제')"></head>
+<!-- 페이지 전용 CSS 추가 -->
+<link rel="stylesheet" th:href="@{/css/order.css}">
 <body class="page font-body">
   <div th:replace="fragments/layout :: header"></div>
 
@@ -13,9 +13,29 @@
       <!-- 왼쪽 섹션 -->
       <div class="left-section">
 
-        <!-- 주문자 정보 섹션 -->
+        <!-- 주문 결제 / 주문자 정보 섹션 -->
         <div class="section-card">
-          <h2 class="section-title">배송지
+          <h2 class="section-title">주문 결제 / 주문자 정보</h2>
+
+          <div class="form-group">
+            <label class="form-label">주문자명</label>
+            <input type="text" class="input" th:value="${order.user.userName}" readonly>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">연락처</label>
+            <input type="text" class="input" th:value="${order.user.phone}" readonly>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">이메일</label>
+            <input type="text" class="input" th:value="${order.user.userEmail}" readonly>
+          </div>
+        </div>
+
+        <!-- 배송지 정보 섹션 -->
+        <div class="section-card">
+          <h2 class="section-title">배송지 정보
             <button type="button" class="coupon-link">변경</button>
           </h2>
 
@@ -52,7 +72,7 @@
 
         <!-- 주문 상품 정보 섹션 -->
         <div class="section-card">
-          <h2 class="section-title">주문상품
+          <h2 class="section-title">주문 상품 정보
             <span class="item-count" th:text="${#lists.size(order.items)} + '건'">1건</span>
           </h2>
 
@@ -63,9 +83,9 @@
                   <div class="product-img-placeholder">📦</div>
                 </div>
                 <div class="item-details">
-                  <p class="item-name">상품명</p>
+                  <p class="item-name" th:text="${item.productName}">상품명</p>
                   <p class="item-option" th:if="${item.productOptionName != null}" th:text="${item.productOptionName}">옵션명</p>
-                  <p class="item-quantity" th:text="'수량: ' + ${item.quantity} + '개'">수량: 1개</p>
+                  <p class="item-quantity" th:text="'수량: ' + ${item.quantity} + '개'">수량: 0개</p>
                 </div>
               </div>
               <div class="item-shipping">
@@ -78,96 +98,32 @@
           </div>
         </div>
 
-        <!-- 쿠폰 섹션 -->
+        <!-- 포인트/쿠폰 정보 섹션 -->
         <div class="section-card">
-          <h2 class="section-title">장바구니 쿠폰</h2>
-          <p class="coupon-message">사용 가능한 쿠폰이 없습니다</p>
-          <button type="button" class="coupon-link">쿠폰코드가 있으신가요?</button>
-        </div>
+          <h2 class="section-title">포인트/쿠폰 정보</h2>
 
-        <!-- 포인트 섹션 -->
-        <div class="section-card">
-          <h2 class="section-title">포인트</h2>
-          <div class="point-input-group">
-            <input type="number" class="point-input" placeholder="0" value="0">
-            <button type="button" class="point-all-btn coupon-link">전액 사용</button>
-          </div>
-          <p class="point-available">사용 가능 포인트 <span class="point-amount">155,5555 P</span></p>
-        </div>
-
-        <!-- 결제수단 섹션 -->
-        <div class="section-card">
-          <h2 class="section-title">결제수단</h2>
-
-          <div class="payment-method">
-            <div class="method-option">
-              <input type="radio" id="toss" name="payment" value="toss" checked>
-              <label for="toss">
-                <span class="method-logo">💳</span> 토스페이 <span class="method-tag">추천</span>
-              </label>
+          <!-- 쿠폰 부분 -->
+          <div class="coupon-section">
+            <h3 class="sub-section-title">쿠폰</h3>
+            <div class="coupon-selected" id="selectedCoupon" style="display: none;">
+              <div class="selected-coupon-info">
+                <span class="selected-coupon-name"></span>
+                <span class="selected-coupon-discount"></span>
+              </div>
+              <button type="button" class="coupon-cancel-btn" onclick="cancelCoupon()">취소</button>
             </div>
-
-            <div class="method-option">
-              <input type="radio" id="card" name="payment" value="card">
-              <label for="card">
-                <span class="method-logo">💳</span> 카드
-              </label>
-            </div>
-
-            <div class="method-option">
-              <input type="radio" id="phone" name="payment" value="phone">
-              <label for="phone">
-                <span class="method-logo">📱</span> 휴대폰결제
-              </label>
-            </div>
-
-            <div class="method-option">
-              <input type="radio" id="bank" name="payment" value="bank">
-              <label for="bank">
-                <span class="method-logo">🏦</span> 무통장입금
-              </label>
-            </div>
-
-            <div class="method-option">
-              <input type="radio" id="simple" name="payment" value="simple">
-              <label for="simple">
-                <span class="method-logo">💰</span> 간편결제
-              </label>
-            </div>
-
-            <div class="method-option">
-              <input type="radio" id="account" name="payment" value="account">
-              <label for="account">
-                <span class="method-logo">🏧</span> 계좌이체
-              </label>
-            </div>
-
-            <div class="method-option">
-              <input type="radio" id="vbank" name="payment" value="vbank">
-              <label for="vbank">
-                <span class="method-logo">🏛️</span> 가상계좌
-              </label>
-            </div>
-
-            <div class="method-option">
-              <input type="radio" id="gift" name="payment" value="gift">
-              <label for="gift">
-                <span class="method-logo">🎁</span> 상품권
-              </label>
-            </div>
-
-            <div class="method-option">
-              <input type="radio" id="hana" name="payment" value="hana">
-              <label for="hana">
-                <span class="method-logo">🏦</span> 하나론
-              </label>
-            </div>
+            <p class="coupon-message" id="couponMessage">선택된 쿠폰이 없습니다</p>
+            <button type="button" class="coupon-link" onclick="openCouponModal()">내 쿠폰 목록 보기</button>
           </div>
 
-          <div class="installment-info">
-            <p>일시불</p>
-            <small>1회 이상 무이자</small>
-            <small>최대 3000수취액</small>
+          <!-- 포인트 부분 -->
+          <div class="point-section">
+            <h3 class="sub-section-title">포인트</h3>
+            <div class="point-input-group">
+              <input type="number" id="pointInput" class="point-input" placeholder="0" value="0" min="0" onchange="calculateTotal()">
+              <button type="button" class="point-all-btn coupon-link" onclick="useAllPoints()">전액 사용</button>
+            </div>
+            <p class="point-available">사용 가능 포인트 <span class="point-amount">155,555 P</span></p>
           </div>
         </div>
       </div>
@@ -184,7 +140,7 @@
 
           <div class="price-row">
             <span class="price-label">배송비</span>
-            <span class="price-value">40,000원</span>
+            <span class="price-value">0원</span>
           </div>
 
           <div class="price-row">
@@ -199,7 +155,7 @@
 
           <div class="total-row">
             <span class="total-label">최종 결제 금액</span>
-            <span class="total-price" th:text="${#numbers.formatDecimal(order.totalAmount + 40000, 0, 'COMMA', 0, 'POINT')} + ' 원'">179,000 원</span>
+            <span class="total-price" th:text="${#numbers.formatDecimal(order.totalAmount, 0, 'COMMA', 0, 'POINT')} + ' 원'">179,000 원</span>
             <span class="installment-text">139 P 적립 예정</span>
           </div>
 
@@ -209,13 +165,370 @@
             이용약관/결제대행 및 쇼핑몰 이용약관 개인정보 수집, 결제대행 서비스와 등 서비스에 대한 저 공인 시킬인증을 필이 방면 내용입니다.
           </div>
 
-          <button type="button" class="payment-btn" th:text="${#numbers.formatDecimal(order.totalAmount + 40000, 0, 'COMMA', 0, 'POINT')} + '원 결제하기'">179,000 원 결제하기</button>
+          <button type="button" class="payment-btn" th:text="${#numbers.formatDecimal(order.totalAmount, 0, 'COMMA', 0, 'POINT')} + '원 결제하기'">179,000 원 결제하기</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 쿠폰 모달 -->
+  <div id="couponModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>내 쿠폰 목록</h2>
+        <span class="close" onclick="closeCouponModal()">&times;</span>
+      </div>
+      <div class="modal-body">
+        <div id="couponList" class="coupon-list">
+          <div class="loading-message">쿠폰을 불러오는 중...</div>
         </div>
       </div>
     </div>
   </div>
 
   <div th:replace="fragments/layout :: footer"></div>
+
+  <!-- Hidden form with order data for JavaScript -->
+  <div id="hiddenOrderData" style="display: none;">
+    <div th:each="item, itemStat : ${order.items}">
+      <input type="hidden" th:id="'item-' + ${itemStat.index} + '-productId'" th:value="${item.productId}" />
+      <input type="hidden" th:id="'item-' + ${itemStat.index} + '-productOptionId'" th:value="${item.productOptionId}" />
+      <input type="hidden" th:id="'item-' + ${itemStat.index} + '-quantity'" th:value="${item.quantity}" />
+      <input type="hidden" th:id="'item-' + ${itemStat.index} + '-price'" th:value="${item.price}" />
+    </div>
+    <input type="hidden" id="totalItemsCount" th:value="${#lists.size(order.items)}" />
+  </div>
+
+  <script>
+    // 전역 변수
+    let selectedCouponData = null;
+    const totalPrice = parseFloat('[[${ order.totalPrice }]]') || 0;
+    const shippingCost = 0;
+    const availablePoints = 155555;
+
+    // 페이지 로드 시 초기화
+    document.addEventListener('DOMContentLoaded', function() {
+        updatePaymentSummary();
+    });
+
+    // 쿠폰 모달 열기
+    function openCouponModal() {
+        document.getElementById('couponModal').style.display = 'block';
+        loadMyCoupons();
+    }
+
+    // 쿠폰 모달 닫기
+    function closeCouponModal() {
+        document.getElementById('couponModal').style.display = 'none';
+    }
+
+    // 내 쿠폰 목록 불러오기
+    async function loadMyCoupons() {
+        try {
+            const response = await fetch('/order/my-coupons');
+            const coupons = await response.json();
+
+            const couponList = document.getElementById('couponList');
+
+            if (coupons.length === 0) {
+                couponList.innerHTML = '<div class="no-coupons">사용 가능한 쿠폰이 없습니다.</div>';
+                return;
+            }
+
+            couponList.innerHTML = coupons.map(coupon => {
+                const isUsable = coupon.usable;
+                const discountAmount = coupon.coupon.discountAmount || 0;
+                const discountRate = coupon.coupon.discountRate || 0;
+
+                // 할인 타입과 값 결정
+                let discountType = 'AMOUNT'; // 기본값: 금액할인
+                let discountValue = discountAmount;
+                let discountText = '';
+
+                if (discountAmount > 0) {
+                    discountType = 'AMOUNT';
+                    discountValue = discountAmount;
+                    discountText = `${formatPrice(discountAmount)}원 할인`;
+                } else if (discountRate > 0) {
+                    discountType = 'RATE';
+                    discountValue = discountRate;
+                    discountText = `${discountRate}% 할인`;
+                } else {
+                    discountText = '할인 정보 없음';
+                }
+
+                return `
+                    <div class="coupon-item ${!isUsable ? 'disabled' : ''}">
+                        <div class="coupon-info">
+                            <div class="coupon-title">${coupon.coupon.couponTitle || ''}</div>
+                            <div class="coupon-description">${coupon.coupon.couponDescription || ''}</div>
+                            <div class="coupon-discount-type">${discountType === 'AMOUNT' ? '금액할인' : '퍼센트할인'}</div>
+                            <div class="coupon-discount">${discountText}</div>
+                            <div class="coupon-expire">만료일: ${formatDate(coupon.coupon.expiredAt)}</div>
+                        </div>
+                        <button
+                            class="coupon-use-btn ${!isUsable ? 'disabled' : ''}"
+                            onclick="applyCoupon(${coupon.userCouponId}, '${escapeQuotes(coupon.coupon.couponTitle)}', '${discountType}', ${discountValue})"
+                            ${!isUsable ? 'disabled' : ''}
+                        >
+                            ${isUsable ? '적용하기' : '사용불가'}
+                        </button>
+                    </div>
+                `;
+            }).join('');
+
+        } catch (error) {
+            console.error('쿠폰 목록 로드 실패:', error);
+            document.getElementById('couponList').innerHTML = '<div class="error-message">쿠폰 목록을 불러올 수 없습니다.</div>';
+        }
+    }
+
+    // 쿠폰 적용
+    function applyCoupon(userCouponId, couponTitle, discountType, discountValue) {
+        selectedCouponData = {
+            userCouponId: userCouponId,
+            title: couponTitle,
+            discountType: discountType, // 'AMOUNT' 또는 'RATE'
+            discountValue: discountValue
+        };
+
+        // 할인 금액 계산
+        let discountAmount = calculateDiscountAmount(discountType, discountValue);
+
+        // 선택된 쿠폰 표시
+        document.getElementById('selectedCoupon').style.display = 'flex';
+        document.getElementById('couponMessage').textContent = '쿠폰이 적용되었습니다.';
+        document.querySelector('.selected-coupon-name').textContent = couponTitle;
+
+        if (discountType === 'RATE') {
+            document.querySelector('.selected-coupon-discount').textContent = `-${discountValue}% (${formatPrice(discountAmount)}원)`;
+        } else {
+            document.querySelector('.selected-coupon-discount').textContent = `-${formatPrice(discountAmount)}원`;
+        }
+
+        // 결제 금액 업데이트
+        updatePaymentSummary();
+
+        // 모달 닫기
+        closeCouponModal();
+    }
+
+    // 할인 금액 계산
+    function calculateDiscountAmount(discountType, discountValue) {
+        if (discountType === 'RATE') {
+            // 퍼센트 할인: 원래금액 * (할인율 / 100)
+            return Math.floor((totalPrice + shippingCost) * (discountValue / 100));
+        } else {
+            // 금액 할인: 할인 금액 그대로
+            return discountValue;
+        }
+    }
+
+    // 쿠폰 취소
+    function cancelCoupon() {
+        selectedCouponData = null;
+        document.getElementById('selectedCoupon').style.display = 'none';
+        document.getElementById('couponMessage').textContent = '선택된 쿠폰이 없습니다';
+        updatePaymentSummary();
+    }
+
+    // 포인트 전액 사용
+    function useAllPoints() {
+        const pointInput = document.getElementById('pointInput');
+        pointInput.value = availablePoints;
+        calculateTotal();
+    }
+
+    // 결제 금액 계산
+    function calculateTotal() {
+        updatePaymentSummary();
+    }
+
+    // 결제 요약 업데이트
+    function updatePaymentSummary() {
+        const usedPoints = parseInt(document.getElementById('pointInput').value) || 0;
+
+        // 쿠폰 할인 금액 계산
+        let couponDiscount = 0;
+        if (selectedCouponData) {
+            couponDiscount = calculateDiscountAmount(selectedCouponData.discountType, selectedCouponData.discountValue);
+        }
+
+        // 각 항목 업데이트
+        document.querySelector('.price-row:nth-child(3) .price-value').textContent = couponDiscount > 0 ? `-${formatPrice(couponDiscount)}원` : `0원`;
+        document.querySelector('.price-row:nth-child(4) .price-value').textContent = usedPoints > 0 ? `-${formatPrice(usedPoints)}원` : `0원`;
+
+        // 최종 결제 금액 계산 (0원 미만으로 내려가지 않도록)
+        const finalAmount = Math.max(0, totalPrice + shippingCost - couponDiscount - usedPoints);
+        document.querySelector('.total-price').textContent = `${formatPrice(finalAmount)} 원`;
+
+        // 결제 버튼 업데이트 (쿠폰 ID와 포인트 포함)
+        const paymentBtn = document.querySelector('.payment-btn');
+        paymentBtn.textContent = `${formatPrice(finalAmount)}원 결제하기`;
+
+        // 결제 버튼에 클릭 이벤트 추가 (쿠폰 ID 전달)
+        paymentBtn.onclick = function() {
+            processPayment(finalAmount, selectedCouponData, usedPoints);
+        };
+
+        // 적립 예정 포인트 (결제 금액의 1%)
+        const earnPoints = Math.floor(finalAmount * 0.01);
+        document.querySelector('.installment-text').textContent = `${formatPrice(earnPoints)} P 적립 예정`;
+    }
+
+    // 결제 처리 함수
+    function processPayment(finalAmount, couponData, usedPoints) {
+        // 주문 데이터를 폼으로 전송하여 실제 주문 생성
+        const form = document.createElement('form');
+        form.method = 'POST';
+        form.action = '/order/create';
+        form.style.display = 'none';
+
+        // 숨겨진 입력 필드에서 주문 아이템 데이터 읽기
+        const totalItemsCount = parseInt(document.getElementById('totalItemsCount').value) || 0;
+        console.log('Debug - Total items count:', totalItemsCount);
+
+        if (totalItemsCount === 0) {
+            console.error('Debug - No order items found!');
+            alert('주문할 상품이 없습니다.');
+            return;
+        }
+
+        // 각 아이템을 순회하면서 폼에 추가
+        for (let index = 0; index < totalItemsCount; index++) {
+            const productIdElement = document.getElementById(`item-${index}-productId`);
+            const productOptionIdElement = document.getElementById(`item-${index}-productOptionId`);
+            const quantityElement = document.getElementById(`item-${index}-quantity`);
+            const priceElement = document.getElementById(`item-${index}-price`);
+
+            if (!productIdElement || !quantityElement || !priceElement) {
+                console.error(`Debug - Missing required fields for item ${index}`);
+                continue;
+            }
+
+            console.log(`Debug - Processing item[${index}] - productId: ${productIdElement.value}, quantity: ${quantityElement.value}, price: ${priceElement.value}`);
+
+            // productId 추가
+            const productIdInput = document.createElement('input');
+            productIdInput.type = 'hidden';
+            productIdInput.name = `orderItems[${index}].productId`;
+            productIdInput.value = productIdElement.value;
+            form.appendChild(productIdInput);
+
+            // productOptionId 추가 (있는 경우에만)
+            if (productOptionIdElement && productOptionIdElement.value && productOptionIdElement.value !== 'null') {
+                const optionIdInput = document.createElement('input');
+                optionIdInput.type = 'hidden';
+                optionIdInput.name = `orderItems[${index}].productOptionId`;
+                optionIdInput.value = productOptionIdElement.value;
+                form.appendChild(optionIdInput);
+            }
+
+            // quantity 추가
+            const quantityInput = document.createElement('input');
+            quantityInput.type = 'hidden';
+            quantityInput.name = `orderItems[${index}].quantity`;
+            quantityInput.value = quantityElement.value;
+            form.appendChild(quantityInput);
+
+            // price 추가
+            const priceInput = document.createElement('input');
+            priceInput.type = 'hidden';
+            priceInput.name = `orderItems[${index}].price`;
+            priceInput.value = priceElement.value;
+            form.appendChild(priceInput);
+        }
+
+        // 쿠폰 정보 추가 (쿠폰을 사용한 경우)
+        if (couponData) {
+            const couponIdInput = document.createElement('input');
+            couponIdInput.type = 'hidden';
+            couponIdInput.name = 'userCouponId';
+            couponIdInput.value = couponData.userCouponId;
+            form.appendChild(couponIdInput);
+
+            const couponDiscountInput = document.createElement('input');
+            couponDiscountInput.type = 'hidden';
+            couponDiscountInput.name = 'couponDiscountAmount';
+            couponDiscountInput.value = calculateDiscountAmount(couponData.discountType, couponData.discountValue);
+            form.appendChild(couponDiscountInput);
+        }
+
+        // 포인트 정보 추가 (포인트를 사용한 경우)
+        if (usedPoints > 0) {
+            const pointsInput = document.createElement('input');
+            pointsInput.type = 'hidden';
+            pointsInput.name = 'usedPoints';
+            pointsInput.value = usedPoints;
+            form.appendChild(pointsInput);
+        }
+
+        // 최종 결제 금액 추가
+        const finalAmountInput = document.createElement('input');
+        finalAmountInput.type = 'hidden';
+        finalAmountInput.name = 'finalAmount';
+        finalAmountInput.value = finalAmount;
+        form.appendChild(finalAmountInput);
+
+        document.body.appendChild(form);
+
+        // 폼 전송 후 응답 처리를 위해 fetch 사용
+        const formData = new FormData(form);
+
+        fetch('/order/create', {
+            method: 'POST',
+            body: formData,
+            credentials: 'include'
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert(data.message);
+                // 선택적으로 주문 완료 페이지로 이동
+                // window.location.href = '/order/success?orderId=' + data.orderId;
+            } else {
+                alert(data.message);
+            }
+        })
+        .catch(error => {
+            console.error('주문 처리 중 오류:', error);
+            alert('주문 처리 중 오류가 발생했습니다. 다시 시도해 주세요.');
+        })
+        .finally(() => {
+            // 폼 제거
+            document.body.removeChild(form);
+        });
+    }
+
+    // 숫자 포맷팅 (콤마 추가)
+    function formatPrice(price) {
+        if (price === null || price === undefined || isNaN(price)) {
+            return '0';
+        }
+        return Number(price).toLocaleString('ko-KR');
+    }
+
+    // 날짜 포맷팅
+    function formatDate(dateString) {
+        if (!dateString) return '';
+        const date = new Date(dateString);
+        return date.toLocaleDateString('ko-KR');
+    }
+
+    // 따옴표 이스케이프
+    function escapeQuotes(str) {
+        if (!str) return '';
+        return str.replace(/'/g, "\\'").replace(/"/g, '\\"');
+    }
+
+    // 모달 외부 클릭 시 닫기
+    window.onclick = function(event) {
+        const modal = document.getElementById('couponModal');
+        if (event.target == modal) {
+            modal.style.display = 'none';
+        }
+    }
+  </script>
 
   <style>
     .payment-method {

@@ -192,3 +192,6 @@ INSERT INTO user (user_role, email_verified, user_email, user_password, user_nic
 -- 모든 일반 계정의 비밀번호: "password123!"
 -- BCrypt 해시값: $2a$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2uheWG/igi.
 -- 소셜 로그인 계정은 비밀번호가 NULL
+
+
+

@@ -13,6 +13,7 @@ import java.util.Collection;
 @AllArgsConstructor
 public class CustomUserDetails implements UserDetails {
 
+    private final Long userId;
     private final String userEmail;
     private final String userName;
     private final String name;
