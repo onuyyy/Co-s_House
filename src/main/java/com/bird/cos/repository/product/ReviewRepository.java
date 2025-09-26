@@ -4,6 +4,7 @@ import com.bird.cos.domain.product.Review;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -11,7 +12,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface ReviewRepository extends JpaRepository<Review, Long> {
+public interface ReviewRepository extends JpaRepository<Review, Long>, JpaSpecificationExecutor<Review>  {
 
     // 기본 조회
     List<Review> findAllByOrderByCreatedAtDesc();;
@@ -57,11 +58,9 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
     @Query("SELECT r FROM Review r WHERE r.product.productId = :productId AND r.productOption.optionId = :optionId AND SIZE(r.reviewImages) > 0")
     Page<Review> findPhotoReviewsByProductIdAndOptionId(@Param("productId") Long productId, @Param("optionId") Long optionId, Pageable pageable);
 
-    List<Review> findByProduct_ProductId(Long productId);
-
     Page<Review> findByProduct_ProductId(Long productId, Pageable pageable);
-
     Page<Review> findByProduct_ProductIdAndProductOption_OptionId(Long productId, Long optionId, Pageable pageable);
+    List<Review> findByProduct_ProductId(Long productId);
 
 
 }
