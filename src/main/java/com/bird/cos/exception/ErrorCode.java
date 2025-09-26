@@ -27,6 +27,9 @@ public enum ErrorCode {
     OPTION_NOT_FOUND(HttpStatus.BAD_REQUEST, "OT001", "선택한 옵션을 찾을 수 없습니다."),
     OPTION_BAD_REQUEST(HttpStatus.BAD_REQUEST, "OT002", "잘못된 상품 옵션입니다."),
 
+    ORDER_NOT_FOUND(HttpStatus.BAD_REQUEST, "O001", "주문을 찾을 수 없습니다."),
+    ORDER_ACCESS_DENIED(HttpStatus.BAD_REQUEST, "O002", "주문에 접근할 수 없습니다."),
+
     CODE_NOT_FOUND(HttpStatus.BAD_REQUEST, "C001", "코드가 존재하지 않습니다.");
 
     private final HttpStatus status;

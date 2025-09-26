@@ -83,9 +83,9 @@
                   <div class="product-img-placeholder">📦</div>
                 </div>
                 <div class="item-details">
-                  <p class="item-name">상품명</p>
+                  <p class="item-name" th:text="${item.productName}">상품명</p>
                   <p class="item-option" th:if="${item.productOptionName != null}" th:text="${item.productOptionName}">옵션명</p>
-                  <p class="item-quantity" th:text="'수량: ' + ${item.quantity} + '개'">수량: 1개</p>
+                  <p class="item-quantity" th:text="'수량: ' + ${item.quantity} + '개'">수량: 0개</p>
                 </div>
               </div>
               <div class="item-shipping">
@@ -140,7 +140,7 @@
 
           <div class="price-row">
             <span class="price-label">배송비</span>
-            <span class="price-value">40,000원</span>
+            <span class="price-value">0원</span>
           </div>
 
           <div class="price-row">
@@ -165,7 +165,7 @@
             이용약관/결제대행 및 쇼핑몰 이용약관 개인정보 수집, 결제대행 서비스와 등 서비스에 대한 저 공인 시킬인증을 필이 방면 내용입니다.
           </div>
 
-          <button type="button" class="payment-btn" th:text="${#numbers.formatDecimal(order.totalAmount + 40000, 0, 'COMMA', 0, 'POINT')} + '원 결제하기'">179,000 원 결제하기</button>
+          <button type="button" class="payment-btn" th:text="${#numbers.formatDecimal(order.totalAmount, 0, 'COMMA', 0, 'POINT')} + '원 결제하기'">179,000 원 결제하기</button>
         </div>
       </div>
     </div>
@@ -188,11 +188,22 @@
 
   <div th:replace="fragments/layout :: footer"></div>
 
+  <!-- Hidden form with order data for JavaScript -->
+  <div id="hiddenOrderData" style="display: none;">
+    <div th:each="item, itemStat : ${order.items}">
+      <input type="hidden" th:id="'item-' + ${itemStat.index} + '-productId'" th:value="${item.productId}" />
+      <input type="hidden" th:id="'item-' + ${itemStat.index} + '-productOptionId'" th:value="${item.productOptionId}" />
+      <input type="hidden" th:id="'item-' + ${itemStat.index} + '-quantity'" th:value="${item.quantity}" />
+      <input type="hidden" th:id="'item-' + ${itemStat.index} + '-price'" th:value="${item.price}" />
+    </div>
+    <input type="hidden" id="totalItemsCount" th:value="${#lists.size(order.items)}" />
+  </div>
+
   <script>
     // 전역 변수
     let selectedCouponData = null;
     const totalPrice = parseFloat('[[${ order.totalPrice }]]') || 0;
-    const shippingCost = 40000;
+    const shippingCost = 0;
     const availablePoints = 155555;
 
     // 페이지 로드 시 초기화
@@ -367,34 +378,126 @@
 
     // 결제 처리 함수
     function processPayment(finalAmount, couponData, usedPoints) {
-        // 결제 데이터 구성
-        const paymentData = {
-            amount: finalAmount,
-            couponId: couponData ? couponData.userCouponId : null,
-            usedPoints: usedPoints,
-            orderId: '[[${ order.orderId }]]' || null
-        };
+        // 주문 데이터를 폼으로 전송하여 실제 주문 생성
+        const form = document.createElement('form');
+        form.method = 'POST';
+        form.action = '/order/create';
+        form.style.display = 'none';
 
-        console.log('결제 데이터:', paymentData);
+        // 숨겨진 입력 필드에서 주문 아이템 데이터 읽기
+        const totalItemsCount = parseInt(document.getElementById('totalItemsCount').value) || 0;
+        console.log('Debug - Total items count:', totalItemsCount);
 
-        // 실제 결제 API 호출 (여기서는 로그만 출력)
-        // 실제 구현 시에는 결제 API를 호출해야 합니다
-        alert(`결제 금액: ${formatPrice(finalAmount)}원\n쿠폰 ID: ${paymentData.couponId || '없음'}\n사용 포인트: ${usedPoints}P`);
+        if (totalItemsCount === 0) {
+            console.error('Debug - No order items found!');
+            alert('주문할 상품이 없습니다.');
+            return;
+        }
 
-        // TODO: 실제 결제 API 호출
-        // fetch('/api/payment/process', {
-        //     method: 'POST',
-        //     headers: {
-        //         'Content-Type': 'application/json'
-        //     },
-        //     body: JSON.stringify(paymentData)
-        // }).then(response => response.json()).then(data => {
-        //     if (data.success) {
-        //         window.location.href = '/payment/success';
-        //     } else {
-        //         alert('결제에 실패했습니다.');
-        //     }
-        // });
+        // 각 아이템을 순회하면서 폼에 추가
+        for (let index = 0; index < totalItemsCount; index++) {
+            const productIdElement = document.getElementById(`item-${index}-productId`);
+            const productOptionIdElement = document.getElementById(`item-${index}-productOptionId`);
+            const quantityElement = document.getElementById(`item-${index}-quantity`);
+            const priceElement = document.getElementById(`item-${index}-price`);
+
+            if (!productIdElement || !quantityElement || !priceElement) {
+                console.error(`Debug - Missing required fields for item ${index}`);
+                continue;
+            }
+
+            console.log(`Debug - Processing item[${index}] - productId: ${productIdElement.value}, quantity: ${quantityElement.value}, price: ${priceElement.value}`);
+
+            // productId 추가
+            const productIdInput = document.createElement('input');
+            productIdInput.type = 'hidden';
+            productIdInput.name = `orderItems[${index}].productId`;
+            productIdInput.value = productIdElement.value;
+            form.appendChild(productIdInput);
+
+            // productOptionId 추가 (있는 경우에만)
+            if (productOptionIdElement && productOptionIdElement.value && productOptionIdElement.value !== 'null') {
+                const optionIdInput = document.createElement('input');
+                optionIdInput.type = 'hidden';
+                optionIdInput.name = `orderItems[${index}].productOptionId`;
+                optionIdInput.value = productOptionIdElement.value;
+                form.appendChild(optionIdInput);
+            }
+
+            // quantity 추가
+            const quantityInput = document.createElement('input');
+            quantityInput.type = 'hidden';
+            quantityInput.name = `orderItems[${index}].quantity`;
+            quantityInput.value = quantityElement.value;
+            form.appendChild(quantityInput);
+
+            // price 추가
+            const priceInput = document.createElement('input');
+            priceInput.type = 'hidden';
+            priceInput.name = `orderItems[${index}].price`;
+            priceInput.value = priceElement.value;
+            form.appendChild(priceInput);
+        }
+
+        // 쿠폰 정보 추가 (쿠폰을 사용한 경우)
+        if (couponData) {
+            const couponIdInput = document.createElement('input');
+            couponIdInput.type = 'hidden';
+            couponIdInput.name = 'userCouponId';
+            couponIdInput.value = couponData.userCouponId;
+            form.appendChild(couponIdInput);
+
+            const couponDiscountInput = document.createElement('input');
+            couponDiscountInput.type = 'hidden';
+            couponDiscountInput.name = 'couponDiscountAmount';
+            couponDiscountInput.value = calculateDiscountAmount(couponData.discountType, couponData.discountValue);
+            form.appendChild(couponDiscountInput);
+        }
+
+        // 포인트 정보 추가 (포인트를 사용한 경우)
+        if (usedPoints > 0) {
+            const pointsInput = document.createElement('input');
+            pointsInput.type = 'hidden';
+            pointsInput.name = 'usedPoints';
+            pointsInput.value = usedPoints;
+            form.appendChild(pointsInput);
+        }
+
+        // 최종 결제 금액 추가
+        const finalAmountInput = document.createElement('input');
+        finalAmountInput.type = 'hidden';
+        finalAmountInput.name = 'finalAmount';
+        finalAmountInput.value = finalAmount;
+        form.appendChild(finalAmountInput);
+
+        document.body.appendChild(form);
+
+        // 폼 전송 후 응답 처리를 위해 fetch 사용
+        const formData = new FormData(form);
+
+        fetch('/order/create', {
+            method: 'POST',
+            body: formData,
+            credentials: 'include'
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert(data.message);
+                // 선택적으로 주문 완료 페이지로 이동
+                // window.location.href = '/order/success?orderId=' + data.orderId;
+            } else {
+                alert(data.message);
+            }
+        })
+        .catch(error => {
+            console.error('주문 처리 중 오류:', error);
+            alert('주문 처리 중 오류가 발생했습니다. 다시 시도해 주세요.');
+        })
+        .finally(() => {
+            // 폼 제거
+            document.body.removeChild(form);
+        });
     }
 
     // 숫자 포맷팅 (콤마 추가)
