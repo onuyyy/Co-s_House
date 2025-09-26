@@ -293,7 +293,6 @@ public class OrderService {
      * @return 구매확정 성공 여부
      */
     public boolean confirmOrder(Long orderId, String userEmail) {
-        log.info("Debug - confirmOrder called with orderId: {}, userEmail: {}", orderId, userEmail);
 
         // 주문 조회
         Order order = orderRepository.findById(orderId)
@@ -301,20 +300,18 @@ public class OrderService {
 
         // 주문자 권한 검증
         if (!order.getUser().getUserEmail().equals(userEmail)) {
-            log.warn("Debug - Unauthorized confirm attempt: order owner={}, requester={}",
-                order.getUser().getUserEmail(), userEmail);
             throw BusinessException.orderAccessDenied();
         }
 
         // 이미 구매확정된 주문인지 검증
         if (order.getConfirmedDate() != null) {
-            log.warn("Debug - Order already confirmed: orderId={}, confirmedDate={}",
+            log.warn("Debug - 주문이 이미 구매 확정되었습니다. : orderId={}, confirmedDate={}",
                 orderId, order.getConfirmedDate());
             return false; // 이미 구매확정됨
         }
 
         // 구매확정 처리 (confirmedDate 설정)
-        // Order 엔티티에 setter나 confirm 메서드가 필요합니다.
+        // Order 엔티티에 setter나 confirm 메서드가 필요
         // order.confirm(LocalDateTime.now()); // 이런 방식으로 구현 권장
 
         // 임시로 repository에서 직접 업데이트 (실제로는 Order 엔티티에 메서드 추가 권장)
