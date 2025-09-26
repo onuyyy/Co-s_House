@@ -23,6 +23,8 @@ import org.springframework.security.access.AccessDeniedException; // Spring Secu
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.data.jpa.domain.Specification;
+import com.bird.cos.repository.product.ReviewSpecificationRepository;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -49,8 +51,7 @@ public class ReviewService {
         return ReviewResponse.fromEntity(review);
     }
 
-    // 사용자 권한 확인 (컨트롤러 또는 PreAuthorize에서 처리하는 것이 일반적)
-    // 이 메서드는 `updateReview`나 `deleteReview` 내부에서 사용될 수 있습니다.
+
     private void checkReviewPermission(Long reviewId, String userNickname) {
         Review review = reviewRepository.findById(reviewId)
                 .orElseThrow(() -> new NoSuchElementException("존재하지 않는 리뷰입니다: " + reviewId));
@@ -61,9 +62,6 @@ public class ReviewService {
 
     // 모든 리뷰 조회 (필터링 포함)
     public List<ReviewResponse> findAllReviewsWithFilter(String filter, String sort, String ratingRange, Long productId) {
-        // 이 부분은 `findByProduct_ProductId` 같은 메서드를 직접 호출하는 대신,
-        // Repository에서 직접 필터링된 Page<Review>를 반환하도록 하는 것이 효율적입니다.
-        // 현재는 모든 리뷰를 불러와서 서비스 계층에서 필터링하는 방식.
         List<Review> reviews;
 
         if (productId != null) {
@@ -82,29 +80,33 @@ public class ReviewService {
                 .collect(Collectors.toList());
     }
 
-    @Transactional(readOnly = true) // readOnly 명시
+    @Transactional(readOnly = true)
     public Map<String, Object> findReviewsByProductIdWithFilterPage(Long productId, String filter, String sort,
                                                                     String ratingRange, Long optionId, int page, int size) {
+        // 1. 정렬 조건 생성 (기존과 동일)
         Pageable pageable = createPageable(page - 1, size, sort);
 
-        Page<Review> reviewPage;
+        // 2. 동적 쿼리 조건(Specification) 생성
+        Specification<Review> spec = Specification.where(ReviewSpecificationRepository.hasProductId(productId));
 
-        // Repository에 복잡한 쿼리를 위임하는 것이 좋습니다.
-        // 예를 들어, Querydsl 또는 Spring Data JPA의 Specification을 사용하면 Service 계층의 필터링 로직을 줄일 수 있습니다.
         if (optionId != null) {
-            reviewPage = reviewRepository.findByProduct_ProductIdAndProductOption_OptionId(productId, optionId, pageable);
-        } else {
-            reviewPage = reviewRepository.findByProduct_ProductId(productId, pageable);
+            spec = spec.and(ReviewSpecificationRepository.hasOptionId(optionId));
         }
-
-        List<Review> reviews = reviewPage.getContent();
-
-        // 별점 필터만 서비스에서 적용 (DB 쿼리로 처리하기 어려운 경우)
         if (ratingRange != null && !ratingRange.isEmpty()) {
-            reviews = applyRatingFilter(reviews, ratingRange);
+            spec = spec.and(ReviewSpecificationRepository.inRatingRange(ratingRange));
         }
 
-        List<ReviewResponse> reviewResponses = reviews.stream()
+        if ("photo".equals(filter)) {
+            spec = spec.and(ReviewSpecificationRepository.isPhotoReview());
+        } else if ("verified".equals(filter)) {
+            spec = spec.and(ReviewSpecificationRepository.isVerifiedPurchase());
+        }
+
+        // 3. Specification을 사용하여 데이터 조회
+        Page<Review> reviewPage = reviewRepository.findAll(spec, pageable);
+
+        // 4. DTO로 변환하여 결과 반환
+        List<ReviewResponse> reviewResponses = reviewPage.getContent().stream()
                 .map(ReviewResponse::fromEntity)
                 .collect(Collectors.toList());
 
@@ -231,9 +233,7 @@ public class ReviewService {
             }
         }
 
-        // `reviewRepository.save(review)` 호출 후 `savedReview`는 `reviewImages` 컬렉션을 포함하지 않을 수 있습니다.
-        // 특히 cascade 설정을 사용하지 않거나, 영속성 컨텍스트가 Flush되기 전이라면 그렇습니다.
-        // 따라서 이미지가 완전히 로드된 Review 엔티티를 반환하려면 다시 조회하는 것이 안전합니다.
+
         Review fullyLoadedReview = reviewRepository.findById(savedReview.getReviewId())
                 .orElseThrow(() -> new IllegalStateException("리뷰를 다시 불러올 수 없습니다."));
 
@@ -440,13 +440,13 @@ public class ReviewService {
                 return reviews.stream()
                         .sorted((r1, r2) -> r1.getCreatedAt().compareTo(r2.getCreatedAt()))
                         .collect(Collectors.toList());
-            case "rating_high":
+            case "rating-high":
                 return reviews.stream()
-                        .sorted((r1, r2) -> r2.getRating().compareTo(r1.getRating()))
+                        .sorted(Comparator.comparing(Review::getRating, Comparator.nullsLast(BigDecimal::compareTo).reversed()))
                         .collect(Collectors.toList());
-            case "rating_low":
+            case "rating-low":
                 return reviews.stream()
-                        .sorted((r1, r2) -> r1.getRating().compareTo(r2.getRating()))
+                        .sorted(Comparator.comparing(Review::getRating, Comparator.nullsLast(BigDecimal::compareTo)))
                         .collect(Collectors.toList());
             default:
                 return reviews;
@@ -465,5 +465,20 @@ public class ReviewService {
             case "rating_low": property = "rating"; direction = Sort.Direction.ASC; break;
         }
         return PageRequest.of(page, size, Sort.by(direction, property));
+    }
+
+
+    public double calculateOverallAverageRating(Long productId) {
+        List<Review> reviews = reviewRepository.findByProduct_ProductId(productId);
+
+        //리뷰가 없는 경우 0.0을 반환
+        if (reviews == null || reviews.isEmpty()) {
+            return 0.0;
+        }
+        //Java Stream API를 사용하여 평균 평점을 계산
+        return reviews.stream()
+                .mapToDouble(review -> review.getRating() != null ? review.getRating().doubleValue() : 0.0)
+                .average()
+                .orElse(0.0);
     }
 }
