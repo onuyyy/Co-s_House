@@ -13,6 +13,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface QuestionRepository extends JpaRepository<Question, Long> {
+    long countByProduct_ProductId(Long productId);
 
     //페이징 - 특정 사용자 문의 조회
     @Query("SELECT q FROM Question q WHERE q.user.userId = :userId ORDER BY q.questionCreatedAt DESC")
@@ -21,4 +22,7 @@ public interface QuestionRepository extends JpaRepository<Question, Long> {
     @Modifying
     @Query("UPDATE Question q SET q.user = null WHERE q.user.userId = :userId")
     void anonymizeQuestionsByUser(@Param("userId") Long userId);
+
+    @Query("SELECT q FROM Question q WHERE q.product.id = :productId ORDER BY q.questionCreatedAt DESC")
+    Page<Question> findQuestionsByProductId(@Param("productId") Long productId, Pageable pageable);
 }
