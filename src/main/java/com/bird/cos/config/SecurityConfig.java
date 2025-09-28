@@ -77,28 +77,36 @@ public class SecurityConfig {
                         .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                         .requestMatchers(
                                 "/favicon.ico",
-                                "/css/**", "/js/**", "/images/**", "/webjars/**"
+                                "/css/**", "/js/**", "/images/**", "/webjars/**", "/images/uploaded/**"
                         ).permitAll()
 
                         // 2) 루트 및 공개 페이지(GET)
                         .requestMatchers(HttpMethod.GET,
                                 "/",
                                 "/account/register",
+                                "/account/reset",
                                 "/controller/register/login",
-                                "/shop",
                                 "/cart", //todo: 장바구니 권한
                                 "/product/**", //todo: 상품 권한
                                 "/product", //todo: 상품 권한
                                 "/community",
-                                "/events"
+                                "/events/**", //todo: 이벤트 권한
+                                "/brands/**",
+                                "/notices/**",
+                                "/posts",
+                                "/posts/**", //todo: 커뮤니티 권한
+                                "/error" //todo: 에러
                         ).permitAll()
+                        .requestMatchers("/error").permitAll()
 
                         // 3) 회원가입/로그인/로그아웃 공개 API(POST)
                         .requestMatchers(HttpMethod.POST,
                                 "/controller/register/register",
                                 "/controller/register/login",
                                 "/controller/register/login-form",
-                                "/controller/register/logout"
+                                "/controller/register/logout",
+                                "/account/reset/request",
+                                "/account/reset/complete"
                         ).permitAll()
 
                         // 4) 관리자 영역은 관리자 권한 필요(권한명: admin_role)

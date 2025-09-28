@@ -95,6 +95,7 @@
         .nav-icons { display:flex; gap:15px; }
         .nav-icon { color:#666; font-size:20px; text-decoration:none; position:relative; }
         .user-btn {
+            display:inline-block;
             background:#0984e3;
             color:white;
             padding:10px 20px;
@@ -102,6 +103,8 @@
             border-radius:5px;
             cursor:pointer;
             font-weight:500;
+            font-size:14px;
+            text-decoration:none;
         }
         .main-content {
             max-width:900px;
@@ -142,7 +145,7 @@
                 <a href="/history" class="nav-icon">최근본상품</a>
                 <a href="/customer" class="nav-icon">고객센터</a>
             </div>
-            <button class="user-btn">글쓰기 ▼</button>
+            <a class="user-btn" href="/posts/new">글쓰기 ▼</a>
         </div>
     </div>
 </nav>

@@ -6,6 +6,8 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -15,10 +17,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.context.SecurityContextRepository;
 import com.bird.cos.repository.user.UserRepository;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 @Controller
 @RequestMapping("/controller/register")
@@ -64,8 +67,14 @@ public class LoginPageController {
                 return "redirect:/api/admin";
             }
             return "redirect:/";
+        } catch (BadCredentialsException e) {
+            return "redirect:/controller/register/login?error=password";
+        } catch (UsernameNotFoundException e) {
+            return "redirect:/controller/register/login?error=email";
+        } catch (AuthenticationException e) {
+            return "redirect:/controller/register/login?error=auth";
         } catch (UnauthorizedException e) {
-            return "redirect:/controller/register/login?error=1";
+            return "redirect:/controller/register/login?error=auth";
         }
     }
 }

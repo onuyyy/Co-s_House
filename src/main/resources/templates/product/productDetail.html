@@ -1,23 +1,10 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/layout :: head('코딩의 집 | 쇼핑')"></head>
-<body>
-<!-- 헤더 -->
-<header class="header">
-    <div class="container">
-        <nav class="nav">
-            <div class="nav-left">
-                <a th:href="@{/}" class="logo">🏠 오늘의집</a>
-            </div>
-            <div class="nav-right">
-                <a href="javascript:history.back()" class="back-btn">← 목록으로</a>
-            </div>
-        </nav>
-    </div>
-</header>
-
+<body class="page font-body product-page">
+<header th:replace="fragments/layout :: header"></header>
 <!-- 메인 컨텐츠 -->
-<main class="main-content">
+<main class="main-content page-main">
     <div class="container">
         <div class="product-detail">
             <!-- 상품 헤더 -->
@@ -385,6 +372,7 @@
         return value == null ? null : Number(value);
     }
 </script>
+<footer th:replace="fragments/layout :: footer"></footer>
 
 </body>
 </html>

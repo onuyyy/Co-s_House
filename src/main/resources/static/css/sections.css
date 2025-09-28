@@ -1,7 +1,7 @@
-호/* Shared section/card/grid styles (loaded per-page) */
-
+/* Shared section/card/grid styles (loaded per-page) */
 /* Sections */
-.section { padding: 22px 0; }
+.section { padding: 10px 0; }
+.section.section--spaced { margin-top: 18px; }
 .section-head { display:flex; align-items:flex-end; justify-content:space-between; margin-bottom: 12px; }
 .link-more { color: var(--color-muted); text-decoration:none; font-weight:600; }
 .link-more:hover { color: var(--color-primary); text-decoration:underline; }
@@ -18,17 +18,29 @@
 .p-card .price b { font-size:18px; }
 .p-card .price .unit { color: var(--color-muted); margin-left:2px; }
 .p-card .meta { font-size:12px; color: var(--color-muted); display:flex; gap:10px; }
+.p-card.placeholder { display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; gap:8px; color: rgba(15, 23, 42, 0.5); min-height: 260px; }
+.p-card.placeholder .placeholder-body { padding: 32px 12px; display:flex; flex-direction:column; gap:6px; }
+.p-card.placeholder .label { font-weight:700; color:#1f6feb; letter-spacing:0.04em; text-transform:uppercase; font-size:12px; }
+.p-card.placeholder p { margin:0; font-size:13px; color: rgba(15, 23, 42, 0.55); }
 .p-card.small .title { font-size:14px; }
 .p-card.small .price b { font-size:16px; }
 
 /* Room tour */
-.room-grid { display:grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
-.room-card { border:1px solid var(--color-border); border-radius: 16px; overflow:hidden; background:#fff; }
-.room-card .thumb { display:block; aspect-ratio: 4/3; background:#f3f4f6; }
-.room-card .thumb .ph { width:100%; height:100%; display:block; }
-.room-card .body { padding: 12px; }
-.room-card .title { margin:0 0 6px; font-size:16px; }
-.room-card .meta { font-size:12px; color: var(--color-muted); }
+.community-grid { display:grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+.community-card { border:1px solid var(--color-border); border-radius: 16px; overflow:hidden; background:#fff; box-shadow: var(--shadow-md); display:flex; flex-direction:column; transition: transform .08s, box-shadow .15s; }
+.community-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+.community-card .thumb { display:block; aspect-ratio: 4/3; background:#f3f4f6; }
+.community-card .thumb .ph { width:100%; height:100%; display:block; }
+.community-card .body { padding: 16px; display:flex; flex-direction:column; gap:10px; flex:1; }
+.community-card .meta-top { display:flex; justify-content:space-between; align-items:center; font-size:12px; color: rgba(15, 23, 42, 0.5); text-transform:uppercase; letter-spacing:0.04em; }
+.community-card .title { margin:0; font-size:16px; color:#0f172a; line-height:1.4; }
+.community-card .excerpt { margin:0; font-size:13px; color: rgba(15, 23, 42, 0.6); line-height:1.6; }
+.community-card .meta-bottom { margin-top:auto; display:flex; align-items:center; gap:6px; font-size:12px; color: rgba(15, 23, 42, 0.5); }
+.community-card .dot { opacity:0.4; }
+.community-card.placeholder { align-items:flex-start; text-align:left; }
+.community-card.placeholder .body { gap:12px; }
+.community-card.placeholder .title { font-size:15px; }
+.community-card.placeholder .excerpt { font-size:13px; }
 
 /* Banner (used on some pages) */
 .banner { border:1px solid var(--color-border); border-radius: 16px; overflow:hidden; display:grid; grid-template-columns: 1.2fr .8fr; align-items:center; background: linear-gradient(135deg, #e9f5ff 0%, #f5fbff 100%); color:#0b1d4d; }
@@ -43,10 +55,12 @@
 .grid-4 { display:grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
 @media (max-width: 900px) {
   .grid-4 { grid-template-columns: repeat(3, 1fr); }
+  .community-grid { grid-template-columns: repeat(3, 1fr); }
   .banner { grid-template-columns: 1fr; }
 }
 @media (max-width: 640px) {
   .grid-4 { grid-template-columns: repeat(2, 1fr); }
+  .community-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
 /* Image placeholders: light sky-blue gradient */
@@ -56,4 +70,3 @@
 }
 .ph-hero { border-bottom-left-radius: 0; border-bottom-right-radius: 0; }
 .ph-banner { border-left: 1px solid var(--color-border); }
-

@@ -106,4 +106,8 @@ public class User {
 
     public String getNickname() { return this.userNickname;
     }
+
+    public void updatePassword(String encodedPassword) {
+        this.userPassword = encodedPassword;
+    }
 }

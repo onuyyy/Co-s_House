@@ -63,5 +63,8 @@ public class CartItem {
         int current = this.quantity == null ? 0 : this.quantity;
         this.quantity = Math.max(1, current + delta);
     }
-}
 
+    public void setSelectedOptions(String selectedOptions) {
+        this.selectedOptions = selectedOptions;
+    }
+}

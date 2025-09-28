@@ -70,17 +70,42 @@ body {
   color: var(--color-text);
   font-family: 'Pretendard', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, Apple SD Gothic Neo, "Noto Sans KR", "Malgun Gothic", "맑은 고딕", sans-serif;
   line-height: 1.5;
-  padding-top: var(--header-offset, 0px);
+  padding-top: var(--header-offset, 100px);
 }
 
 /* Page layout for sticky footer */
-body.page {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
+/* Page layout for sticky footer — GLOBAL */
+html, body {
+    height: 100%;
+    margin: 0;
 }
-main.page-main { flex: 1; }
+body.page {
+    /* 모바일 주소창 변동에도 안전 */
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+}
 
+/* 메인 컨텐츠 컨테이너들이 푸터를 밀어내도록 */
+main,
+.page-main,
+.main-content,
+.content,
+.page-content {
+    flex: 1 0 auto;
+    /* 불필요한 내부 스크롤 방지 (필요시 .scroll-y로 개별 허용) */
+    overflow: visible;
+}
+
+footer.app-footer {
+    margin-top: auto; /* 항상 맨 아래 */
+}
+
+/* 실제로 내부 스크롤이 필요할 때만 이 유틸을 클래스에 붙여서 사용 */
+.scroll-y {
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch;
+}
 /* Typography utilities */
 .font-body { font-family: 'Pretendard', system-ui, -apple-system, Segoe UI, Roboto, 'Noto Sans KR', sans-serif; }
 .font-accent { font-family: 'KkuBulLim', 'Pretendard', sans-serif; }
@@ -141,4 +166,147 @@ main.page-main { flex: 1; }
   .header-line { flex-wrap: wrap; }
   .header-actions { min-width: 0; width: 100%; margin-top: 8px; }
   .header-cats { font-size: 20px; }
+}
+
+/* Footer */
+
+.app-footer {
+    margin-top: 20px;
+    background: linear-gradient(135deg, #e0f2ff 0%, #f5faff 100%);
+    /*border-top: 1px solid rgba(148, 163, 184, 0.35);*/
+    color: #0e1628;
+}
+
+.footer-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 36px;
+    align-items: flex-start;
+    padding: 36px 0 28px;
+}
+
+.footer-brand {
+    flex: 1 1 280px;
+    max-width: 360px;
+}
+
+.footer-brand .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0;
+    border-radius: 0;
+    background: none;
+    text-decoration: none;
+    color: inherit;
+}
+
+.footer-brand .logo {
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+}
+
+.footer-brand .name {
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+}
+
+.footer-contact {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 14px;
+    color: rgba(15, 23, 42, 0.7);
+}
+
+.footer-contact a {
+    color: #0f58b6;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.footer-contact a:hover {
+    text-decoration: underline;
+}
+
+.footer-links {
+    display: flex;
+    flex: 1 1 300px;
+    gap: 28px;
+    flex-wrap: wrap;
+    margin-top: 12px;
+}
+
+.link-group {
+    min-width: 160px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.link-group h4 {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 600;
+    color: #1f2a44;
+}
+
+.link-group a {
+    font-size: 14px;
+    color: rgba(15, 23, 42, 0.68);
+    text-decoration: none;
+}
+
+.link-group a:hover {
+    color: #0f58b6;
+}
+
+.footer-bottom {
+    border-top: 1px solid rgba(148, 163, 184, 0.3);
+    background: rgba(255, 255, 255, 0.6);
+}
+
+.footer-bottom-inner {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 20px;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 0;
+    font-size: 13px;
+    color: rgba(15, 23, 42, 0.6);
+}
+
+.footer-legal {
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.footer-legal a {
+    color: rgb(60, 157, 252);
+    text-decoration: none;
+}
+
+.footer-legal a:hover {
+    color: #3c9dfc;
+}
+
+@media (max-width: 720px) {
+    .footer-wrap {
+        padding: 28px 0 24px;
+        gap: 28px;
+    }
+
+    .link-group {
+        min-width: 140px;
+    }
+
+    .footer-bottom-inner {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
 }

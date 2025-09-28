@@ -19,6 +19,7 @@ public class HomePageController {
         model.addAttribute("todayDeals", homeService.todayDeals(8));
         model.addAttribute("popularProducts", homeService.popularProducts(8));
         model.addAttribute("topPosts", homeService.topPosts(4));
+        model.addAttribute("highlightEvents", homeService.highlightEvents());
         return "home/index"; // templates/home/index.html
     }
 }
