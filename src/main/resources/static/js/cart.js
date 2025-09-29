@@ -87,6 +87,8 @@ function openOptionModal(index, triggerEl) {
     const selectEl = optionModalRefs.select;
     const emptyMessageEl = optionModalRefs.emptyMessage;
     const saveBtn = optionModalRefs.saveBtn;
+    const hasPendingOption = Object.prototype.hasOwnProperty.call(item, 'pendingOptionId');
+    const initialOptionId = hasPendingOption ? item.pendingOptionId : (item.selectedOptionId != null ? item.selectedOptionId : null);
 
     if (optionModalRefs.productTitle) {
         optionModalRefs.productTitle.textContent = item.title || '상품';
@@ -111,8 +113,10 @@ function openOptionModal(index, triggerEl) {
                 const label = buildOptionLabelText(opt);
                 return `<option value="${opt.optionId}">${escapeHtml(label)}</option>`;
             }).join('');
-            if (item.selectedOptionId != null) {
-                selectEl.value = String(item.selectedOptionId);
+            if (initialOptionId != null && options.some(opt => String(opt.optionId) === String(initialOptionId))) {
+                selectEl.value = String(initialOptionId);
+            } else if (selectEl.options.length > 0) {
+                selectEl.selectedIndex = 0;
             }
         }
         if (emptyMessageEl) {
@@ -168,32 +172,30 @@ async function handleOptionSave() {
     const selectEl = optionModalRefs.select;
     const selectedValue = selectEl && !selectEl.hidden && selectEl.value ? selectEl.value : null;
 
-    try {
-        if (!isGuestCart && item.cartItemId != null) {
-            await updateCartItemOptions(item.cartItemId, selectedValue);
-            await loadCartPreview();
-        } else {
-            const options = item && Array.isArray(item.options) ? item.options : [];
-            const matched = options.find(opt => String(opt.optionId) === String(selectedValue));
-            item.selectedOptions = selectedValue;
-            item.selectedOptionId = selectedValue != null ? Number(selectedValue) : null;
-            const label = matched ? buildOptionLabelText(matched) : '';
-            item.selectedOptionLabel = label;
-            item.optionLabel = label;
-            if (isGuestCart) {
-                saveGuestCartItems(cartItems);
-            }
-            refreshCart();
-        }
+    const normalizedValue = selectedValue && String(selectedValue).length ? String(selectedValue) : null;
+    const options = item && Array.isArray(item.options) ? item.options : [];
+    const matched = options.find(opt => String(opt.optionId) === String(normalizedValue));
+    const newOptionId = normalizedValue != null ? Number(normalizedValue) : null;
+    const originalOptionId = item && item.selectedOptionId != null ? Number(item.selectedOptionId) : null;
+    const label = matched ? buildOptionLabelText(matched) : '';
 
-        closeOptionModal(true);
-    } catch (error) {
-        console.error('Option update failed:', error);
-        alert('옵션을 변경하지 못했습니다. 잠시 후 다시 시도해주세요.');
-    } finally {
-        if (saveBtn) {
-            saveBtn.disabled = false;
+    if (newOptionId === originalOptionId) {
+        if (Object.prototype.hasOwnProperty.call(item, 'pendingOptionId')) {
+            delete item.pendingOptionId;
+            delete item.pendingSelectedOptions;
+            delete item.pendingOptionLabel;
         }
+    } else {
+        item.pendingOptionId = newOptionId;
+        item.pendingSelectedOptions = normalizedValue;
+        item.pendingOptionLabel = label;
+    }
+
+    closeOptionModal(true);
+    refreshCart();
+
+    if (saveBtn) {
+        saveBtn.disabled = false;
     }
 }
 
@@ -453,25 +455,44 @@ function renderItems(items, refs, summaryOverride) {
         const title = item && item.title != null ? item.title : '상품';
         const quantity = Number(item && item.quantity != null ? item.quantity : 0);
         const unitPrice = Number(item && item.unitPrice != null ? item.unitPrice : 0);
-        const lineTotal = Number(item && item.lineTotal != null ? item.lineTotal : unitPrice * quantity);
+        const baseLineTotal = Number(item && item.lineTotal != null ? item.lineTotal : unitPrice * quantity);
         const imageUrl = item && item.imageUrl ? item.imageUrl : '';
         const isOut = item && item.outOfStock === true;
         const optionLabel = item && item.optionLabel ? item.optionLabel : '';
         const selectedOptionLabel = item && item.selectedOptionLabel ? item.selectedOptionLabel : '';
-        const displayOptionLabel = selectedOptionLabel || optionLabel;
         const optionsList = item && Array.isArray(item.options) ? item.options : [];
         const optionsAvailable = optionsList.length > 0;
         const itemId = String(item && item.id != null ? item.id : index);
         const cartItemId = item && item.cartItemId != null ? item.cartItemId : null;
         const isChecked = selectedItemIds.has(itemId);
+        const pendingQuantityPresent = Object.prototype.hasOwnProperty.call(item || {}, 'pendingQuantity');
+        const pendingOptionPresent = Object.prototype.hasOwnProperty.call(item || {}, 'pendingOptionId');
+        const pendingQuantity = pendingQuantityPresent ? Number(item.pendingQuantity) : null;
+        const displayQuantity = pendingQuantityPresent && Number.isFinite(pendingQuantity) ? pendingQuantity : quantity;
+        const pendingLineTotal = pendingQuantityPresent && item.pendingLineTotal != null ? Number(item.pendingLineTotal) : null;
+        const displayLineTotal = pendingLineTotal != null ? pendingLineTotal : (pendingQuantityPresent ? unitPrice * displayQuantity : baseLineTotal);
+        const pendingOptionLabel = pendingOptionPresent ? (item.pendingOptionLabel || '') : '';
+        const displayOptionLabel = pendingOptionPresent ? pendingOptionLabel : (selectedOptionLabel || optionLabel);
+        const quantityChanged = pendingQuantityPresent && displayQuantity !== quantity;
+        const optionChanged = pendingOptionPresent && (item.pendingOptionId ?? null) !== (item && item.selectedOptionId != null ? item.selectedOptionId : null);
+        const isApplying = Boolean(item && item.isApplying);
+        const highlightPending = isApplying || quantityChanged || optionChanged;
 
         const li = document.createElement('li');
         li.className = 'item-card';
+        if (highlightPending) {
+            li.classList.add('item-card--pending');
+        }
         li.setAttribute('data-item-id', itemId);
         li.setAttribute('data-index', index);
         if (cartItemId !== null) {
             li.setAttribute('data-cart-item-id', cartItemId);
         }
+
+        const showApplyButton = highlightPending;
+        const priceBadge = (quantityChanged || optionChanged) ? '<span class="item-pending-badge">미적용</span>' : '';
+        const pendingMessage = (quantityChanged || optionChanged) ? '<p class="item-pending-message">변경 사항을 적용해야 주문 요약에 반영됩니다.</p>' : '';
+        const applyButtonLabel = isApplying ? '적용 중...' : '변경 적용';
 
         li.innerHTML = `
             <div class="item-select">
@@ -490,23 +511,25 @@ function renderItems(items, refs, summaryOverride) {
                 ${optionsAvailable
                     ? `<div class="item-option-group">
                             <div class="item-option">${displayOptionLabel ? escapeHtml(displayOptionLabel) : '옵션 미선택'}</div>
-                            <button type="button" class="option-edit-btn">옵션 변경</button>
+                            <button type="button" class="option-edit-btn" ${isApplying ? 'disabled' : ''}>옵션 변경</button>
                        </div>`
                     : (displayOptionLabel ? `<div class="item-option">${escapeHtml(displayOptionLabel)}</div>` : '')}
                 <div class="item-meta">단가 ${formatCurrency(unitPrice)}원</div>
-                <div class="item-price">합계 ${formatCurrency(lineTotal)}원</div>
+                <div class="item-price">합계 ${formatCurrency(displayLineTotal)}원 ${priceBadge}</div>
+                ${pendingMessage}
                 ${isOut ? '<div class="item-status">재고가 부족한 상품입니다.</div>' : ''}
                 
                 <div class="item-controls">
                     <div class="quantity-control">
-                        <button type="button" class="quantity-btn quantity-btn--minus" aria-label="수량 줄이기" ${quantity <= 1 ? 'disabled' : ''}>-</button>
-                        <input type="number" class="quantity-input" min="1" max="99" value="${quantity}" aria-label="수량 입력">
-                        <button type="button" class="quantity-btn quantity-btn--plus" aria-label="수량 늘리기" ${quantity >= 99 ? 'disabled' : ''}>+</button>
+                        <button type="button" class="quantity-btn quantity-btn--minus" aria-label="수량 줄이기" ${displayQuantity <= 1 || isApplying ? 'disabled' : ''}>-</button>
+                        <input type="number" class="quantity-input" min="1" max="99" value="${displayQuantity}" aria-label="수량 입력" ${isApplying ? 'disabled' : ''}>
+                        <button type="button" class="quantity-btn quantity-btn--plus" aria-label="수량 늘리기" ${displayQuantity >= 99 || isApplying ? 'disabled' : ''}>+</button>
                     </div>
+                    <button type="button" class="apply-btn${showApplyButton ? ' is-visible' : ''}" ${(quantityChanged || optionChanged) && !isApplying ? '' : 'disabled'}>${applyButtonLabel}</button>
                     <button type="button" class="remove-btn" 
                             onclick="removeItem(${index})" 
                             aria-label="${escapeHtml(title)} 삭제"
-                            title="삭제">🗑️</button>
+                            title="삭제" ${isApplying ? 'disabled' : ''}>🗑️</button>
                 </div>
             </div>
         `;
@@ -519,6 +542,7 @@ function renderItems(items, refs, summaryOverride) {
         const minusBtn = li.querySelector('.quantity-btn--minus');
         const plusBtn = li.querySelector('.quantity-btn--plus');
         const quantityInput = li.querySelector('.quantity-input');
+        const applyBtn = li.querySelector('.apply-btn');
 
         if (minusBtn) {
             minusBtn.addEventListener('click', () => {
@@ -540,6 +564,9 @@ function renderItems(items, refs, summaryOverride) {
         const optionBtn = li.querySelector('.option-edit-btn');
         if (optionBtn) {
             optionBtn.addEventListener('click', () => openOptionModal(index, optionBtn));
+        }
+        if (applyBtn) {
+            applyBtn.addEventListener('click', () => applyItemChanges(index));
         }
         fragment.appendChild(li);
     });
@@ -594,8 +621,18 @@ function changeQuantity(index, delta) {
     if (index < 0 || index >= cartItems.length) {
         return;
     }
-    const current = Number(cartItems[index].quantity ?? 0);
+
+    const item = cartItems[index];
+    if (!item || item.isApplying) {
+        return;
+    }
+
+    const baseQuantity = Object.prototype.hasOwnProperty.call(item, 'pendingQuantity')
+        ? Number(item.pendingQuantity)
+        : Number(item.quantity ?? 0);
+    const current = Number.isFinite(baseQuantity) ? baseQuantity : Number(item.quantity ?? 0);
     const next = current + Number(delta);
+
     updateQuantity(index, next);
 }
 
@@ -604,19 +641,95 @@ function updateQuantity(index, newQuantity) {
         return;
     }
 
-    const qty = Math.max(1, Math.min(99, Number(newQuantity) || 1));
     const item = cartItems[index];
-
-    if (item.quantity === qty) {
+    if (!item || item.isApplying) {
         return;
     }
 
-    item.quantity = qty;
-    item.lineTotal = item.unitPrice * qty;
+    const qty = Math.max(1, Math.min(99, Number(newQuantity) || 1));
+
+    if (qty === item.quantity) {
+        if (Object.prototype.hasOwnProperty.call(item, 'pendingQuantity')) {
+            delete item.pendingQuantity;
+            delete item.pendingLineTotal;
+            refreshCart();
+        }
+        return;
+    }
+
+    item.pendingQuantity = qty;
+    item.pendingLineTotal = item.unitPrice * qty;
 
     refreshCart();
-    if (isGuestCart) {
-        saveGuestCartItems(cartItems);
+}
+
+async function applyItemChanges(index) {
+    if (index < 0 || index >= cartItems.length) {
+        return;
+    }
+
+    const item = cartItems[index];
+    if (!item || item.isApplying) {
+        return;
+    }
+
+    const pendingQuantityPresent = Object.prototype.hasOwnProperty.call(item, 'pendingQuantity');
+    const pendingOptionPresent = Object.prototype.hasOwnProperty.call(item, 'pendingOptionId');
+    const quantityChanged = pendingQuantityPresent && Number(item.pendingQuantity) !== Number(item.quantity);
+    const optionChanged = pendingOptionPresent && (item.pendingOptionId ?? null) !== (item.selectedOptionId ?? null);
+
+    if (!quantityChanged && !optionChanged) {
+        return;
+    }
+
+    item.isApplying = true;
+    refreshCart();
+
+    try {
+        if (!isGuestCart && item.cartItemId != null) {
+            if (quantityChanged) {
+                await updateCartItemQuantity(item.cartItemId, item.pendingQuantity);
+            }
+            if (optionChanged) {
+                const nextOptionValue = item.pendingSelectedOptions != null
+                    ? item.pendingSelectedOptions
+                    : (item.pendingOptionId != null ? String(item.pendingOptionId) : null);
+                await updateCartItemOptions(item.cartItemId, nextOptionValue);
+            }
+        }
+
+        if (quantityChanged) {
+            item.quantity = Number(item.pendingQuantity);
+            item.lineTotal = item.pendingLineTotal != null ? Number(item.pendingLineTotal) : item.unitPrice * item.quantity;
+            delete item.pendingQuantity;
+            delete item.pendingLineTotal;
+        }
+
+        if (optionChanged) {
+            const nextOptionId = item.pendingOptionId ?? null;
+            const nextOptionLabel = item.pendingOptionLabel || '';
+            item.selectedOptions = item.pendingSelectedOptions ?? null;
+            item.selectedOptionId = nextOptionId;
+            item.selectedOptionLabel = nextOptionLabel;
+            if (!item.optionLabel && nextOptionLabel) {
+                item.optionLabel = nextOptionLabel;
+            }
+            delete item.pendingSelectedOptions;
+            delete item.pendingOptionId;
+            delete item.pendingOptionLabel;
+        }
+
+        item.isApplying = false;
+        refreshCart();
+
+        if (isGuestCart) {
+            saveGuestCartItems(cartItems);
+        }
+    } catch (error) {
+        console.error('Failed to apply item changes:', error);
+        alert('변경 사항을 적용하지 못했습니다. 잠시 후 다시 시도해주세요.');
+        item.isApplying = false;
+        refreshCart();
     }
 }
 
@@ -808,6 +921,20 @@ function proceedToCheckout() {
 }
 
 // 유틸리티 함수들
+async function updateCartItemQuantity(cartItemId, quantity) {
+    const payload = { quantity: Number(quantity) };
+    const response = await fetch(`/api/cart/${cartItemId}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify(payload)
+    });
+
+    if (!response.ok) {
+        throw new Error('Failed to update cart quantity');
+    }
+}
+
 async function updateCartItemOptions(cartItemId, selectedOptionValue) {
     const payload = { selectedOptions: selectedOptionValue != null ? String(selectedOptionValue) : null };
     const response = await fetch(`/api/cart/${cartItemId}/options`, {

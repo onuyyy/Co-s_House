@@ -15,7 +15,7 @@
     --gray-400: #94a3b8;
     --gray-500: #64748b;
     --gray-600: #475569;
-    --gray-700: #3c9dfc;
+    --gray-700: #000000;
     --gray-800: #1e293b;
     --gray-900: #0f172a;
 
@@ -334,6 +334,12 @@ html {
     transform: translateY(-2px);
 }
 
+.item-card--pending {
+    border-color: var(--accent-color);
+    background: rgba(245, 158, 11, 0.08);
+    box-shadow: 0 0 0 1px rgba(245, 158, 11, 0.12);
+}
+
 .item-card.removing {
     opacity: 0;
     transform: translateX(-12px);
@@ -421,6 +427,26 @@ html {
     margin-top: auto;
 }
 
+.item-pending-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    margin-left: 8px;
+    padding: 2px 8px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--accent-color);
+    background: rgba(245, 158, 11, 0.15);
+    border-radius: 999px;
+}
+
+.item-pending-message {
+    font-size: 0.75rem;
+    color: var(--accent-color);
+    margin: 0.35rem 0 0;
+    line-height: 1.4;
+}
+
 .item-status {
     font-size: 0.75rem;
     color: var(--error-color);
@@ -437,6 +463,37 @@ html {
     align-items: center;
     gap: 1rem;
     margin-top: 1rem;
+}
+
+.apply-btn {
+    display: none;
+    padding: 0.5rem 1.1rem;
+    border: none;
+    border-radius: 999px;
+    background: var(--primary-color);
+    color: #ffffff;
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    box-shadow: var(--shadow-sm);
+}
+
+.apply-btn.is-visible {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.apply-btn:hover {
+    filter: brightness(1.05);
+}
+
+.apply-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    filter: none;
+    box-shadow: none;
 }
 
 .quantity-control {
@@ -518,6 +575,14 @@ html {
     background: rgb(239 68 68 / 0.1);
     color: var(--error-color);
     transform: scale(1.1);
+}
+
+.remove-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    background: none;
+    color: var(--gray-300);
+    transform: none;
 }
 
 /* ===== STATES ===== */

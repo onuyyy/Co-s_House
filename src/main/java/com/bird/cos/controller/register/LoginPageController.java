@@ -31,11 +31,17 @@ public class LoginPageController {
     private final SecurityContextRepository securityContextRepository;
     private final UserRepository userRepository;
 
-    
 
     @GetMapping("/login")
     public String loginPage() {
         return "register/login"; // templates/register/login.html
+    }
+
+    @PostMapping("/logout")
+    //@ResponseStatus(HttpStatus.NO_CONTENT)
+    public String logout(HttpSession session) {
+        session.invalidate();
+        return "redirect:/";
     }
 
     // Thymeleaf 폼 전송을 위한 로그인 엔드포인트 (application/x-www-form-urlencoded)
