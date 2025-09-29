@@ -1,21 +1,20 @@
 package com.bird.cos.controller.order;
 
-import com.bird.cos.dto.order.MyCouponResponse;
-import com.bird.cos.dto.order.OrderCreateResponse;
-import com.bird.cos.dto.order.OrderForm;
-import com.bird.cos.dto.order.OrderPreviewResponse;
-import com.bird.cos.dto.order.OrderRequest;
-import com.bird.cos.dto.order.OrderResponse;
+import com.bird.cos.dto.order.*;
 import com.bird.cos.security.CustomUserDetails;
 import com.bird.cos.service.mypage.CouponService;
 import com.bird.cos.service.order.OrderService;
+import com.bird.cos.service.user.PointService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RequiredArgsConstructor
 @RequestMapping("/order")
@@ -24,6 +23,7 @@ public class OrderController {
 
     private final OrderService orderService;
     private final CouponService couponService;
+    private final PointService pointService;
 
     /**
      * 주문 미리보기 - 장바구니에서 구매할 상품들을 선택하고 "주문하기" 버튼을 클릭했을 때
@@ -77,12 +77,56 @@ public class OrderController {
         return orderForm.getOrderItems();
     }
 
-
     @GetMapping("/my-coupons")
     @ResponseBody
-    public List<MyCouponResponse> getMyCoupons() {
+    public List<MyCouponResponse> getMyCoupons(@AuthenticationPrincipal CustomUserDetails customUserDetails,
+                                              @RequestParam(required = false) List<Long> productIds)
+    {
+        if (productIds != null && !productIds.isEmpty()) {
+            // 주문 상품에 적용 가능한 쿠폰만 필터링 (CouponScope 고려)
+            return couponService.getApplicableCoupons(customUserDetails.getUserId(), productIds);
+        } else {
+            // 상품 정보가 없으면 모든 쿠폰 반환
+            return couponService.getMyCoupons(customUserDetails.getUserId());
+        }
+    }
 
-        return couponService.getMyCoupons();
+    /**
+     * 쿠폰 적용 가능 금액 확인
+     * @param userCouponId 사용자 쿠폰 ID
+     * @param orderAmount 주문 금액 (배송비 포함)
+     * @return 쿠폰 적용 결과
+     */
+    @GetMapping("/my-coupons/{userCouponId}")
+    @ResponseBody
+    public SalesPriceCheckResponse checkMyCoupon(@PathVariable String userCouponId, @RequestParam BigDecimal orderAmount) {
+        return couponService.checkUserCoupon(Long.valueOf(userCouponId), orderAmount);
+    }
+
+    /**
+     * 사용자의 현재 포인트 조회
+     * @param customUserDetails 인증된 사용자 정보
+     * @return 포인트 정보 응답
+     */
+    @GetMapping("/my-points")
+    @ResponseBody
+    public Map<String, Object> getMyPoints(@AuthenticationPrincipal CustomUserDetails customUserDetails) {
+        Map<String, Object> response = new HashMap<>();
+
+        try {
+            Integer availablePoints = pointService.getAvailablePoints(customUserDetails.getUserId());
+
+            response.put("success", true);
+            response.put("totalPoints", availablePoints != null ? availablePoints : 0);
+            response.put("message", "포인트 조회 성공");
+
+        } catch (Exception e) {
+            response.put("success", false);
+            response.put("totalPoints", 0);
+            response.put("message", "포인트 조회 실패: " + e.getMessage());
+        }
+
+        return response;
     }
 
 }

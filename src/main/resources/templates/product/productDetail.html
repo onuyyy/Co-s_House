@@ -619,7 +619,7 @@
 
                             <!-- 기본 옵션 (옵션이 없거나 단일 상품인 경우) -->
                             <option th:if="${#lists.isEmpty(options)}"
-                                    value="default"
+                                    value=""
                                     data-additional-price="0"
                                     data-option-name="기본"
                                     th:data-option-value="${product.productTitle}"

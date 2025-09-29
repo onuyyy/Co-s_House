@@ -7,7 +7,6 @@ import lombok.ToString;
 import java.math.BigDecimal;
 
 @Getter
-@Setter
 @ToString
 public class OrderRequest {
 
@@ -15,4 +14,35 @@ public class OrderRequest {
     private Long productOptionId;
     private Integer quantity;
     private BigDecimal price;
+
+    // 기본 setter들
+    public void setProductId(Long productId) {
+        this.productId = productId;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
+    }
+
+    // productOptionId에 대한 custom setter - "default" 문자열을 null로 처리
+    public void setProductOptionId(String productOptionIdStr) {
+        if (productOptionIdStr == null || productOptionIdStr.trim().isEmpty() || "default".equals(productOptionIdStr)) {
+            this.productOptionId = null;
+        } else {
+            try {
+                this.productOptionId = Long.valueOf(productOptionIdStr);
+            } catch (NumberFormatException e) {
+                this.productOptionId = null;
+            }
+        }
+    }
+
+    // Long 타입으로 직접 설정하는 setter도 유지
+    public void setProductOptionId(Long productOptionId) {
+        this.productOptionId = productOptionId;
+    }
 }

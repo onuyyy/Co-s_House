@@ -1,6 +1,8 @@
 package com.bird.cos.service.order;
 
 import com.bird.cos.domain.common.CommonCode;
+import com.bird.cos.domain.coupon.Coupon;
+import com.bird.cos.domain.coupon.UserCoupon;
 import com.bird.cos.domain.order.Order;
 import com.bird.cos.domain.order.OrderItem;
 import com.bird.cos.domain.product.Product;
@@ -9,10 +11,12 @@ import com.bird.cos.domain.user.User;
 import com.bird.cos.dto.order.*;
 import com.bird.cos.exception.BusinessException;
 import com.bird.cos.repository.common.CommonCodeRepository;
+import com.bird.cos.repository.mypage.coupon.UserCouponRepository;
 import com.bird.cos.repository.order.OrderRepository;
 import com.bird.cos.repository.product.ProductOptionRepository;
 import com.bird.cos.repository.product.ProductRepository;
 import com.bird.cos.repository.user.UserRepository;
+import com.bird.cos.service.user.PointService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -34,6 +38,8 @@ public class OrderService {
     private final CommonCodeRepository commonCodeRepository;
     private final ProductRepository productRepository;
     private final ProductOptionRepository productOptionRepository;
+    private final UserCouponRepository userCouponRepository;
+    private final PointService pointService;
 
     @Transactional(readOnly = true)
     public OrderPreviewResponse getOrderPreview(String email, List<OrderRequest> orderItems) {
@@ -76,17 +82,10 @@ public class OrderService {
                 .build();
     }
 
-    // 기존 메서드 호환성을 위한 오버로드
-    public OrderResponse createOrder(String email, List<OrderRequest> orderItems) {
-        return createOrder(email, orderItems, null, BigDecimal.ZERO, BigDecimal.ZERO, null);
-    }
-
     // 쿠폰/포인트를 포함한 주문 생성
     public OrderResponse createOrder(String email, List<OrderRequest> orderItems,
                                    Long userCouponId, BigDecimal couponDiscountAmount,
                                    BigDecimal usedPoints, BigDecimal finalAmount) {
-        log.info("Debug - createOrder called with email: {}, orderItems size: {}, couponId: {}, discount: {}, points: {}, finalAmount: {}",
-            email, orderItems != null ? orderItems.size() : "null", userCouponId, couponDiscountAmount, usedPoints, finalAmount);
 
         User user = getUserByEmail(email);
         BigDecimal totalPrice = calculateTotalPrice(orderItems);
@@ -94,7 +93,7 @@ public class OrderService {
         CommonCode orderStatusCode = commonCodeRepository.findById(OrderStatusCode.PENDING.getCode())
                 .orElseThrow(BusinessException::codeNotFound);
 
-        // 1. 먼저 Order를 저장하여 ID를 생성
+        // Order를 저장하여 ID를 생성
         Order order = Order.builder()
                 .user(user)
                 .orderStatusCode(orderStatusCode)
@@ -103,33 +102,36 @@ public class OrderService {
                 .paidAmount(finalAmount != null ? finalAmount : totalPrice) // 실제 결제 금액 (할인 후)
                 .build();
 
-        order = orderRepository.save(order); // Order 먼저 저장
-        log.info("Debug - Order saved with ID: {}, totalAmount: {}, paidAmount: {}",
-            order.getOrderId(), order.getTotalAmount(), order.getPaidAmount());
+        order = orderRepository.save(order);
 
-        // 2. Order가 저장된 후 OrderItem들 추가
+        // Order가 저장된 후 OrderItem들 추가
         addOrderItemsToOrder(order, orderItems);
 
-        // 3. OrderItem들이 추가된 Order를 다시 저장
+        // OrderItem 들이 추가된 Order를 다시 저장
         order = orderRepository.save(order);
-        log.info("Debug - Order saved again after adding items. Final OrderItems count: {}", order.getOrderItems().size());
 
-        // 4. 쿠폰 사용 처리 (쿠폰을 사용한 경우)
+        // 쿠폰 사용 처리
         if (userCouponId != null) {
-            log.info("Debug - Processing coupon usage: userCouponId={}", userCouponId);
-            // TODO: 쿠폰 사용 처리 로직 (쿠폰을 사용됨 상태로 변경)
+            useMyCoupon(userCouponId);
         }
 
-        // 5. 포인트 사용 처리 (포인트를 사용한 경우)
+        // 포인트 사용 처리
         if (usedPoints != null && usedPoints.compareTo(BigDecimal.ZERO) > 0) {
             log.info("Debug - Processing point usage: usedPoints={}", usedPoints);
-            // TODO: 포인트 차감 로직 (사용자 포인트에서 차감)
+            try {
+                // 포인트 사용 처리 (UserPoint 차감 + PointHistory 저장)
+                pointService.useOrderPoints(user.getUserId(), usedPoints.intValue(), order.getOrderId().toString());
+                log.info("Debug - Point usage completed: userId={}, usedPoints={}, orderId={}",
+                        user.getUserId(), usedPoints, order.getOrderId());
+            } catch (Exception e) {
+                log.error("Debug - Point usage failed: userId={}, usedPoints={}, error={}",
+                        user.getUserId(), usedPoints, e.getMessage());
+                throw BusinessException.pointUsageFailed(user.getUserId(), usedPoints.intValue());
+            }
         }
 
         List<OrderResponse.OrderItemResponse> itemResponses = createOrderItemResponses(order);
         OrderResponse.UserResponse userResponse = createUserResponse(user);
-
-        log.info("Debug - Response created with {} itemResponses", itemResponses.size());
 
         return OrderResponse.builder()
                 .orderId(order.getOrderId())
@@ -195,8 +197,6 @@ public class OrderService {
      * 주문에 주문 아이템들 추가
      */
     private void addOrderItemsToOrder(Order order, List<OrderRequest> orderItems) {
-        log.info("Debug - addOrderItemsToOrder called with orderItems size: {}", orderItems != null ? orderItems.size() : "null");
-
         if (orderItems == null || orderItems.isEmpty()) {
             log.warn("Debug - orderItems is null or empty!");
             return;
@@ -224,16 +224,10 @@ public class OrderService {
 
             try {
                 order.addOrderItem(item);
-                log.info("Debug - Successfully added OrderItem[{}] to Order. Order now has {} items",
-                    i, order.getOrderItems().size());
             } catch (Exception e) {
-                log.error("Debug - Exception while adding OrderItem[{}]: {} / {}",
-                    i, e.getClass().getName(), e.getMessage());
                 throw e; // 예외를 다시 던져서 실패를 명확히 함
             }
         }
-
-        log.info("Debug - Finished adding all OrderItems. Final count: {}", order.getOrderItems().size());
     }
 
     /**
@@ -287,6 +281,70 @@ public class OrderService {
     }
 
     /**
+     * 유저 쿠폰 사용 처리
+     * @param userCouponId 사용할 유저 쿠폰 ID
+     */
+    public void useMyCoupon(Long userCouponId) {
+        UserCoupon userCoupon = userCouponRepository.findById(userCouponId)
+                .orElseThrow(() -> BusinessException.couponNotFound(userCouponId));
+
+        // 쿠폰 유효성 검증
+        validateCouponUsability(userCoupon);
+
+        // 쿠폰 상태가 null인 경우 ISSUED 상태로 설정 (데이터 무결성 보장)
+        if (userCoupon.getCouponStatus() == null) {
+            CommonCode issuedStatus = commonCodeRepository.findById("COUPON_001")
+                    .orElseThrow(BusinessException::codeNotFound);
+            userCoupon.setCouponStatus(issuedStatus);
+            log.info("Debug - Set default coupon status to ISSUED for userCouponId: {}", userCouponId);
+        }
+
+        // 쿠폰을 사용됨 상태로 변경
+        CommonCode usedStatus = commonCodeRepository.findById("COUPON_002")
+                .orElseThrow(BusinessException::codeNotFound);
+
+        userCoupon.setCouponStatus(usedStatus);
+        userCoupon.setUsedAt(LocalDateTime.now());
+
+        userCouponRepository.save(userCoupon);
+
+        log.info("Debug - Coupon usage completed: userCouponId={}, couponId={}, userId={}",
+                userCouponId, userCoupon.getCoupon().getCouponId(), userCoupon.getUser().getUserId());
+    }
+
+    /**
+     * 쿠폰 사용 가능 여부 검증
+     * @param userCoupon 검증할 유저 쿠폰
+     */
+    private void validateCouponUsability(UserCoupon userCoupon) {
+        Coupon coupon = userCoupon.getCoupon();
+
+        // 1. 쿠폰이 활성화 상태인지 확인
+        if (coupon.getIsActive() == null || !coupon.getIsActive()) {
+            throw BusinessException.couponExpired(coupon.getCouponId());
+        }
+
+        // 2. 쿠폰 유효기간 확인
+        LocalDateTime now = LocalDateTime.now();
+        if (now.isBefore(coupon.getStartDate()) || now.isAfter(coupon.getExpiredAt())) {
+            throw BusinessException.couponExpired(coupon.getCouponId());
+        }
+
+        // 3. 이미 사용된 쿠폰인지 확인
+        if (userCoupon.getUsedAt() != null) {
+            throw BusinessException.couponUsed(userCoupon.getUserCouponId());
+        }
+
+        // 4. 쿠폰 상태 확인 (null인 경우 ISSUED로 간주)
+        CommonCode couponStatus = userCoupon.getCouponStatus();
+        if (couponStatus != null && !"COUPON_001".equals(couponStatus.getCodeId())) {
+            // 상태가 있지만 ISSUED가 아닌 경우
+            throw BusinessException.couponUsed(userCoupon.getUserCouponId());
+        }
+        // couponStatus가 null인 경우는 기본적으로 ISSUED 상태로 간주하여 통과
+    }
+
+    /**
      * 구매 확정 처리 - confirmedDate 설정
      * @param orderId 주문 ID
      * @param userEmail 사용자 이메일 (권한 검증용)
@@ -325,8 +383,7 @@ public class OrderService {
                 .confirmedDate(LocalDateTime.now()) // 구매확정 일시 설정
                 .build();
 
-        // 주문 상태를 '완료'로 변경할 수도 있음
-        // CommonCode completedStatus = commonCodeRepository.findById(OrderStatusCode.COMPLETED.getCode())...
+        // 주문 상태를 '완료'로 변경
 
         orderRepository.save(order);
         log.info("Debug - Order confirmed successfully: orderId={}, confirmedDate={}",
