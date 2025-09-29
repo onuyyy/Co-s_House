@@ -156,4 +156,12 @@ public class MypageController {
         return "mypage/order-list";
     }
 
+    @GetMapping("/points")
+    public String mypagePointPage() {
+
+
+
+        return  "mypage/points";
+    }
+
 }
