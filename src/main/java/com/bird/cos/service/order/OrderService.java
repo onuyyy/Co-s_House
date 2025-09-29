@@ -8,6 +8,7 @@ import com.bird.cos.domain.order.OrderItem;
 import com.bird.cos.domain.product.Product;
 import com.bird.cos.domain.product.ProductOption;
 import com.bird.cos.domain.user.User;
+import com.bird.cos.dto.mypage.MyOrderRequest;
 import com.bird.cos.dto.order.*;
 import com.bird.cos.exception.BusinessException;
 import com.bird.cos.repository.common.CommonCodeRepository;
@@ -19,6 +20,9 @@ import com.bird.cos.repository.user.UserRepository;
 import com.bird.cos.service.user.PointService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -394,5 +398,111 @@ public class OrderService {
         // TODO: 구매확정 알림 발송
 
         return true;
+    }
+
+    /**
+     * 사용자의 주문 내역 조회 (페이징, 검색)
+     * @param userId 사용자 ID
+     * @param request 검색 조건
+     * @param pageable 페이징 정보
+     * @return 주문 내역 페이지
+     */
+    @Transactional(readOnly = true)
+    public Page<MyOrderResponse> getMyOrders(Long userId, MyOrderRequest request, Pageable pageable) {
+        // request가 null이거나 모든 조건이 비어있으면 기본 조회
+        if (request == null || isEmptySearchCondition(request)) {
+            Page<Order> orderPage = orderRepository.findByUserIdOrderByOrderDateDesc(userId, pageable);
+
+            List<Long> orderIds = orderPage.getContent().stream()
+                    .map(Order::getOrderId)
+                    .toList();
+
+            List<Order> ordersWithDetails = orderIds.isEmpty() ? 
+                    List.of() : 
+                    orderRepository.findByOrderIdsWithDetails(orderIds);
+
+            java.util.Map<Long, Order> orderMap = ordersWithDetails.stream()
+                    .collect(java.util.stream.Collectors.toMap(Order::getOrderId, o -> o));
+
+            List<MyOrderResponse> responses = orderPage.getContent().stream()
+                    .map(o -> convertToMyOrderResponse(orderMap.get(o.getOrderId())))
+                    .toList();
+            
+            return new PageImpl<>(
+                    responses, 
+                    pageable, 
+                    orderPage.getTotalElements()
+            );
+        }
+
+        Page<Order> orderPage = orderRepository.searchOrders(userId, request, pageable);
+        
+        List<MyOrderResponse> responses = orderPage.getContent().stream()
+                .map(this::convertToMyOrderResponse)
+                .toList();
+        
+        return new PageImpl<>(
+                responses, 
+                pageable, 
+                orderPage.getTotalElements()
+        );
+    }
+
+    /**
+     * 검색 조건이 비어있는지 확인
+     */
+    private boolean isEmptySearchCondition(MyOrderRequest request) {
+        return (request.getSearchDate() == null || request.getSearchDate() == com.bird.cos.dto.mypage.SearchDate.ALL) &&
+               (request.getOrderStatus() == null || request.getOrderStatus().isEmpty() || request.getOrderStatus().equals("ALL")) &&
+               (request.getSearchValue() == null || request.getSearchValue().trim().isEmpty());
+    }
+
+    /**
+     * Order 엔티티를 MyOrderResponse로 변환
+     */
+    private MyOrderResponse convertToMyOrderResponse(Order order) {
+        List<MyOrderResponse.MyOrderItemResponse> itemResponses = order.getOrderItems().stream()
+                .map(this::convertToMyOrderItemResponse)
+                .toList();
+
+        return MyOrderResponse.builder()
+                .orderId(order.getOrderId())
+                .orderDate(order.getOrderDate())
+                .orderStatus(order.getOrderStatusCode().getDescription())
+                .orderStatusCode(order.getOrderStatusCode().getCodeId())
+                .totalAmount(order.getTotalAmount())
+                .paidAmount(order.getPaidAmount())
+                .confirmedDate(order.getConfirmedDate())
+                .items(itemResponses)
+                .build();
+    }
+
+    /**
+     * OrderItem 엔티티를 MyOrderItemResponse로 변환
+     */
+    private MyOrderResponse.MyOrderItemResponse convertToMyOrderItemResponse(OrderItem orderItem) {
+        String productOptionName = null;
+        if (orderItem.getProductOption() != null) {
+            productOptionName = orderItem.getProductOption().getOptionName() + " : " +
+                    orderItem.getProductOption().getOptionValue();
+        }
+
+        // 상품 대표 이미지 가져오기
+        String productImage = null;
+        if (orderItem.getProduct().getMainImageUrl() != null && !orderItem.getProduct().getMainImageUrl().isEmpty()) {
+            productImage = orderItem.getProduct().getMainImageUrl();
+        }
+
+        return MyOrderResponse.MyOrderItemResponse.builder()
+                .orderItemId(orderItem.getOrderItemId())
+                .productId(orderItem.getProduct().getProductId())
+                .productName(orderItem.getProduct().getProductTitle())
+                .productImage(productImage)
+                .productOptionName(productOptionName)
+                .quantity(orderItem.getQuantity())
+                .price(orderItem.getPrice())
+                .deliveryStatus(orderItem.getDeliveryStatusCode().getDescription())
+                .deliveryStatusCode(orderItem.getDeliveryStatusCode().getCodeId())
+                .build();
     }
 }

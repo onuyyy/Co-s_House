@@ -29,4 +29,6 @@ public interface UserCouponRepository extends JpaRepository<UserCoupon, Long> {
             "couponStatus"
     })
     List<UserCoupon> findByUserAndOrderIsNull(User user);
+
+    long countByUser_UserIdAndCoupon_IsActive(Long userId, boolean isActive);
 }

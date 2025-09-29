@@ -80,29 +80,29 @@ INSERT INTO product_option (product_id, option_type, option_name, option_value, 
 -- 상품 2: 보니애가구 시에나 데이비드 모션 슬라이딩 리클라이너 패브릭 소파 (product_id = 2)
 INSERT INTO product_option (product_id, option_type, option_name, option_value, additional_price, sort_order) VALUES
 -- 색상 옵션
-(2, 'OPT_TYPE_001', '색상', '아이보리', 0.00, 1),
-(2, 'OPT_TYPE_001', '색상', '베이지', 20000.00, 2),
-(2, 'OPT_TYPE_001', '색상', '그레이', 30000.00, 3),
+(8, 'OPT_TYPE_001', '색상', '아이보리', 0.00, 1),
+(8, 'OPT_TYPE_001', '색상', '베이지', 20000.00, 2),
+(8, 'OPT_TYPE_001', '색상', '그레이', 30000.00, 3),
 
 -- 크기 옵션 (4인용 기본, 다른 크기 옵션)
-(2, 'OPT_TYPE_002', '크기', '3인용', -100000.00, 1),
-(2, 'OPT_TYPE_002', '크기', '4인용', 0.00, 2),
+(8, 'OPT_TYPE_002', '크기', '3인용', -100000.00, 1),
+(8, 'OPT_TYPE_002', '크기', '4인용', 0.00, 2),
 
 -- 스툴 옵션
-(2, 'OPT_TYPE_005', '스툴', '스툴 미포함', 0.00, 1),
-(2, 'OPT_TYPE_005', '스툴', '스툴 포함', 150000.00, 2);
+(9, 'OPT_TYPE_005', '스툴', '스툴 미포함', 0.00, 1),
+(9, 'OPT_TYPE_005', '스툴', '스툴 포함', 150000.00, 2);
 
 -- 상품 3: 에보니아 이오 1인용 전동 리클라이너 컵홀더형 (product_id = 3)
 INSERT INTO product_option (product_id, option_type, option_name, option_value, additional_price, sort_order) VALUES
 -- 색상 옵션
-(3, 'OPT_TYPE_001', '색상', '블랙', 0.00, 1),
-(3, 'OPT_TYPE_001', '색상', '브라운', 15000.00, 2),
-(3, 'OPT_TYPE_001', '색상', '화이트', 10000.00, 3),
+(9, 'OPT_TYPE_001', '색상', '블랙', 0.00, 1),
+(9, 'OPT_TYPE_001', '색상', '브라운', 15000.00, 2),
+(9, 'OPT_TYPE_001', '색상', '화이트', 10000.00, 3),
 
 -- 컵홀더 옵션
-(3, 'OPT_TYPE_005', '컵홀더', '좌측', 0.00, 1),
-(3, 'OPT_TYPE_005', '컵홀더', '우측', 0.00, 2),
-(3, 'OPT_TYPE_005', '컵홀더', '양측', 25000.00, 3);
+(10, 'OPT_TYPE_005', '컵홀더', '좌측', 0.00, 1),
+(10, 'OPT_TYPE_005', '컵홀더', '우측', 0.00, 2),
+(10, 'OPT_TYPE_005', '컵홀더', '양측', 25000.00, 3);
 
 -- 상품 4: 헤이미쉬홈 몽드 4인용 아쿠아텍스 이지클린 조야 패브릭 스윙 소파 (product_id = 4)
 INSERT INTO product_option (product_id, option_type, option_name, option_value, additional_price, sort_order) VALUES
