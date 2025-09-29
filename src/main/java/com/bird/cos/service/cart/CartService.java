@@ -5,6 +5,7 @@ import com.bird.cos.domain.cart.CartItem;
 import com.bird.cos.domain.coupon.Coupon;
 import com.bird.cos.domain.coupon.UserCoupon;
 import com.bird.cos.domain.product.Product;
+import com.bird.cos.domain.product.ProductOption;
 import com.bird.cos.domain.user.User;
 import com.bird.cos.dto.cart.AddToCartRequest;
 import com.bird.cos.dto.cart.CartItemResponseDto;
@@ -13,6 +14,7 @@ import com.bird.cos.dto.cart.CartSummaryDto;
 import com.bird.cos.repository.cart.CartHeaderRepository;
 import com.bird.cos.repository.cart.CartItemRepository;
 import com.bird.cos.repository.mypage.coupon.UserCouponRepository;
+import com.bird.cos.repository.product.ProductOptionRepository;
 import com.bird.cos.repository.product.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,6 +27,8 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -35,6 +39,7 @@ public class CartService {
     private final CartHeaderRepository cartHeaderRepository;
     private final CartItemRepository cartItemRepository;
     private final ProductRepository productRepository;
+    private final ProductOptionRepository productOptionRepository;
     private final UserCouponRepository userCouponRepository;
 
     //항목당 최대 수량
@@ -73,8 +78,18 @@ public class CartService {
     @Transactional(readOnly = true)
     public CartListResponse getCart(User user) {
         List<CartItem> entities = cartItemRepository.findAllByCart_User(user);
+        Set<Long> productIds = entities.stream()
+                .map(ci -> ci.getProduct() != null ? ci.getProduct().getProductId() : null)
+                .filter(id -> id != null)
+                .collect(Collectors.toSet());
+
+        Map<Long, List<ProductOption>> optionsByProduct = productIds.isEmpty()
+                ? Map.of()
+                : productOptionRepository.findByProduct_ProductIdIn(productIds).stream()
+                .collect(Collectors.groupingBy(opt -> opt.getProduct().getProductId()));
+
         List<CartItemResponseDto> items = entities.stream()
-                .map(this::toDto)
+                .map(item -> toDto(item, optionsByProduct))
                 .toList();
         CartSummaryDto summary = summarize(user, entities, items);
         return new CartListResponse(items, summary);
@@ -91,7 +106,11 @@ public class CartService {
     public CartItemResponseDto getDetail(Long cartItemId, User user) {
         CartItem item = cartItemRepository.findByCartItemIdAndCart_User(cartItemId, user)
                 .orElseThrow(() -> new RuntimeException("장바구니 정보를 조회할 수 없습니다."));
-        return toDto(item);
+        Long productId = item.getProduct() != null ? item.getProduct().getProductId() : null;
+        Map<Long, List<ProductOption>> optionMap = productId == null
+                ? Map.of()
+                : Map.of(productId, productOptionRepository.findByProduct_ProductId(productId));
+        return toDto(item, optionMap);
     }
 
     //장바구니 상품 삭제 (단건/다건)
@@ -111,6 +130,35 @@ public class CartService {
         Product product = item.getProduct();
         int normalized = normalizeQuantity(quantity, product.getStockQuantity());
         item.setQuantity(normalized);
+        cartItemRepository.save(item);
+    }
+
+    public void updateOptions(Long cartItemId, User user, String selectedOptions) {
+        CartItem item = cartItemRepository.findByCartItemIdAndCart_User(cartItemId, user)
+                .orElseThrow(() -> new RuntimeException("장바구니 항목을 찾을 수 없습니다."));
+
+        if (selectedOptions == null || selectedOptions.isBlank()) {
+            item.setSelectedOptions(null);
+            cartItemRepository.save(item);
+            return;
+        }
+
+        Long optionId;
+        try {
+            optionId = Long.parseLong(selectedOptions.trim());
+        } catch (NumberFormatException e) {
+            throw new RuntimeException("유효한 옵션 ID가 아닙니다.");
+        }
+
+        var option = productOptionRepository.findById(optionId)
+                .orElseThrow(() -> new RuntimeException("옵션을 찾을 수 없습니다."));
+
+        if (option.getProduct() == null || item.getProduct() == null
+                || !option.getProduct().getProductId().equals(item.getProduct().getProductId())) {
+            throw new RuntimeException("해당 상품의 옵션이 아닙니다.");
+        }
+
+        item.setSelectedOptions(String.valueOf(optionId));
         cartItemRepository.save(item);
     }
 
@@ -307,7 +355,7 @@ public class CartService {
 
     // --------- 내부 헬퍼 ---------
     //DTO 변환 + 가격 계산 동시에 함
-    private CartItemResponseDto toDto(CartItem item) {
+    private CartItemResponseDto toDto(CartItem item, Map<Long, List<ProductOption>> optionsByProduct) {
         Product p = item.getProduct();
 
         BigDecimal unitOriginal = p.getOriginalPrice();
@@ -318,6 +366,37 @@ public class CartService {
                 && p.getStockQuantity() < item.getQuantity();
 
         String status = p.getProductStatusCode() != null ? p.getProductStatusCode().getCodeName() : null;
+
+        List<ProductOption> options = p == null ? List.of()
+                : optionsByProduct.getOrDefault(p.getProductId(), List.of());
+
+        String selectedOptionsRaw = item.getSelectedOptions();
+        Long selectedOptionId = null;
+        if (selectedOptionsRaw != null && !selectedOptionsRaw.isBlank()) {
+            try {
+                selectedOptionId = Long.parseLong(selectedOptionsRaw.trim());
+            } catch (NumberFormatException ignored) {
+            }
+        }
+
+        String selectedOptionLabel = null;
+        if (selectedOptionId != null) {
+            Long finalSelectedOptionId = selectedOptionId;
+            selectedOptionLabel = options.stream()
+                    .filter(opt -> opt.getOptionId().equals(finalSelectedOptionId))
+                    .findFirst()
+                    .map(this::buildOptionLabel)
+                    .orElse(null);
+        }
+
+        List<CartItemResponseDto.Option> optionDtos = options.stream()
+                .map(opt -> CartItemResponseDto.Option.builder()
+                        .optionId(opt.getOptionId())
+                        .optionName(opt.getOptionName())
+                        .optionValue(opt.getOptionValue())
+                        .additionalPrice(opt.getAdditionalPrice())
+                        .build())
+                .toList();
 
         return CartItemResponseDto.builder()
                 .cartItemId(item.getCartItemId())
@@ -330,7 +409,26 @@ public class CartService {
                 .lineTotal(lineTotal)
                 .outOfStock(outOfStock)
                 .status(status)
+                .selectedOptions(selectedOptionsRaw)
+                .selectedOptionId(selectedOptionId)
+                .selectedOptionLabel(selectedOptionLabel)
+                .options(optionDtos)
                 .build();
+    }
+
+    private String buildOptionLabel(ProductOption option) {
+        if (option == null) {
+            return null;
+        }
+        String name = option.getOptionName() != null ? option.getOptionName().trim() : "";
+        String value = option.getOptionValue() != null ? option.getOptionValue().trim() : "";
+        if (name.isEmpty()) {
+            return value;
+        }
+        if (value.isEmpty()) {
+            return name;
+        }
+        return name + " - " + value;
     }
 
     private static int defaultZero(Integer v) {

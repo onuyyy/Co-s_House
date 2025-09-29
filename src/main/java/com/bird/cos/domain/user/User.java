@@ -107,6 +107,10 @@ public class User {
     public String getNickname() { return this.userNickname;
     }
 
+    public void updatePassword(String encodedPassword) {
+        this.userPassword = encodedPassword;
+    }
+
     public void updateEmail(String email) {
         if (email != null && !email.trim().isEmpty()) {
             this.userEmail = email.trim();

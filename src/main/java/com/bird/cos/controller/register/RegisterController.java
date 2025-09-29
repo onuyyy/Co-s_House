@@ -71,12 +71,12 @@ public class RegisterController {
         return "로그인 유저 : " + user.getUserEmail();
     }
 
-    @PostMapping("/logout")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
+  /*  @PostMapping("/logout")
+    //@ResponseStatus(HttpStatus.NO_CONTENT)
     public void logout(HttpSession session) {
         log.info("[RegisterController.logout] - 로그아웃");
         session.invalidate();
-    }
+    }*/
 
     @GetMapping("/me")
     public UserResponse getCurrentUser(HttpSession session) throws UnauthorizedException {

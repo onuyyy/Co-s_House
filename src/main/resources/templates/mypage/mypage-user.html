@@ -1,302 +1,313 @@
-<!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>정보수정 - 마이페이지</title>
-    <link rel="stylesheet" th:href="@{/css/app.css}">
-    <link rel="stylesheet" th:href="@{/css/mypage/mypage.css}">
-    <link rel="stylesheet" th:href="@{/css/mypage/mypage-user.css}">
-    <link rel="stylesheet" th:href="@{/css/main/header.css}">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-</head>
-<body>
-    <div th:replace="fragments/layout :: header"></div>
+<!--<!DOCTYPE html>-->
+<!--<html lang="ko" xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--    <title>정보수정 - 마이페이지</title>-->
+<!--    <link rel="stylesheet" th:href="@{/css/app.css}">-->
+<!--    <link rel="stylesheet" th:href="@{/css/mypage/mypage-user.css}">-->
+<!--    <link rel="stylesheet" th:href="@{/css/main/header.css}">-->
+<!--    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">-->
+<!--</head>-->
+<!--<body>-->
+<!--    <div th:replace="fragments/layout :: header"></div>-->
 
-    <div class="container">
-        <div class="mypage-layout">
-            <!-- 사이드바 -->
-            <div th:replace="fragments/mypage-sidebar :: sidebar"></div>
+<!--    <div class="container">-->
+<!--        <div class="mypage-layout">-->
+<!--            &lt;!&ndash; 사이드바 &ndash;&gt;-->
+<!--            <div class="mypage-sidebar">-->
+<!--                <h3 style="margin-bottom: 24px; color: var(&#45;&#45;color-text);">마이페이지</h3>-->
+<!--                <ul class="sidebar-nav">-->
+<!--                    <li><a href="/mypage"><i class="fas fa-user"></i>내 정보</a></li>-->
+<!--                    <li><a href="/mypage/orders"><i class="fas fa-shopping-bag"></i>주문내역(미구현)</a></li>-->
+<!--                    <li><a href="/mypage/wishlist"><i class="fas fa-heart"></i>위시리스트(미구현)</a></li>-->
+<!--                    <li><a href="/mypage/reviews"><i class="fas fa-star"></i>리뷰관리(미구현)</a></li>-->
+<!--                    <li><a href="/question"><i class="fas fa-question-circle"></i>문의내역</a></li>-->
+<!--                    <li><a href="/mypage/coupons"><i class="fas fa-ticket-alt"></i>쿠폰함(미구현)</a></li>-->
+<!--                    <li><a href="/mypage/points"><i class="fas fa-coins"></i>적립금(미구현)</a></li>-->
+<!--                    <li><a class="active" href="/mypage/mypageUserDetail"><i class="fas fa-edit"></i>정보수정</a></li>-->
+<!--                </ul>-->
+<!--            </div>-->
 
-            <!-- 메인 컨텐츠 -->
-            <div class="mypage-content">
-                <div class="user-update-container">
-                    <div class="update-header">
-                        <h2><i class="fas fa-edit"></i> 개인정보 수정</h2>
-                        <p class="update-description">개인정보를 안전하게 관리하세요. 일부 정보는 보안상 수정이 제한될 수 있습니다.</p>
-                    </div>
+<!--            &lt;!&ndash; 메인 컨텐츠 &ndash;&gt;-->
+<!--            <div class="mypage-content">-->
+<!--                <div class="user-update-container">-->
+<!--                    <div class="update-header">-->
+<!--                        <h2><i class="fas fa-edit"></i> 개인정보 수정</h2>-->
+<!--                        <p class="update-description">개인정보를 안전하게 관리하세요. 일부 정보는 보안상 수정이 제한될 수 있습니다.</p>-->
+<!--                    </div>-->
 
-                    <form class="user-update-form" action="/mypage/mypageUserUpdate" method="post">
-                        <!-- 기본 정보 섹션 -->
-                        <div class="form-section">
-                            <h3 class="section-title">
-                                <i class="fas fa-user-circle"></i>
-                                기본 정보
-                            </h3>
+<!--                    <form class="user-update-form" action="/mypage/mypageUserUpdate" method="post">-->
+<!--                        &lt;!&ndash; 기본 정보 섹션 &ndash;&gt;-->
+<!--                        <div class="form-section">-->
+<!--                            <h3 class="section-title">-->
+<!--                                <i class="fas fa-user-circle"></i>-->
+<!--                                기본 정보-->
+<!--                            </h3>-->
 
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label for="userName">이름</label>
-                                    <input type="text"
-                                           id="userName"
-                                           name="userName"
-                                           th:value="${userInfo?.userName}"
-                                           class="form-control"
-                                           disabled>
-                                    <small class="form-text text-muted">
-                                        <i class="fas fa-lock"></i>
-                                        보안상 이름은 변경할 수 없습니다.
-                                    </small>
-                                </div>
-                                <div class="form-group">
-                                    <label for="userNickname">닉네임</label>
-                                    <input type="text"
-                                           id="userNickname"
-                                           name="userNickname"
-                                           th:value="${userInfo?.userNickname}"
-                                           class="form-control"
-                                           required>
-                                    <small class="form-text">다른 사용자에게 표시되는 이름입니다.</small>
-                                </div>
-                            </div>
-                        </div>
+<!--                            <div class="form-row">-->
+<!--                                <div class="form-group">-->
+<!--                                    <label for="userName">이름</label>-->
+<!--                                    <input type="text"-->
+<!--                                           id="userName"-->
+<!--                                           name="userName"-->
+<!--                                           th:value="${userInfo?.userName}"-->
+<!--                                           class="form-control"-->
+<!--                                           disabled>-->
+<!--                                    <small class="form-text text-muted">-->
+<!--                                        <i class="fas fa-lock"></i>-->
+<!--                                        보안상 이름은 변경할 수 없습니다.-->
+<!--                                    </small>-->
+<!--                                </div>-->
+<!--                                <div class="form-group">-->
+<!--                                    <label for="userNickname">닉네임</label>-->
+<!--                                    <input type="text"-->
+<!--                                           id="userNickname"-->
+<!--                                           name="userNickname"-->
+<!--                                           th:value="${userInfo?.userNickname}"-->
+<!--                                           class="form-control"-->
+<!--                                           required>-->
+<!--                                    <small class="form-text">다른 사용자에게 표시되는 이름입니다.</small>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
 
-                        <!-- 연락처 정보 섹션 -->
-                        <div class="form-section">
-                            <h3 class="section-title">
-                                <i class="fas fa-phone"></i>
-                                연락처 정보
-                            </h3>
+<!--                        &lt;!&ndash; 연락처 정보 섹션 &ndash;&gt;-->
+<!--                        <div class="form-section">-->
+<!--                            <h3 class="section-title">-->
+<!--                                <i class="fas fa-phone"></i>-->
+<!--                                연락처 정보-->
+<!--                            </h3>-->
 
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label for="userEmail">이메일</label>
-                                    <input type="email"
-                                           id="userEmail"
-                                           name="userEmail"
-                                           th:value="${userInfo?.userEmail}"
-                                           class="form-control"
-                                           disabled>
-                                    <small class="form-text text-muted">
-                                        <i class="fas fa-lock"></i>
-                                        보안상 이메일은 변경할 수 없습니다.
-                                    </small>
-                                </div>
-                                <div class="form-group">
-                                    <label for="userPhone">전화번호</label>
-                                    <input type="tel"
-                                           id="userPhone"
-                                           name="userPhone"
-                                           th:value="${userInfo?.userPhone}"
-                                           class="form-control"
-                                           placeholder="010-0000-0000">
-                                    <small class="form-text">'-' 없이 숫자만 입력해주세요.</small>
-                                </div>
-                            </div>
-                        </div>
+<!--                            <div class="form-row">-->
+<!--                                <div class="form-group">-->
+<!--                                    <label for="userEmail">이메일</label>-->
+<!--                                    <input type="email"-->
+<!--                                           id="userEmail"-->
+<!--                                           name="userEmail"-->
+<!--                                           th:value="${userInfo?.userEmail}"-->
+<!--                                           class="form-control"-->
+<!--                                           disabled>-->
+<!--                                    <small class="form-text text-muted">-->
+<!--                                        <i class="fas fa-lock"></i>-->
+<!--                                        보안상 이메일은 변경할 수 없습니다.-->
+<!--                                    </small>-->
+<!--                                </div>-->
+<!--                                <div class="form-group">-->
+<!--                                    <label for="userPhone">전화번호</label>-->
+<!--                                    <input type="tel"-->
+<!--                                           id="userPhone"-->
+<!--                                           name="userPhone"-->
+<!--                                           th:value="${userInfo?.userPhone}"-->
+<!--                                           class="form-control"-->
+<!--                                           placeholder="010-0000-0000">-->
+<!--                                    <small class="form-text">'-' 없이 숫자만 입력해주세요.</small>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
 
-                        <!-- 주소 정보 섹션 -->
-                        <div class="form-section">
-                            <h3 class="section-title">
-                                <i class="fas fa-map-marker-alt"></i>
-                                주소 정보
-                            </h3>
+<!--                        &lt;!&ndash; 주소 정보 섹션 &ndash;&gt;-->
+<!--                        <div class="form-section">-->
+<!--                            <h3 class="section-title">-->
+<!--                                <i class="fas fa-map-marker-alt"></i>-->
+<!--                                주소 정보-->
+<!--                            </h3>-->
 
-                            <div class="form-group">
-                                <label for="userAddress">주소</label>
-                                <div class="address-input-group">
-                                    <input type="text"
-                                           id="userAddress"
-                                           name="userAddress"
-                                           th:value="${userInfo?.userAddress}"
-                                           class="form-control"
-                                           placeholder="주소를 입력해주세요"
-                                           readonly>
-                                    <button type="button" class="btn btn-outline address-search-btn">
-                                        <i class="fas fa-search"></i> 주소검색
-                                    </button>
-                                </div>
-                            </div>
+<!--                            <div class="form-group">-->
+<!--                                <label for="userAddress">주소</label>-->
+<!--                                <div class="address-input-group">-->
+<!--                                    <input type="text"-->
+<!--                                           id="userAddress"-->
+<!--                                           name="userAddress"-->
+<!--                                           th:value="${userInfo?.userAddress}"-->
+<!--                                           class="form-control"-->
+<!--                                           placeholder="주소를 입력해주세요"-->
+<!--                                           readonly>-->
+<!--                                    <button type="button" class="btn btn-outline address-search-btn">-->
+<!--                                        <i class="fas fa-search"></i> 주소검색-->
+<!--                                    </button>-->
+<!--                                </div>-->
+<!--                            </div>-->
 
-                            <div class="form-group">
-                                <label for="userDetailAddress">상세주소</label>
-                                <input type="text"
-                                       id="userDetailAddress"
-                                       name="userDetailAddress"
-                                       class="form-control"
-                                       placeholder="상세 주소를 입력해주세요 (예: 101동 202호)">
-                            </div>
-                        </div>
+<!--                            <div class="form-group">-->
+<!--                                <label for="userDetailAddress">상세주소</label>-->
+<!--                                <input type="text"-->
+<!--                                       id="userDetailAddress"-->
+<!--                                       name="userDetailAddress"-->
+<!--                                       class="form-control"-->
+<!--                                       placeholder="상세 주소를 입력해주세요 (예: 101동 202호)">-->
+<!--                            </div>-->
+<!--                        </div>-->
 
-                        <!-- 비밀번호 변경 섹션 -->
-                        <div class="form-section password-section">
-                            <h3 class="section-title">
-                                <i class="fas fa-key"></i>
-                                비밀번호 변경
-                            </h3>
+<!--                        &lt;!&ndash; 비밀번호 변경 섹션 &ndash;&gt;-->
+<!--                        <div class="form-section password-section">-->
+<!--                            <h3 class="section-title">-->
+<!--                                <i class="fas fa-key"></i>-->
+<!--                                비밀번호 변경-->
+<!--                            </h3>-->
 
-                            <!-- 소셜 로그인 사용자 안내 -->
-                            <div th:if="${userInfo?.socialProvider != null}" class="social-login-notice">
-                                <div class="alert alert-info">
-                                    <i class="fas fa-info-circle"></i>
-                                    <span th:text="${userInfo.socialProvider} + ' 로그인으로 가입된 계정입니다. 비밀번호 변경이 불가능합니다.'">소셜 로그인 계정입니다.</span>
-                                </div>
-                            </div>
+<!--                            &lt;!&ndash; 소셜 로그인 사용자 안내 &ndash;&gt;-->
+<!--                            <div th:if="${userInfo?.socialProvider != null}" class="social-login-notice">-->
+<!--                                <div class="alert alert-info">-->
+<!--                                    <i class="fas fa-info-circle"></i>-->
+<!--                                    <span th:text="${userInfo.socialProvider} + ' 로그인으로 가입된 계정입니다. 비밀번호 변경이 불가능합니다.'">소셜 로그인 계정입니다.</span>-->
+<!--                                </div>-->
+<!--                            </div>-->
 
-                            <!-- 일반 사용자 비밀번호 변경 -->
-                            <div th:if="${userInfo?.socialProvider == null}">
-                                <div class="form-group">
-                                    <label for="currentPassword">현재 비밀번호</label>
-                                    <input type="password"
-                                           id="currentPassword"
-                                           name="currentPassword"
-                                           class="form-control password-change-field"
-                                           placeholder="현재 비밀번호를 입력해주세요"
-                                           autocomplete="new-password"
-                                           data-lpignore="true"
-                                           readonly onfocus="this.removeAttribute('readonly');">
-                                    <div id="currentPasswordFeedback" class="password-feedback"></div>
-                                    <small class="form-text">비밀번호 변경을 원하지 않으면 비워두세요.</small>
-                                </div>
+<!--                            &lt;!&ndash; 일반 사용자 비밀번호 변경 &ndash;&gt;-->
+<!--                            <div th:if="${userInfo?.socialProvider == null}">-->
+<!--                                <div class="form-group">-->
+<!--                                    <label for="currentPassword">현재 비밀번호</label>-->
+<!--                                    <input type="password"-->
+<!--                                           id="currentPassword"-->
+<!--                                           name="currentPassword"-->
+<!--                                           class="form-control password-change-field"-->
+<!--                                           placeholder="현재 비밀번호를 입력해주세요"-->
+<!--                                           autocomplete="new-password"-->
+<!--                                           data-lpignore="true"-->
+<!--                                           readonly onfocus="this.removeAttribute('readonly');">-->
+<!--                                    <div id="currentPasswordFeedback" class="password-feedback"></div>-->
+<!--                                    <small class="form-text">비밀번호 변경을 원하지 않으면 비워두세요.</small>-->
+<!--                                </div>-->
 
-                                <div class="form-row" style="margin-top: 20px;">
-                                    <div class="form-group">
-                                        <label for="newPassword">새 비밀번호</label>
-                                        <input type="password"
-                                               id="newPassword"
-                                               name="userPassword"
-                                               class="form-control password-change-field"
-                                               placeholder="새 비밀번호를 입력해주세요"
-                                               disabled>
-                                        <div id="newPasswordFeedback" class="password-feedback"></div>
-                                        <small class="form-text">8자 이상, 영문+숫자+특수문자 조합</small>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="confirmPassword">새 비밀번호 확인</label>
-                                        <input type="password"
-                                               id="confirmPassword"
-                                               name="confirmPassword"
-                                               class="form-control password-change-field"
-                                               placeholder="새 비밀번호를 다시 입력해주세요"
-                                               disabled>
-                                        <div id="confirmPasswordFeedback" class="password-feedback"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+<!--                                <div class="form-row" style="margin-top: 20px;">-->
+<!--                                    <div class="form-group">-->
+<!--                                        <label for="newPassword">새 비밀번호</label>-->
+<!--                                        <input type="password"-->
+<!--                                               id="newPassword"-->
+<!--                                               name="userPassword"-->
+<!--                                               class="form-control password-change-field"-->
+<!--                                               placeholder="새 비밀번호를 입력해주세요"-->
+<!--                                               disabled>-->
+<!--                                        <div id="newPasswordFeedback" class="password-feedback"></div>-->
+<!--                                        <small class="form-text">8자 이상, 영문+숫자+특수문자 조합</small>-->
+<!--                                    </div>-->
+<!--                                    <div class="form-group">-->
+<!--                                        <label for="confirmPassword">새 비밀번호 확인</label>-->
+<!--                                        <input type="password"-->
+<!--                                               id="confirmPassword"-->
+<!--                                               name="confirmPassword"-->
+<!--                                               class="form-control password-change-field"-->
+<!--                                               placeholder="새 비밀번호를 다시 입력해주세요"-->
+<!--                                               disabled>-->
+<!--                                        <div id="confirmPasswordFeedback" class="password-feedback"></div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
 
-                        <!-- 멤버십 정보 섹션 -->
-                        <div class="form-section membership-section">
-                            <h3 class="section-title">
-                                <i class="fas fa-star"></i>
-                                멤버십 정보
-                            </h3>
+<!--                        &lt;!&ndash; 멤버십 정보 섹션 &ndash;&gt;-->
+<!--                        <div class="form-section membership-section">-->
+<!--                            <h3 class="section-title">-->
+<!--                                <i class="fas fa-star"></i>-->
+<!--                                멤버십 정보-->
+<!--                            </h3>-->
 
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label for="membershipGrade">멤버십 등급</label>
-                                    <input type="text"
-                                           id="membershipGrade"
-                                           th:value="${userInfo?.membershipGrade != null ? userInfo.membershipGrade + '등급' : '일반회원'}"
-                                           class="form-control"
-                                           disabled>
-                                </div>
-                                <div class="form-group">
-                                    <label for="membershipPoints">적립금</label>
-                                    <input type="text"
-                                           id="membershipPoints"
-                                           th:value="${userInfo?.membershipPoints != null ? #numbers.formatInteger(userInfo.membershipPoints, 0, 'COMMA') + '원' : '0원'}"
-                                           class="form-control"
-                                           disabled>
-                                </div>
-                            </div>
+<!--                            <div class="form-row">-->
+<!--                                <div class="form-group">-->
+<!--                                    <label for="membershipGrade">멤버십 등급</label>-->
+<!--                                    <input type="text"-->
+<!--                                           id="membershipGrade"-->
+<!--                                           th:value="${userInfo?.membershipGrade != null ? userInfo.membershipGrade + '등급' : '일반회원'}"-->
+<!--                                           class="form-control"-->
+<!--                                           disabled>-->
+<!--                                </div>-->
+<!--                                <div class="form-group">-->
+<!--                                    <label for="membershipPoints">적립금</label>-->
+<!--                                    <input type="text"-->
+<!--                                           id="membershipPoints"-->
+<!--                                           th:value="${userInfo?.membershipPoints != null ? #numbers.formatInteger(userInfo.membershipPoints, 0, 'COMMA') + '원' : '0원'}"-->
+<!--                                           class="form-control"-->
+<!--                                           disabled>-->
+<!--                                </div>-->
+<!--                            </div>-->
 
-                            <div class="form-group">
-                                <label for="totalOrderAmount">총 주문금액</label>
-                                <input type="text"
-                                       id="totalOrderAmount"
-                                       th:value="${userInfo?.totalOrderAmount != null ? #numbers.formatDecimal(userInfo.totalOrderAmount, 0, 'COMMA', 0, 'NONE') + '원' : '0원'}"
-                                       class="form-control"
-                                       disabled>
-                            </div>
-                        </div>
+<!--                            <div class="form-group">-->
+<!--                                <label for="totalOrderAmount">총 주문금액</label>-->
+<!--                                <input type="text"-->
+<!--                                       id="totalOrderAmount"-->
+<!--                                       th:value="${userInfo?.totalOrderAmount != null ? #numbers.formatDecimal(userInfo.totalOrderAmount, 0, 'COMMA', 0, 'NONE') + '원' : '0원'}"-->
+<!--                                       class="form-control"-->
+<!--                                       disabled>-->
+<!--                            </div>-->
+<!--                        </div>-->
 
-                        <!-- 회원탈퇴 섹션 -->
-                        <div class="form-section danger-section">
-                            <h3 class="section-title text-danger withdrawal-toggle" onclick="toggleWithdrawal()">
-                                <i class="fas fa-exclamation-triangle"></i>
-                                회원탈퇴
-                                <i class="fas fa-chevron-down withdrawal-arrow"></i>
-                            </h3>
+<!--                        &lt;!&ndash; 회원탈퇴 섹션 &ndash;&gt;-->
+<!--                        <div class="form-section danger-section">-->
+<!--                            <h3 class="section-title text-danger withdrawal-toggle" onclick="toggleWithdrawal()">-->
+<!--                                <i class="fas fa-exclamation-triangle"></i>-->
+<!--                                회원탈퇴-->
+<!--                                <i class="fas fa-chevron-down withdrawal-arrow"></i>-->
+<!--                            </h3>-->
 
-                            <div class="withdrawal-content" id="withdrawalContent">
-                                <div class="withdrawal-notice">
-                                    <div class="alert alert-warning">
-                                        <h5><i class="fas fa-warning"></i> 회원탈퇴 안내</h5>
-                                        <ul style="margin: 8px 0 0 0; padding-left: 20px;">
-                                            <li>탈퇴 시 모든 개인정보가 삭제되며 복구할 수 없습니다.</li>
-                                            <li>주문내역, 적립금, 쿠폰 등 모든 혜택이 소멸됩니다.</li>
-                                            <li>동일한 이메일로 재가입이 제한될 수 있습니다.</li>
-                                        </ul>
-                                    </div>
-                                </div>
+<!--                            <div class="withdrawal-content" id="withdrawalContent">-->
+<!--                                <div class="withdrawal-notice">-->
+<!--                                    <div class="alert alert-warning">-->
+<!--                                        <h5><i class="fas fa-warning"></i> 회원탈퇴 안내</h5>-->
+<!--                                        <ul style="margin: 8px 0 0 0; padding-left: 20px;">-->
+<!--                                            <li>탈퇴 시 모든 개인정보가 삭제되며 복구할 수 없습니다.</li>-->
+<!--                                            <li>주문내역, 적립금, 쿠폰 등 모든 혜택이 소멸됩니다.</li>-->
+<!--                                            <li>동일한 이메일로 재가입이 제한될 수 있습니다.</li>-->
+<!--                                        </ul>-->
+<!--                                    </div>-->
+<!--                                </div>-->
 
-                                <div class="withdrawal-form">
-                                    <div class="form-group">
-                                        <label for="withdrawalReason">탈퇴 사유 (필수)</label>
-                                        <select id="withdrawalReason" name="withdrawalReason" class="form-control withdrawal-field">
-                                            <option value="">선택해주세요</option>
-                                            <option value="service_dissatisfaction">서비스 불만족</option>
-                                            <option value="no_longer_needed">더 이상 필요하지 않음</option>
-                                            <option value="privacy_concern">개인정보 보호</option>
-                                            <option value="other_service">다른 서비스 이용</option>
-                                            <option value="etc">기타</option>
-                                        </select>
-                                    </div>
+<!--                                <div class="withdrawal-form">-->
+<!--                                    <div class="form-group">-->
+<!--                                        <label for="withdrawalReason">탈퇴 사유 (필수)</label>-->
+<!--                                        <select id="withdrawalReason" name="withdrawalReason" class="form-control withdrawal-field">-->
+<!--                                            <option value="">선택해주세요</option>-->
+<!--                                            <option value="service_dissatisfaction">서비스 불만족</option>-->
+<!--                                            <option value="no_longer_needed">더 이상 필요하지 않음</option>-->
+<!--                                            <option value="privacy_concern">개인정보 보호</option>-->
+<!--                                            <option value="other_service">다른 서비스 이용</option>-->
+<!--                                            <option value="etc">기타</option>-->
+<!--                                        </select>-->
+<!--                                    </div>-->
 
-                                    <div th:if="${userInfo?.socialProvider == null}" class="form-group" style="margin-top: 20px;">
-                                        <label for="withdrawalPassword">비밀번호 확인</label>
-                                        <input type="password"
-                                               id="withdrawalPassword"
-                                               name="withdrawalPassword"
-                                               class="form-control withdrawal-field"
-                                               placeholder="탈퇴를 위해 비밀번호를 입력해주세요">
-                                        <div id="withdrawalPasswordFeedback" class="password-feedback"></div>
-                                    </div>
+<!--                                    <div th:if="${userInfo?.socialProvider == null}" class="form-group" style="margin-top: 20px;">-->
+<!--                                        <label for="withdrawalPassword">비밀번호 확인</label>-->
+<!--                                        <input type="password"-->
+<!--                                               id="withdrawalPassword"-->
+<!--                                               name="withdrawalPassword"-->
+<!--                                               class="form-control withdrawal-field"-->
+<!--                                               placeholder="탈퇴를 위해 비밀번호를 입력해주세요">-->
+<!--                                        <div id="withdrawalPasswordFeedback" class="password-feedback"></div>-->
+<!--                                    </div>-->
 
-                                    <div class="form-group" style="margin-top: 10px;">
-                                        <label class="checkbox-container">
-                                            <input type="checkbox" id="withdrawalAgree" name="withdrawalAgree">
-                                            <span class="checkmark"></span>
-                                            위 안내사항을 모두 확인했으며, 회원탈퇴에 동의합니다.
-                                        </label>
-                                    </div>
-                                    <button type="button" class="btn btn-danger withdrawal-btn" disabled onclick="handleWithdrawal()">
-                                        <i class="fas fa-user-times"></i> 회원탈퇴
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
+<!--                                    <div class="form-group" style="margin-top: 10px;">-->
+<!--                                        <label class="checkbox-container">-->
+<!--                                            <input type="checkbox" id="withdrawalAgree" name="withdrawalAgree">-->
+<!--                                            <span class="checkmark"></span>-->
+<!--                                            위 안내사항을 모두 확인했으며, 회원탈퇴에 동의합니다.-->
+<!--                                        </label>-->
+<!--                                    </div>-->
+<!--                                    <button type="button" class="btn btn-danger withdrawal-btn" disabled onclick="handleWithdrawal()">-->
+<!--                                        <i class="fas fa-user-times"></i> 회원탈퇴-->
+<!--                                    </button>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
 
-                        <!-- 버튼 그룹 -->
-                        <div class="button-group">
-                            <button type="button" class="btn btn-outline" onclick="history.back()">
-                                <i class="fas fa-arrow-left"></i> 취소
-                            </button>
-                            <button type="submit" class="btn btn-primary">
-                                <i class="fas fa-save"></i> 저장하기
-                            </button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
+<!--                        &lt;!&ndash; 버튼 그룹 &ndash;&gt;-->
+<!--                        <div class="button-group">-->
+<!--                            <button type="button" class="btn btn-outline" onclick="history.back()">-->
+<!--                                <i class="fas fa-arrow-left"></i> 취소-->
+<!--                            </button>-->
+<!--                            <button type="submit" class="btn btn-primary">-->
+<!--                                <i class="fas fa-save"></i> 저장하기-->
+<!--                            </button>-->
+<!--                        </div>-->
+<!--                    </form>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
 
-    <div th:replace="fragments/layout :: footer"></div>
+<!--    <div th:replace="fragments/layout :: footer"></div>-->
 
-    <!-- 다음 우편번호 서비스 API -->
-    <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-    <script th:src="@{/js/mypage/mypage-user.js}"></script>
-</body>
-</html>
+<!--    &lt;!&ndash; 다음 우편번호 서비스 API &ndash;&gt;-->
+<!--    <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>-->
+<!--    <script th:src="@{/js/mypage/mypage-user.js}"></script>-->
+<!--</body>-->
+<!--</html>-->

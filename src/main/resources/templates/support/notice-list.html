@@ -27,7 +27,7 @@
         .search-btn-global { position:absolute; right:15px; top:50%; transform:translateY(-50%); background:none; border:none; color:#666; cursor:pointer; }
         .nav-icons { display:flex; gap:15px; }
         .nav-icon { color:#666; font-size:20px; text-decoration:none; position:relative; }
-        .user-btn { background:#0984e3; color:white; padding:10px 20px; border:none; border-radius:5px; cursor:pointer; font-weight:500; }
+        .user-btn { display:inline-block; background:#0984e3; color:white; padding:10px 20px; border:none; border-radius:5px; cursor:pointer; font-weight:500; font-size:14px; text-decoration:none; }
 
         .main-content { max-width:900px; margin:40px auto; padding:0 20px 60px; }
         .page-card { background:white; border-radius:16px; box-shadow:0 20px 40px rgba(15,23,42,0.08); overflow:hidden; }
@@ -103,7 +103,7 @@
                 <a href="/customer" class="nav-icon">
                     <img src="/images/mypage.png" alt="마이페이지" class="icon-img"></a>
             </div>
-            <button class="user-btn">글쓰기 ▼</button>
+            <a class="user-btn" href="/posts/new">글쓰기 ▼</a>
         </div>
     </div>
 </nav>

@@ -11,15 +11,25 @@
 <body class="page font-body">
   <header th:fragment="header" class="site-header">
     <div class="header-banner">
-      코딩의집 DESIGN AWARD 2025 출품작 다시 한 번!
+      코딩의집 이벤트 배너
     </div>
     <nav class="navbar" aria-label="주요 메뉴">
       <div class="nav-container">
         <a th:href="@{/}" class="logo">코딩의집</a>
         <ul class="nav-menu">
           <li><a th:href="@{/product}" th:classappend="${#httpServletRequest != null and #strings.startsWith(#httpServletRequest.requestURI, '/product')} ? 'is-active' : ''">쇼핑</a></li>
-          <li><a th:href="@{/community}">집들이</a></li>
-          <li><a th:href="@{/events}">이벤트</a></li>
+            <li>
+                <a th:href="@{/posts}"
+                   th:classappend="${#httpServletRequest != null and #strings.startsWith(#httpServletRequest.requestURI, '/posts')} ? 'is-active' : ''">
+                    커뮤니티
+                </a>
+            </li>
+            <li>
+                <a th:href="@{/events}"
+                   th:classappend="${#httpServletRequest != null and #strings.startsWith(#httpServletRequest.requestURI, '/events')} ? 'is-active' : ''">
+                    이벤트
+                </a>
+            </li>
         </ul>
         <div class="nav-right">
           <div class="search-container">
@@ -42,19 +52,19 @@
               <img th:src="@{/images/mypage.png}" alt="마이페이지" class="icon-img" />
             </a>
           </div>
-          <div class="user-actions">
-            <span th:if="${session.user == null}" class="auth-links">
+          <div class="user-actions" data-auth-state="${session.user != null ? 'logged-in' : 'logged-out'}">
+            <span class="auth-links auth-guest" th:classappend="${session.user != null} ? ' is-hidden'">
               <a th:href="@{/controller/register/login}" class="link-auth">로그인</a>
               <a th:href="@{/account/register}" class="link-auth primary">회원가입</a>
             </span>
-            <span th:if="${session.user != null}" class="auth-links">
+            <span class="auth-links auth-member" th:classappend="${session.user == null} ? ' is-hidden'">
               <a th:href="@{/mypage}" class="link-auth">마이페이지</a>
-              <form th:action="@{/controller/register/logout}" method="post" class="logout-form">
+              <form th:action="@{/controller/register/logout}" method="post" class="logout-form" data-role="logout-form">
                 <button type="submit" class="link-auth">로그아웃</button>
                 <input type="hidden" th:if="${_csrf != null}" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
               </form>
             </span>
-            <button type="button" class="user-btn">글쓰기 ▼</button>
+            <a class="user-btn" th:href="@{/posts/new}">글쓰기 ▼</a>  <!-- 포스트 링크 바꾸기 -->
           </div>
         </div>
       </div>
@@ -89,21 +99,128 @@
     })();
   </script>
 
-  <footer th:fragment="footer" class="app-footer" style="--foot-bg:linear-gradient(135deg, var(--brand-50) 0%, var(--brand-200) 100%); --foot-fg:#0b1d4d;">
-    <div class="container">
-      <div class="foot-columns">
-        <div>
-          <div class="brand" style="gap:10px;">
-            <img class="logo" th:src="@{/images/logo.png}" alt="로고" />
-            <span class="name">코딩의 집</span>
-          </div>
-          <div class="text-muted" style="opacity:.9;">© <span th:text="${#dates.format(#dates.createNow(),'yyyy')}">2025</span> 코딩의 집</div>
+  <script>
+    (function () {
+      const authContainer = document.querySelector('[data-auth-state]');
+      if (!authContainer) {
+        return;
+      }
+
+      const guestBlock = authContainer.querySelector('.auth-guest');
+      const memberBlock = authContainer.querySelector('.auth-member');
+      const logoutForm = authContainer.querySelector('form[data-role="logout-form"]');
+
+      const setState = (state) => {
+        authContainer.dataset.authState = state;
+        if (state === 'logged-in') {
+          guestBlock?.classList.add('is-hidden');
+          memberBlock?.classList.remove('is-hidden');
+        } else {
+          memberBlock?.classList.add('is-hidden');
+          guestBlock?.classList.remove('is-hidden');
+        }
+      };
+
+      const syncState = async () => {
+        try {
+          const res = await fetch('/controller/register/me', { credentials: 'same-origin' });
+          setState(res.ok ? 'logged-in' : 'logged-out');
+        } catch (err) {
+          console.error('auth state sync failed', err);
+        }
+      };
+
+      logoutForm?.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        const action = logoutForm.getAttribute('action');
+        const formData = new FormData(logoutForm);
+        const headers = {
+          'X-Requested-With': 'XMLHttpRequest',
+          'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+        };
+        const params = new URLSearchParams();
+        const previousState = authContainer.dataset.authState;
+        const logoutButton = logoutForm.querySelector('button');
+
+        logoutButton?.setAttribute('disabled', 'disabled');
+        setState('logged-out');
+
+        for (const [key, value] of formData.entries()) {
+          if (key) {
+            params.append(key, value);
+            if (key.toLowerCase().includes('csrf')) {
+              headers['X-CSRF-TOKEN'] = value;
+            }
+          }
+        }
+
+        try {
+          const response = await fetch(action, {
+            method: 'POST',
+            credentials: 'same-origin',
+            headers,
+            body: params.toString()
+          });
+
+          if (response.ok || response.status === 204) {
+            window.location.href = '/controller/register/login';
+            return;
+          }
+
+          setState(previousState);
+          logoutButton?.removeAttribute('disabled');
+          window.location.href = action;
+        } catch (error) {
+          console.error('logout failed', error);
+          setState(previousState);
+          logoutButton?.removeAttribute('disabled');
+          window.location.href = action;
+        }
+      });
+
+      const initialState = authContainer.dataset.authState === 'logged-in' ? 'logged-in' : 'logged-out';
+      setState(initialState);
+      syncState();
+    })();
+  </script>
+
+  <footer th:fragment="footer" class="app-footer">
+    <div class="container footer-wrap">
+      <div class="footer-brand">
+        <a th:href="@{/}" class="brand">
+          <img class="logo" th:src="@{/images/logo.png}" alt="코딩의집" />
+          <span class="name">코딩의 집</span>
+        </a>
+        <div class="footer-contact">
+          <span>고객센터 1234-5678 (평일 10:00 - 19:00)</span>
+          <a href="mailto:hello@codinghouse.kr">Co-s_House@codinghouse.kr</a>
+          <span>서울 강남구 강남대로 364, 11층</span>
         </div>
-        <div class="flex gap-3" style="justify-content:flex-end; align-items:center;">
+      </div>
+
+      <div class="footer-links">
+        <div class="link-group">
+          <h4>서비스</h4>
+          <a th:href="@{/product}">스토어</a>
+          <a th:href="@{/templates/posts}">커뮤니티</a>
+          <a th:href="@{/events}">이벤트</a>
+          <a th:href="@{/notices}">공지사항</a>
+        </div>
+        <div class="link-group">
+          <h4>안내</h4>
           <a th:href="@{/policy/terms}">이용약관</a>
           <a th:href="@{/policy/privacy}">개인정보처리방침</a>
-          <a th:href="@{/support}">고객센터</a>
+          <a th:href="@{/policy/guide}">운영정책</a>
+          <a th:href="@{/support}">FAQ</a>
         </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="container footer-bottom-inner">
+        <div class="corp-info">(주)코딩의집 | 대표이사 오원준 | 사업자등록번호 123-45-67890</div>
+        <div class="footer-legal"> </div>
+        <div class="copyright">© <span th:text="${#dates.format(#dates.createNow(),'yyyy')}">2025</span> CODING HOUSE</div>
       </div>
     </div>
   </footer>

@@ -1,414 +1,502 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>코딩의 집 | 회원가입</title>
-  <link rel="stylesheet" th:href="@{/css/app.css}">
-  <style>
-    :root{
-      --bg:#ffffff; --text:#111827; --muted:#6b7280; --primary: #3c9dfc; --primary-600: #3c9dfc;
-      --ring:#93c5fd; --error:#ef4444; --border:#e5e7eb; --card:#ffffff; --shadow:0 10px 30px rgba(0,0,0,.06);
-    }
-
-    *{box-sizing:border-box}
-    body{ margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Noto Sans KR", sans-serif; background:var(--bg); color:var(--text); }
-    .container{ max-width:980px; margin:24px auto 60px; padding:0 24px; }
-    .top-brand{ display:flex; align-items:center; gap:10px; }
-    .top-brand .brand-logo{ height:32px; }
-    @font-face {
-      font-family: 'KkuBulLim';
-      src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/2410-1@1.0/BMkkubulimTTF-Regular.woff2') format('woff2');
-      font-weight: 1000;
-      font-style: normal;
-      font-display: swap;
-    }
-    .top-brand .brand-name{ font-family:'KkuBulLim', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Noto Sans KR", sans-serif; font-weight:1000; font-size:26px; letter-spacing:.2px; }
-    .layout{ display:grid; grid-template-columns: 1fr; gap:36px; align-items:start; }
-    @media (max-width: 900px){ .layout{ grid-template-columns:1fr; } }
-    .brand{ display:flex; align-items:center; gap:10px; }
-    .brand img{ height:32px; }
-    .title{ font-size:22px; font-weight:800; margin:20px 0 16px; }
-    .card{ background:var(--card); border:1px solid var(--border); border-radius:14px; box-shadow:var(--shadow); padding:22px; max-width:650px; margin:16px auto; }
-    form{ display:grid; gap:18px; margin-top:18px; }
-    .row{ display:grid; grid-template-columns: 1fr; gap:10px; }
-    label{ display:grid; gap:8px; font-weight:600; font-size:14px; }
-    .hint{ color:var(--muted); font-weight:400; font-size:12px; }
-    input, select { height:46px; border:1px solid var(--border); border-radius:10px; padding:0 12px; font-size:15px; background:#fff; }
-    input:focus, select:focus{ outline:none; border-color:var(--ring); box-shadow:0 0 0 3px color-mix(in oklab, var(--ring) 28%, transparent); }
-    .grid-2{ display:grid; grid-template-columns: 1fr 180px; gap:10px; }
-    .email-row{ display:grid; grid-template-columns: 1fr 48px 1fr 140px; gap:8px; align-items:center; }
-    .email-verify-area{ display:grid; gap:10px; margin-top:10px; }
-    .email-code-row{ display:grid; grid-template-columns: 1fr 150px; gap:8px; }
-    .email-at{ text-align:center; color:#9ca3af; }
-    .btn{ height:50px; border:none; border-radius:12px; background:var(--primary); color:#fff; font-weight:700; font-size:16px; cursor:pointer; }
-    .btn:hover{ background:var(--primary-600); }
-    .btn-outline{ background: #ffffff; color:var(--primary); border:1px solid var(--primary); }
-    /* 특정 버튼(이메일 인증/주소 검색)만 호버 시 흰 글씨 전환 */
-    .btn-outline.hover-swap:hover,
-    .btn-outline.hover-swap:focus,
-    .btn-outline.hover-swap:focus-visible{ background:#3C9DFCFF; color:#fff; border-color:#3C9DFC; }
-    .btn-verified{ background:#3C9DFCFF !important; color:#fff !important; border-color:#3C9DFC !important; }
-    .btn-verified:hover{ background:#3C9DFCFF !important; }
-    .sns-wrap{ display:grid; justify-content:center; margin:12px 0 16px; }
-    .sns{ display:flex; gap:18px; justify-content:center; }
-    .sns .kakao, .sns .naver{ width:54px; height:54px; border-radius:50%; display:grid; place-items:center; border:1px solid var(--border); }
-    .sns .kakao{ background:#fee500; }
-    .sns .naver{ background:#03c75a; }
-    .sns-caption{ text-align:center; color:#9aa3af; font-size:12px; margin-top:8px; }
-    .divider{ border:none; height:1px; background:#f1f5f9; margin:16px 0 0; }
-    .agree{ border:1px solid var(--border); border-radius:12px; padding:10px 12px; display:grid; gap:10px; }
-    .agree .rowline{ display:flex; align-items:center; gap:10px; padding:10px 6px; border-top:1px solid #f1f5f9; }
-    .agree .rowline:first-child{ border-top:none; }
-    .agree small{ color:var(--muted); }
-    /* captcha 요소 제거됨 */
-    .msg{ font-size:14px; }
-    .ok{ color:#0a7c2f; }
-    .err{ color:var(--error); white-space:pre-wrap; }
-    .foot{ text-align:center; color:var(--muted); font-size:13px; margin-top:14px; }
-  </style>
-  <script>
-    let emailVerified = false;
-    let emailVerificationRequested = false;
-
-    function emailValue(){
-      const local = document.getElementById('emailLocal').value.trim();
-      const sel = document.getElementById('emailDomain').value;
-      const custom = document.getElementById('emailDomainCustom').value.trim();
-      const domain = sel === 'custom' ? custom : sel;
-      return local && domain ? `${local}@${domain}` : '';
-    }
-
-    function onDomainChange(){
-      const sel = document.getElementById('emailDomain');
-      const custom = document.getElementById('emailDomainCustom');
-      const needCustom = sel.value === 'custom';
-      custom.style.display = needCustom ? 'block' : 'none';
-      if(!needCustom) custom.value = '';
-      handleEmailChange();
-    }
-
-    function handleEmailChange(){
-      emailVerified = false;
-      emailVerificationRequested = false;
-      const msg = document.getElementById('emailVerifyMsg');
-      if(msg){ msg.textContent = ''; msg.className = 'msg'; }
-      const codeRow = document.getElementById('emailCodeRow');
-      if(codeRow){ codeRow.style.display = 'none'; }
-      const codeInput = document.getElementById('emailCode');
-      if(codeInput){ codeInput.value = ''; codeInput.disabled = false; }
-      const btn = document.getElementById('emailVerifyBtn');
-      if(btn){
-        btn.disabled = false;
-        btn.classList.remove('btn-verified');
-        if(!btn.classList.contains('btn-outline')){
-          btn.classList.add('btn-outline');
-        }
-        btn.textContent = '이메일 인증하기';
-      }
-      const confirmBtn = document.getElementById('emailCodeConfirmBtn');
-      if(confirmBtn){ confirmBtn.disabled = false; }
-    }
-
-    function allAgreeToggle(chk){
-      document.getElementById('agreeAge').checked = chk.checked;
-      document.getElementById('agreeTos').checked = chk.checked;
-      document.getElementById('agreeMarketing').checked = chk.checked;
-      document.getElementById('agreeMail').checked = chk.checked;
-    }
-
-    function validateBeforeSubmit(){
-      const out = document.getElementById('out');
-      out.textContent = '';
-
-      const email = emailValue();
-      const pw = document.getElementById('password').value;
-      const pw2 = document.getElementById('password2').value;
-      if(!email){ out.textContent = '이메일을 입력해주세요.'; out.className='msg err'; return false; }
-      if(!emailVerified){ out.textContent = '이메일 인증을 완료해주세요.'; out.className='msg err'; return false; }
-      if(pw.length < 8){ out.textContent = '비밀번호는 8자 이상이어야 합니다.'; out.className='msg err'; return false; }
-      if(pw !== pw2){ out.textContent = '비밀번호 확인이 일치하지 않습니다.'; out.className='msg err'; return false; }
-      if(!document.getElementById('agreeAge').checked || !document.getElementById('agreeTos').checked){
-        out.textContent = '필수 약관에 동의해주세요.'; out.className='msg err'; return false; }
-      return true;
-    }
-
-    async function submitRegister(e){
-      e.preventDefault();
-      if(!validateBeforeSubmit()) return;
-
-      const payload = {
-        name: document.getElementById('name').value.trim(),
-        nickname: document.getElementById('nickname').value.trim(),
-        email: emailValue(),
-        password: document.getElementById('password').value,
-        phone: document.getElementById('phone').value.trim(),
-        address: (function(){
-          const base = document.getElementById('address').value.trim();
-          const detail = (document.getElementById('addressDetail')?.value || '').trim();
-          return detail ? base + ' ' + detail : base;
-        })()
-      };
-      const out = document.getElementById('out');
-      out.textContent = '가입 처리 중...'; out.className='msg';
-      try{
-        const res = await fetch('/controller/register/register',{
-          method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload)
-        });
-        const txt = await res.text();
-        let body; try{ body = txt? JSON.parse(txt): null; }catch(_){ body = txt; }
-        if(res.ok){
-          out.innerHTML = '<div class="ok">회원가입이 완료되었습니다. 이제 로그인 해주세요.</div>';
-          setTimeout(()=>{ window.location.href = '/controller/register/login'; }, 800);
-        }else{
-          const msg = typeof body === 'string' ? body : (body?.message || '요청이 실패했습니다.');
-          const details = body?.details ? '\n' + Object.entries(body.details).map(([k,v])=>`- ${k}: ${v}`).join('\n') : '';
-          out.innerHTML = `<div class="err">실패 (HTTP ${res.status})\n${msg}${details}</div>`;
-        }
-      }catch(err){ out.innerHTML = `<div class="err">네트워크 오류: ${err}</div>`; }
-    }
-
-    async function emailVerifyClick(){
-      emailVerified = false;
-      const email = emailValue();
-      const name = document.getElementById('name').value.trim();
-      const msg = document.getElementById('emailVerifyMsg');
-      const btn = document.getElementById('emailVerifyBtn');
-
-      if(msg){ msg.textContent = ''; msg.className = 'msg'; }
-
-      if(!email){
-        if(msg){ msg.textContent = '이메일을 먼저 입력해주세요.'; msg.className = 'msg err'; }
-        return;
-      }
-
-      try{
-        if(btn){ btn.disabled = true; btn.textContent = '전송 중...'; }
-        const res = await fetch('/auth/email/verification/request', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email, name })
-        });
-        const body = await res.json().catch(() => ({}));
-        if(res.ok){
-          emailVerificationRequested = true;
-          if(msg){
-            msg.textContent = body?.message || '인증번호를 이메일로 발송했습니다. 이메일을 확인해주세요.';
-            msg.className = 'msg ok';
-          }
-          const codeRow = document.getElementById('emailCodeRow');
-          if(codeRow){ codeRow.style.display = 'grid'; }
-        }else{
-          if(msg){
-            msg.textContent = body?.message || '인증번호 발송에 실패했습니다. 잠시 후 다시 시도해주세요.';
-            msg.className = 'msg err';
-          }
-        }
-      }catch(err){
-        if(msg){
-          msg.textContent = `인증번호 요청 중 오류가 발생했습니다: ${err}`;
-          msg.className = 'msg err';
-        }
-      }finally{
-        if(btn){
-          btn.disabled = false;
-          btn.textContent = '인증번호 다시보내기';
-        }
-      }
-    }
-
-    async function confirmEmailCode(){
-      const email = emailValue();
-      const code = document.getElementById('emailCode').value.trim();
-      const msg = document.getElementById('emailVerifyMsg');
-      const confirmBtn = document.getElementById('emailCodeConfirmBtn');
-
-      if(!email){
-        if(msg){ msg.textContent = '먼저 이메일을 입력해주세요.'; msg.className = 'msg err'; }
-        return;
-      }
-      if(!code){
-        if(msg){ msg.textContent = '이메일로 받은 인증번호를 입력해주세요.'; msg.className = 'msg err'; }
-        return;
-      }
-
-      try{
-        if(confirmBtn){ confirmBtn.disabled = true; confirmBtn.textContent = '확인 중...'; }
-        const res = await fetch('/auth/email/verification/confirm', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email, code })
-        });
-        const body = await res.json().catch(() => ({}));
-        if(res.ok && body?.verified){
-          emailVerified = true;
-          if(msg){
-            msg.textContent = body?.message || '이메일 인증이 완료되었습니다.';
-            msg.className = 'msg ok';
-          }
-          const btn = document.getElementById('emailVerifyBtn');
-          if(btn){ btn.classList.add('btn-verified'); btn.classList.remove('btn-outline'); btn.disabled = true; btn.textContent = '인증 완료'; }
-          const codeInput = document.getElementById('emailCode');
-          if(codeInput){ codeInput.disabled = true; }
-        }else{
-          emailVerified = false;
-          if(msg){
-            msg.textContent = body?.message || '인증번호가 일치하지 않거나 만료되었습니다.';
-            msg.className = 'msg err';
-          }
-        }
-      }catch(err){
-        emailVerified = false;
-        if(msg){
-          msg.textContent = `인증 확인 중 오류가 발생했습니다: ${err}`;
-          msg.className = 'msg err';
-        }
-      }finally{
-        if(confirmBtn){
-          confirmBtn.disabled = emailVerified;
-          confirmBtn.textContent = emailVerified ? '인증 완료' : '인증번호 확인';
-        }
-      }
-    }
-
-    function openPostcode(){
-      if(!window.daum || !window.daum.Postcode){
-        alert('주소 검색 스크립트를 불러오지 못했습니다. 잠시 후 다시 시도해주세요.');
-        return;
-      }
-      new daum.Postcode({
-        oncomplete: function(data){
-          var addr = data.userSelectedType === 'R' ? data.roadAddress : data.jibunAddress;
-          document.getElementById('address').value = addr || '';
-          document.getElementById('addressDetail').focus();
-        }
-      }).open();
-    }
-  </script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>회원가입 | 코딩의 집</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+    <link rel="stylesheet" th:href="@{/css/auth.css}">
 </head>
-<body onload="onDomainChange()">
-  <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-  <div class="container">
-    <header class="top-brand" aria-label="브랜드">
-      <img class="brand-logo" th:src="@{/images/logo.png}" alt="코딩의 집 로고" />
-      <div class="brand-name">코딩의 집</div>
-    </header>
-    <div class="layout">
-      <section class="main">
-        <div class="title">회원가입</div>
+<body class="register-page">
+<main class="register-shell">
+    <div class="register-brand" aria-label="서비스 로고">
+        <img class="logo" th:src="@{/images/logo.png}" alt="코딩의 집 로고" />
+        <div class="name">코딩의 집</div>    </div>
 
-        <div class="sns-wrap">
-      <div class="sns">
-        <a class="kakao" th:href="@{/oauth2/authorization/kakao}" aria-label="카카오로 가입">
-          <svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true">
-            <path fill="#3c1e1e" d="M12 4.5c-4.42 0-8 2.64-8 5.9 0 1.93 1.24 3.64 3.15 4.75l-1 3.35a.6.6 0 0 0 .9.68l3.5-2.2c.46.05.93.08 1.45.08 4.42 0 8-2.64 8-5.9S16.42 4.5 12 4.5z"/>
-          </svg>
-        </a>
-        <a class="naver" th:href="@{/oauth2/authorization/naver}" aria-label="네이버로 가입">
-          <svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true">
-            <path fill="#ffffff" d="M7 5h4.2l5.8 8.1V5H19v14h-4.2L9 10.9V19H7z"/>
-          </svg>
-        </a>
-      </div>
-      <div class="sns-caption">SNS계정으로 간편 회원가입</div>
-    </div>
-        <hr class="divider"/>
+    <section class="register-shell__form" aria-label="회원가입 폼">
+        <div class="register-card">
+            <header class="register-card__header">
+                <h2>회원가입</h2>
+            </header>
 
-    <div class="card">
-      <form onsubmit="submitRegister(event)">
-        <!-- 이름 먼저 -->
-        <section>
-          <label>이름
-            <input id="name" type="text" required minlength="2" maxlength="50" />
-          </label>
-        </section>
-
-        <!-- 이메일 -->
-        <section>
-          <label>이메일
-            <div class="email-row">
-              <input id="emailLocal" type="text" placeholder="이메일" required oninput="handleEmailChange()" />
-              <div class="email-at">@</div>
-              <select id="emailDomain" onchange="onDomainChange()">
-                <option value="gmail.com">gmail.com</option>
-                <option value="naver.com">naver.com</option>
-                <option value="daum.net">daum.net</option>
-                <option value="hanmail.net">hanmail.net</option>
-                <option value="kakao.com">kakao.com</option>
-                <option value="custom">직접입력</option>
-              </select>
-              <button type="button" id="emailVerifyBtn" class="btn btn-outline hover-swap" onclick="emailVerifyClick()">이메일 인증하기</button>
+            <div class="register-social">
+                <p class="register-social__title">SNS 계정으로 빠르게 시작하기</p>
+                <div class="register-social__buttons" role="group" aria-label="소셜 회원가입">
+                    <a th:href="@{/oauth2/authorization/kakao}" class="social-btn --kakao" aria-label="카카오로 회원가입">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                            <path d="M12 4.5c-4.42 0-8 2.64-8 5.9 0 1.93 1.24 3.64 3.15 4.75l-1 3.35a.6.6 0 0 0 .9.68l3.5-2.2c.46.05.93.08 1.45.08 4.42 0 8-2.64 8-5.9S16.42 4.5 12 4.5z" />
+                        </svg>
+                        카카오로 계속하기
+                    </a>
+                    <a th:href="@{/oauth2/authorization/naver}" class="social-btn --naver" aria-label="네이버로 회원가입">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                            <path d="M7 5h4.2l5.8 8.1V5H19v14h-4.2L9 10.9V19H7z" />
+                        </svg>
+                        네이버로 계속하기
+                    </a>
+                </div>
             </div>
-            <input id="emailDomainCustom" type="text" placeholder="도메인을 입력하세요" style="display:none;margin-top:8px;" oninput="handleEmailChange()" />
-            <div class="email-verify-area">
-              <div id="emailCodeRow" class="email-code-row" style="display:none;">
-                <input id="emailCode" type="text" placeholder="인증번호 6자리" maxlength="6" inputmode="numeric" pattern="[0-9]*" />
-                <button type="button" id="emailCodeConfirmBtn" class="btn btn-outline hover-swap" onclick="confirmEmailCode()">인증번호 확인</button>
-              </div>
-              <div id="emailVerifyMsg" class="msg"></div>
-            </div>
-          </label>
-        </section>
 
-        <!-- 비밀번호, 비밀번호 확인 -->
-        <section>
-          <label>비밀번호
-            <div class="hint">영문, 숫자를 포함한 8자 이상의 비밀번호를 입력해주세요.</div>
-            <input id="password" type="password" required minlength="8" /> <br>
-          </label>
-          <label>비밀번호 확인
-            <input id="password2" type="password" required minlength="8" />
-          </label>
-        </section>
+            <div class="register-divider" role="separator" aria-label="또는"></div>
 
-        <!-- 닉네임 -->
-        <section>
-          <label>닉네임
-            <div class="hint">다른 유저와 겹치지 않도록 입력해주세요. (2~20자)</div>
-            <input id="nickname" type="text" required minlength="2" maxlength="20" />
-          </label>
-        </section>
+            <form id="registerForm" novalidate>
+                <div class="form-grid">
+                    <div class="form-field">
+                        <label for="name">이름</label>
+                        <input id="name" name="name" type="text" class="input" placeholder="실명을 입력해주세요" required minlength="2" maxlength="20" autocomplete="name">
+                        <span class="field-error" id="nameError" hidden></span>
+                    </div>
 
-        <!-- captcha UI 제거됨 -->
+                    <div class="form-field">
+                        <label for="nickname">닉네임</label>
+                        <input id="nickname" name="nickname" type="text" class="input" placeholder="닉네임" required minlength="2" maxlength="20" autocomplete="nickname">
+                        <span class="field-error" id="nicknameError" hidden></span>
+                    </div>
 
-        <!-- 연락처, 주소 (백엔드 필수) -->
-        <section class="row">
-          <label>연락처
-            <input id="phone" type="text" required placeholder="010-1234-1234" />
-          </label>
-          <label>주소
-            <div class="grid-2">
-              <input id="address" type="text" required maxlength="255" placeholder="기본 주소" readonly />
-              <button type="button" class="btn btn-outline hover-swap" onclick="openPostcode()">주소 검색</button>
-            </div>
-          </label>
-          <label>상세주소
-            <input id="addressDetail" type="text" placeholder="상세 주소" maxlength="255" />
-          </label>
-        </section>
+                    <div class="form-field" data-field="email">
+                        <label for="email">이메일</label>
+                        <div class="field-inline">
+                            <input id="email" name="email" type="email" class="input" placeholder="example@email.com" required autocomplete="email">
+                            <button type="button" class="chip-button" id="emailSendBtn">인증 메일 보내기</button>
+                        </div>
+                        <p class="field-hint">회원가입 및 본인 확인을 위해 사용됩니다.</p>
+                        <span class="field-error" id="emailError" hidden></span>
+                    </div>
 
-        <!-- 약관동의: 맨 아래, 개인정보 관련 항목은 마지막에 배치 -->
-        <section>
-          <div class="agree">
-            <div class="rowline">
-              <input id="allAgree" type="checkbox" onchange="allAgreeToggle(this)" />
-              <strong>전체동의</strong>
-              <small>선택항목에 대한 동의 포함</small>
-            </div>
-            <div class="rowline"><input id="agreeAge" type="checkbox" required /> 만 14세 이상입니다 <small>(필수)</small></div>
-            <div class="rowline"><input id="agreeTos" type="checkbox" required /> 이용약관 <small>(필수)</small></div>
-            <div class="rowline"><input id="agreeMail" type="checkbox" /> 이벤트, 쿠폰, 특가 알림 메일 및 SMS 동 수신 <small>(선택)</small></div>
-            <div class="rowline"><input id="agreeMarketing" type="checkbox" /> 개인정보 마케팅 활용 동의 <small>(선택)</small></div>
-          </div>
-        </section>
+                    <div class="form-field" id="emailCodeField" hidden>
+                        <label for="emailCode">인증번호</label>
+                        <div class="field-inline">
+                            <input id="emailCode" type="text" class="input" placeholder="6자리 숫자" maxlength="6" inputmode="numeric" autocomplete="one-time-code">
+                            <button type="button" class="chip-button" id="emailConfirmBtn">인증 확인</button>
+                        </div>
+                        <div class="field-meta" id="emailStatus" aria-live="polite"></div>
+                    </div>
 
-        <button class="btn" type="submit">회원가입하기</button>
-        <div id="out" class="msg" aria-live="polite"></div>
-        <div class="foot">이미 아이디가 있으신가요? <a th:href="@{/controller/register/login}">로그인</a></div>
-      </form>
-    </div>
-      </section>
-    </div>
-  </div>
+                    <div class="form-field">
+                        <label for="password">비밀번호</label>
+                        <input id="password" name="password" type="password" class="input" placeholder="영문, 숫자를 포함한 8자 이상" required minlength="8" autocomplete="new-password">
+                        <span class="field-error" id="passwordError" hidden></span>
+                    </div>
+
+                    <div class="form-field">
+                        <label for="passwordConfirm">비밀번호 확인</label>
+                        <input id="passwordConfirm" name="passwordConfirm" type="password" class="input" placeholder="비밀번호를 다시 입력해주세요" required autocomplete="new-password">
+                        <span class="field-error" id="passwordConfirmError" hidden></span>
+                    </div>
+
+                    <div class="form-field">
+                        <label for="phone">휴대폰 번호</label>
+                        <input id="phone" name="phone" type="tel" class="input" placeholder="010-0000-0000" required autocomplete="tel-national">
+                        <span class="field-error" id="phoneError" hidden></span>
+                    </div>
+
+                    <div class="form-field address-field">
+                        <label for="address">주소</label>
+                        <div class="field-inline">
+                            <input id="address" name="address" type="text" class="input" placeholder="주소 검색 버튼을 눌러주세요" required readonly>
+                            <button type="button" class="chip-button" id="addressSearchBtn">주소 검색</button>
+                        </div>
+                        <input id="addressDetail" name="addressDetail" type="text" class="input --muted" placeholder="상세 주소 (선택)" autocomplete="address-line2">
+                        <span class="field-error" id="addressError" hidden></span>
+                    </div>
+                </div>
+
+                <section class="terms-card" aria-labelledby="termsTitle">
+                    <div class="terms-card__header">
+                        <label class="checkbox">
+                            <input type="checkbox" id="agreeAll">
+                            <span class="checkbox__indicator" aria-hidden="true"></span>
+                            <span>모든 약관에 동의합니다</span>
+                        </label>
+                        <p id="termsTitle">필수 항목에 동의해야 가입이 완료됩니다.</p>
+                    </div>
+
+                    <ul class="terms-list">
+                        <li>
+                            <label class="checkbox">
+                                <input type="checkbox" id="agreeAge" required>
+                                <span class="checkbox__indicator" aria-hidden="true"></span>
+                                <span>만 14세 이상입니다 <strong class="required">(필수)</strong></span>
+                            </label>
+                        </li>
+                        <li>
+                            <label class="checkbox">
+                                <input type="checkbox" id="agreeTerms" required>
+                                <span class="checkbox__indicator" aria-hidden="true"></span>
+                                <span><a href="/terms" target="_blank" rel="noopener">이용약관</a>에 동의합니다 <strong class="required">(필수)</strong></span>
+                            </label>
+                        </li>
+                        <li>
+                            <label class="checkbox">
+                                <input type="checkbox" id="agreePrivacy" required>
+                                <span class="checkbox__indicator" aria-hidden="true"></span>
+                                <span><a href="/privacy" target="_blank" rel="noopener">개인정보 처리방침</a>에 동의합니다 <strong class="required">(필수)</strong></span>
+                            </label>
+                        </li>
+                        <li>
+                            <label class="checkbox">
+                                <input type="checkbox" id="agreeMarketing">
+                                <span class="checkbox__indicator" aria-hidden="true"></span>
+                                <span>이벤트・마케팅 정보 수신에 동의합니다 <span class="optional">(선택)</span></span>
+                            </label>
+                        </li>
+                    </ul>
+                </section>
+
+                <button type="submit" class="register-submit" id="registerSubmit" disabled>회원가입 완료하기</button>
+                <input type="hidden" id="csrfToken" th:if="${_csrf != null}" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+            </form>
+
+            <div id="registerMessage" class="register-alert" role="status" aria-live="polite" hidden></div>
+
+            <footer class="register-card__footer">
+                이미 계정이 있으신가요? <a th:href="@{/controller/register/login}">로그인으로 이동</a>
+            </footer>
+        </div>
+    </section>
+</main>
+
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const state = {
+            emailVerified: false,
+            verificationRequested: false
+        };
+
+        const form = document.getElementById('registerForm');
+        const submitButton = document.getElementById('registerSubmit');
+        const registerMessage = document.getElementById('registerMessage');
+        const csrfInput = document.getElementById('csrfToken');
+
+        const emailInput = document.getElementById('email');
+        const emailSendBtn = document.getElementById('emailSendBtn');
+        const emailCodeField = document.getElementById('emailCodeField');
+        const emailCodeInput = document.getElementById('emailCode');
+        const emailConfirmBtn = document.getElementById('emailConfirmBtn');
+        const emailStatus = document.getElementById('emailStatus');
+
+        const addressBtn = document.getElementById('addressSearchBtn');
+        const addressInput = document.getElementById('address');
+        const addressDetailInput = document.getElementById('addressDetail');
+        const phoneInput = document.getElementById('phone');
+
+        const agreementAll = document.getElementById('agreeAll');
+        const agreementRequired = document.querySelectorAll('.terms-list input[required]');
+
+        phoneInput.addEventListener('input', formatPhoneNumber);
+
+        form.querySelectorAll('input[required]').forEach(input => {
+            input.addEventListener('input', () => {
+                validateField(input);
+                updateSubmitState();
+            });
+            input.addEventListener('blur', () => validateField(input));
+        });
+
+        agreementAll.addEventListener('change', () => {
+            const isChecked = agreementAll.checked;
+            document.querySelectorAll('.terms-list input[type="checkbox"]').forEach(box => {
+                box.checked = isChecked;
+            });
+            updateSubmitState();
+        });
+
+        document.querySelectorAll('.terms-list input[type="checkbox"]').forEach(box => {
+            box.addEventListener('change', updateSubmitState);
+        });
+
+        emailInput.addEventListener('input', () => {
+            state.emailVerified = false;
+            state.verificationRequested = false;
+            emailCodeField.hidden = true;
+            emailStatus.textContent = '';
+            emailSendBtn.disabled = false;
+            emailConfirmBtn.disabled = false;
+            emailCodeInput.value = '';
+            updateSubmitState();
+        });
+
+        emailSendBtn.addEventListener('click', async () => {
+            const nameValue = document.getElementById('name').value.trim();
+            const emailValue = emailInput.value.trim();
+
+            if (!validateField(emailInput)) {
+                showInlineError('email', '올바른 이메일을 입력해주세요.');
+                return;
+            }
+
+            emailSendBtn.disabled = true;
+            emailSendBtn.textContent = '발송 중...';
+            clearEmailStatus();
+
+            try {
+                const response = await fetch('/auth/email/verification/request', {
+                    method: 'POST',
+                    headers: buildHeaders({ 'Content-Type': 'application/json' }),
+                    body: JSON.stringify({ name: nameValue || '회원', email: emailValue })
+                });
+
+                const result = await response.json().catch(() => ({}));
+
+                if (response.ok) {
+                    state.verificationRequested = true;
+                    emailCodeField.hidden = false;
+                    setEmailStatus('인증번호를 발송했습니다. 5분 이내에 입력해주세요.', 'info');
+                } else {
+                    setEmailStatus(result.message || '메일 발송에 실패했습니다. 잠시 후 다시 시도해주세요.', 'error');
+                }
+            } catch (error) {
+                setEmailStatus('네트워크 오류가 발생했습니다. 다시 시도해주세요.', 'error');
+            } finally {
+                emailSendBtn.disabled = false;
+                emailSendBtn.textContent = '인증 메일 보내기';
+                updateSubmitState();
+            }
+        });
+
+        emailConfirmBtn.addEventListener('click', async () => {
+            const code = emailCodeInput.value.trim();
+            const emailValue = emailInput.value.trim();
+
+            if (!state.verificationRequested) {
+                setEmailStatus('먼저 인증 메일을 발송해주세요.', 'error');
+                return;
+            }
+
+            if (!code || code.length !== 6 || !/^\d+$/.test(code)) {
+                setEmailStatus('6자리 숫자 인증번호를 입력해주세요.', 'error');
+                return;
+            }
+
+            emailConfirmBtn.disabled = true;
+            emailConfirmBtn.textContent = '확인 중...';
+
+            try {
+                const response = await fetch('/auth/email/verification/confirm', {
+                    method: 'POST',
+                    headers: buildHeaders({ 'Content-Type': 'application/json' }),
+                    body: JSON.stringify({ email: emailValue, code })
+                });
+
+                const result = await response.json().catch(() => ({}));
+
+                if (response.ok && result.verified) {
+                    state.emailVerified = true;
+                    setEmailStatus('이메일 인증이 완료되었습니다.', 'success');
+                    emailInput.readOnly = true;
+                    emailSendBtn.disabled = true;
+                    emailConfirmBtn.disabled = true;
+                    emailCodeInput.disabled = true;
+                    emailCodeInput.value = '';
+                } else {
+                    setEmailStatus(result.message || '인증번호가 일치하지 않습니다.', 'error');
+                }
+            } catch (error) {
+                setEmailStatus('인증에 실패했습니다. 다시 시도해주세요.', 'error');
+            } finally {
+                emailConfirmBtn.disabled = state.emailVerified;
+                emailConfirmBtn.textContent = state.emailVerified ? '인증 완료' : '인증 확인';
+                updateSubmitState();
+            }
+        });
+
+        addressBtn.addEventListener('click', openAddressSearch);
+
+        form.addEventListener('submit', async (event) => {
+            event.preventDefault();
+
+            const requiredFields = Array.from(form.querySelectorAll('input[required]'));
+            let isValid = true;
+
+            requiredFields.forEach(field => {
+                if (!validateField(field)) {
+                    isValid = false;
+                }
+            });
+
+            if (!state.emailVerified) {
+                setEmailStatus('이메일 인증 완료 후 가입할 수 있습니다.', 'error');
+                isValid = false;
+            }
+
+            if (!isValid) {
+                showMessage('입력한 정보를 다시 확인해주세요.', 'error');
+                return;
+            }
+
+            submitButton.disabled = true;
+            submitButton.textContent = '가입 처리 중...';
+
+            try {
+                const payload = {
+                    name: document.getElementById('name').value.trim(),
+                    nickname: document.getElementById('nickname').value.trim(),
+                    email: emailInput.value.trim(),
+                    password: document.getElementById('password').value,
+                    phone: phoneInput.value.trim(),
+                    address: [addressInput.value.trim(), addressDetailInput.value.trim()].filter(Boolean).join(' ')
+                };
+
+                const response = await fetch('/controller/register/register', {
+                    method: 'POST',
+                    headers: buildHeaders({ 'Content-Type': 'application/json' }),
+                    body: JSON.stringify(payload)
+                });
+
+                const result = await response.json().catch(() => ({}));
+
+                if (response.ok) {
+                    showMessage('회원가입이 완료되었습니다. 로그인 페이지로 이동합니다.', 'success');
+                    setTimeout(() => {
+                        window.location.href = '/controller/register/login?registered=true';
+                    }, 1200);
+                } else {
+                    showMessage(result.message || '회원가입 중 문제가 발생했습니다.', 'error');
+                }
+            } catch (error) {
+                showMessage('네트워크 오류가 발생했습니다. 잠시 후 다시 시도해주세요.', 'error');
+            } finally {
+                submitButton.disabled = false;
+                submitButton.textContent = '회원가입 완료하기';
+            }
+        });
+
+        function updateSubmitState() {
+            const requiredInputs = form.querySelectorAll('input[required]');
+            const everyInputValid = Array.from(requiredInputs).every(field => field.value.trim() && !field.classList.contains('error'));
+            const everyAgreementChecked = Array.from(agreementRequired).every(box => box.checked);
+            submitButton.disabled = !(everyInputValid && everyAgreementChecked && state.emailVerified);
+        }
+
+        function validateField(field) {
+            const value = field.value.trim();
+            const errorElement = document.getElementById(field.name + 'Error');
+            let message = '';
+
+            switch (field.name) {
+                case 'name':
+                    if (!value) {
+                        message = '이름을 입력해주세요.';
+                    } else if (value.length < 2) {
+                        message = '이름은 2자 이상이어야 합니다.';
+                    }
+                    break;
+                case 'nickname':
+                    if (!value) {
+                        message = '닉네임을 입력해주세요.';
+                    } else if (value.length < 2 || value.length > 20) {
+                        message = '닉네임은 2~20자 이내로 입력해주세요.';
+                    }
+                    break;
+                case 'email':
+                    if (!value) {
+                        message = '이메일을 입력해주세요.';
+                    } else if (!/^\S+@\S+\.\S+$/.test(value)) {
+                        message = '올바른 이메일 형식이 아닙니다.';
+                    }
+                    break;
+                case 'password':
+                    if (!value) {
+                        message = '비밀번호를 입력해주세요.';
+                    } else if (value.length < 8 || !/(?=.*[A-Za-z])(?=.*\d)/.test(value)) {
+                        message = '영문과 숫자를 포함한 8자 이상으로 입력해주세요.';
+                    }
+                    break;
+                case 'passwordConfirm':
+                    if (!value) {
+                        message = '비밀번호를 다시 입력해주세요.';
+                    } else if (value !== document.getElementById('password').value) {
+                        message = '비밀번호가 일치하지 않습니다.';
+                    }
+                    break;
+                case 'phone':
+                    if (!value) {
+                        message = '휴대폰 번호를 입력해주세요.';
+                    } else if (!/^010-\d{4}-\d{4}$/.test(value)) {
+                        message = '010-0000-0000 형식으로 입력해주세요.';
+                    }
+                    break;
+                case 'address':
+                    if (!value) {
+                        message = '주소를 입력해주세요.';
+                    }
+                    break;
+            }
+
+            field.classList.toggle('error', Boolean(message));
+            if (errorElement) {
+                errorElement.textContent = message;
+                errorElement.hidden = !message;
+            }
+            return !message;
+        }
+
+        function buildHeaders(init = {}) {
+            const headers = { ...init };
+            if (csrfInput && csrfInput.name && csrfInput.value) {
+                headers['X-CSRF-TOKEN'] = csrfInput.value;
+            }
+            return headers;
+        }
+
+        function showInlineError(name, message) {
+            const errorElement = document.getElementById(name + 'Error');
+            if (errorElement) {
+                errorElement.textContent = message;
+                errorElement.hidden = false;
+            }
+        }
+
+        function showMessage(text, type) {
+            registerMessage.textContent = text;
+            registerMessage.className = `register-alert --${type}`;
+            registerMessage.hidden = false;
+            setTimeout(() => {
+                registerMessage.hidden = true;
+            }, 3500);
+        }
+
+        function clearEmailStatus() {
+            emailStatus.textContent = '';
+            emailStatus.className = 'field-meta';
+        }
+
+        function setEmailStatus(text, type) {
+            emailStatus.textContent = text;
+            emailStatus.className = `field-meta --${type}`;
+        }
+
+        function formatPhoneNumber(event) {
+            const numbersOnly = event.target.value.replace(/[^\d]/g, '');
+            let formatted = numbersOnly;
+
+            if (numbersOnly.length > 3 && numbersOnly.length <= 7) {
+                formatted = `${numbersOnly.slice(0, 3)}-${numbersOnly.slice(3)}`;
+            } else if (numbersOnly.length > 7) {
+                formatted = `${numbersOnly.slice(0, 3)}-${numbersOnly.slice(3, 7)}-${numbersOnly.slice(7, 11)}`;
+            }
+
+            event.target.value = formatted;
+        }
+
+        function openAddressSearch() {
+            if (!window.daum || !window.daum.Postcode) {
+                showMessage('주소 검색 서비스를 불러오지 못했습니다.', 'error');
+                return;
+            }
+
+            new daum.Postcode({
+                oncomplete: function(data) {
+                    const addr = data.userSelectedType === 'R' ? data.roadAddress : data.jibunAddress;
+                    addressInput.value = addr;
+                    addressDetailInput.focus();
+                    validateField(addressInput);
+                    updateSubmitState();
+                }
+            }).open();
+        }
+    });
+</script>
 </body>
 </html>

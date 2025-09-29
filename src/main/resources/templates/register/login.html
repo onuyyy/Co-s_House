@@ -1,105 +1,68 @@
 <!doctype html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>코딩의 집 | 로그인</title>
-  <link rel="stylesheet" th:href="@{/css/app.css}">
-  <style>
-    /* Web fonts */
-    @font-face {
-      font-family: 'Pretendard';
-      src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
-      font-weight: normal;
-      font-style: normal;
-      font-display: swap;
-    }
-    @font-face {
-      font-family: 'KkuBulLim';
-      src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/2410-1@1.0/BMkkubulimTTF-Regular.woff2') format('woff2');
-      font-weight: 1000;
-      font-style: normal;
-      font-display: swap;
-    }
-    :root{ --bg:#ffffff; --text:#1f2937; --muted:#9aa3af; --primary: #3c9dfc; --primary-hover: #3c9dfc; --input:#f3f4f6; --ring:#93c5fd; --error:#ef4444; --border:#e5e7eb; --kakao:#fee500; --naver:#03c75a; }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{ margin:0; font-family:'Pretendard', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, Apple SD Gothic Neo, "Noto Sans KR", "Malgun Gothic", "맑은 고딕", sans-serif; background:var(--bg); color:var(--text); display:grid; place-items:center; }
-    .wrap{ width:min(460px, 92vw); padding:56px 24px 80px; }
-    .brand{ display:flex; align-items:center; gap:10px; justify-content:center; margin-bottom:28px; user-select:none; }
-    .brand .name{ font-family:'KkuBulLim','Pretendard',sans-serif; font-weight:1000; font-size:30px; letter-spacing:.5px; }
-    .card{ margin:0 auto; width:min(420px, 92vw); }
-    .field{margin-bottom:12px}
-    .input{ width:100%; height:48px; border-radius:10px; border:1px solid var(--border); background:var(--bg); padding:0 14px; font-size:15px; outline:none; transition:border .15s, box-shadow .15s, background .15s; }
-    .input::placeholder{color:var(--muted)}
-    .input:focus{ border-color:var(--ring); box-shadow:0 0 0 3px color-mix(in oklab, var(--ring) 28%, transparent); }
-    .input.error{ border-color:var(--error); box-shadow:0 0 0 3px color-mix(in oklab, var(--error) 20%, transparent); }
-    .btn{ width:100%; height:50px; border:none; border-radius:12px; background:var(--primary); color:#fff; font-weight:700; font-size:16px; cursor:pointer; transition:transform .02s, background .15s, box-shadow .15s; box-shadow:0 6px 16px rgb(255, 255, 255); margin:14px 0 10px; }
-    .btn:hover{background:var(--primary-hover)}
-    .btn:active{transform:translateY(1px)}
-    .help{ display:flex; justify-content:center; gap:18px; font-size:13px; color:var(--muted); margin-bottom:22px; }
-    .help a{color:inherit; text-decoration:none}
-    .help a:hover{color:#6b7280; text-decoration:underline}
-    .sns-wrap{display:flex; flex-direction:column; align-items:center; gap:10px}
-    .sns-row{display:flex; gap:22px}
-    .sns{ width:56px; height:56px; border-radius:50%; display:grid; place-items:center; border:1px solid var(--border); background:#fff; cursor:pointer; transition:transform .08s, box-shadow .15s, border .15s; }
-    .sns:hover{box-shadow:0 4px 12px rgba(0,0,0,.08)}
-    .sns:active{transform:translateY(1px)}
-    .sns.kakao{background:var(--kakao); border-color:#e6cf00}
-    .sns.naver{background:var(--naver); border-color:#02b251}
-    .sns-label{font-size:12px; color:var(--muted)}
-    @media (max-width:420px){ .wrap{padding-top:48px} .brand .name{font-size:28px} }
-    .msg{margin-top:10px; font-size:13px}
-    .msg.ok{color:#0a7c2f}
-    .msg.err{color:var(--error)}
-  </style>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>코딩의 집 | 로그인</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+    <link rel="stylesheet" th:href="@{/css/auth.css}">
 </head>
-<body>
-  <main class="wrap">
+<body class="login-page">
+<main class="wrap">
     <header class="brand" aria-label="서비스 로고">
-      <img class="logo" th:src="@{/images/logo.png}" alt="코딩의 집 로고" />
-      <div class="name">코딩의 집</div>
+        <img class="logo" th:src="@{/images/logo.png}" alt="코딩의 집 로고" />
+        <div class="name">코딩의 집</div>
     </header>
 
     <section class="card">
-      <form id="loginForm" th:action="@{/controller/register/login-form}" method="post">
-        <div class="field">
-          <input id="email" name="loginEmail" type="email" class="input" placeholder="아이디(이메일)" autocomplete="username" required />
-        </div>
-        <div class="field">
-          <input id="password" name="password" type="password" class="input" placeholder="비밀번호" autocomplete="current-password" minlength="4" required />
-        </div>
-        <button type="submit" class="btn">로그인</button>
-        <input type="hidden" th:if="${_csrf != null}" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-        <div id="msg" class="msg" aria-live="polite" th:if="${param.error}">로그인 실패하였습니다.</div>
+        <form id="loginForm" th:action="@{/controller/register/login-form}" method="post">
+            <div class="field">
+                <input id="email" name="loginEmail" type="email" class="input" placeholder="아이디(이메일)" autocomplete="username" required />
+            </div>
+            <div class="field-error" aria-live="polite"
+                 th:if="${param.error != null and param.error[0] == 'email'}">
+                등록되지 않은 이메일입니다.
+            </div>
+            <div class="field">
+                <input id="password" name="password" type="password" class="input" placeholder="비밀번호" autocomplete="current-password" minlength="4" required />
+            </div>
+            <div id="msg" class="field-error" aria-live="polite"
+                 th:if="${param.error != null and param.error[0] != 'email'}"
+                 th:switch="${param.error[0]}">
+                <span th:case="'password'">비밀번호가 올바르지 않습니다. 다시 확인해 주세요.</span>
+                <span th:case="*">로그인에 실패했습니다. 다시 시도해 주세요.</span>
+            </div>
+            <div class="msg ok" aria-live="polite" th:if="${param.reset}">비밀번호가 변경되었습니다. 새 비밀번호로 로그인해 주세요.</div>
+            <button type="submit" class="btn">로그인</button>
+            <input type="hidden" th:if="${_csrf != null}" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
 
-        <nav class="help" aria-label="보조 링크">
-          <a th:href="@{/account/reset}">비밀번호 재설정</a>
-          <a th:href="@{/account/register}">회원가입</a>
-        </nav>
+            <nav class="help" aria-label="보조 링크">
+                <a th:href="@{/account/reset}">비밀번호 재설정</a>
+                <a th:href="@{/account/register}">회원가입</a>
+            </nav>
 
-        <div class="sns-wrap">
-          <div class="sns-row" role="group" aria-label="SNS 로그인">
-            <a class="sns kakao" th:href="@{/oauth2/authorization/kakao}" aria-label="카카오 로그인">
-              <svg width="26" height="26" viewBox="0 0 24 24" fill="#3c1e1e" aria-hidden="true"><path d="M12 4.5c-4.42 0-8 2.64-8 5.9 0 1.93 1.24 3.64 3.15 4.75l-1 3.35a.6.6 0 0 0 .9.68l3.5-2.2c.46.05.93.08 1.45.08 4.42 0 8-2.64 8-5.9S16.42 4.5 12 4.5z"/></svg>
-            </a>
-            <a class="sns naver" th:href="@{/oauth2/authorization/naver}" aria-label="네이버 로그인">
-              <svg width="26" height="26" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M7 5h4.2l5.8 8.1V5H19v14h-4.2L9 10.9V19H7z"/></svg>
-            </a>
-          </div>
-          <div class="sns-label">SNS계정으로 간편 로그인/회원가입</div>
-        </div>
-      </form>
+            <div class="sns-wrap">
+                <div class="sns-row" role="group" aria-label="SNS 로그인">
+                    <a class="sns kakao" th:href="@{/oauth2/authorization/kakao}" aria-label="카카오 로그인">
+                        <svg width="26" height="26" viewBox="0 0 24 24" fill="#3c1e1e" aria-hidden="true"><path d="M12 4.5c-4.42 0-8 2.64-8 5.9 0 1.93 1.24 3.64 3.15 4.75l-1 3.35a.6.6 0 0 0 .9.68l3.5-2.2c.46.05.93.08 1.45.08 4.42 0 8-2.64 8-5.9S16.42 4.5 12 4.5z"/></svg>
+                    </a>
+                    <a class="sns naver" th:href="@{/oauth2/authorization/naver}" aria-label="네이버 로그인">
+                        <svg width="26" height="26" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M7 5h4.2l5.8 8.1V5H19v14h-4.2L9 10.9V19H7z"/></svg>
+                    </a>
+                </div>
+                <div class="sns-label">SNS계정으로 간편 로그인/회원가입</div>
+            </div>
+        </form>
     </section>
-  </main>
+</main>
 
-  <script>
+<script>
     // 간단한 에러 테두리 처리
     const email = document.getElementById('email');
     const pw = document.getElementById('password');
     const setError = (el, on) => el.classList.toggle('error', !!on);
     [email, pw].forEach(i=> i.addEventListener('invalid', ()=> setError(i,true)));
     [email, pw].forEach(i=> i.addEventListener('input', ()=> setError(i,false)));
-  </script>
+</script>
 </body>
 </html>

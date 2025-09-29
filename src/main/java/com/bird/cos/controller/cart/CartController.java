@@ -47,6 +47,15 @@ public class CartController {
         return ResponseEntity.noContent().build();
     }
 
+    @PatchMapping("/{cartItemId}/options")
+    public ResponseEntity<Void> updateOptions(@PathVariable Long cartItemId,
+                                              @RequestBody UpdateCartOptionsRequest req,
+                                              Authentication auth) {
+        User user = currentUser(auth);
+        cartService.updateOptions(cartItemId, user, req.selectedOptions());
+        return ResponseEntity.noContent().build();
+    }
+
     @DeleteMapping("/{cartItemId}")
     public ResponseEntity<Void> deleteOne(@PathVariable Long cartItemId, Authentication auth) {
         User user = currentUser(auth);
