@@ -461,8 +461,8 @@ public class ReviewService {
         switch (sort) {
             case "latest": property = "createdAt"; direction = Sort.Direction.DESC; break;
             case "oldest": property = "createdAt"; direction = Sort.Direction.ASC; break;
-            case "rating_high": property = "rating"; direction = Sort.Direction.DESC; break;
-            case "rating_low": property = "rating"; direction = Sort.Direction.ASC; break;
+            case "rating-high": property = "rating"; direction = Sort.Direction.DESC; break;
+            case "rating-low": property = "rating"; direction = Sort.Direction.ASC; break;
         }
         return PageRequest.of(page, size, Sort.by(direction, property));
     }

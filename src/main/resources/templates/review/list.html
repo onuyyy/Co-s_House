@@ -46,7 +46,7 @@
         .average-rating {
             font-size: 2.5rem;
             font-weight: bold;
-            color: #3c9dfc;
+            color: #35c5f0;
             margin-bottom: 5px;
         }
 
@@ -62,7 +62,7 @@
         }
 
         .write-review-btn {
-            background: #3c9dfc;
+            background: linear-gradient(135deg, #35c5f0, #2ea6d1);
             color: white;
             border: none;
             padding: 12px 24px;
@@ -113,7 +113,7 @@
             width: 40px;
             height: 40px;
             border-radius: 50%;
-            background: #3c9dfc;
+            background: linear-gradient(135deg, #35c5f0, #2ea6d1);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -209,7 +209,6 @@
             opacity: 0.3;
         }
 
-        /* 새로운 필터 컨테이너 스타일 */
         .filter-container {
             margin-bottom: 20px;
         }
@@ -242,12 +241,12 @@
 
         .dropdown-select:focus {
             outline: none;
-            border-color: #3c9dfc;
+            border-color: #35c5f0;
             box-shadow: 0 0 0 3px rgba(53, 197, 240, 0.1);
         }
 
         .dropdown-select:hover {
-            border-color: #3c9dfc;
+            border-color: #35c5f0;
         }
 
         .filter-dropdown::after {
@@ -261,9 +260,8 @@
             pointer-events: none;
         }
 
-        /* 커스텀 별점 드롭다운 스타일 */
         .rating-dropdown {
-            min-width: 200px;
+            min-width: auto;
         }
 
         .rating-dropdown::after {
@@ -275,49 +273,66 @@
         }
 
         .dropdown-header {
-            background: white;
+            background: #f8f9fa;
             border: 1px solid #e9ecef;
-            border-radius: 8px;
-            padding: 10px 35px 10px 12px;
+            border-radius: 6px;
+            padding: 8px 16px;
             font-size: 0.9rem;
             color: #333;
             cursor: pointer;
             transition: all 0.3s ease;
             position: relative;
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
 
         .dropdown-header:hover {
-            border-color: #3c9dfc;
+            border-color: #bdc3c7;
+        }
+
+        .dropdown-header.open {
+            border-color: #35c5f0;
         }
 
         .dropdown-arrow {
-            position: absolute;
-            top: 50%;
-            right: 12px;
-            transform: translateY(-50%);
+            position: static;
+            transform: none;
             font-size: 0.7rem;
             color: #666;
             transition: transform 0.3s ease;
         }
 
         .dropdown-header.open .dropdown-arrow {
-            transform: translateY(-50%) rotate(180deg);
+            transform: rotate(180deg);
         }
 
         .dropdown-content {
             position: absolute;
-            top: 100%;
-            left: 0;
-            right: 0;
+            top: calc(100% + 12px);
+            left: 50%;
+            transform: translateX(-50%);
+            width: 280px;
             background: white;
-            border: 1px solid #e9ecef;
-            border-top: none;
-            border-radius: 0 0 8px 8px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e0e0e0;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
             z-index: 1000;
-            max-height: 300px;
-            overflow-y: auto;
+            padding: 8px;
             display: none;
+        }
+
+        .dropdown-content::before {
+            content: '';
+            position: absolute;
+            top: -8px;
+            left: 50%;
+            transform: translateX(-50%) rotate(45deg);
+            width: 14px;
+            height: 14px;
+            background: white;
+            border-top: 1px solid #e0e0e0;
+            border-left: 1px solid #e0e0e0;
         }
 
         .dropdown-content.show {
@@ -328,53 +343,25 @@
             padding: 12px 16px;
             cursor: pointer;
             transition: background-color 0.2s ease;
-            border-bottom: 1px solid #f8f9fa;
-        }
-
-        .rating-option:last-child {
-            border-bottom: none;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.1rem;
+            color: #555;
         }
 
         .rating-option:hover {
             background-color: #f8f9fa;
         }
 
-        .rating-option[data-value=""] {
+        .rating-option .stars {
+            color: #35c5f0;
+            font-size: 1.3rem;
+        }
+
+        .rating-option .rating-count {
             font-weight: 500;
-            color: #666;
-        }
-
-        .rating-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 6px;
-        }
-
-        .rating-item .stars {
-            color: #3c9dfc;
-            font-size: 1rem;
-        }
-
-        .rating-count {
-            font-weight: 600;
-            color: #333;
-            font-size: 0.9rem;
-        }
-
-        .rating-bar {
-            width: 100%;
-            height: 4px;
-            background-color: #e9ecef;
-            border-radius: 2px;
-            overflow: hidden;
-        }
-
-        .rating-fill {
-            height: 100%;
-            background: #3c9dfc;
-            border-radius: 2px;
-            transition: width 0.3s ease;
         }
 
         .filter-label {
@@ -406,9 +393,9 @@
         }
 
         .filter-tab:hover, .filter-tab.active {
-            background: #3c9dfc;
+            background: #35c5f0;
             color: white;
-            border-color: #3c9dfc;
+            border-color: #35c5f0;
             text-decoration: none;
         }
 
@@ -438,8 +425,6 @@
             padding: 40px;
             color: #666;
         }
-
-
 
         @media (max-width: 768px) {
             .container {
@@ -487,8 +472,121 @@
             }
 
             .action-btn span {
-                display: none; /* 모바일에서는 아이콘 숨김 */
+                display: none;
             }
+
+            .review-filter-bar {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 24px;
+                padding-bottom: 20px;
+            }
+
+            /* 좌측 필터 (베스트순, 최신순 등) */
+            .primary-filters {
+                display: flex;
+                gap: 20px;
+                align-items: center;
+            }
+
+            .primary-filters a {
+                font-size: 1rem;
+                color: var(--text-color-secondary);
+                font-weight: 500;
+                text-decoration: none;
+                transition: all 0.2s ease;
+            }
+
+            .primary-filters a.active,
+            .primary-filters a:hover {
+                color: var(--primary-color);
+                font-weight: bold;
+            }
+
+            /* 우측 드롭다운 필터 그룹 */
+            .dropdown-filters-group {
+                display: flex;
+                gap: 12px;
+            }
+
+            /* 커스텀 드롭다운 버튼 스타일 수정 */
+            .custom-dropdown .dropdown-header {
+                background-color: var(--white-color);
+                border: 1px solid var(--border-color);
+                border-radius: var(--border-radius-md);
+                padding: 8px 14px;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                cursor: pointer;
+                transition: border-color 0.2s;
+            }
+
+            .custom-dropdown .dropdown-header:hover {
+                border-color: #a0a0a0;
+            }
+
+            .custom-dropdown .dropdown-header.open {
+                border-color: var(--primary-color);
+            }
+
+            .custom-dropdown .dropdown-header .dropdown-arrow-icon {
+                font-size: 0.7rem;
+                color: var(--text-color-secondary);
+                transition: transform 0.2s;
+            }
+
+            /* 드롭다운 열렸을 때 화살표 회전 */
+            .custom-dropdown .dropdown-header.open .dropdown-arrow-icon {
+                transform: rotate(180deg);
+            }
+
+            /* 드롭다운 콘텐츠 위치 및 스타일 */
+            .custom-dropdown .dropdown-content {
+                top: calc(100% + 8px);
+                min-width: 220px;
+            }
+
+            /* 별점 옵션 스타일 수정 (프로그레스바 제거) */
+            .rating-option {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 12px 16px;
+                cursor: pointer;
+                transition: background-color 0.2s;
+            }
+            .rating-option:hover {
+                background-color: var(--background-color-light);
+            }
+            .rating-option .stars {
+                color: var(--warning-color);
+                font-size: 1rem;
+            }
+            .rating-option .rating-count {
+                font-size: 0.9rem;
+                color: var(--text-color-secondary);
+            }
+
+            /* 옵션 필터 아이템 스타일 */
+            .option-filter-item {
+                padding: 12px 16px;
+                cursor: pointer;
+                font-size: 0.95rem;
+                transition: background-color 0.2s;
+            }
+
+            .option-filter-item:hover {
+                background-color: var(--background-color-light);
+            }
+
+            /* 더 이상 사용하지 않는 기존 스타일 삭제 */
+            .filter-tabs, .filter-tab, .dropdown-filters, .rating-bar {
+                display: none !important;
+            }
+
+
         }
     </style>
 </head>
@@ -508,11 +606,8 @@
         </div>
 
         <div class="filter-container">
-            <!-- 드롭다운 필터 -->
             <div class="dropdown-filters">
-                <!-- 상품 옵션 선택 -->
                 <div class="filter-dropdown" th:if="${productOptions != null and !#lists.isEmpty(productOptions)}">
-                    <div class="filter-label">상품 옵션</div>
                     <select class="dropdown-select" id="optionFilter" name="optionId">
                         <option value="">전체 옵션</option>
                         <option th:each="option : ${productOptions}"
@@ -520,75 +615,62 @@
                                 th:text="${option.optionName + ' - ' + option.optionValue}"
                                 th:selected="${currentOptionId != null and currentOptionId == option.optionId}">
                         </option>
-
                     </select>
                 </div>
 
-                <!-- 별점 구간 선택 -->
-                <div class="filter-dropdown rating-dropdown">
-                    <div class="filter-label">별점</div>
-                    <div class="custom-dropdown" id="ratingDropdown">
-                        <div class="dropdown-header" onclick="toggleRatingDropdown()">
-                            <span id="selectedRating">전체 별점</span>
-                            <span class="dropdown-arrow">▼</span>
-                        </div>
-                        <div class="dropdown-content" id="ratingDropdownContent">
-                            <div class="rating-option" data-value="" onclick="selectRating('', '전체 별점')">
-                                <span class="rating-text">전체 별점</span>
-                            </div>
-                            <div class="rating-option" data-value="5" onclick="selectRating('5', '5점')">
-                                <div class="rating-item">
-                                    <span class="stars">★★★★★</span>
-                                    <span class="rating-count" th:text="${ratingCounts != null ? ratingCounts['5'] : 0}">5,133</span>
-                                </div>
-                                <div class="rating-bar">
-                                    <!-- totalReviewCount 사용으로 수정 -->
-                                    <div class="rating-fill" th:style="'width: ' + ${ratingCounts != null and totalReviewCount > 0 ? (ratingCounts['5'] * 100.0 / totalReviewCount) : 0} + '%'"></div>
-                                </div>
-                            </div>
-                            <div class="rating-option" data-value="4" onclick="selectRating('4', '4점')">
-                                <div class="rating-item">
-                                    <span class="stars">★★★★☆</span>
-                                    <span class="rating-count" th:text="${ratingCounts != null ? ratingCounts['4'] : 0}">511</span>
-                                </div>
-                                <div class="rating-bar">
-                                    <div class="rating-fill" th:style="'width: ' + ${ratingCounts != null and totalReviewCount > 0 ? (ratingCounts['4'] * 100.0 / totalReviewCount) : 0} + '%'"></div>
-                                </div>
-                            </div>
-                            <div class="rating-option" data-value="3" onclick="selectRating('3', '3점')">
-                                <div class="rating-item">
-                                    <span class="stars">★★★☆☆</span>
-                                    <span class="rating-count" th:text="${ratingCounts != null ? ratingCounts['3'] : 0}">108</span>
-                                </div>
-                                <div class="rating-bar">
-                                    <div class="rating-fill" th:style="'width: ' + ${ratingCounts != null and totalReviewCount > 0 ? (ratingCounts['3'] * 100.0 / totalReviewCount) : 0} + '%'"></div>
-                                </div>
-                            </div>
-                            <div class="rating-option" data-value="2" onclick="selectRating('2', '2점')">
-                                <div class="rating-item">
-                                    <span class="stars">★★☆☆☆</span>
-                                    <span class="rating-count" th:text="${ratingCounts != null ? ratingCounts['2'] : 0}">17</span>
-                                </div>
-                                <div class="rating-bar">
-                                    <div class="rating-fill" th:style="'width: ' + ${ratingCounts != null and totalReviewCount > 0 ? (ratingCounts['2'] * 100.0 / totalReviewCount) : 0} + '%'"></div>
-                                </div>
-                            </div>
-                            <div class="rating-option" data-value="1" onclick="selectRating('1', '1점')">
-                                <div class="rating-item">
-                                    <span class="stars">★☆☆☆☆</span>
-                                    <span class="rating-count" th:text="${ratingCounts != null ? ratingCounts['1'] : 0}">20</span>
-                                </div>
-                                <div class="rating-bar">
-                                    <div class="rating-fill" th:style="'width: ' + ${ratingCounts != null and totalReviewCount > 0 ? (ratingCounts['1'] * 100.0 / totalReviewCount) : 0} + '%'"></div>
-                                </div>
-                            </div>
+                <div class="review-filter-bar">
+                    <div class="primary-filters">
+                        <a href="#" onclick="applySort('rating-high'); return false;" th:classappend="${currentSort == 'rating-high' ? 'active' : ''}">베스트순</a>
+                        <a href="#" onclick="applySort('latest'); return false;" th:classappend="${currentSort == 'latest' || currentSort == null ? 'active' : ''}">최신순</a>
+                        <a href="#" onclick="applyFilter('photo'); return false;" th:classappend="${currentFilter == 'photo' ? 'active' : ''}">사진리뷰</a>
+                    </div>
 
+                    <div class="dropdown-filters-group">
+                        <div class="custom-dropdown" id="ratingDropdown">
+                            <div class="dropdown-header" onclick="toggleDropdown('ratingDropdown')">
+                                <span>별점</span>
+                                <span class="dropdown-arrow-icon">▼</span>
+                            </div>
+                            <div class="dropdown-content">
+                                <div class="rating-option" data-value="5" onclick="selectRating('5', '5점')">
+                                    <span class="stars">★★★★★</span>
+                                    <span class="rating-count" th:text="'(' + ${#numbers.formatInteger(ratingCounts != null ? ratingCounts['5'] : 0, 0, 'COMMA')} + '개)'"></span>
+                                </div>
+                                <div class="rating-option" data-value="4" onclick="selectRating('4', '4점')">
+                                    <span class="stars">★★★★☆</span>
+                                    <span class="rating-count" th:text="'(' + ${#numbers.formatInteger(ratingCounts != null ? ratingCounts['4'] : 0, 0, 'COMMA')} + '개)'"></span>
+                                </div>
+                                <div class="rating-option" data-value="3" onclick="selectRating('3', '3점')">
+                                    <span class="stars">★★★☆☆</span>
+                                    <span class="rating-count" th:text="'(' + ${#numbers.formatInteger(ratingCounts != null ? ratingCounts['3'] : 0, 0, 'COMMA')} + '개)'"></span>
+                                </div>
+                                <div class="rating-option" data-value="2" onclick="selectRating('2', '2점')">
+                                    <span class="stars">★★☆☆☆</span>
+                                    <span class="rating-count" th:text="'(' + ${#numbers.formatInteger(ratingCounts != null ? ratingCounts['2'] : 0, 0, 'COMMA')} + '개)'"></span>
+                                </div>
+                                <div class="rating-option" data-value="1" onclick="selectRating('1', '1점')">
+                                    <span class="stars">★☆☆☆☆</span>
+                                    <span class="rating-count" th:text="'(' + ${#numbers.formatInteger(ratingCounts != null ? ratingCounts['1'] : 0, 0, 'COMMA')} + '개)'"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="custom-dropdown" id="optionDropdown" th:if="${productOptions != null and !#lists.isEmpty(productOptions)}">
+                            <div class="dropdown-header" onclick="toggleDropdown('optionDropdown')">
+                                <span>옵션</span>
+                                <span class="dropdown-arrow-icon">▼</span>
+                            </div>
+                            <div class="dropdown-content">
+                                <div class="option-filter-item" onclick="selectOption('')">전체 옵션</div>
+                                <div class="option-filter-item" th:each="option : ${productOptions}"
+                                     th:onclick="|selectOption('${option.optionId}')|"
+                                     th:text="${option.optionName + ' - ' + option.optionValue}">
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- 기존 탭 필터 -->
             <div class="filter-tabs">
                 <a href="#" onclick="applyFilter('all')"
                    th:class="'filter-tab' + (${currentFilter == 'all'} ? ' active' : '')">
@@ -619,14 +701,12 @@
     </div>
 
     <div class="review-list">
-        <!-- 리뷰가 없는 경우 -->
         <div th:if="${#lists.isEmpty(reviews)}" class="empty-state">
-            <div class="empty-icon">💬</div>
+            <div class="empty-icon"></div>
             <h3>조건에 맞는 리뷰가 없습니다</h3>
             <p>다른 필터를 선택해보세요!</p>
         </div>
 
-        <!-- 리뷰 목록 -->
         <div th:each="review : ${reviews}"
              th:if="${currentOptionId == null || review.optionId == currentOptionId}"
              class="review-item">
@@ -637,10 +717,8 @@
                     <div>
                         <div class="reviewer-name" th:text="${review.userNickname}">사용자명</div>
                         <div class="review-badges">
-                    <span th:if="${review.isVerifiedPurchase}"
-                          class="badge verified-badge">구매자</span>
-                            <span th:if="${review.isPhotoReview}"
-                                  class="badge photo-badge">포토리뷰</span>
+                            <span th:if="${review.isVerifiedPurchase}" class="badge verified-badge">구매자</span>
+                            <span th:if="${review.isPhotoReview}" class="badge photo-badge">포토리뷰</span>
                         </div>
                     </div>
                 </div>
@@ -656,7 +734,6 @@
             <div class="review-content" th:text="${review.content}">
             </div>
 
-            <!-- 수정, 삭제: -->
             <th:block th:if="${currentUserNickname == review.userNickname}">
                 <a th:href="@{/reviews/{reviewId}/edit(reviewId=${review.reviewId})}">수정</a>
                 <form th:action="@{/reviews/{reviewId}/delete(reviewId=${review.reviewId})}" method="post" style="display:inline;">
@@ -665,8 +742,6 @@
                 </form>
             </th:block>
 
-
-            <!-- 리뷰 이미지 (포토리뷰인 경우) -->
             <div th:if="${review.isPhotoReview}" class="review-images">
                 <div th:if="${review.imageUrls != null and !#lists.isEmpty(review.imageUrls)}">
                     <img th:each="imageUrl : ${review.imageUrls}"
@@ -675,11 +750,10 @@
                          class="review-image">
                 </div>
                 <div th:unless="${review.imageUrls != null and !#lists.isEmpty(review.imageUrls)}">
-                    <!-- 플레이스홀더 이미지 -->
-                    <img src="https://via.placeholder.com/80x80/35c5f0/white?text=📷"
+                    <img src="https://via.placeholder.com/80x80/35c5f0/white?text="
                          alt="리뷰 이미지"
                          class="review-image">
-                    <img src="https://via.placeholder.com/80x80/35c5f0/white?text=📷"
+                    <img src="https://via.placeholder.com/80x80/35c5f0/white?text="
                          alt="리뷰 이미지"
                          class="review-image">
                 </div>
@@ -689,22 +763,20 @@
         <div class="pagination">
             <button th:disabled="${currentPage == 1}" onclick="goToPage(${currentPage - 1})">이전</button>
             <span th:each="i : ${#numbers.sequence(1, totalPages)}">
-    <a th:if="${i != currentPage}" href="javascript:void(0)" th:onclick="'goToPage(' + ${i} + ')'" th:text="${i}"></a>
-    <span th:if="${i == currentPage}" th:text="${i}" style="font-weight:bold;"></span>
-  </span>
+                <a th:if="${i != currentPage}" href="javascript:void(0)" th:onclick="'goToPage(' + ${i} + ')'" th:text="${i}"></a>
+                <span th:if="${i == currentPage}" th:text="${i}" style="font-weight:bold;"></span>
+            </span>
             <button th:disabled="${currentPage == totalPages}" onclick="goToPage(${currentPage + 1})">다음</button>
         </div>
 
-
-
-        <!-- 에러 메시지 -->
-        <div th:if="${error}" class="alert alert-danger" style="margin: 20px 0; padding: 15px; background: #f8d7da; border: 1px solid #f5c6cb; border-radius: 4px; color: #721c24;">
+        <div th:if="${error}" class="alert alert-danger" style="margin: 20px 0;
+            padding: 15px; background: #f8d7da; border: 1px solid #f5c6cb; border-radius: 4px;
+            color: #721c24;">
             <strong>오류:</strong> <span th:text="${error}"></span>
         </div>
     </div>
 
     <script th:inline="javascript">
-        // Thymeleaf에서 전달받은 데이터
         const productId = /*[[${productId}]]*/ null;
         const currentFilter = /*[[${currentFilter}]]*/ 'all';
         const currentSort = /*[[${currentSort}]]*/ 'latest';
@@ -713,36 +785,20 @@
         const overallAverageRating = /*[[${overallAverageRating}]]*/ 0.0;
         const totalReviewCount = /*[[${totalReviewCount}]]*/ 0;
 
-        // 리뷰 이미지 클릭 시 확대 보기
         document.querySelectorAll('.review-image').forEach(img => {
             img.addEventListener('click', () => {
                 window.open(img.src, '_blank');
             });
         });
 
-        // 페이지 로드 시 초기화
         document.addEventListener('DOMContentLoaded', () => {
             updateOverallStars();
-            updateAverageStars();
 
-            // 드롭다운 변경 이벤트 리스너
             const optionFilter = document.getElementById('optionFilter');
             if (optionFilter) {
-                optionFilter.addEventListener('change', handleFilterChange);
             }
-
-            // 드롭다운 외부 클릭 시 닫기
-            document.addEventListener('click', function(e) {
-                if (!document.getElementById('ratingDropdown').contains(e.target)) {
-                    closeRatingDropdown();
-                }
-            });
-
-            // 현재 선택된 별점 표시
-            updateSelectedRating();
         });
 
-        // 전체 별점 업데이트 (변경되지 않음)
         function updateOverallStars() {
             const overallStarsElement = document.querySelector('#overallStars');
             if (overallStarsElement) {
@@ -750,32 +806,11 @@
             }
         }
 
-        // 별점 드롭다운 토글
-        function toggleRatingDropdown() {
-            const header = document.querySelector('.dropdown-header');
-            const content = document.getElementById('ratingDropdownContent');
 
-            header.classList.toggle('open');
-            content.classList.toggle('show');
-        }
-
-        // 별점 드롭다운 닫기
-        function closeRatingDropdown() {
-            const header = document.querySelector('.dropdown-header');
-            const content = document.getElementById('ratingDropdownContent');
-
-            header.classList.remove('open');
-            content.classList.remove('show');
-        }
-
-        // 별점 선택
-        function selectRating(value, text) {
-            document.getElementById('selectedRating').textContent = text;
+        function selectRating(value) {
             closeRatingDropdown();
-
             const optionId = document.getElementById('optionFilter') ?
                 document.getElementById('optionFilter').value || null : null;
-
             updateURL({
                 filter: currentFilter,
                 sort: currentSort,
@@ -784,29 +819,10 @@
             });
         }
 
-        // 현재 선택된 별점 표시 업데이트
-        function updateSelectedRating() {
-            const selectedElement = document.getElementById('selectedRating');
-            if (currentRatingRange) {
-                switch(currentRatingRange) {
-                    case '5': selectedElement.textContent = '5점'; break;
-                    case '4': selectedElement.textContent = '4점'; break;
-                    case '3': selectedElement.textContent = '3점'; break;
-                    case '2': selectedElement.textContent = '2점'; break;
-                    case '1': selectedElement.textContent = '1점'; break;
-                    default: selectedElement.textContent = '전체 별점';
-                }
-            } else {
-                selectedElement.textContent = '전체 별점';
-            }
-        }
-
-        // 필터 변경 처리
         function handleFilterChange() {
             const optionFilter = document.getElementById('optionFilter');
             const optionId = optionFilter ? optionFilter.value || null : null;
-            const ratingRange = currentRatingRange; // 별점은 커스텀 드롭다운에서 처리
-
+            const ratingRange = currentRatingRange;
             updateURL({
                 filter: currentFilter,
                 sort: currentSort,
@@ -815,12 +831,10 @@
             });
         }
 
-        // 필터 탭 클릭
         function applyFilter(filter) {
             const optionFilter = document.getElementById('optionFilter');
             const optionId = optionFilter ? optionFilter.value || null : null;
             const ratingRange = currentRatingRange;
-
             updateURL({
                 filter: filter,
                 sort: currentSort,
@@ -829,12 +843,10 @@
             });
         }
 
-        // 정렬 탭 클릭
         function applySort(sort) {
             const optionFilter = document.getElementById('optionFilter');
             const optionId = optionFilter ? optionFilter.value || null : null;
             const ratingRange = currentRatingRange;
-
             updateURL({
                 filter: currentFilter,
                 sort: sort,
@@ -843,7 +855,6 @@
             });
         }
 
-        // URL 업데이트 및 페이지 이동
         function updateURL(params) {
             const url = new URL(window.location.href);
             const searchParams = new URLSearchParams();
@@ -868,10 +879,9 @@
             window.location.href = url.toString();
         }
 
-        //페이지 버튼 호출 함수
         function goToPage(page) {
-            const optionId = document.getElementById('optionFilter') ? document.getElementById('optionFilter').value || null : null;
-
+            const optionId = document.getElementById('optionFilter') ?
+                document.getElementById('optionFilter').value || null : null;
             updateURL({
                 filter: currentFilter,
                 sort: currentSort,
@@ -881,21 +891,6 @@
             });
         }
 
-
-        // 필터된 결과의 평균 별점 업데이트
-        function updateAverageStars() {
-            const averageRatingElement = document.querySelector('.current-filter-rating'); // 새로운 클래스
-            const starsElement = document.querySelector('#currentFilterStars'); // 새로운 ID
-
-            if (averageRatingElement && starsElement) {
-                const averageRating = parseFloat(averageRatingElement.textContent);
-                if (!isNaN(averageRating)) {
-                    starsElement.innerHTML = generateStars(averageRating);
-                }
-            }
-        }
-
-        // 별점 생성 함수
         function generateStars(rating) {
             let stars = '';
             for (let i = 1; i <= 5; i++) {
@@ -910,117 +905,58 @@
             return stars;
         }
 
-        // AJAX를 통한 필터링 (선택사항)
-        function loadReviewsAjax(filter, sort, ratingRange, optionId) {
-            if (!productId) return;
+        /* --- 기존 SCRIPT 태그 맨 아래에 추가할 JavaScript --- */
 
-            const params = new URLSearchParams();
-            params.append('filter', filter || 'all');
-            params.append('sort', sort || 'latest');
-            if (ratingRange) params.append('ratingRange', ratingRange);
-            if (optionId) params.append('optionId', optionId);
+        /**
+         * 범용 드롭다운 토글 함수
+         * @param {string} dropdownId - 토글할 드롭다운의 ID
+         */
+        function toggleDropdown(dropdownId) {
+            closeAllDropdowns(dropdownId); // 다른 드롭다운은 닫기
+            const dropdown = document.getElementById(dropdownId);
+            if (!dropdown) return;
 
-            const url = `/api/product/${productId}/reviews?${params.toString()}`;
+            const header = dropdown.querySelector('.dropdown-header');
+            const content = dropdown.querySelector('.dropdown-content');
 
-            fetch(url)
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        updateReviewList(data.reviews);
-                        updateStatistics(data.averageRating, data.reviewCount, data.filterCounts);
-                    } else {
-                        console.error('리뷰 로딩 실패:', data.error);
-                    }
-                })
-                .catch(error => {
-                    console.error('AJAX 오류:', error);
-                });
+            header.classList.toggle('open');
+            content.classList.toggle('show');
         }
 
-        // 리뷰 목록 업데이트 (AJAX용)
-        function updateReviewList(reviews) {
-            const reviewList = document.querySelector('.review-list');
-
-            if (reviews.length === 0) {
-                reviewList.innerHTML = `
-                <div class="empty-state">
-                    <div class="empty-icon">💬</div>
-                    <h3>조건에 맞는 리뷰가 없습니다</h3>
-                    <p>다른 필터를 선택해보세요!</p>
-                </div>
-            `;
-                return;
-            }
-
-            let html = '';
-            reviews.forEach(review => {
-                html += `
-                <div class="review-item">
-                    <div class="review-header">
-                        <div class="reviewer-info">
-                            <div class="reviewer-avatar">${review.userNickname.charAt(0)}</div>
-                            <div>
-                                <div class="reviewer-name">${review.userNickname}</div>
-                                <div class="review-badges">
-                                    ${review.isVerifiedPurchase ? '<span class="badge verified-badge">구매자</span>' : ''}
-                                    ${review.isPhotoReview ? '<span class="badge photo-badge">포토리뷰</span>' : ''}
-                                </div>
-                            </div>
-                        </div>
-                        <div>
-                            <div class="review-rating">
-                                <span class="rating-stars">${review.starRating}</span>
-                                <span class="rating-number">${review.rating}</span>
-                            </div>
-                            <div class="review-date">${review.formattedCreatedAt}</div>
-                        </div>
-                    </div>
-                    <div class="review-content">${review.content}</div>
-                    ${review.isPhotoReview ? `
-                        <div class="review-images">
-                            ${review.imageUrls && review.imageUrls.length > 0 ?
-                    review.imageUrls.map(url => `<img src="${url}" alt="리뷰 이미지" class="review-image">`).join('') :
-                    '<img src="https://via.placeholder.com/80x80/35c5f0/white?text=📷" alt="리뷰 이미지" class="review-image">'
+        /**
+         * 모든 드롭다운 닫기 함수
+         * @param {string} [exceptId] - 닫지 않을 드롭다운의 ID (옵션)
+         */
+        function closeAllDropdowns(exceptId = null) {
+            document.querySelectorAll('.custom-dropdown').forEach(dropdown => {
+                if (dropdown.id !== exceptId) {
+                    dropdown.querySelector('.dropdown-header').classList.remove('open');
+                    dropdown.querySelector('.dropdown-content').classList.remove('show');
                 }
-                        </div>
-                    ` : ''}
-                </div>
-            `;
-            });
-
-            reviewList.innerHTML = html;
-
-            // 이미지 클릭 이벤트 재등록
-            document.querySelectorAll('.review-image').forEach(img => {
-                img.addEventListener('click', () => {
-                    window.open(img.src, '_blank');
-                });
             });
         }
 
-        // 통계 업데이트 (AJAX용)
-        function updateStatistics(averageRating, reviewCount, filterCounts) {
-            document.querySelector('.average-rating').textContent = averageRating.toFixed(1);
-            document.querySelector('.review-count').textContent = `총 ${reviewCount}개의 리뷰`;
-
-            // 필터 카운트 업데이트
-            if (filterCounts) {
-                const tabs = document.querySelectorAll('.filter-tab');
-                tabs.forEach(tab => {
-                    const countSpan = tab.querySelector('.count');
-                    if (countSpan) {
-                        if (tab.textContent.includes('전체')) {
-                            countSpan.textContent = `(${filterCounts.all || 0})`;
-                        } else if (tab.textContent.includes('포토리뷰')) {
-                            countSpan.textContent = `(${filterCounts.photo || 0})`;
-                        } else if (tab.textContent.includes('구매자')) {
-                            countSpan.textContent = `(${filterCounts.verified || 0})`;
-                        }
-                    }
-                });
+        // 외부 클릭 시 모든 드롭다운 닫기
+        document.addEventListener('click', function(e) {
+            // 클릭된 요소가 드롭다운의 일부가 아닐 경우에만 닫기
+            if (!e.target.closest('.custom-dropdown')) {
+                closeAllDropdowns();
             }
+        });
 
-            updateAverageStars();
+        /**
+         * 옵션 필터 선택 함수
+         * @param {string} optionId - 선택된 상품 옵션 ID
+         */
+        function selectOption(optionId) {
+            closeAllDropdowns();
+            // 기존 URL 업데이트 함수를 재사용하여 필터링 적용
+            updateURL({
+                filter: currentFilter,
+                sort: currentSort,
+                ratingRange: currentRatingRange,
+                optionId: optionId || null
+            });
         }
     </script>
 </body>

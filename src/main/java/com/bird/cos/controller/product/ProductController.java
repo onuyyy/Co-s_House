@@ -1,6 +1,7 @@
 package com.bird.cos.controller.product;
 
 import com.bird.cos.domain.product.Product;
+import com.bird.cos.domain.product.ProductImage;
 import com.bird.cos.domain.product.ProductOption;
 import com.bird.cos.dto.product.ReviewResponse;
 import com.bird.cos.service.product.ProductService;
@@ -104,6 +105,8 @@ public class ProductController {
             model.addAttribute("brand", product.getBrand());
             model.addAttribute("basePrice", product.getSalePrice());
 
+            List<ProductImage> productImages = productService.getImagesByProductId(productId);
+            model.addAttribute("productImages", productImages);
             // --- 리뷰 정보 로딩  ---
             try {
                 // 1. 리뷰 목록과 페이징 정보 가져오기
