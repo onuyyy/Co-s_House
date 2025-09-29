@@ -89,7 +89,7 @@
 
 .input:focus {
     outline: none;
-    border-color: #35c5f0;
+    border-color: #3c9dfc;
     box-shadow: 0 0 0 2px rgba(53, 197, 240, 0.1);
 }
 
@@ -121,7 +121,7 @@
 .verification-btn {
     width: 100%;
     height: 48px;
-    background: #35c5f0;
+    background: #3c9dfc;
     color: white;
     border: none;
     border-radius: 4px;
@@ -133,15 +133,15 @@
 }
 
 .verification-btn:hover {
-    background: #2bb5e0;
+    background: #3c9dfc;
 }
 
 .address-search-btn {
     height: 40px;
     padding: 0 20px;
     background: #fff;
-    border: 1px solid #35c5f0;
-    color: #35c5f0;
+    border: 1px solid #3c9dfc;
+    color: #3c9dfc;
     border-radius: 4px;
     font-size: 14px;
     cursor: pointer;
@@ -253,7 +253,7 @@
 .coupon-link {
     background: none;
     border: none;
-    color: #35c5f0;
+    color: #3c9dfc;
     cursor: pointer;
     font-size: 14px;
     text-decoration: none;
@@ -285,8 +285,8 @@
     height: 48px;
     padding: 0 20px;
     background: #fff;
-    border: 1px solid #35c5f0;
-    color: #35c5f0;
+    border: 1px solid #3c9dfc;
+    color: #3c9dfc;
     border-radius: 4px;
     font-size: 14px;
     cursor: pointer;
@@ -304,7 +304,7 @@
 }
 
 .point-amount {
-    color: #35c5f0;
+    color: #3c9dfc;
     font-weight: 600;
 }
 
@@ -362,7 +362,7 @@
     display: block;
     font-size: 28px;
     font-weight: 700;
-    color: #35c5f0;
+    color: #3c9dfc;
     margin-bottom: 8px;
 }
 
@@ -386,7 +386,7 @@
 .payment-btn {
     width: 100%;
     height: 56px;
-    background: #35c5f0;
+    background: #3c9dfc;
     color: white;
     border: none;
     border-radius: 8px;
@@ -398,7 +398,7 @@
 }
 
 .payment-btn:hover {
-    background: #2bb5e0;
+    background: #1e90ff;
     box-shadow: 0 4px 12px rgba(53, 197, 240, 0.4);
 }
 
@@ -508,7 +508,7 @@
     align-items: center;
     padding: 16px;
     background: #e8f4fd;
-    border: 1px solid #35c5f0;
+    border: 1px solid #3c9dfc;
     border-radius: 8px;
     margin-bottom: 12px;
 }
@@ -521,19 +521,19 @@
 
 .selected-coupon-name {
     font-weight: 600;
-    color: #1565c0;
+    color: #1e90ff;
 }
 
 .selected-coupon-discount {
     font-size: 14px;
-    color: #35c5f0;
+    color: #3c9dfc;
     font-weight: 500;
 }
 
 .coupon-cancel-btn {
     background: #fff;
-    border: 1px solid #35c5f0;
-    color: #35c5f0;
+    border: 1px solid #3c9dfc;
+    color: #3c9dfc;
     padding: 8px 16px;
     border-radius: 4px;
     cursor: pointer;
@@ -571,7 +571,7 @@
 
 .modal-header {
     padding: 24px;
-    background: #35c5f0;
+    background: #3c9dfc;
     color: white;
     display: flex;
     justify-content: space-between;
@@ -621,7 +621,7 @@
 }
 
 .coupon-item:hover:not(.disabled) {
-    border-color: #35c5f0;
+    border-color: #1e90ff;
     box-shadow: 0 2px 8px rgba(53, 197, 240, 0.1);
 }
 
@@ -651,7 +651,7 @@
 
 .coupon-discount-type {
     background: #e8f4fd;
-    color: #1565c0;
+    color: #1e90ff;
     padding: 4px 8px;
     border-radius: 12px;
     font-size: 12px;
@@ -661,7 +661,7 @@
 }
 
 .coupon-discount {
-    color: #35c5f0;
+    color: #3c9dfc;
     font-weight: 600;
     font-size: 15px;
 }
@@ -673,7 +673,7 @@
 
 .coupon-use-btn {
     padding: 10px 20px;
-    background: #35c5f0;
+    background: #3c9dfc;
     color: white;
     border: none;
     border-radius: 6px;
@@ -685,7 +685,7 @@
 }
 
 .coupon-use-btn:hover:not(.disabled) {
-    background: #2bb5e0;
+    background: #3c9dfc;
 }
 
 .coupon-use-btn.disabled {
@@ -707,7 +707,7 @@
 
 /* 추가 유틸리티 */
 .text-blue {
-    color: #35c5f0 !important;
+    color: #3c9dfc !important;
 }
 
 .font-bold {

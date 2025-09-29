@@ -108,7 +108,7 @@ body.register-page {
 
 .input:focus {
     border-color: var(--auth-ring);
-    box-shadow: 0 0 0 3px color-mix(in oklab, var(--auth-ring) 28%, transparent);
+    box-shadow: 0 0 0 1px color-mix(in oklab, var(--auth-ring) 28%, transparent);
 }
 
 .input.error {
@@ -135,7 +135,7 @@ body.register-page {
 .btn:hover {
     background: var(--auth-primary-hover);
     transform: translateY(-1px);
-    box-shadow: 0 8px 20px rgba(60, 157, 252, 0.25);
+    box-shadow: 0 8px 10px rgba(60, 157, 252, 0.25);
 }
 
 .btn:active {
@@ -168,6 +168,22 @@ body.register-page {
 .help a:hover {
     color: var(--auth-text);
     text-decoration: underline;
+}
+
+.login-support {
+    margin-top: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    align-items: center;
+}
+
+.login-shell {
+    padding-top: 72px;
+}
+
+.login-support .help {
+    margin-bottom: 0;
 }
 
 /* SNS 로그인 */
@@ -424,7 +440,7 @@ body.register-page {
 .chip-button:focus {
     background: var(--auth-primary);
     color: #ffffff;
-    box-shadow: 0 0 0 4px rgba(60, 157, 252, 0.15);
+    box-shadow: 0 0 0 2px rgba(60, 157, 252, 0.15);
     border-color: var(--auth-primary);
 }
 
@@ -571,13 +587,14 @@ body.register-page {
 
 .register-submit:hover:not(:disabled) {
     transform: translateY(-1px);
-    box-shadow: 0 18px 30px rgba(60, 157, 252, 0.25);
+    box-shadow: 0 10px 10px rgba(50, 137, 242, 0.25);
 }
 
 .register-submit:disabled {
-    background: #cbd5f5;
+    background: var(--auth-primary);
     color: #ffffff;
     cursor: not-allowed;
+    opacity: 0.65;
     box-shadow: none;
 }
 
