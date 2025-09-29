@@ -161,22 +161,28 @@
                                     <input type="password"
                                            id="currentPassword"
                                            name="currentPassword"
-                                           class="form-control"
+
+                                           class="form-control password-change-field"
                                            placeholder="현재 비밀번호를 입력해주세요"
-                                           oninput="checkCurrentPasswordMatch()">
-                                    <small class="form-text">현재 비밀번호를 입력해주세요.</small>
+                                           autocomplete="new-password"
+                                           data-lpignore="true"
+                                           readonly onfocus="this.removeAttribute('readonly');">
+                                    <div id="currentPasswordFeedback" class="password-feedback"></div>
+                                    <small class="form-text">비밀번호 변경을 원하지 않으면 비워두세요.</small>
                                 </div>
 
-                                <div class="form-row">
+                                <div class="form-row" style="margin-top: 20px;">
                                     <div class="form-group">
                                         <label for="newPassword">새 비밀번호</label>
                                         <input type="password"
                                                id="newPassword"
-                                               name="newPassword"
+
+                                               name="userPassword"
                                                class="form-control password-change-field"
                                                placeholder="새 비밀번호를 입력해주세요"
-                                               oninput="validatePasswordStrength()">
-                                        <small class="form-text">영문, 숫자, 특수문자를 포함한 8자 이상.</small>
+                                               disabled>
+                                        <div id="newPasswordFeedback" class="password-feedback"></div>
+                                        <small class="form-text">8자 이상, 영문+숫자+특수문자 조합</small>
                                     </div>
                                     <div class="form-group">
                                         <label for="confirmPassword">새 비밀번호 확인</label>
@@ -185,8 +191,9 @@
                                                name="confirmPassword"
                                                class="form-control password-change-field"
                                                placeholder="새 비밀번호를 다시 입력해주세요"
-                                               oninput="checkPasswordMatch()">
-                                        <small class="form-text" id="confirmPasswordFeedback"></small>
+
+                                               disabled>
+                                        <div id="confirmPasswordFeedback" class="password-feedback"></div>
                                     </div>
                                 </div>
                             </div>
@@ -306,4 +313,5 @@
     <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <script th:src="@{/js/mypage/mypage-user.js}"></script>
 </body>
+
 </html>

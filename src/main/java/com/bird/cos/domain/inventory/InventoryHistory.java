@@ -2,10 +2,15 @@ package com.bird.cos.domain.inventory;
 
 import com.bird.cos.domain.product.Product;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "INVENTORY_HISTORY")
+@Getter
+@NoArgsConstructor
 public class InventoryHistory {
 
     @Id

@@ -2,10 +2,9 @@ package com.bird.cos.service.mypage;
 
 import com.bird.cos.domain.coupon.Coupon;
 import com.bird.cos.domain.coupon.CouponScope;
-import com.bird.cos.domain.user.User;
 import com.bird.cos.domain.coupon.UserCoupon;
 import com.bird.cos.domain.product.Product;
-import com.bird.cos.repository.product.ProductRepository;
+import com.bird.cos.domain.user.User;
 import com.bird.cos.dto.mypage.CouponResponse;
 import com.bird.cos.dto.mypage.UserCouponResponse;
 import com.bird.cos.dto.order.MyCouponResponse;
@@ -14,15 +13,12 @@ import com.bird.cos.exception.BusinessException;
 import com.bird.cos.repository.mypage.coupon.CouponRepository;
 import com.bird.cos.repository.mypage.coupon.CouponSpecifications;
 import com.bird.cos.repository.mypage.coupon.UserCouponRepository;
+import com.bird.cos.repository.product.ProductRepository;
 import com.bird.cos.repository.user.UserRepository;
-import com.bird.cos.security.CustomUserDetails;
-import jakarta.persistence.Column;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -225,28 +221,26 @@ public class CouponService {
                     Coupon coupon = userCoupon.getCoupon();
                     CouponScope scope = coupon.getScope();
 
-                    switch (scope) {
-                        case GLOBAL:
+                    return switch (scope) {
+                        case GLOBAL ->
                             // 전역 쿠폰: 모든 상품에 적용 가능
-                            return true;
-
-                        case BRAND:
+                                true;
+                        case BRAND -> {
                             // 브랜드 쿠폰: 해당 브랜드 상품이 주문에 포함되어 있는지 확인
                             if (coupon.getBrand() != null) {
-                                return brandIds.contains(coupon.getBrand().getBrandId());
+                                yield brandIds.contains(coupon.getBrand().getBrandId());
                             }
-                            return false;
-
-                        case PRODUCT:
+                            yield false;
+                        }
+                        case PRODUCT -> {
                             // 상품 쿠폰: 해당 상품이 주문에 포함되어 있는지 확인
                             if (coupon.getProduct() != null) {
-                                return productIds.contains(coupon.getProduct().getProductId());
+                                yield productIds.contains(coupon.getProduct().getProductId());
                             }
-                            return false;
-
-                        default:
-                            return false;
-                    }
+                            yield false;
+                        }
+                        default -> false;
+                    };
                 })
                 .toList();
 
@@ -256,9 +250,12 @@ public class CouponService {
                 .collect(Collectors.toList());
 
         } catch (Exception e) {
-            // 오류 발생 시 전체 쿠폰 목록 반환 (안전장치)
+            // 오류 발생 시 전체 쿠폰 목록 반환
             return getMyCoupons(userId);
         }
     }
 
+    public long getMyCouponsCount(Long userId) {
+        return userCouponRepository.countByUser_UserIdAndCoupon_IsActive(userId, true);
+    }
 }

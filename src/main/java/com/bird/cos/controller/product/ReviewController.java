@@ -5,6 +5,7 @@ import com.bird.cos.dto.product.ReviewRequest;
 import com.bird.cos.dto.product.ReviewResponse;
 import com.bird.cos.dto.product.ReviewUpdateRequest;
 import com.bird.cos.repository.product.ProductOptionRepository;
+import com.bird.cos.repository.product.ReviewRepository;
 import com.bird.cos.security.CustomUserDetails;
 import com.bird.cos.service.product.ReviewService;
 import com.bird.cos.service.product.ProductService;
@@ -34,6 +35,7 @@ public class ReviewController {
 
     private final ReviewService reviewService;
     private final ProductService productService;
+    private final ReviewRepository reviewRepository;
     private final ProductOptionRepository productOptionRepository;
 
     // 모든 리뷰 조회 (뷰 렌더링)
@@ -64,7 +66,6 @@ public class ReviewController {
         }
     }
 
-    // 상품별 리뷰 조회 (옵션, 별점 등 포함)
     @GetMapping("/product/{productId}/reviews")
     public String getReviewsByProduct(@PathVariable Long productId,
                                       @RequestParam(required = false, defaultValue = "all") String filter,
@@ -76,57 +77,60 @@ public class ReviewController {
                                       Model model,
                                       @AuthenticationPrincipal CustomUserDetails userDetails) {
         try {
-            // 페이징 적용
+            // 페이징 적용된 필터링된 리뷰
             Map<String, Object> result = reviewService.findReviewsByProductIdWithFilterPage(
                     productId, filter, sort, ratingRange, optionId, page, size);
             List<ReviewResponse> reviews = (List<ReviewResponse>) result.get("reviews");
-
-
-
-            // 전체 상품 리뷰 통계 (필터 무시)
-            List<ReviewResponse> allProductReviews = reviewService.findReviewsByProductIdWithFilter(
-                    productId, "all", "latest", null, null); // 모든 필터 제거
-            double totalAverageRating = reviewService.calculateAverageRating(allProductReviews);
-            int totalCount = allProductReviews.size();
             int totalPages = (Integer) result.get("totalPages");
             long totalElements = (Long) result.get("totalElements");
 
-            // 기존 모델 데이터
-            model.addAttribute("reviews", reviews);
-            model.addAttribute("reviewCount", totalElements);
+            // 전체 리뷰 개수
+            Long totalReviewCount = reviewRepository.countByProductId(productId);
 
-            // 전체 통계 데이터 추가
-            model.addAttribute("overallAverageRating", totalAverageRating);
-            model.addAttribute("totalReviewCount", totalCount);
+            // 전체 평균 별점
+            List<ReviewResponse> allProductReviews = reviewService.findReviewsByProductIdWithFilter(
+                    productId, "all", "latest", null, null);
+            double overallAverageRating = reviewService.calculateAverageRating(allProductReviews);
 
-            // 기존 평균 별점은 필터된 결과용으로 유지
-            double averageRating = reviewService.calculateAverageRating(reviews);
-            model.addAttribute("averageRating", averageRating);
+            // 필터링된 리뷰의 평균 별점
+            double filteredAverageRating = reviewService.calculateAverageRating(reviews);
 
-
+            // 필터 카운트
             Map<String, Integer> filterCounts = reviewService.getFilterCounts(productId);
             Map<String, Integer> ratingCounts = reviewService.getRatingCounts(productId);
             List<ProductOption> productOptions = productService.getOptionsByProductId(productId);
 
+            // 모델에 데이터 추가
             model.addAttribute("reviews", reviews);
-            model.addAttribute("reviewCount", totalElements);
             model.addAttribute("productId", productId);
+
+            // 전체 통계 (고정값)
+            model.addAttribute("totalReviewCount", totalReviewCount);
+            model.addAttribute("overallAverageRating", overallAverageRating);
+
+            // 필터링된 결과
+            model.addAttribute("reviewCount", totalElements);
+            model.addAttribute("averageRating", filteredAverageRating);
+
+            // 필터 상태
             model.addAttribute("currentFilter", filter);
             model.addAttribute("currentSort", sort);
             model.addAttribute("currentRatingRange", ratingRange);
             model.addAttribute("currentOptionId", optionId);
-            model.addAttribute("filterCounts", filterCounts);
-            model.addAttribute("ratingCounts", ratingCounts);
-            model.addAttribute("productOptions", productOptions);
+
+            // 페이징
             model.addAttribute("currentPage", page);
             model.addAttribute("totalPages", totalPages);
 
-            // 현재 로그인한 사용자 정보 추가
+            // 기타 정보
+            model.addAttribute("filterCounts", filterCounts);
+            model.addAttribute("ratingCounts", ratingCounts);
+            model.addAttribute("productOptions", productOptions);
+
+            // 현재 로그인한 사용자 정보
             if (userDetails != null) {
                 model.addAttribute("currentUserNickname", userDetails.getNickname());
             }
-
-            model.addAttribute("averageRating", averageRating);
 
             return "review/list";
         } catch (Exception e) {

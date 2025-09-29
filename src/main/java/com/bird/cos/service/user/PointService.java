@@ -201,4 +201,5 @@ public class PointService {
             throw BusinessException.pointInvalidAmount(amount);
         }
     }
+
 }

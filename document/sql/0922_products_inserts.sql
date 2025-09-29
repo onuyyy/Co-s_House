@@ -8976,7 +8976,6 @@ INSERT INTO product (
          );
 
 INSERT INTO product (
-    INSERT INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -12083,8 +12082,8 @@ INSERT INTO product (
              0, '일반 소재', '표준 사이즈', 0, 0, 0,
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
-
-product_id, product_title, brand_id, product_category_id, main_image_url, description,
+INSERT INTO product (
+    product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
     review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
