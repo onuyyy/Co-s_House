@@ -27,8 +27,13 @@ public class PasswordResetController {
     @PostMapping("/request")
     @ResponseBody
     public ResponseEntity<Map<String, Object>> requestReset(@Valid @RequestBody PasswordResetEmailRequest request) {
-        passwordResetService.request(request.email());
-        return ResponseEntity.ok(Map.of("message", "입력하신 이메일로 인증번호를 전송했습니다."));
+        try {
+            passwordResetService.request(request.email());
+            return ResponseEntity.ok(Map.of("message", "입력하신 이메일로 인증번호를 전송했습니다."));
+        } catch (IllegalArgumentException ex) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(Map.of("message", ex.getMessage()));
+        }
     }
 
     @PostMapping("/complete")

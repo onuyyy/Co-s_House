@@ -16,8 +16,11 @@ public class PasswordResetService {
     private final PasswordEncoder passwordEncoder;
 
     public void request(String email) {
-        userRepository.findByUserEmail(email.toLowerCase())
-                .ifPresent(user -> emailVerificationService.sendVerificationCode(email, user.getUserName()));
+        String normalizedEmail = email.toLowerCase();
+        User user = userRepository.findByUserEmail(normalizedEmail)
+                .orElseThrow(() -> new IllegalArgumentException("가입된 회원 정보를 찾을 수 없습니다."));
+
+        emailVerificationService.sendVerificationCode(normalizedEmail, user.getUserName());
     }
 
     @Transactional
