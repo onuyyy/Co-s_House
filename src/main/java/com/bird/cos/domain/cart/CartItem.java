@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "CART_ITEM",
         uniqueConstraints = {
-                @UniqueConstraint(name = "uk_cartitem_cart_product", columnNames = {"cart_id", "product_id"})
+                @UniqueConstraint(name = "uk_cartitem_cart_product_option", columnNames = {"cart_id", "product_id", "selected_options"})
         },
         indexes = {
                 @Index(name = "idx_cartitem_cart", columnList = "cart_id"),
