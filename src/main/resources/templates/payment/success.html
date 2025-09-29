@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('결제가 완료되었습니다.')}"></head>
+<body>
+<header th:replace="~{fragments/layout :: header}"></header>
+
+<main class="page-main" style="padding:40px 0;">
+  <section class="page-card" style="max-width:720px;margin:0 auto;">
+    <h1 class="page-title">결제가 완료되었습니다.</h1>
+    <p class="page-subtitle" id="paymentStatus">결제를 확인하는 중입니다...</p>
+    <p id="errorMessage" style="color:#dc2626; margin-top:8px; display:none;"></p>
+
+    <div class="info-box" style="margin-top:24px;">
+      <dl>
+        <div>
+          <dt>주문 번호</dt>
+          <dd id="orderIdValue" th:text="${orderId} ?: '확인 중'">확인 중</dd>
+        </div>
+        <div>
+          <dt>결제 키</dt>
+          <dd id="paymentKeyValue" th:text="${paymentKey} ?: '확인 중'">확인 중</dd>
+        </div>
+      </dl>
+    </div>
+
+    <div class="actions" style="margin-top:32px; display:flex; gap:12px;">
+      <a class="btn" th:href="@{/mypage}" style="padding:12px 20px;">마이페이지로 이동</a>
+      <a class="btn secondary" th:href="@{/}">홈으로</a>
+    </div>
+  </section>
+</main>
+
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+
+<script src="/js/payment/checkout.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', async () => {
+    const statusEl = document.getElementById('paymentStatus');
+    const errorEl = document.getElementById('errorMessage');
+    const orderIdEl = document.getElementById('orderIdValue');
+    const paymentKeyEl = document.getElementById('paymentKeyValue');
+
+    const params = new URLSearchParams(window.location.search);
+    const paymentKey = params.get('paymentKey');
+    const orderId = params.get('orderId');
+    const amountParam = Number(params.get('amount'));
+
+    const payloadRaw = sessionStorage.getItem('pendingOrderPayload');
+    let orderPayload = null;
+    if (payloadRaw) {
+      try {
+        orderPayload = JSON.parse(payloadRaw);
+      } catch (parseError) {
+        console.warn('주문 정보 파싱 실패:', parseError);
+      }
+    }
+
+    if (!paymentKey || !orderId) {
+      statusEl.textContent = '결제 정보가 유효하지 않습니다.';
+      errorEl.textContent = '필수 결제 정보가 누락되었습니다.';
+      errorEl.style.display = 'block';
+      return;
+    }
+
+    try {
+      statusEl.textContent = '결제 승인을 확인하고 있습니다...';
+
+      const confirmAmount = (!Number.isNaN(amountParam) && amountParam > 0)
+        ? amountParam
+        : (orderPayload ? orderPayload.finalAmount : 0);
+
+      await PaymentSdk.confirmPayment({
+        paymentKey,
+        orderId,
+        amount: confirmAmount
+      });
+
+      if (!orderPayload) {
+        statusEl.textContent = '결제는 완료되었지만 주문 정보가 없어 주문을 생성하지 못했습니다.';
+        paymentKeyEl.textContent = paymentKey;
+        return;
+      }
+
+      const orderResponse = await submitOrder(orderPayload);
+      sessionStorage.removeItem('pendingOrderPayload');
+
+      paymentKeyEl.textContent = paymentKey;
+      orderIdEl.textContent = orderResponse && orderResponse.orderId ? orderResponse.orderId : (orderPayload.paymentOrderId || '-');
+
+      statusEl.textContent = '주문이 완료되었습니다.';
+    } catch (error) {
+      console.error('결제 확인 오류:', error);
+      statusEl.textContent = '결제 확인에 실패했습니다.';
+      errorEl.textContent = error.message || '결제 확인 중 오류가 발생했습니다.';
+      errorEl.style.display = 'block';
+    }
+  });
+
+  async function submitOrder(payload) {
+    const formData = new FormData();
+
+    payload.orderItems.forEach((item, index) => {
+      formData.append(`orderItems[${index}].productId`, String(item.productId));
+      if (item.productOptionId !== null && item.productOptionId !== undefined) {
+        formData.append(`orderItems[${index}].productOptionId`, String(item.productOptionId));
+      }
+      formData.append(`orderItems[${index}].quantity`, String(item.quantity));
+      formData.append(`orderItems[${index}].price`, String(item.price));
+    });
+
+    if (payload.userCouponId) {
+      formData.append('userCouponId', payload.userCouponId);
+      formData.append('couponDiscountAmount', String(payload.couponDiscountAmount || 0));
+    }
+
+    if (payload.usedPoints !== undefined && payload.usedPoints !== null) {
+      formData.append('usedPoints', String(payload.usedPoints));
+    }
+
+    if (payload.finalAmount !== undefined && payload.finalAmount !== null) {
+      formData.append('finalAmount', String(payload.finalAmount));
+    }
+
+    const response = await fetch('/order/create', {
+      method: 'POST',
+      body: formData,
+      credentials: 'include'
+    });
+
+    const data = await response.json();
+    if (!data.success) {
+      throw new Error(data.message || '주문 생성에 실패했습니다.');
+    }
+    return data;
+  }
+</script>
+</body>
+</html>

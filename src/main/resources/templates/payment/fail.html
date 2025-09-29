@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('결제에 실패했습니다.')}"></head>
+<body>
+<header th:replace="~{fragments/layout :: header}"></header>
+
+<main class="page-main" style="padding:40px 0;">
+  <section class="page-card" style="max-width:720px;margin:0 auto;">
+    <h1 class="page-title">결제에 실패했어요.</h1>
+    <p class="page-subtitle">결제를 다시 시도하거나 다른 결제 수단을 이용해 주세요.</p>
+
+    <div class="alert" style="margin-top:24px;">
+      <h2 style="font-size:1rem; margin-bottom:8px;">실패 사유</h2>
+      <p th:text="${message} ?: '일시적인 오류가 발생했습니다.'">일시적인 오류가 발생했습니다.</p>
+      <p style="margin-top:12px; color:#6b7280;" th:if="${errorCode}">오류 코드: <span th:text="${errorCode}"></span></p>
+    </div>
+
+    <div class="actions" style="margin-top:32px; display:flex; gap:12px;">
+      <a class="btn" th:href="@{/cart}">장바구니로 돌아가기</a>
+      <a class="btn secondary" th:href="@{/}">홈으로</a>
+    </div>
+  </section>
+</main>
+
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+
+<script>
+  sessionStorage.removeItem('pendingOrderPayload');
+</script>
+</body>
+</html>
