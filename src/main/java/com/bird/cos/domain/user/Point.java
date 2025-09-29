@@ -1,6 +1,5 @@
 package com.bird.cos.domain.user;
 
-import com.bird.cos.domain.common.CommonCode;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,6 +8,9 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
+/**
+ * 기존 포인트 엔티티 (EventService 등에서 사용)
+ */
 @Getter
 @Builder
 @NoArgsConstructor
@@ -23,20 +25,23 @@ public class Point {
     private Long pointId;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
     @Column(name = "point_amount", nullable = false)
     private Integer pointAmount;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "pointType", referencedColumnName = "code_id")
-    private CommonCode pointType;
-
-    @Column(name = "point_description", length = 255, nullable = false)
+    @Column(name = "point_description", length = 500)
     private String pointDescription;
 
-    @Column(name = "point_created_at", insertable = false, updatable = false)
-    private LocalDateTime pointCreatedAt;
+    @Column(name = "point_created_at", nullable = false)
+    @Builder.Default
+    private LocalDateTime pointCreatedAt = LocalDateTime.now();
 
+    @PrePersist
+    protected void onCreate() {
+        if (pointCreatedAt == null) {
+            pointCreatedAt = LocalDateTime.now();
+        }
+    }
 }
