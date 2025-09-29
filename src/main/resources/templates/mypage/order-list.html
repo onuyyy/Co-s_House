@@ -535,16 +535,16 @@
             <div class="user-info">
                 <div class="user-badge">
                     <span>C</span>
-                    <span>쿠폰 3</span>
+                    <span th:text="'쿠폰 ' + ${myCouponCount}">쿠폰</span>
                 </div>
                 <div class="point-badge">
                     <span>P</span>
-                    <span>포인트 0P</span>
+                    <span th:text="'포인트 ' + ${#numbers.formatInteger(myPointCount, 0, 'COMMA')} + 'P'">포인트 0P</span>
                 </div>
-                <div class="grade-badge">
-                    <span>W</span>
-                    <span>구매등급 WELCOME</span>
-                </div>
+<!--                <div class="grade-badge">-->
+<!--                    <span>W</span>-->
+<!--                    <span>구매등급 WELCOME</span>-->
+<!--                </div>-->
             </div>
         </div>
 

@@ -5,22 +5,26 @@ import com.bird.cos.dto.mypage.MypageUserManageResponse;
 import com.bird.cos.dto.mypage.MypageUserUpdateRequest;
 import com.bird.cos.dto.order.MyOrderResponse;
 import com.bird.cos.security.CustomUserDetails;
+import com.bird.cos.service.event.EventService;
+import com.bird.cos.service.mypage.CouponService;
 import com.bird.cos.service.mypage.MypageService;
 import com.bird.cos.service.order.OrderService;
+import com.bird.cos.service.user.PointService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.http.ResponseEntity;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequiredArgsConstructor
@@ -30,6 +34,9 @@ public class MypageController {
 
     private final MypageService mypageService;
     private final OrderService orderService;
+    private final CouponService couponService;
+    private final PointService pointService;
+    private final EventService eventService;
 
     /**
      * 마이페이지 홈
@@ -122,6 +129,13 @@ public class MypageController {
         model.addAttribute("orders", orderPage.getContent());
         model.addAttribute("orderPage", orderPage);
         model.addAttribute("searchRequest", request != null ? request : new MyOrderRequest());
+
+        // 쿠폰 개수 / 포인트 가져오기
+        long myCouponCnt = couponService.getMyCouponsCount(user.getUserId());
+        Integer myPointCnt = Optional.ofNullable(pointService.getAvailablePoints(user.getUserId())).orElse(0);
+
+        model.addAttribute("myCouponCount", myCouponCnt);
+        model.addAttribute("myPointCount", myPointCnt);
 
         // 주문 상태별 카운트 (현재 페이지 기준)
         List<MyOrderResponse> allOrders = orderPage.getContent();

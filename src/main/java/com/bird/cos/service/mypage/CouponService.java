@@ -255,4 +255,7 @@ public class CouponService {
         }
     }
 
+    public long getMyCouponsCount(Long userId) {
+        return userCouponRepository.countByUser_UserIdAndCoupon_IsActive(userId, true);
+    }
 }
