@@ -61,17 +61,23 @@ public class CartService {
 
         int requestQty = quantity == null ? 1 : quantity;
 
+        String selectedOptions = prepareSelectedOptions(request.selectedOptions(), product);
+
         Cart cart = cartHeaderRepository.findByUser(user)
                 .orElseGet(() -> cartHeaderRepository.save(Cart.of(user)));
 
-        CartItem item = cartItemRepository.findByCartAndProduct(cart, product)
-                .orElseGet(() -> CartItem.of(cart, product, 0, null));
+        CartItem item = cartItemRepository.findByCartAndProductAndSelectedOptions(cart, product, selectedOptions)
+                .orElseGet(() -> CartItem.of(cart, product, 0, selectedOptions));
 
         int desired = defaultZero(item.getQuantity()) + requestQty;
         int normalized = normalizeQuantity(desired, product.getStockQuantity());
 
         item.setQuantity(normalized);
         item.setCart(cart);
+        if ((selectedOptions == null && item.getSelectedOptions() != null)
+                || (selectedOptions != null && !selectedOptions.equals(item.getSelectedOptions()))) {
+            item.setSelectedOptions(selectedOptions);
+        }
         cartItemRepository.save(item);
     }
 
@@ -169,16 +175,51 @@ public class CartService {
         for (GuestItem g : items) {
             Product product = productRepository.findById(g.productId)
                     .orElseThrow(() -> new RuntimeException("상품을 찾을 수 없습니다."));
-            CartItem item = cartItemRepository.findByCartAndProduct(cart, product)
-                    .orElseGet(() -> CartItem.of(cart, product, 0, g.selectedOptions));
+            String selectedOptions = prepareSelectedOptions(g.selectedOptions, product);
+            CartItem item = cartItemRepository.findByCartAndProductAndSelectedOptions(cart, product, selectedOptions)
+                    .orElseGet(() -> CartItem.of(cart, product, 0, selectedOptions));
             int desired = defaultZero(item.getQuantity()) + defaultZero(g.quantity);
             int normalized = normalizeQuantity(desired, product.getStockQuantity());
             item.setQuantity(normalized);
+            item.setCart(cart);
+            if ((selectedOptions == null && item.getSelectedOptions() != null)
+                    || (selectedOptions != null && !selectedOptions.equals(item.getSelectedOptions()))) {
+                item.setSelectedOptions(selectedOptions);
+            }
             cartItemRepository.save(item);
         }
     }
 
     public record GuestItem(Long productId, Integer quantity, String selectedOptions) {}
+
+    private String prepareSelectedOptions(String rawSelectedOptions, Product product) {
+        if (rawSelectedOptions == null) {
+            return null;
+        }
+        String trimmed = rawSelectedOptions.trim();
+        if (trimmed.isEmpty()) {
+            return null;
+        }
+
+        Long optionId;
+        try {
+            optionId = Long.parseLong(trimmed);
+        } catch (NumberFormatException e) {
+            throw new RuntimeException("유효한 옵션 ID가 아닙니다.");
+        }
+
+        ProductOption option = productOptionRepository.findById(optionId)
+                .orElseThrow(() -> new RuntimeException("옵션을 찾을 수 없습니다."));
+
+        if (option.getProduct() == null || product == null
+                || option.getProduct().getProductId() == null
+                || product.getProductId() == null
+                || !option.getProduct().getProductId().equals(product.getProductId())) {
+            throw new RuntimeException("해당 상품의 옵션이 아닙니다.");
+        }
+
+        return optionId.toString();
+    }
 
     private CartSummaryDto summarize(User user, List<CartItem> entities, List<CartItemResponseDto> items) {
         int totalQty = items.stream()
