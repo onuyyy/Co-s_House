@@ -9,9 +9,6 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-/**
- * 기존 포인트 Repository (EventService 등에서 사용)
- */
 @Repository
 public interface PointRepository extends JpaRepository<Point, Long> {
 

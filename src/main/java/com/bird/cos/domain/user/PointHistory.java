@@ -8,10 +8,6 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
-/**
- * 포인트 변동 내역 엔티티 (User와 N:1 관계)
- * 모든 포인트 적립/사용/만료 내역을 추적
- */
 @Getter
 @Builder
 @NoArgsConstructor
@@ -87,8 +83,6 @@ public class PointHistory {
     protected void onCreate() {
         this.createdAt = LocalDateTime.now();
     }
-
-    // == 정적 팩토리 메서드 ==
 
     /**
      * 포인트 적립 내역 생성

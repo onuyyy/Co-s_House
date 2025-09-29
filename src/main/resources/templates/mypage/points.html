@@ -331,21 +331,21 @@
             <div class="point-summary-title">나의 포인트</div>
         </div>
         <div class="point-main">
-            <div class="point-amount">0</div>
+            <div class="point-amount" th:text="${#numbers.formatInteger(currentPoints, 0, 'COMMA')}">0</div>
             <div class="point-unit">P</div>
         </div>
         <div class="point-info-grid">
             <div class="point-info-item">
                 <div class="point-info-label">이번 달 적립</div>
-                <div class="point-info-value">0P</div>
+                <div class="point-info-value" th:text="${#numbers.formatInteger(monthlyEarn, 0, 'COMMA') + 'P'}">0P</div>
             </div>
             <div class="point-info-item">
                 <div class="point-info-label">이번 달 사용</div>
-                <div class="point-info-value">0P</div>
+                <div class="point-info-value" th:text="${#numbers.formatInteger(monthlyUse, 0, 'COMMA') + 'P'}">0P</div>
             </div>
             <div class="point-info-item">
                 <div class="point-info-label">소멸 예정</div>
-                <div class="point-info-value">0P</div>
+                <div class="point-info-value" th:text="${#numbers.formatInteger(expiringPoints, 0, 'COMMA') + 'P'}">0P</div>
             </div>
         </div>
     </div>
@@ -354,32 +354,38 @@
     <div class="tabs">
         <ul class="tab-list">
             <li class="tab-item">
-                <a href="?type=ALL" class="tab-link">전체</a>
+                <a href="?type=ALL" 
+                   class="tab-link" 
+                   th:classappend="${searchRequest == null || searchRequest.type == null || searchRequest.type == 'ALL'} ? 'active' : ''">전체</a>
             </li>
             <li class="tab-item">
-                <a href="?type=EARN" class="tab-link">적립</a>
+                <a href="?type=EARN" 
+                   class="tab-link"
+                   th:classappend="${searchRequest != null && searchRequest.type == 'EARN'} ? 'active' : ''">적립</a>
             </li>
             <li class="tab-item">
-                <a href="?type=USE" class="tab-link">사용</a>
+                <a href="?type=USE" 
+                   class="tab-link"
+                   th:classappend="${searchRequest != null && searchRequest.type == 'USE'} ? 'active' : ''">사용</a>
             </li>
         </ul>
     </div>
 
     <!-- 필터 섹션 -->
-    <form method="get">
-        <input type="hidden" name="type">
+    <form method="get" action="/mypage/points">
+        <input type="hidden" name="type" th:value="${searchRequest != null ? searchRequest.type : 'ALL'}">
         <div class="filter-section">
             <div class="filter-left">
                 <select class="filter-select" name="period" onchange="this.form.submit()">
-                    <option value="ALL">전체</option>
-                    <option value="MONTH_1">최근 1개월</option>
-                    <option value="MONTH_3">최근 3개월</option>
-                    <option value="MONTH_6">최근 6개월</option>
-                    <option value="YEAR_1">최근 1년</option>
+                    <option value="ALL" th:selected="${searchRequest == null || searchRequest.period == null || searchRequest.period == 'ALL'}">전체</option>
+                    <option value="MONTH_1" th:selected="${searchRequest != null && searchRequest.period == 'MONTH_1'}">최근 1개월</option>
+                    <option value="MONTH_3" th:selected="${searchRequest != null && searchRequest.period == 'MONTH_3'}">최근 3개월</option>
+                    <option value="MONTH_6" th:selected="${searchRequest != null && searchRequest.period == 'MONTH_6'}">최근 6개월</option>
+                    <option value="YEAR_1" th:selected="${searchRequest != null && searchRequest.period == 'YEAR_1'}">최근 1년</option>
                 </select>
             </div>
             <div class="filter-info">
-                <span>총 0건</span>
+                <span th:text="'총 ' + ${totalElements} + '건'">총 0건</span>
             </div>
         </div>
     </form>
@@ -395,40 +401,57 @@
         </div>
 
         <!-- 빈 상태 -->
-        <div class="empty-point">
+        <div class="empty-point" th:if="${pointsPage.content.isEmpty()}">
             <div class="empty-point-icon">💰</div>
             <div class="empty-point-text">포인트 내역이 없습니다.</div>
         </div>
 
         <!-- 포인트 내역 -->
-        <div class="point-list-item">
-            <div class="point-date">2024.01.15 14:30</div>
-            <div class="point-description">상품 구매</div>
+        <div th:each="point : ${pointsPage.content}" class="point-list-item">
+            <div class="point-date" th:text="${#temporals.format(point.createdAt, 'yyyy.MM.dd HH:mm')}">2024.01.15 14:30</div>
+            <div class="point-description" th:text="${point.description}">상품 구매</div>
             <div class="point-type">
-                <span class="point-badge">적립</span>
+                <span class="point-badge" 
+                      th:classappend="${point.pointType == 'EARN'} ? 'earn' : 'use'"
+                      th:text="${point.pointType == 'EARN'} ? '적립' : '사용'">적립</span>
             </div>
-            <div class="point-amount-col">+1,000P</div>
-            <div class="point-balance">10,000P</div>
+            <div class="point-amount-col" 
+                 th:classappend="${point.pointType == 'EARN'} ? 'plus' : 'minus'"
+                 th:text="${point.pointType == 'EARN' ? '+' : '-'} + ${#numbers.formatInteger(point.amount, 0, 'COMMA')} + 'P'">+1,000P</div>
+            <div class="point-balance" th:text="${#numbers.formatInteger(point.balance, 0, 'COMMA')} + 'P'">10,000P</div>
         </div>
     </div>
 
     <!-- 페이징 -->
-    <div class="pagination-container">
+    <div class="pagination-container" th:if="${!pointsPage.content.isEmpty()}">
         <nav>
             <ul class="pagination">
                 <!-- 이전 버튼 -->
-                <li class="page-item">
-                    <a class="page-link">‹ 이전</a>
+                <li class="page-item" th:classappend="${pointsPage.first} ? 'disabled' : ''">
+                    <a class="page-link" 
+                       th:href="@{/mypage/points(page=${pointsPage.number - 1}, size=${pointsPage.size}, type=${searchRequest?.type}, period=${searchRequest?.period})}"
+                       th:unless="${pointsPage.first}">‹ 이전</a>
+                    <span class="page-link" th:if="${pointsPage.first}">‹ 이전</span>
                 </li>
 
                 <!-- 페이지 번호 -->
-                <li class="page-item">
-                    <a class="page-link">1</a>
-                </li>
+                <th:block th:with="start=${T(java.lang.Math).max(0, pointsPage.number - 2)}, 
+                                   end=${T(java.lang.Math).min(pointsPage.totalPages - 1, pointsPage.number + 2)}">
+                    <li class="page-item" 
+                        th:each="i : ${#numbers.sequence(start, end)}"
+                        th:classappend="${i == pointsPage.number} ? 'active' : ''">
+                        <a class="page-link" 
+                           th:href="@{/mypage/points(page=${i}, size=${pointsPage.size}, type=${searchRequest?.type}, period=${searchRequest?.period})}"
+                           th:text="${i + 1}">1</a>
+                    </li>
+                </th:block>
 
                 <!-- 다음 버튼 -->
-                <li class="page-item">
-                    <a class="page-link">다음 ›</a>
+                <li class="page-item" th:classappend="${pointsPage.last} ? 'disabled' : ''">
+                    <a class="page-link" 
+                       th:href="@{/mypage/points(page=${pointsPage.number + 1}, size=${pointsPage.size}, type=${searchRequest?.type}, period=${searchRequest?.period})}"
+                       th:unless="${pointsPage.last}">다음 ›</a>
+                    <span class="page-link" th:if="${pointsPage.last}">다음 ›</span>
                 </li>
             </ul>
         </nav>

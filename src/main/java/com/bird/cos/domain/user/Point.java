@@ -8,9 +8,6 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
-/**
- * 기존 포인트 엔티티 (EventService 등에서 사용)
- */
 @Getter
 @Builder
 @NoArgsConstructor

@@ -4,12 +4,17 @@ import com.bird.cos.domain.user.PointHistory;
 import com.bird.cos.domain.user.PointType;
 import com.bird.cos.domain.user.User;
 import com.bird.cos.domain.user.UserPoint;
+import com.bird.cos.dto.mypage.MyPointRequest;
+import com.bird.cos.dto.mypage.MyPointResponse;
+import com.bird.cos.dto.mypage.MyPointSummary;
 import com.bird.cos.exception.BusinessException;
 import com.bird.cos.repository.user.PointHistoryRepository;
 import com.bird.cos.repository.user.UserPointRepository;
 import com.bird.cos.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -202,4 +207,60 @@ public class PointService {
         }
     }
 
+    /**
+     * 사용자 포인트 내역 조회 (페이징, 필터링)
+     * @param userId 사용자 ID
+     * @param request 검색 조건
+     * @param pageable 페이징 정보
+     * @return 포인트 내역 페이지
+     */
+    public Page<MyPointResponse> getMyPointsHistory(Long userId, MyPointRequest request, Pageable pageable) {
+        Page<PointHistory> historyPage = pointHistoryRepository.searchPointHistory(userId, request, pageable);
+
+        return historyPage.map(this::convertToMyPointResponse);
+    }
+
+    /**
+     * 사용자 포인트 통계 조회
+     * @param userId 사용자 ID
+     * @return 포인트 통계 정보
+     */
+    public MyPointSummary getPointSummary(Long userId) {
+        // 현재 포인트
+        Integer currentPoint = getAvailablePoints(userId);
+
+        // 이번 달 적립/사용 포인트
+        java.time.LocalDateTime now = java.time.LocalDateTime.now();
+        int year = now.getYear();
+        int month = now.getMonthValue();
+
+        Integer monthEarned = pointHistoryRepository.getMonthlyEarnedPoints(userId, year, month);
+        Integer monthUsed = pointHistoryRepository.getMonthlyUsedPoints(userId, year, month);
+
+        // 소멸 예정 포인트 (임시로 0 설정, 실제로는 만료일 기준으로 계산)
+        Integer expiringPoint = 0;
+
+        return MyPointSummary.builder()
+                .currentPoint(currentPoint != null ? currentPoint : 0)
+                .monthEarned(monthEarned != null ? monthEarned : 0)
+                .monthUsed(monthUsed != null ? monthUsed : 0)
+                .expiringPoint(expiringPoint)
+                .build();
+    }
+
+    /**
+     * PointHistory를 MyPointResponse로 변환
+     */
+    private MyPointResponse convertToMyPointResponse(PointHistory history) {
+        return MyPointResponse.builder()
+                .pointHistoryId(history.getPointHistoryId())
+                .pointType(history.getType())
+                .points(history.getAbsoluteAmount())
+                .balance(history.getBalanceAfter())
+                .description(history.getDescription())
+                .createdAt(history.getCreatedAt())
+                .referenceId(history.getReferenceId())
+                .referenceType(history.getReferenceType())
+                .build();
+    }
 }

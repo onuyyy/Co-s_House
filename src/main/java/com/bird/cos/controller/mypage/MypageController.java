@@ -1,11 +1,8 @@
 package com.bird.cos.controller.mypage;
 
-import com.bird.cos.dto.mypage.MyOrderRequest;
-import com.bird.cos.dto.mypage.MypageUserManageResponse;
-import com.bird.cos.dto.mypage.MypageUserUpdateRequest;
+import com.bird.cos.dto.mypage.*;
 import com.bird.cos.dto.order.MyOrderResponse;
 import com.bird.cos.security.CustomUserDetails;
-import com.bird.cos.service.event.EventService;
 import com.bird.cos.service.mypage.CouponService;
 import com.bird.cos.service.mypage.MypageService;
 import com.bird.cos.service.order.OrderService;
@@ -36,7 +33,6 @@ public class MypageController {
     private final OrderService orderService;
     private final CouponService couponService;
     private final PointService pointService;
-    private final EventService eventService;
 
     /**
      * 마이페이지 홈
@@ -122,8 +118,8 @@ public class MypageController {
     public String mypageOrderList(@AuthenticationPrincipal CustomUserDetails user,
                                    @ModelAttribute MyOrderRequest request,
                                    Model model,
-                                   @PageableDefault(size = 10) Pageable pageable) {
-        
+                                   @PageableDefault(size = 10) Pageable pageable)
+    {
         Page<MyOrderResponse> orderPage = orderService.getMyOrders(user.getUserId(), request, pageable);
         
         model.addAttribute("orders", orderPage.getContent());
@@ -156,12 +152,41 @@ public class MypageController {
         return "mypage/order-list";
     }
 
-    @GetMapping("/points")
-    public String mypagePointPage() {
-
-
-
-        return  "mypage/points";
+    /**
+     * 적립금 내역 조회
+     * @param user 인증된 사용자 정보
+     * @param pageable 페이징 정보
+     * @param request 검색 조건
+     * @param model 뷰에 전달할 데이터
+     * @return 적립금 내역 페이지
+     */
+    @RequestMapping(value = "/points", method =  {RequestMethod.GET, RequestMethod.POST})
+    public String mypagePointPage(@AuthenticationPrincipal CustomUserDetails user,
+                                  @PageableDefault(size = 10, sort = "createdAt,desc") Pageable pageable,
+                                  MyPointRequest request,
+                                  Model model)
+    {
+        // 적립금 내역 조회
+        Page<MyPointResponse> pointsPage = pointService.getMyPointsHistory(user.getUserId(), request, pageable);
+        
+        // 현재 보유 적립금 조회
+        Integer currentPoints = Optional.ofNullable(pointService.getAvailablePoints(user.getUserId())).orElse(0);
+        
+        // 이번 달 적립/사용 금액 조회 (서비스에 메서드가 있다면 사용, 없으면 0으로 표시)
+        Integer monthlyEarn = 0;  // TODO: pointService.getMonthlyEarnPoints() 구현 필요
+        Integer monthlyUse = 0;   // TODO: pointService.getMonthlyUsePoints() 구현 필요
+        Integer expiringPoints = 0; // TODO: pointService.getExpiringPoints() 구현 필요
+        
+        // Model에 데이터 추가
+        model.addAttribute("pointsPage", pointsPage);
+        model.addAttribute("currentPoints", currentPoints);
+        model.addAttribute("monthlyEarn", monthlyEarn);
+        model.addAttribute("monthlyUse", monthlyUse);
+        model.addAttribute("expiringPoints", expiringPoints);
+        model.addAttribute("searchRequest", request != null ? request : new MyPointRequest());
+        model.addAttribute("totalElements", pointsPage.getTotalElements());
+        
+        return "mypage/points";
     }
 
 }
