@@ -1,7 +1,9 @@
 package com.bird.cos.service.product;
 
 import com.bird.cos.domain.product.Product;
+import com.bird.cos.domain.product.ProductImage;
 import com.bird.cos.domain.product.ProductOption;
+import com.bird.cos.repository.product.ProductImageRepository;
 import com.bird.cos.repository.product.ProductOptionRepository;
 import com.bird.cos.repository.product.ProductRepository;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +19,7 @@ public class ProductService {
 
     private final ProductRepository productRepository;
     private final ProductOptionRepository productOptionRepository;
-
+    private final ProductImageRepository productImageRepository;
     // DB에 있는 모든 상품을 조회하는 메서드
     @Transactional(readOnly = true)
     public List<Product> getAllProducts() {
@@ -82,6 +84,10 @@ public class ProductService {
     @Transactional(readOnly = true)
     public List<ProductOption> getOptionsByProductId(Long productId) {
         return productOptionRepository.findByProduct_ProductId(productId);
+    }
+
+    public List<ProductImage> getImagesByProductId(Long productId) {
+        return productImageRepository.findByProduct_ProductId(productId);
     }
 }
 

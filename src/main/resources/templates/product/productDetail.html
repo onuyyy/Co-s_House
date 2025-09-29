@@ -198,6 +198,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            margin-top: 8px;
         }
 
         .option-qty-container {
@@ -205,6 +206,13 @@
             align-items: center;
             border: 1px solid var(--border-color);
             border-radius: var(--border-radius-sm);
+            overflow: hidden;
+        }
+
+        .option-qty-price-group {
+            display: flex;
+            align-items: center;
+            gap: 16px; /* 수량 조절기와 가격 사이의 간격 */
         }
 
         .option-qty-btn {
@@ -224,7 +232,10 @@
             font-size: 1.1rem;
         }
         .remove-option-btn {
-            background: none; border: none; font-size: 1.5rem; color: var(--text-color-secondary); cursor: pointer;
+            background: none;
+            border: none; font-size: 1.5rem; color: var(--text-color-secondary);
+            cursor: pointer;
+            padding: 0 4px;
         }
 
         /* 총 주문 금액 */
@@ -654,7 +665,39 @@
             color: var(--primary-color);
         }
 
+        /* 별점 컨테이너 스타일 */
+        .rating-section {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
 
+
+        .stars-outer {
+            position: relative;
+            font-size: 1.2rem;
+            color: var(--border-color, #dbdbdb);
+            display: inline-block;
+        }
+
+
+        .stars-inner {
+            position: absolute;
+            top: 0;
+            left: 0;
+            white-space: nowrap;
+            overflow: hidden;
+            font-size: 1.2rem;
+            color: var(--warning-color, #ffc107);
+        }
+
+        /* 리뷰 개수 스타일 */
+        .review-count {
+            font-size: 1rem;
+            color: var(--text-color-secondary, #828c94);
+            font-weight: 500;
+        }
     </style>
 </head>
 
@@ -681,10 +724,17 @@
             <div class="product-header">
                 <!-- 상품 이미지 -->
                 <div class="product-image">
-                    <div class="image-placeholder">
-                        상품 이미지
+                    <img th:src="${product.mainImageUrl}" alt="상품 대표 이미지" style="width:100%;">
+
+                    <div class="thumbnail-images" style="margin-top:10px;">
+                        <img th:each="image : ${productImages}"
+                             th:src="${image.imageUrl}"
+                             th:alt="${image.altText}"
+                             style="width:80px; height:80px; margin-right:5px; cursor:pointer;"
+                             onclick="changeMainImage(this.src)">
                     </div>
                 </div>
+
 
                 <!-- 상품 정보 -->
                 <div class="product-info"
@@ -705,11 +755,14 @@
 
                     <h1 class="product-title" th:text="${product.productTitle}">상품명</h1>
 
-                    <!-- 평점 -->
                     <div class="rating-section">
-                        <span class="star-rating">★</span>
-                        <span class="rating-score" th:text="${product.averageRating}">4.8</span>
-                        <span class="review-count" th:text="'리뷰 ' + ${#numbers.formatInteger(product.reviewCount, 0, 'COMMA')}">리뷰 4,069</span>
+                        <div class="stars-outer">
+                            ★★★★★
+                            <div class="stars-inner" th:style="${'width: ' + (overallAverageRating / 5.0 * 100) + '%'}">
+                                ★★★★★
+                            </div>
+                        </div>
+                        <span class="review-count" th:text="${#numbers.formatInteger(totalReviewCount, 0, 'COMMA')} + '개 리뷰'">99,386개 리뷰</span>
                     </div>
 
                     <!-- 가격 -->
@@ -718,7 +771,7 @@
                               class="discount-rate"
                               th:text="${product.discountRate} + '%'"></span>
                         <span class="current-price"
-                              th:text="${#numbers.formatInteger(product.salePrice != null ? product.salePrice : product.originalPrice, 0, 'COMMA')} + '원'">39,900원</span>
+                              th:text="${#numbers.formatInteger(product.salePrice != null ? product.salePrice : product.originalPrice, 0, 'COMMA')}">39,900</span>
                         <span th:if="${product.salePrice != null and product.salePrice < product.originalPrice}"
                               class="original-price"
                               th:text="${#numbers.formatInteger(product.originalPrice, 0, 'COMMA')} + '원'"></span>
@@ -1329,24 +1382,27 @@
         }
 
         container.style.display = 'block';
+        optionsList.innerHTML = selectedOptions.map((option, index) => {
+            // 개별 옵션의 총 가격을 계산합니다.
+            const optionTotalPrice = getOptionTotalPrice(option);
 
-        optionsList.innerHTML = selectedOptions.map((option, index) => `
+            return `
             <div class="option-item" data-option-index="${index}">
-                <div class="option-info">
-                    <div class="option-name">${option.name}: ${option.value}</div>
-                </div>
+                <div class="option-name">${option.name}: ${option.value}</div>
                 <div class="option-controls">
-                    <div class="option-qty-container">
-                        <button class="option-qty-btn" onclick="changeOptionQuantity(${index}, -1)">−</button>
-                        <input class="option-qty-input" type="number" min="1" value="${option.quantity}"
-                               onchange="setOptionQuantity(${index}, this.value)" readonly>
-                        <button class="option-qty-btn" onclick="changeOptionQuantity(${index}, 1)">+</button>
-
-                    <div class="option-price">${formatCurrency(getOptionTotalPrice(option))}원</div>
+                    <div class="option-qty-price-group">
+                        <div class="option-qty-container">
+                            <button class="option-qty-btn" onclick="changeOptionQuantity(${index}, -1)">-</button>
+                            <input class="option-qty-input" type="text" value="${option.quantity}" readonly>
+                            <button class="option-qty-btn" onclick="changeOptionQuantity(${index}, 1)">+</button>
+                        </div>
+                        <div class="option-price">${formatCurrency(optionTotalPrice)}원</div>
+                    </div>
                     <button class="remove-option-btn" onclick="removeOption(${index})" title="옵션 제거">×</button>
                 </div>
             </div>
-        `).join('');
+        `;
+        }).join('');
     }
 
     // 옵션 수량 변경
@@ -1786,6 +1842,9 @@
         window.location.href = url.toString();
     }
 
+    function changeMainImage(src) {
+        document.querySelector('.product-image > img').src = src;
+    }
 
 </script>
 </body>
