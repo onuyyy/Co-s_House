@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<!--    <th:block th:insert="~{fragments/layout :: common-head}"></th:block>-->
-<!--    <title>코딩의집 | 쇼핑</title>-->
+    <!--    <th:block th:insert="~{fragments/layout :: common-head}"></th:block>-->
+    <!--    <title>코딩의집 | 쇼핑</title>-->
     <style>
         :root {
             --primary-color: #3c9dfc; /* 메인 색상 (파란색) */
@@ -328,28 +328,159 @@
         }
         .write-review-btn:hover { background-color: var(--primary-dark-color); }
 
-        /* 필터 */
+
+
+        /* 드롭다운 필터 */
+        .dropdown-filters {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        .filter-dropdown {
+            flex: 1;
+            max-width: 250px;
+        }
+        .filter-label {
+            font-size: 0.85rem;
+            color: var(--text-color-secondary);
+            margin-bottom: 6px;
+            font-weight: 500;
+        }
+        .dropdown-select {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius-md);
+            font-size: 0.95rem;
+            background-color: var(--white-color);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .dropdown-select:hover {
+            border-color: var(--primary-color);
+        }
+        .dropdown-select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(53, 197, 240, 0.1);
+        }
+
+        /* 커스텀 별점 드롭다운 */
+        .custom-dropdown {
+            position: relative;
+        }
+        .dropdown-header {
+            padding: 10px 14px;
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius-md);
+            background-color: var(--white-color);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.2s;
+        }
+        .dropdown-header:hover {
+            border-color: var(--primary-color);
+        }
+        .dropdown-header.open {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(53, 197, 240, 0.1);
+        }
+        .dropdown-arrow {
+            font-size: 0.7rem;
+            color: var(--text-color-secondary);
+            transition: transform 0.2s;
+        }
+        .dropdown-header.open .dropdown-arrow {
+            transform: rotate(180deg);
+        }
+        .dropdown-content {
+            position: absolute;
+            top: calc(100% + 4px);
+            left: 0;
+            right: 0;
+            background-color: var(--white-color);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius-md);
+            box-shadow: var(--shadow-medium);
+            z-index: 100;
+            display: none;
+            max-height: 320px;
+            overflow-y: auto;
+        }
+        .dropdown-content.show {
+            display: block;
+        }
+        .rating-option {
+            padding: 12px 16px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .rating-option:hover {
+            background-color: var(--background-color-light);
+        }
+        .rating-option:first-child {
+            border-bottom: 1px solid var(--border-color);
+        }
+        .rating-text {
+            font-size: 0.95rem;
+            color: var(--text-color-primary);
+        }
+        .rating-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 6px;
+        }
+        .rating-item .stars {
+            color: var(--warning-color);
+            font-size: 0.9rem;
+        }
+        .rating-count {
+            font-size: 0.85rem;
+            color: var(--text-color-secondary);
+            font-weight: 500;
+        }
+        .rating-bar {
+            width: 100%;
+            height: 4px;
+            background-color: #e9ecef;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+        .rating-fill {
+            height: 100%;
+            background-color: var(--primary-color);
+            transition: width 0.3s ease;
+        }
+
+        /* 필터 탭 */
         .filter-tabs {
             display: flex;
             flex-wrap: wrap;
             gap: 8px;
             margin-bottom: 24px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0;
         }
         .filter-tab {
-            padding: 8px 16px;
-            border-radius: 20px;
-            background-color: var(--white-color);
-            border: 1px solid var(--border-color);
+            padding: 12px 20px;
+            border-radius: 0;
+            background-color: transparent;
+            border: none;
+            border-bottom: 2px solid transparent;
             color: var(--text-color-secondary);
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             cursor: pointer;
             transition: all 0.2s;
+            font-weight: 500;
         }
         .filter-tab.active, .filter-tab:hover {
-            background-color: var(--primary-color);
-            color: var(--white-color);
-            border-color: var(--primary-color);
-            font-weight: 500;
+            background-color: transparent;
+            color: var(--text-color-primary);
+            border-bottom: 2px solid var(--text-color-primary);
+            font-weight: 600;
         }
 
         /* 리뷰 아이템 - 카드형 UI */
@@ -522,6 +653,8 @@
             font-weight: bold;
             color: var(--primary-color);
         }
+
+
     </style>
 </head>
 
@@ -666,20 +799,23 @@
 
             <!-- 상품 설명 아래 탭 -->
             <div class="product-tabs">
-                <div class="tab-link" onclick="openTab(event, 'reviews')">리뷰 <span th:text="${totalReviewCount}"></span></div>
+                <div class="tab-link" onclick="openTab(event, 'reviews')">
+                    리뷰 <span th:text="${totalReviewCount}"></span>
+                </div>
                 <div class="tab-link" onclick="openTab(event, 'inquiry')">문의</div>
             </div>
 
             <div id="reviews" class="tab-content">
                 <div class="header">
+                    <!-- 리뷰 요약 섹션 -->
                     <div class="review-summary">
                         <div class="rating-overview">
                             <div class="average-rating" th:text="${#numbers.formatDecimal(overallAverageRating, 1, 1)}">4.4</div>
                             <div class="stars" id="overallStars">☆☆☆☆☆</div>
+                            <!-- totalReviewCount를 고정값으로 표시 -->
                             <div class="review-count" th:text="|총 ${totalReviewCount}개의 리뷰|">총 0개의 리뷰</div>
                         </div>
-                        <a th:href="@{/product/{productId}/reviews/new(productId=${productId})}"
-                           class="write-review-btn">
+                        <a th:href="@{/product/{productId}/reviews/new(productId=${productId})}" class="write-review-btn">
                             리뷰 작성하기
                         </a>
                     </div>
@@ -764,29 +900,17 @@
 
                         <!-- 기존 탭 필터 -->
                         <div class="filter-tabs">
-                            <a href="#" onclick="applyFilter('all')"
-                               th:class="'filter-tab' + (${currentFilter == 'all'} ? ' active' : '')">
-                                전체 <span class="count" th:text="'(' + ${filterCounts.all} + ')'"></span>
+                            <a href="#" onclick="applySort('latest')" data-filter-type="sort" data-value="latest"
+                               th:class="'filter-tab' + (${currentSort == 'latest' && currentFilter == 'all'} ? ' active' : '')">
+                                최신순
                             </a>
-                            <a href="#" onclick="applyFilter('photo')"
-                               th:class="'filter-tab' + (${currentFilter == 'photo'} ? ' active' : '')">
-                                포토리뷰
-                            </a>
-                            <a href="#" onclick="applyFilter('verified')"
-                               th:class="'filter-tab' + (${currentFilter == 'verified'} ? ' active' : '')">
-                                구매자
-                            </a>
-                            <a href="#" onclick="applySort('rating-high')"
-                               th:class="'filter-tab' + (${currentSort == 'rating-high'} ? ' active' : '')">
+                            <a href="#" onclick="applySort('rating-high')" data-filter-type="sort" data-value="rating-high"
+                               th:class="'filter-tab' + (${currentSort == 'rating-high' && currentFilter == 'all'} ? ' active' : '')">
                                 평점 높은순
                             </a>
-                            <a href="#" onclick="applySort('rating-low')"
-                               th:class="'filter-tab' + (${currentSort == 'rating-low'} ? ' active' : '')">
-                                평점 낮은순
-                            </a>
-                            <a href="#" onclick="applySort('latest')"
-                               th:class="'filter-tab' + (${currentSort == 'latest'} ? ' active' : '')">
-                                최신순
+                            <a href="#" onclick="applyFilter('photo')" data-filter-type="filter" data-value="photo"
+                               th:class="'filter-tab' + (${currentFilter == 'photo'} ? ' active' : '')">
+                                사진리뷰
                             </a>
                         </div>
                     </div>
@@ -924,7 +1048,7 @@
                             th:onclick="'goToQuestionPage(' + (${currentQuestionPage} + 1) + ')'">다음</button>
                 </div>
             </div>
-        </main>
+</main>
 
 
 <script th:inline="javascript">
@@ -1110,8 +1234,8 @@
     const currentSort = /*[[${currentSort}]]*/ 'latest';
     const currentRatingRange = /*[[${currentRatingRange}]]*/ null;
     const currentOptionId = /*[[${currentOptionId}]]*/ null;
-    const overallAverageRating = /*[[${overallAverageRating}]]*/ 0.0;
     const totalReviewCount = /*[[${totalReviewCount}]]*/ 0;
+    const overallAverageRating = /*[[${overallAverageRating}]]*/ 0.0;
 
     // 리뷰 이미지 클릭 시 확대 보기
     document.querySelectorAll('.review-image').forEach(img => {
@@ -1378,22 +1502,33 @@
         const optionId = optionFilter ? optionFilter.value || null : null;
         const ratingRange = currentRatingRange;
 
+        document.querySelectorAll('.filter-tab').forEach(tab => {
+            tab.classList.remove('active');
+        });
+
+        event.currentTarget.classList.add('active');
+
         updateURL({
             filter: filter,
-            sort: currentSort,
+            sort: 'latest',
             ratingRange: ratingRange,
             optionId: optionId
         });
     }
-
     // 정렬 탭 클릭
     function applySort(sort) {
         const optionFilter = document.getElementById('optionFilter');
         const optionId = optionFilter ? optionFilter.value || null : null;
         const ratingRange = currentRatingRange;
 
+        document.querySelectorAll('.filter-tab').forEach(tab => {
+            tab.classList.remove('active');
+        });
+
+        event.currentTarget.classList.add('active');
+
         updateURL({
-            filter: currentFilter,
+            filter: 'all',
             sort: sort,
             ratingRange: ratingRange,
             optionId: optionId
@@ -1422,6 +1557,7 @@
         }
 
         url.search = searchParams.toString();
+        url.hash = 'reviews'
         window.location.href = url.toString();
     }
 
