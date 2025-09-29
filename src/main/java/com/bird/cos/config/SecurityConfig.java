@@ -3,7 +3,7 @@ package com.bird.cos.config;
 import com.bird.cos.security.ProblemDetailsAccessDeniedHandler;
 import com.bird.cos.security.ProblemDetailsAuthenticationEntryPoint;
 import com.bird.cos.security.RegisterSecurityFilter;
-import com.bird.cos.security.oauth.KakaoOAuth2UserService;
+import com.bird.cos.security.oauth.SocialOAuth2UserService;
 import com.bird.cos.security.oauth.OAuth2LoginSuccessHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -40,7 +40,7 @@ import org.springframework.security.web.context.SecurityContextRepository;
 public class SecurityConfig {
 
     private final Environment environment;
-    private final KakaoOAuth2UserService kakaoOAuth2UserService;
+    private final SocialOAuth2UserService socialOAuth2UserService;
     private final OAuth2LoginSuccessHandler oAuth2LoginSuccessHandler;
 
     @Bean
@@ -121,7 +121,7 @@ public class SecurityConfig {
                 // 기본 폼 로그인은 비활성화(커스텀 로그인 사용). dev 프로파일일 때만 Basic 허용
                 .oauth2Login(oauth -> oauth
                         .loginPage("/controller/register/login")
-                        .userInfoEndpoint(userInfo -> userInfo.userService(kakaoOAuth2UserService))
+                        .userInfoEndpoint(userInfo -> userInfo.userService(socialOAuth2UserService))
                         .successHandler(oAuth2LoginSuccessHandler)
                 )
                 .formLogin(AbstractHttpConfigurer::disable);

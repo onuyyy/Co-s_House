@@ -1,8 +1,8 @@
 <!doctype html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/layout :: head('코딩의 집 | 홈')"></head>
+<head th:replace="~{fragments/layout :: head('코딩의 집 | 홈')}"></head>
 <body class="page font-body">
-  <header th:replace="fragments/layout :: header"></header>
+  <header th:replace="~{fragments/layout :: header}"></header>
 
   <main class="page-main">
     <!-- Top hero -->
@@ -98,7 +98,7 @@
     </section>
   </main>
 
-  <footer th:replace="fragments/layout :: footer"></footer>
+  <footer th:replace="~{fragments/layout :: footer}"></footer>
 
   <link rel="stylesheet" th:href="@{/css/sections.css}">
   <link rel="stylesheet" th:href="@{/css/home.css}">
