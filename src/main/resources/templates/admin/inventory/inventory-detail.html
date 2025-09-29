@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/admin-layout}"
+      lang="ko">
+<head>
+    <title>재고 상세</title>
+    <script>
+        function openModal() {
+            document.getElementById('receiptModal').style.display = 'block';
+            document.getElementById('receiptDate').valueAsDate = new Date();
+        }
+
+        function closeModal() {
+            document.getElementById('receiptModal').style.display = 'none';
+        }
+    </script>
+    <style>
+        .detail-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .info-card {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+        .info-row:last-child {
+            border-bottom: none;
+        }
+        .info-label {
+            font-weight: 500;
+            color: #666;
+            width: 150px;
+        }
+        .info-value {
+            color: #333;
+            flex: 1;
+        }
+        .status-badge {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        .status-normal { background-color: #d4edda; color: #155724; }
+        .status-warning { background-color: #fff3cd; color: #856404; }
+        .status-danger { background-color: #f8d7da; color: #721c24; }
+        .btn-group {
+            text-align: center;
+            margin-top: 30px;
+        }
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            margin: 0 5px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .btn-primary { background-color: #007bff; color: white; }
+        .btn-success { background-color: #28a745; color: white; }
+        .btn-secondary { background-color: #6c757d; color: white; }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 20px;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        .modal-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+        }
+        .close {
+            color: #aaa;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            line-height: 1;
+        }
+        .close:hover {
+            color: #000;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+            color: #333;
+        }
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+        .modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+        .btn-modal {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .btn-modal-cancel {
+            background-color: #6c757d;
+            color: white;
+        }
+        .btn-modal-submit {
+            background-color: #28a745;
+            color: white;
+        }
+        .btn-modal:hover {
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+    <div layout:fragment="content-header" class="content-header">
+        <h2 style="color: #333; font-size: 20px;">재고 상세</h2>
+    </div>
+
+    <div layout:fragment="content">
+        <div class="detail-container">
+            <!-- 상품 정보 -->
+            <div class="info-card">
+                <h3>상품 정보</h3>
+                <div class="info-row">
+                    <span class="info-label">상품 ID</span>
+                    <span class="info-value" th:text="${inventory.productId}">1</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">상품명</span>
+                    <span class="info-value" th:text="${inventory.productTitle}">상품명</span>
+                </div>
+            </div>
+
+            <!-- 재고 정보 -->
+            <div class="info-card">
+                <h3>재고 정보</h3>
+                <div class="info-row">
+                    <span class="info-label">현재 재고</span>
+                    <span class="info-value">
+                        <span th:text="${inventory.currentQuantity}">100</span>개
+                    </span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">안전 재고</span>
+                    <span class="info-value">
+                        <span th:text="${inventory.safetyQuantity}">20</span>개
+                    </span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">재고 상태</span>
+                    <span class="info-value">
+                        <span th:if="${inventory.currentQuantity <= inventory.safetyQuantity}"
+                              class="status-badge status-danger">재주문 필요</span>
+                        <span th:if="${inventory.currentQuantity > inventory.safetyQuantity and inventory.currentQuantity <= inventory.safetyQuantity * 2}"
+                              class="status-badge status-warning">주의</span>
+                        <span th:if="${inventory.currentQuantity > inventory.safetyQuantity * 2}"
+                              class="status-badge status-normal">정상</span>
+                    </span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">생성일</span>
+                    <span class="info-value" th:text="${#temporals.format(inventory.inventoryCreatedDate, 'yyyy-MM-dd HH:mm')}">2024-09-26 10:00</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">수정일</span>
+                    <span class="info-value" th:text="${#temporals.format(inventory.inventoryUpdatedDate, 'yyyy-MM-dd HH:mm')}">2024-09-26 10:00</span>
+                </div>
+            </div>
+
+            <!-- 버튼 그룹 -->
+            <div class="btn-group">
+                <a href="/api/admin/inventory" class="btn btn-secondary">목록으로</a>
+                <button id="openReceiptBtn" class="btn btn-success" onclick="openModal()">입고 처리</button>
+                <button id="viewHistoryBtn" class="btn btn-primary">재고 이력</button>
+            </div>
+        </div>
+
+        <!-- 입고처리 모달 -->
+        <div id="receiptModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">입고 처리</h3>
+                    <span id="closeReceiptBtn" class="close" onclick="closeModal()">&times;</span>
+                </div>
+                <form id="receiptForm">
+                    <input type="hidden" id="hiddenProductId" name="productId" th:value="${inventory.productId}">
+                    <div class="form-group">
+                        <label for="productId">상품 ID</label>
+                        <input type="number" id="productId" class="form-control"
+                               th:value="${inventory.productId}" disabled>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="receiptQuantity">입고 수량</label>
+                        <div style="font-size: 12px; color: #666; margin-bottom: 5px;">
+                            현재 재고: <span th:text="${inventory.currentQuantity}">0</span>개
+                        </div>
+                        <input type="number" id="receiptQuantity" name="receiptQuantity" class="form-control"
+                               min="1" required placeholder="추가할 수량을 입력하세요">
+                        <small style="color: #666; font-size: 12px;">※ 입력한 수량만큼 현재 재고에 추가됩니다</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="receiptDate">입고 날짜</label>
+                        <input type="date" id="receiptDate" name="receiptDate" class="form-control" required readonly>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="receiptStatus">입고 상태</label>
+                        <select id="receiptStatus" name="receiptStatus" class="form-control" required>
+                            <option value="">선택하세요</option>
+                            <option value="PENDING">대기</option>
+                            <option value="COMPLETED">완료</option>
+                            <option value="CANCELLED">취소</option>
+                        </select>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" id="cancelReceiptBtn" class="btn-modal btn-modal-cancel" onclick="closeModal()">취소</button>
+                        <button type="submit" class="btn-modal btn-modal-submit">입고 처리</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- 재고이력 모달 -->
+        <div id="historyModal" class="modal">
+            <div class="modal-content" style="max-width: 800px;">
+                <div class="modal-header">
+                    <h3 class="modal-title">재고 이력</h3>
+                    <span id="closeHistoryBtn" class="close">&times;</span>
+                </div>
+                <div id="historyContent">
+                    <p style="text-align: center; padding: 20px; color: #666;">
+                        재고 이력을 불러오는 중...
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="closeHistoryFooterBtn" class="btn-modal btn-modal-cancel">닫기</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        // DOM 로드 완료 후 이벤트 리스너 등록
+        document.addEventListener('DOMContentLoaded', function() {
+
+
+            function openHistoryModal() {
+                console.log('재고이력 모달 열기');
+                const modal = document.getElementById('historyModal');
+                if (modal) {
+                    modal.style.display = 'block';
+                    loadInventoryHistory();
+                }
+            }
+
+            function closeHistoryModal() {
+                console.log('재고이력 모달 닫기');
+                const modal = document.getElementById('historyModal');
+                if (modal) modal.style.display = 'none';
+            }
+
+            // 버튼 이벤트 리스너 등록
+            const openReceiptBtn = document.getElementById('openReceiptBtn');
+            if (openReceiptBtn) {
+                openReceiptBtn.addEventListener('click', function() {
+                    document.getElementById('receiptModal').style.display = 'block';
+                    document.getElementById('receiptDate').valueAsDate = new Date();
+                });
+            }
+
+            const viewHistoryBtn = document.getElementById('viewHistoryBtn');
+            if (viewHistoryBtn) {
+                viewHistoryBtn.addEventListener('click', openHistoryModal);
+            }
+
+            // 모달 닫기 버튼들
+            const closeReceiptBtn = document.getElementById('closeReceiptBtn');
+            if (closeReceiptBtn) {
+                closeReceiptBtn.addEventListener('click', function() {
+                    document.getElementById('receiptModal').style.display = 'none';
+                });
+            }
+
+            const cancelReceiptBtn = document.getElementById('cancelReceiptBtn');
+            if (cancelReceiptBtn) {
+                cancelReceiptBtn.addEventListener('click', function() {
+                    document.getElementById('receiptModal').style.display = 'none';
+                });
+            }
+
+            const closeHistoryBtn = document.getElementById('closeHistoryBtn');
+            if (closeHistoryBtn) {
+                closeHistoryBtn.addEventListener('click', closeHistoryModal);
+            }
+
+            const closeHistoryFooterBtn = document.getElementById('closeHistoryFooterBtn');
+            if (closeHistoryFooterBtn) {
+                closeHistoryFooterBtn.addEventListener('click', closeHistoryModal);
+            }
+
+            // 모달 외부 클릭시 닫기
+            window.addEventListener('click', function(event) {
+                const receiptModal = document.getElementById('receiptModal');
+                const historyModal = document.getElementById('historyModal');
+                if (event.target === receiptModal) {
+                    closeReceiptModal();
+                }
+                if (event.target === historyModal) {
+                    closeHistoryModal();
+                }
+            });
+
+            // 입고처리 폼 제출 이벤트 리스너
+            const receiptForm = document.getElementById('receiptForm');
+            if (receiptForm) {
+                receiptForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+
+                    const formData = {
+                        productId: parseInt(document.getElementById('hiddenProductId').value),
+                        receiptQuantity: parseInt(document.getElementById('receiptQuantity').value),
+                        receiptDate: document.getElementById('receiptDate').value,
+                        receiptStatus: document.getElementById('receiptStatus').value
+                    };
+
+                    fetch('/api/admin/inventory/receipt', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(formData)
+                    })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('입고 처리에 실패했습니다.');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        alert('입고 처리가 완료되었습니다.');
+                        closeReceiptModal();
+                        // 페이지 새로고침하여 업데이트된 재고 정보 표시
+                        location.reload();
+                    })
+                    .catch((error) => {
+                        alert('입고 처리 중 오류가 발생했습니다: ' + error.message);
+                        console.error('Error:', error);
+                    });
+                });
+            }
+
+            // 재고이력 로드 (나중에 구현)
+            function loadInventoryHistory() {
+                document.getElementById('historyContent').innerHTML =
+                    `<p style="text-align: center; padding: 20px; color: #666;">
+                        재고 이력 기능은 추후 구현될 예정입니다.
+                    </p>`;
+            }
+        });
+    </script>
+</body>
+</html>

@@ -55,16 +55,82 @@
             color: #999;
         }
         .product-info {
-            min-width: 200px;
+            min-width: 120px;
+            max-width: 150px;
         }
         .product-title {
             font-weight: 500;
             margin-bottom: 4px;
-            line-height: 1.3;
+            line-height: 1.2;
+            font-size: 13px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
         }
         .product-id {
             font-size: 12px;
             color: #666;
+        }
+        .date-cell {
+            font-size: 12px;
+            color: #666;
+            white-space: nowrap;
+        }
+        .detail-btn {
+            background: none;
+            border: 1px solid #007bff;
+            color: #007bff;
+            padding: 4px 12px;
+            font-size: 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .detail-btn:hover {
+            background-color: #007bff;
+            color: white;
+        }
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 5px;
+            margin-top: 20px;
+        }
+        .pagination a, .pagination span {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            text-decoration: none;
+            color: #007bff;
+        }
+        .pagination a:hover {
+            background-color: #f5f5f5;
+        }
+        .pagination .current {
+            background-color: #007bff;
+            color: white;
+            border-color: #007bff;
+        }
+        .pagination .page-group {
+            font-weight: bold;
+        }
+        .pagination .page-group:hover {
+            background-color: #e9ecef;
+        }
+        .product-title {
+            cursor: help;
+        }
+        .product-title:hover::after {
+            content: attr(data-title);
+            position: absolute;
+            background: #333;
+            color: white;
+            padding: 5px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            white-space: nowrap;
+            z-index: 1000;
+            margin-top: 5px;
+            margin-left: -10px;
         }
     </style>
 </head>
@@ -107,7 +173,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr th:each="inventory : ${inventoryList}"
+                    <tr th:each="inventory : ${inventoryPage.content}"
                         th:classappend="${inventory.currentQuantity <= inventory.safetyQuantity} ? 'low-stock' : ''">
                         <td class="image-cell">
                             <img th:if="${inventory.mainImageUrl != null and !inventory.mainImageUrl.isEmpty()}"
@@ -118,7 +184,9 @@
                                  class="no-image">📷</div>
                         </td>
                         <td class="product-info">
-                            <div class="product-title" th:text="${inventory.productTitle}">상품명</div>
+                            <div class="product-title"
+                                 th:text="${inventory.productTitle}"
+                                 th:attr="data-title=${inventory.productTitle}">상품명</div>
                             <div class="product-id">ID: <span th:text="${inventory.productId}">1</span></div>
                         </td>
                         <td>
@@ -137,13 +205,15 @@
                             <span th:if="${inventory.currentQuantity > inventory.safetyQuantity * 2}"
                                   class="badge badge-success">정상</span>
                         </td>
-                        <td th:text="${#temporals.format(inventory.inventoryCreatedDate, 'yyyy-MM-dd HH:mm')}">2024-09-25 10:30</td>
-                        <td th:text="${#temporals.format(inventory.inventoryUpdatedDate, 'yyyy-MM-dd HH:mm')}">2024-09-25 10:30</td>
+                        <td class="date-cell" th:text="${#temporals.format(inventory.inventoryCreatedDate, 'MM-dd HH:mm')}">09-25 10:30</td>
+                        <td class="date-cell" th:text="${#temporals.format(inventory.inventoryUpdatedDate, 'MM-dd HH:mm')}">09-25 10:30</td>
                         <td>
-                            <button class="btn btn-sm btn-primary" th:onclick="|viewInventoryDetail(${inventory.inventoryId})|">상세보기</button>
+                            <form th:action="@{/api/admin/inventory/{inventoryId}(inventoryId=${inventory.inventoryId})}" method="get" style="display: inline;">
+                                <button type="submit" class="detail-btn">상세</button>
+                            </form>
                         </td>
                     </tr>
-                    <tr th:if="${#lists.isEmpty(inventoryList)}">
+                    <tr th:if="${inventoryPage.content.empty}">
                         <td colspan="8" style="text-align: center; padding: 40px; color: #999;">
                             재고 데이터가 없습니다.
                         </td>
@@ -151,16 +221,42 @@
                 </tbody>
             </table>
         </div>
-    </div>
-        <script>
-            function viewInventoryDetail(inventoryId) {
-                // 재고 상세보기 페이지로 이동 - 추후 구현
-                // 상세보기 페이지에서 재고 정보, 수정, 이력을 모두 볼 수 있음
-                alert('재고 상세보기 페이지로 이동합니다. (재고ID: ' + inventoryId + ')');
 
-                // 실제 구현시에는 다음과 같이 사용:
-                // window.location.href = '/api/admin/inventory/' + inventoryId;
-            }
-        </script>
+        <!-- Pagination -->
+        <div class="pagination" th:if="${inventoryPage.totalPages > 0}">
+            <!-- Previous -->
+            <a th:if="${inventoryPage.hasPrevious()}"
+               th:href="@{/api/admin/inventory(page=${inventoryPage.number - 1})}">‹</a>
+
+            <!-- Page Numbers (max 10 pages) -->
+            <th:block th:with="currentPage=${inventoryPage.number},
+                              totalPages=${inventoryPage.totalPages},
+                              startPage=${currentPage - (currentPage % 10)},
+                              endPage=${(startPage + 10 > totalPages) ? totalPages - 1 : startPage + 9}">
+
+                <!-- Previous Page Group -->
+                <a th:if="${startPage > 0}"
+                   th:href="@{/api/admin/inventory(page=${startPage - 1})}"
+                   class="page-group">«</a>
+
+                <!-- Current Page Group -->
+                <th:block th:each="pageNum : ${#numbers.sequence(startPage, endPage)}">
+                    <span th:if="${pageNum == currentPage}" class="current" th:text="${pageNum + 1}">1</span>
+                    <a th:unless="${pageNum == currentPage}"
+                       th:href="@{/api/admin/inventory(page=${pageNum})}"
+                       th:text="${pageNum + 1}">1</a>
+                </th:block>
+
+                <!-- Next Page Group -->
+                <a th:if="${endPage + 1 < totalPages}"
+                   th:href="@{/api/admin/inventory(page=${endPage + 1})}"
+                   class="page-group">»</a>
+            </th:block>
+
+            <!-- Next -->
+            <a th:if="${inventoryPage.hasNext()}"
+               th:href="@{/api/admin/inventory(page=${inventoryPage.number + 1})}">›</a>
+        </div>
+    </div>
 </body>
 </html>
