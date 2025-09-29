@@ -1,16 +1,26 @@
 package com.bird.cos.controller.mypage;
 
+import com.bird.cos.dto.mypage.MyOrderRequest;
 import com.bird.cos.dto.mypage.MypageUserManageResponse;
 import com.bird.cos.dto.mypage.MypageUserUpdateRequest;
+import com.bird.cos.dto.order.MyOrderResponse;
+import com.bird.cos.security.CustomUserDetails;
 import com.bird.cos.service.mypage.MypageService;
+import com.bird.cos.service.order.OrderService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
+
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -19,7 +29,7 @@ import org.springframework.http.ResponseEntity;
 public class MypageController {
 
     private final MypageService mypageService;
-
+    private final OrderService orderService;
 
     /**
      * 마이페이지 홈
@@ -96,6 +106,40 @@ public class MypageController {
             log.error("회원 탈퇴 처리 중 오류가 발생했습니다: {}", e.getMessage(), e);
             return "redirect:/mypage/mypageUser?error=withdrawal_failed";
         }
+    }
+
+    /**
+     * 주문 내역 조회
+     */
+    @RequestMapping(value = "/my-orders", method = {RequestMethod.GET, RequestMethod.POST})
+    public String mypageOrderList(@AuthenticationPrincipal CustomUserDetails user,
+                                   @ModelAttribute MyOrderRequest request,
+                                   Model model,
+                                   @PageableDefault(size = 10) Pageable pageable) {
+        
+        Page<MyOrderResponse> orderPage = orderService.getMyOrders(user.getUserId(), request, pageable);
+        
+        model.addAttribute("orders", orderPage.getContent());
+        model.addAttribute("orderPage", orderPage);
+        model.addAttribute("searchRequest", request != null ? request : new MyOrderRequest());
+
+        // 주문 상태별 카운트 (현재 페이지 기준)
+        List<MyOrderResponse> allOrders = orderPage.getContent();
+        long pendingCount = allOrders.stream().filter(o -> "ORDER_001".equals(o.getOrderStatusCode())).count();
+        long paidCount = allOrders.stream().filter(o -> "ORDER_002".equals(o.getOrderStatusCode())).count();
+        long preparingCount = allOrders.stream().filter(o -> "ORDER_003".equals(o.getOrderStatusCode())).count();
+        long shippingCount = allOrders.stream().filter(o -> "ORDER_004".equals(o.getOrderStatusCode())).count();
+        long deliveredCount = allOrders.stream().filter(o -> "ORDER_005".equals(o.getOrderStatusCode())).count();
+        long confirmedCount = allOrders.stream().filter(o -> "ORDER_006".equals(o.getOrderStatusCode())).count();
+
+        model.addAttribute("pendingCount", pendingCount);
+        model.addAttribute("paidCount", paidCount);
+        model.addAttribute("preparingCount", preparingCount);
+        model.addAttribute("shippingCount", shippingCount);
+        model.addAttribute("deliveredCount", deliveredCount);
+        model.addAttribute("confirmedCount", confirmedCount);
+
+        return "mypage/order-list";
     }
 
 }

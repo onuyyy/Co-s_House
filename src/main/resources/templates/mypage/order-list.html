@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>주문 내역 - COS Mall</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlKq2a7mS5tnEEn9F/nx0xwu1jHq+8a6B1Z4x1N2R5xjw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+    <link rel="stylesheet" th:href="@{/css/main/header.css}">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #f8f9fa;
+        }
+
+        .order-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* 헤더 영역 */
+        .page-header {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .user-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #f0f0f0;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+        }
+
+        .coupon-badge, .point-badge, .grade-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .coupon-badge {
+            background: #e8f4ff;
+            color: #1e88e5;
+        }
+
+        .point-badge {
+            background: #fff3e0;
+            color: #f57c00;
+        }
+
+        .grade-badge {
+            background: #f3e5f5;
+            color: #8e24aa;
+        }
+
+        .referral-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            border-radius: 10px;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .referral-code {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .referral-code strong {
+            font-size: 16px;
+        }
+
+        .referral-code .code {
+            background: rgba(255,255,255,0.2);
+            padding: 8px 15px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            letter-spacing: 2px;
+        }
+
+        .referral-reward {
+            text-align: right;
+        }
+
+        .recommend-btn {
+            background: white;
+            color: #667eea;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 25px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        /* 프로모션 배너 */
+        .promotion-banner {
+            background: linear-gradient(135deg, #1e88e5 0%, #1565c0 100%);
+            padding: 20px 30px;
+            border-radius: 10px;
+            color: white;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .promotion-banner:hover {
+            transform: translateX(5px);
+        }
+
+        .promotion-text {
+            font-size: 18px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .promotion-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        /* 주문 상태 탭 */
+        .order-status-tabs {
+            background: white;
+            padding: 0;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            overflow: hidden;
+        }
+
+        .status-header {
+            padding: 20px 30px;
+            background: #f8f9fa;
+            font-weight: bold;
+            font-size: 16px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .status-list {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+        }
+
+        .status-item {
+            text-align: center;
+            padding: 30px 20px;
+            border-right: 1px solid #e0e0e0;
+            cursor: pointer;
+            transition: background 0.2s;
+            position: relative;
+        }
+
+        .status-item:last-child {
+            border-right: none;
+        }
+
+        .status-item:hover {
+            background: #f8f9fa;
+        }
+
+        .status-label {
+            display: block;
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        .status-count {
+            display: block;
+            font-size: 28px;
+            font-weight: bold;
+            color: #1e88e5;
+        }
+
+        .status-arrow {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #ccc;
+            font-size: 20px;
+        }
+
+        /* 필터 섹션 */
+        .filter-section {
+            background: white;
+            padding: 20px 30px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            display: flex;
+            gap: 15px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .filter-select {
+            padding: 10px 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+            cursor: pointer;
+            background: white;
+        }
+
+        .search-box {
+            flex: 1;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 10px 40px 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        .search-btn {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+            color: #666;
+        }
+
+        /* 주문 목록 */
+        .order-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .order-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .order-header {
+            background: #f8f9fa;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .order-date {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .order-number {
+            font-size: 14px;
+            color: #999;
+            margin-left: 20px;
+        }
+
+        .order-body {
+            padding: 30px;
+        }
+
+        .order-item {
+            display: flex;
+            gap: 20px;
+            padding-bottom: 20px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .order-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .product-image {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 8px;
+            background: #f0f0f0;
+        }
+
+        .product-info {
+            flex: 1;
+        }
+
+        .product-name {
+            font-size: 16px;
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        .product-option {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 5px;
+        }
+
+        .product-quantity {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .product-price {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .order-status {
+            text-align: center;
+            min-width: 120px;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 500;
+            margin-bottom: 15px;
+        }
+
+        .status-badge.pending {
+            background: #fff3e0;
+            color: #f57c00;
+        }
+
+        .status-badge.paid {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .status-badge.preparing {
+            background: #e3f2fd;
+            color: #1565c0;
+        }
+
+        .status-badge.shipping {
+            background: #f3e5f5;
+            color: #7b1fa2;
+        }
+
+        .status-badge.delivered {
+            background: #e0f2f1;
+            color: #00695c;
+        }
+
+        .status-badge.confirmed {
+            background: #f5f5f5;
+            color: #616161;
+        }
+
+        .action-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .btn {
+            padding: 8px 15px;
+            border: 1px solid #ddd;
+            background: white;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 13px;
+            transition: all 0.2s;
+        }
+
+        .btn:hover {
+            background: #f8f9fa;
+        }
+
+        .btn-primary {
+            background: #1e88e5;
+            color: white;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background: #1565c0;
+        }
+
+        .empty-orders {
+            text-align: center;
+            padding: 80px 20px;
+            background: white;
+            border-radius: 10px;
+        }
+
+        .empty-orders-icon {
+            font-size: 60px;
+            color: #ddd;
+            margin-bottom: 20px;
+        }
+
+        .empty-orders-text {
+            font-size: 16px;
+            color: #999;
+            margin-bottom: 30px;
+        }
+
+        .btn-shop {
+            display: inline-block;
+            padding: 12px 30px;
+            background: #1e88e5;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 500;
+        }
+
+        .btn-shop:hover {
+            background: #1565c0;
+        }
+
+        /* 페이징 스타일 */
+        .pagination-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 40px;
+            padding: 20px;
+        }
+
+        .pagination {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .page-item {
+            display: inline-block;
+        }
+
+        .page-link {
+            display: block;
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            background: white;
+            color: #333;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: all 0.2s;
+            min-width: 40px;
+            text-align: center;
+        }
+
+        .page-link:hover {
+            background: #f8f9fa;
+            border-color: #1e88e5;
+            color: #1e88e5;
+        }
+
+        .page-item.active .page-link {
+            background: #1e88e5;
+            color: white;
+            border-color: #1e88e5;
+        }
+
+        .page-item.disabled .page-link {
+            background: #f8f9fa;
+            color: #ccc;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+
+        .page-info {
+            margin-top: 20px;
+            text-align: center;
+            color: #666;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+<!-- 헤더 -->
+<header th:replace="~{fragments/layout :: header}"></header>
+
+<!-- 메인 컨텐츠 -->
+<div class="order-container">
+    <!-- 헤더 영역 -->
+    <div class="page-header">
+        <div class="header-top">
+            <div class="user-info">
+                <div class="user-badge">
+                    <span>C</span>
+                    <span>쿠폰 3</span>
+                </div>
+                <div class="point-badge">
+                    <span>P</span>
+                    <span>포인트 0P</span>
+                </div>
+                <div class="grade-badge">
+                    <span>W</span>
+                    <span>구매등급 WELCOME</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="referral-section">
+            <div class="referral-code">
+                <strong>나의 추천코드</strong>
+                <span class="code">QA1R3813</span>
+            </div>
+            <div class="referral-reward">
+                <div>나는 5000P, 친구는 5000원 쿠폰</div>
+                <button class="recommend-btn">추천하기</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 프로모션 배너 -->
+    <div class="promotion-banner">
+        <div class="promotion-text">
+            <div class="promotion-icon">W</div>
+            <span>친구와 함께 각 5,000원 지급! 초대하고 최대 100만원 받기</span>
+        </div>
+        <span>›</span>
+    </div>
+
+    <!-- 주문 상태 탭 -->
+    <div class="order-status-tabs">
+        <div class="status-header">진행중인 주문 (최근 3개월)</div>
+        <div class="status-list">
+            <div class="status-item">
+                <span class="status-label">입금대기</span>
+                <span class="status-count" th:text="${pendingCount}">0</span>
+                <span class="status-arrow">›</span>
+            </div>
+            <div class="status-item">
+                <span class="status-label">결제완료</span>
+                <span class="status-count" th:text="${paidCount}">0</span>
+                <span class="status-arrow">›</span>
+            </div>
+            <div class="status-item">
+                <span class="status-label">배송준비</span>
+                <span class="status-count" th:text="${preparingCount}">0</span>
+                <span class="status-arrow">›</span>
+            </div>
+            <div class="status-item">
+                <span class="status-label">배송중</span>
+                <span class="status-count" th:text="${shippingCount}">0</span>
+                <span class="status-arrow">›</span>
+            </div>
+            <div class="status-item">
+                <span class="status-label">배송완료</span>
+                <span class="status-count" th:text="${deliveredCount}">0</span>
+                <span class="status-arrow">›</span>
+            </div>
+            <div class="status-item">
+                <span class="status-label">구매확정</span>
+                <span class="status-count" th:text="${confirmedCount}">0</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- 필터 섹션 -->
+    <form th:action="@{/mypage/my-orders}" method="get">
+        <div class="filter-section">
+            <select class="filter-select" name="searchDate" onchange="this.form.submit()">
+                <option value="ALL" th:selected="${searchRequest == null or searchRequest.searchDate == null or searchRequest.searchDate.name() == 'ALL'}">전체(최대 5년)</option>
+                <option value="MONTH_3" th:selected="${searchRequest != null and searchRequest.searchDate != null and searchRequest.searchDate.name() == 'MONTH_3'}">최근 3개월</option>
+                <option value="MONTH_6" th:selected="${searchRequest != null and searchRequest.searchDate != null and searchRequest.searchDate.name() == 'MONTH_6'}">최근 6개월</option>
+                <option value="MONTH_12" th:selected="${searchRequest != null and searchRequest.searchDate != null and searchRequest.searchDate.name() == 'MONTH_12'}">최근 1년</option>
+            </select>
+            <select class="filter-select" name="orderStatus" onchange="this.form.submit()">
+                <option value="ALL" th:selected="${searchRequest == null or searchRequest.orderStatus == null or searchRequest.orderStatus == 'ALL'}">주문 전체</option>
+                <option value="ORDER_001" th:selected="${searchRequest != null and searchRequest.orderStatus == 'ORDER_001'}">입금대기</option>
+                <option value="ORDER_002" th:selected="${searchRequest != null and searchRequest.orderStatus == 'ORDER_002'}">결제완료</option>
+                <option value="ORDER_003" th:selected="${searchRequest != null and searchRequest.orderStatus == 'ORDER_003'}">배송준비</option>
+                <option value="ORDER_004" th:selected="${searchRequest != null and searchRequest.orderStatus == 'ORDER_004'}">배송중</option>
+                <option value="ORDER_005" th:selected="${searchRequest != null and searchRequest.orderStatus == 'ORDER_005'}">배송완료</option>
+                <option value="ORDER_006" th:selected="${searchRequest != null and searchRequest.orderStatus == 'ORDER_006'}">구매확정</option>
+            </select>
+            <div class="search-box">
+                <input type="text" class="search-input" name="searchValue" 
+                       th:value="${searchRequest != null ? searchRequest.searchValue : ''}"
+                       placeholder="상품명, 옵션명, 브랜드명으로 검색하세요">
+                <button type="submit" class="search-btn">🔍</button>
+            </div>
+        </div>
+    </form>
+
+    <!-- 주문 목록 -->
+    <div class="order-list">
+        <div th:if="${orders == null or orders.isEmpty()}" class="empty-orders">
+            <div class="empty-orders-icon">📦</div>
+            <div class="empty-orders-text">주문 내역이 없습니다.</div>
+            <a href="/" class="btn-shop">쇼핑하러 가기</a>
+        </div>
+
+        <div th:each="order : ${orders}" class="order-card">
+            <div class="order-header">
+                <div>
+                    <span class="order-date" th:text="${#temporals.format(order.orderDate, 'yyyy.MM.dd HH:mm')}">2024.01.15 14:30</span>
+                    <span class="order-number" th:text="'주문번호: ' + ${order.orderId}">주문번호: 123456</span>
+                </div>
+                <span th:text="${order.orderStatus}">결제완료</span>
+            </div>
+
+            <div class="order-body">
+                <div th:each="item : ${order.items}" class="order-item">
+                    <img th:if="${item.productImage != null}" 
+                         th:src="${item.productImage}" 
+                         alt="상품 이미지" 
+                         class="product-image">
+                    <div th:if="${item.productImage == null}" class="product-image"></div>
+
+                    <div class="product-info">
+                        <div class="product-name" th:text="${item.productName}">상품명</div>
+                        <div th:if="${item.productOptionName != null}" 
+                             class="product-option" 
+                             th:text="${item.productOptionName}">옵션: 블랙 / M</div>
+                        <div class="product-quantity" th:text="'수량: ' + ${item.quantity} + '개'">수량: 1개</div>
+                    </div>
+
+                    <div class="product-price" th:text="${#numbers.formatInteger(item.price, 0, 'COMMA')} + '원'">25,000원</div>
+
+                    <div class="order-status">
+                        <span class="status-badge" 
+                              th:classappend="${item.deliveryStatusCode == 'DELIVERY_001'} ? '배송 준비' :
+                                             (${item.deliveryStatusCode == 'DELIVERY_002'} ? '배송 출발' :
+                                             (${item.deliveryStatusCode == 'DELIVERY_003'} ? '베송 중' :
+                                             (${item.deliveryStatusCode == 'DELIVERY_004'} ? '배송 완료' : '준비 중')))"
+                              th:text="${item.deliveryStatus}">배송준비</span>
+                        <div class="action-buttons">
+                            <button class="btn" th:if="${item.deliveryStatusCode == 'DELIVERY_003'}">배송조회</button>
+                            <button class="btn btn-primary" 
+                                    th:if="${item.deliveryStatusCode == 'DELIVERY_004' and order.confirmedDate == null}">
+                                구매확정
+                            </button>
+                            <button class="btn" th:if="${order.confirmedDate != null}">리뷰작성</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 페이징 -->
+    <div th:if="${orderPage != null and orderPage.totalPages > 0}" class="pagination-container">
+        <nav>
+            <ul class="pagination">
+                <!-- 이전 버튼 -->
+                <li class="page-item" th:classappend="${!orderPage.hasPrevious()} ? 'disabled'">
+                    <a class="page-link" th:href="@{/mypage/my-orders(page=${orderPage.number - 1}, size=${orderPage.size})}"
+                       th:if="${orderPage.hasPrevious()}">‹ 이전</a>
+                    <span class="page-link" th:unless="${orderPage.hasPrevious()}">‹ 이전</span>
+                </li>
+
+                <!-- 페이지 번호 -->
+                <li th:each="i : ${#numbers.sequence(0, orderPage.totalPages - 1)}" 
+                    class="page-item"
+                    th:classappend="${i == orderPage.number} ? 'active'">
+                    <a class="page-link" 
+                       th:href="@{/mypage/my-orders(page=${i}, size=${orderPage.size})}"
+                       th:text="${i + 1}">1</a>
+                </li>
+
+                <!-- 다음 버튼 -->
+                <li class="page-item" th:classappend="${!orderPage.hasNext()} ? 'disabled'">
+                    <a class="page-link" th:href="@{/mypage/my-orders(page=${orderPage.number + 1}, size=${orderPage.size})}"
+                       th:if="${orderPage.hasNext()}">다음 ›</a>
+                    <span class="page-link" th:unless="${orderPage.hasNext()}">다음 ›</span>
+                </li>
+            </ul>
+        </nav>
+
+    </div>
+</div>
+
+<!-- 푸터 -->
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+</body>
+</html>
