@@ -182,7 +182,7 @@ public class ReviewController {
         try {
             String userNickname = userDetails.getNickname();
             reviewService.createReview(productId, requestDto, userNickname, imageFiles);
-            return "redirect:/product/" + productId + "/reviews";
+            return "redirect:/product/" + productId+ "#reviews";
         } catch (Exception e) {
             log.error("리뷰 작성 중 오류 발생", e);
             model.addAttribute("error", "리뷰 작성 중 오류가 발생했습니다: " + e.getMessage());

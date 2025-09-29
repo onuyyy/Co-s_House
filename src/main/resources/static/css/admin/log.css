@@ -1,0 +1,92 @@
+.search-section {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+}
+
+.search-section form {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.date-separator {
+    display: flex;
+    align-items: center;
+    color: #666;
+}
+
+.time-cell {
+    font-family: monospace;
+    font-size: 0.9em;
+    white-space: nowrap;
+}
+
+.user-cell {
+    min-width: 120px;
+}
+
+.username {
+    font-weight: 500;
+    color: #333;
+}
+
+.email-sub {
+    font-size: 0.8em;
+    color: #6c757d;
+    margin-top: 2px;
+}
+
+.ip-cell {
+    font-family: monospace;
+    font-size: 0.9em;
+    color: #495057;
+}
+
+.url-cell {
+    font-family: monospace;
+    font-size: 0.85em;
+    color: #007bff;
+    cursor: pointer;
+    word-break: break-all;
+}
+
+.user-agent-cell {
+    font-family: monospace;
+    font-size: 0.8em;
+    color: #6c757d;
+    cursor: pointer;
+    word-break: break-all;
+}
+
+.data-table table {
+    min-width: 900px;
+}
+
+.data-table th {
+    padding: 12px 8px;
+    text-align: left;
+    white-space: nowrap;
+}
+
+.data-table td {
+    padding: 12px 8px;
+}
+
+@media (max-width: 768px) {
+    .search-section form {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .search-input {
+        width: 100% !important;
+    }
+
+    .data-table th,
+    .data-table td {
+        padding: 8px 4px;
+        font-size: 0.9em;
+    }
+}

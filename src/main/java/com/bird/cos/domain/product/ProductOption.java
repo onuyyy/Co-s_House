@@ -3,11 +3,15 @@ package com.bird.cos.domain.product;
 import com.bird.cos.domain.common.CommonCode;
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.*;
 
 import java.math.BigDecimal;
 
 @Getter
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 @Table(name = "PRODUCT_OPTION")
 public class ProductOption {
 

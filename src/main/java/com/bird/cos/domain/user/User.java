@@ -28,10 +28,10 @@ public class User {
     @JoinColumn(name = "user_role")
     private UserRole userRole;
 
-    @Column(name = "user_email", length = 255, unique = true, nullable = false)
+    @Column(name = "user_email", unique = true, nullable = false)
     private String userEmail;
 
-    @Column(name = "user_password", length = 255)
+    @Column(name = "user_password")
     private String userPassword;
 
     @Column(name = "user_nickname", length = 20, unique = true, nullable = false)
@@ -49,7 +49,7 @@ public class User {
     @Column(name = "social_provider", length = 20)
     private String socialProvider;
 
-    @Column(name = "social_id", length = 255)
+    @Column(name = "social_id")
     private String socialId;
 
     @Column(name = "terms_agreed")
@@ -109,5 +109,40 @@ public class User {
 
     public void updatePassword(String encodedPassword) {
         this.userPassword = encodedPassword;
+    }
+
+    public void updateEmail(String email) {
+        if (email != null && !email.trim().isEmpty()) {
+            this.userEmail = email.trim();
+        }
+    }
+
+    public void updateNameIfBlank(String name) {
+        if ((this.userName == null || this.userName.trim().isEmpty()) && name != null && !name.trim().isEmpty()) {
+            this.userName = name.trim();
+        }
+    }
+
+    public void updateNickname(String nickname) {
+        if (nickname != null && !nickname.trim().isEmpty()) {
+            this.userNickname = nickname.trim();
+        }
+    }
+
+    public void linkSocialAccount(String provider, String id) {
+        this.socialProvider = provider;
+        this.socialId = id;
+    }
+
+    public void agreeTerms() {
+        this.termsAgreed = true;
+    }
+
+    public void markEmailVerified() {
+        this.emailVerified = true;
+    }
+
+    public void updateUserRole(UserRole newRole) {
+        this.userRole = newRole;
     }
 }

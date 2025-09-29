@@ -1,0 +1,248 @@
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.search-section {
+    margin-bottom: 20px;
+}
+
+.search-section form {
+    display: flex;
+    gap: 10px;
+}
+
+.search-section select {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.data-table table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.data-table th, .data-table td {
+    padding: 15px;
+    text-align: center;
+}
+
+.data-table thead {
+    background-color: #f8f9fa;
+}
+
+.data-table tbody tr {
+    border-bottom: 1px solid #e9ecef;
+}
+
+.data-table tbody tr td:last-child {
+    padding: 40px;
+    color: #666;
+    text-align: center;
+}
+
+.data-table a {
+    text-decoration: none;
+    color: #007bff;
+    font-weight: 500;
+}
+
+.pagination {
+    margin-top: 30px;
+    display: flex;
+    gap: 5px;
+    justify-content: center;
+}
+
+.pagination a, .pagination span {
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    background: white;
+    border-radius: 4px;
+    text-decoration: none;
+    color: #333;
+}
+
+.pagination .current {
+    background: #007bff;
+    color: white;
+    border-color: #007bff;
+}
+
+.pagination a:hover {
+    background: #f8f9fa;
+}
+
+/* Notice Detail Page Styles */
+.mode-selector {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    padding: 10px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+}
+
+.mode-btn {
+    padding: 8px 16px;
+    border: 1px solid #dee2e6;
+    background-color: #ffffff;
+    color: #6c757d;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.mode-btn:hover {
+    background-color: #e9ecef;
+}
+
+.mode-btn.active {
+    background-color: #007bff;
+    color: white;
+    border-color: #007bff;
+}
+
+.notice-detail-card {
+    background: white;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    padding: 24px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.notice-detail-card h3 {
+    color: #495057;
+    margin-bottom: 20px;
+    font-size: 18px;
+}
+
+.notice-detail-grid {
+    display: grid;
+    grid-template-columns: 150px 1fr;
+    gap: 12px 20px;
+    margin-bottom: 20px;
+}
+
+.notice-detail-label {
+    font-weight: 600;
+    background-color: #f8f9fa;
+    padding: 8px 12px;
+    border-radius: 6px;
+    color: #495057;
+}
+
+.notice-detail-value {
+    padding: 8px 12px;
+    border: 1px solid #e9ecef;
+    border-radius: 6px;
+    background-color: white;
+}
+
+.content-section {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #e9ecef;
+}
+
+.content-display {
+    background-color: #f8f9fa;
+    padding: 16px;
+    border-radius: 6px;
+    border: 1px solid #e9ecef;
+    white-space: pre-wrap;
+    line-height: 1.6;
+    margin-top: 8px;
+    min-height: 120px;
+}
+
+.content-textarea {
+    resize: vertical;
+    font-family: inherit;
+}
+
+.notice-form-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px solid #e9ecef;
+}
+
+.readonly-message {
+    background-color: #e7f3ff;
+    padding: 16px;
+    border-radius: 8px;
+    margin-top: 20px;
+    border: 1px solid #bee5eb;
+}
+
+.content-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+/* Notice Create Page Styles */
+.card-helper {
+    margin-bottom: 20px;
+    color: #6c757d;
+    font-size: 14px;
+}
+
+.detail-input {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.detail-value.muted {
+    padding: 8px 12px;
+    border-radius: 6px;
+    background-color: #f8f9fa;
+    color: #6c757d;
+    border: 1px dashed #ced4da;
+}
+
+.guideline-box {
+    margin-top: 24px;
+    background: #f1f5f9;
+    border-left: 4px solid #0d6efd;
+    padding: 16px 20px;
+    border-radius: 8px;
+    color: #475569;
+}
+
+.guideline-box ul {
+    margin: 12px 0 0;
+    padding-left: 18px;
+}
+
+.guideline-box li {
+    margin-bottom: 6px;
+}
+
+/* Responsive for notice pages */
+@media (max-width: 768px) {
+    .notice-detail-grid {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+
+    .notice-form-actions {
+        flex-direction: column;
+    }
+
+    .mode-selector {
+        flex-direction: column;
+    }
+
+    .content-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+}

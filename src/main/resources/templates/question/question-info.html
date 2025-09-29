@@ -19,77 +19,77 @@
 
 
         <!-- 문의 작성 폼 -->
-        <div class="question-form-container">
-            <form class="question-form" method="post"
-                  th:action="${questionDto != null and questionDto.questionId != null ? '/question/' + questionDto.questionId : '/question/submit'}">
+        <form class="question-form" method="post"
+              th:object="${questionDto}"
+              th:action="${questionDto.questionId != null ? '/question/' + questionDto.questionId : '/question/submit'}">
 
-                <!-- 수정 시 questionId 전달용 hidden input -->
-                <input type="hidden" name="questionId" th:value="${questionDto != null ? questionDto.questionId : ''}" th:if="${questionDto != null and questionDto.questionId != null}">
+            <input type="hidden" th:field="*{productId}" />
+            <input type="hidden" name="questionId" th:if="${questionDto.questionId != null}" th:value="${questionDto.questionId}">
 
-                <div class="form-group">
-                    <label for="questionType">문의 유형</label>
-                    <select id="questionType" name="questionType" required>
-                        <option value="">문의 유형을 선택해주세요</option>
-                        <option value="QT_001" th:selected="${questionDto != null and questionDto.questionType == 'QT_001'}">상품 문의</option>
-                        <option value="QT_002" th:selected="${questionDto != null and questionDto.questionType == 'QT_002'}">배송 문의</option>
-                        <option value="QT_003" th:selected="${questionDto != null and questionDto.questionType == 'QT_003'}">기타 문의</option>
-                    </select>
-                </div>
+            <div class="form-group">
+                <label for="questionType">문의 유형</label>
+                <select id="questionType" name="questionType" required>
+                    <option value="">문의 유형을 선택해주세요</option>
+                    <option value="QT_001" th:selected="${questionDto.questionType == 'QT_001'}">상품 문의</option>
+                    <option value="QT_002" th:selected="${questionDto.questionType == 'QT_002'}">배송 문의</option>
+                    <option value="QT_003" th:selected="${questionDto.questionType == 'QT_003'}">기타 문의</option>
+                </select>
+            </div>
 
-                <div class="form-group">
-                    <label for="questionTitle">제목</label>
-                    <input type="text" id="questionTitle" name="questionTitle"
-                           th:value="${questionDto != null ? questionDto.questionTitle : ''}"
-                           placeholder="문의 제목을 입력해주세요" required>
-                </div>
+            <div class="form-group">
+                <label for="questionTitle">제목</label>
+                <input type="text" id="questionTitle" name="questionTitle"
+                       th:value="${questionDto.questionTitle}"
+                       placeholder="문의 제목을 입력해주세요" required>
+            </div>
 
-                <div class="form-group">
-                    <label for="customerName">이름</label>
-                    <input type="text" id="customerName" name="customerName"
-                           th:value="${questionDto != null ? questionDto.customerName : ''}"
-                           placeholder="로그인된 사용자 이름" disabled required>
-                    <small class="form-info">현재 로그인된 사용자 정보입니다.</small>
-                </div>
+            <div class="form-group">
+                <label for="customerName">이름</label>
+                <input type="text" id="customerName" name="customerName"
+                       th:value="${questionDto.customerName}"
+                       placeholder="로그인된 사용자 이름" disabled required>
+                <small class="form-info">현재 로그인된 사용자 정보입니다.</small>
+            </div>
 
-                <div class="form-group">
-                    <label for="customerEmail">이메일</label>
-                    <input type="email" id="customerEmail" name="customerEmail"
-                           th:value="${questionDto != null ? questionDto.customerEmail : ''}"
-                           placeholder="로그인된 사용자 이메일" disabled required>
-                    <small class="form-info">현재 로그인된 사용자 정보입니다.</small>
-                </div>
+            <div class="form-group">
+                <label for="customerEmail">이메일</label>
+                <input type="email" id="customerEmail" name="customerEmail"
+                       th:value="${questionDto.customerEmail}"
+                       placeholder="로그인된 사용자 이메일" disabled required>
+                <small class="form-info">현재 로그인된 사용자 정보입니다.</small>
+            </div>
 
-                <div class="form-group">
-                    <label for="customerPhone">연락처</label>
-                    <input type="tel" id="customerPhone" name="customerPhone"
-                           th:value="${questionDto != null ? questionDto.customerPhone : ''}"
-                           placeholder="로그인된 사용자 연락처" disabled>
-                    <small class="form-info">현재 로그인된 사용자 정보입니다.</small>
-                </div>
+            <div class="form-group">
+                <label for="customerPhone">연락처</label>
+                <input type="tel" id="customerPhone" name="customerPhone"
+                       th:value="${questionDto.customerPhone}"
+                       placeholder="로그인된 사용자 연락처" disabled>
+                <small class="form-info">현재 로그인된 사용자 정보입니다.</small>
+            </div>
 
-                <div class="form-group">
-                    <label for="questionContent">문의 내용</label>
-                    <textarea id="questionContent" name="questionContent" rows="8"
-                              placeholder="문의 내용을 자세히 작성해주세요" required maxlength="1000"
-                              th:text="${questionDto != null ? questionDto.questionContent : ''}"
-                              oninput="updateCharCount(this)"></textarea>
-                    <small class="char-count" id="charCount">0/1000자</small>
-                </div>
+            <div class="form-group">
+                <label for="questionContent">문의 내용</label>
+                <textarea id="questionContent" name="questionContent" rows="8"
+                          placeholder="문의 내용을 자세히 작성해주세요" required maxlength="1000"
+                          th:text="${questionDto.questionContent}"
+                          oninput="updateCharCount(this)"></textarea>
+                <small class="char-count" id="charCount">0/1000자</small>
+            </div>
 
+            <div class="form-group">
+                <label for="isSecret" class="checkbox-container">
+                    <input type="checkbox" id="isSecret" name="isSecret" value="true"
+                           th:checked="${questionDto.isSecret != null and questionDto.isSecret}">
+                    <span>비밀글로 작성 (체크하시면 본인과 관리자만 확인할 수 있습니다)</span>
+                </label>
+            </div>
 
-                <div class="form-group">
-                    <label for="isSecret" class="checkbox-container">
-                        <input type="checkbox" id="isSecret" name="isSecret" value="true"
-                               th:checked="${questionDto != null and questionDto.isSecret != null and questionDto.isSecret}">
-                        <span>비밀글로 작성 (체크하시면 본인과 관리자만 확인할 수 있습니다)</span>
-                    </label>
-                </div>
-
-                <div class="form-actions">
-                    <button type="button" class="btn btn-cancel" onclick="history.back()">취소</button>
-                    <button type="submit" class="btn btn-submit">문의 등록</button>
-                </div>
+            <div class="form-actions">
+                <button type="button" class="btn btn-cancel" onclick="history.back()">취소</button>
+                <button type="submit" class="btn btn-submit">문의 등록</button>
+            </div>
             </form>
+
         </div>
     </div>
 </main>

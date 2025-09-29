@@ -5,6 +5,7 @@ import com.bird.cos.domain.cart.CartItem;
 import com.bird.cos.domain.coupon.Coupon;
 import com.bird.cos.domain.coupon.UserCoupon;
 import com.bird.cos.domain.product.Product;
+import com.bird.cos.domain.product.ProductOption;
 import com.bird.cos.domain.user.User;
 import com.bird.cos.dto.cart.AddToCartRequest;
 import com.bird.cos.dto.cart.CartItemResponseDto;
@@ -82,7 +83,7 @@ public class CartService {
                 .filter(id -> id != null)
                 .collect(Collectors.toSet());
 
-        Map<Long, List<com.bird.cos.domain.product.ProductOption>> optionsByProduct = productIds.isEmpty()
+        Map<Long, List<ProductOption>> optionsByProduct = productIds.isEmpty()
                 ? Map.of()
                 : productOptionRepository.findByProduct_ProductIdIn(productIds).stream()
                 .collect(Collectors.groupingBy(opt -> opt.getProduct().getProductId()));
@@ -106,7 +107,7 @@ public class CartService {
         CartItem item = cartItemRepository.findByCartItemIdAndCart_User(cartItemId, user)
                 .orElseThrow(() -> new RuntimeException("장바구니 정보를 조회할 수 없습니다."));
         Long productId = item.getProduct() != null ? item.getProduct().getProductId() : null;
-        Map<Long, List<com.bird.cos.domain.product.ProductOption>> optionMap = productId == null
+        Map<Long, List<ProductOption>> optionMap = productId == null
                 ? Map.of()
                 : Map.of(productId, productOptionRepository.findByProduct_ProductId(productId));
         return toDto(item, optionMap);
@@ -354,7 +355,7 @@ public class CartService {
 
     // --------- 내부 헬퍼 ---------
     //DTO 변환 + 가격 계산 동시에 함
-    private CartItemResponseDto toDto(CartItem item, Map<Long, List<com.bird.cos.domain.product.ProductOption>> optionsByProduct) {
+    private CartItemResponseDto toDto(CartItem item, Map<Long, List<ProductOption>> optionsByProduct) {
         Product p = item.getProduct();
 
         BigDecimal unitOriginal = p.getOriginalPrice();
@@ -366,7 +367,7 @@ public class CartService {
 
         String status = p.getProductStatusCode() != null ? p.getProductStatusCode().getCodeName() : null;
 
-        List<com.bird.cos.domain.product.ProductOption> options = p == null ? List.of()
+        List<ProductOption> options = p == null ? List.of()
                 : optionsByProduct.getOrDefault(p.getProductId(), List.of());
 
         String selectedOptionsRaw = item.getSelectedOptions();
@@ -415,7 +416,7 @@ public class CartService {
                 .build();
     }
 
-    private String buildOptionLabel(com.bird.cos.domain.product.ProductOption option) {
+    private String buildOptionLabel(ProductOption option) {
         if (option == null) {
             return null;
         }

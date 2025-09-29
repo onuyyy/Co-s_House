@@ -8,20 +8,11 @@
 </head>
 <body>
     <div layout:fragment="content-header" class="content-header">
-        <h2 style="color: #333; font-size: 24px;">관리자 대시보드</h2>
+        <h2 class="page-title-large">관리자 대시보드</h2>
     </div>
 
     <div layout:fragment="content">
         <div class="dashboard-cards">
-            <div class="dashboard-card">
-                <div class="card-icon">👨‍💼</div>
-                <div class="card-content">
-                    <h3>관리자 관리</h3>
-                    <p>시스템 관리자 계정 관리</p>
-                    <a href="/api/admin/admins" class="card-link">관리하기 →</a>
-                </div>
-            </div>
-            
             <div class="dashboard-card">
                 <div class="card-icon">👥</div>
                 <div class="card-content">
@@ -48,15 +39,6 @@
                     <a href="/api/admin/brands" class="card-link">관리하기 →</a>
                 </div>
             </div>
-            
-            <div class="dashboard-card">
-                <div class="card-icon">👤</div>
-                <div class="card-content">
-                    <h3>일반 사용자</h3>
-                    <p>일반 회원 관리</p>
-                    <a href="/api/admin/users/role/USER" class="card-link">관리하기 →</a>
-                </div>
-            </div>
 
             <div class="dashboard-card">
                 <div class="card-icon">📢</div>
@@ -64,6 +46,15 @@
                     <h3>공지사항 관리</h3>
                     <p>시스템 공지사항 작성 및 관리</p>
                     <a href="/api/admin/notices" class="card-link">관리하기 →</a>
+                </div>
+            </div>
+
+            <div class="dashboard-card">
+                <div class="card-icon">⚙️</div>
+                <div class="card-content">
+                    <h3>공통코드 관리</h3>
+                    <p>시스템 공통코드 설정 및 관리</p>
+                    <a href="/api/admin/common-code" class="card-link">관리하기 →</a>
                 </div>
             </div>
 
@@ -79,56 +70,8 @@
     </div>
 
     <th:block layout:fragment="extra-css">
-        <style>
-            .dashboard-cards {
-                display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-                gap: 20px;
-                margin-top: 20px;
-            }
-            
-            .dashboard-card {
-                background: white;
-                border: 1px solid #e9ecef;
-                border-radius: 8px;
-                padding: 24px;
-                transition: transform 0.2s ease, box-shadow 0.2s ease;
-            }
-            
-            .dashboard-card:hover {
-                transform: translateY(-2px);
-                box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            }
-            
-            .card-icon {
-                font-size: 48px;
-                margin-bottom: 16px;
-            }
-            
-            .card-content h3 {
-                margin: 0 0 8px 0;
-                color: #333;
-                font-size: 18px;
-                font-weight: 600;
-            }
-            
-            .card-content p {
-                margin: 0 0 16px 0;
-                color: #6c757d;
-                font-size: 14px;
-            }
-            
-            .card-link {
-                color: #007bff;
-                text-decoration: none;
-                font-weight: 500;
-                font-size: 14px;
-            }
-            
-            .card-link:hover {
-                text-decoration: underline;
-            }
-        </style>
+        <link rel="stylesheet" th:href="@{/css/admin/admin-common.css}">
+        <link rel="stylesheet" th:href="@{/css/admin/main.css}">
     </th:block>
 </body>
 </html>

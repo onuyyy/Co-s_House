@@ -23,7 +23,26 @@ public enum ErrorCode {
     // 상품 관련
     PRODUCT_NOT_FOUND(HttpStatus.NOT_FOUND, "P001", "상품을 찾을 수 없습니다"),
     PRODUCT_OUT_OF_STOCK(HttpStatus.BAD_REQUEST, "P002", "재고가 부족합니다"),
-    PRODUCT_UNAVAILABLE(HttpStatus.BAD_REQUEST, "P003", "판매 중단된 상품입니다");
+    PRODUCT_UNAVAILABLE(HttpStatus.BAD_REQUEST, "P003", "판매 중단된 상품입니다"),
+    OPTION_NOT_FOUND(HttpStatus.BAD_REQUEST, "OT001", "선택한 옵션을 찾을 수 없습니다."),
+    OPTION_BAD_REQUEST(HttpStatus.BAD_REQUEST, "OT002", "잘못된 상품 옵션입니다."),
+
+    ORDER_NOT_FOUND(HttpStatus.BAD_REQUEST, "O001", "주문을 찾을 수 없습니다."),
+    ORDER_ACCESS_DENIED(HttpStatus.BAD_REQUEST, "O002", "주문에 접근할 수 없습니다."),
+
+    CODE_NOT_FOUND(HttpStatus.BAD_REQUEST, "C001", "코드가 존재하지 않습니다."),
+    COUPON_NOT_FOUND(HttpStatus.BAD_REQUEST, "CP001", "쿠폰이 존재하지 않습니다."),
+    COUPON_EXPIRED(HttpStatus.BAD_REQUEST, "CP002", "만료되었거나 비활성화된 쿠폰입니다."),
+    COUPON_USED(HttpStatus.BAD_REQUEST, "CP003", "이미 사용된 쿠폰입니다."),
+
+    // 포인트 관련
+    POINT_NOT_FOUND(HttpStatus.NOT_FOUND, "PT001", "포인트 정보를 찾을 수 없습니다."),
+    POINT_INSUFFICIENT(HttpStatus.BAD_REQUEST, "PT002", "사용 가능한 포인트가 부족합니다."),
+    POINT_INVALID_AMOUNT(HttpStatus.BAD_REQUEST, "PT003", "포인트 금액이 유효하지 않습니다."),
+    POINT_ALREADY_EARNED(HttpStatus.CONFLICT, "PT004", "이미 적립된 포인트입니다."),
+    POINT_HISTORY_NOT_FOUND(HttpStatus.NOT_FOUND, "PT005", "포인트 내역을 찾을 수 없습니다."),
+    POINT_OPERATION_FAILED(HttpStatus.INTERNAL_SERVER_ERROR, "PT006", "포인트 처리 중 오류가 발생했습니다."),
+    POINT_USAGE_FAILED(HttpStatus.INTERNAL_SERVER_ERROR, "PT007", "포인트 사용 처리에 실패했습니다.");
 
     private final HttpStatus status;
     private final String code;

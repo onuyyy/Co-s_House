@@ -1,13 +1,18 @@
 package com.bird.cos.controller.product;
 
 import com.bird.cos.domain.product.Product;
+import com.bird.cos.domain.product.ProductOption;
+import com.bird.cos.dto.product.ReviewResponse;
 import com.bird.cos.service.product.ProductService;
+import com.bird.cos.service.product.ReviewService;
+import com.bird.cos.service.question.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-
+import org.springframework.web.bind.annotation.RequestParam;
+import java.util.Map;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,6 +20,12 @@ import java.util.Optional;
 public class ProductController {
     @Autowired
     ProductService productService;
+
+    @Autowired
+    ReviewService reviewService;
+
+    @Autowired
+    QuestionService questionService;
 
     //카테고리별 조회
     @GetMapping("/product/category/{categoryId}")
@@ -69,25 +80,79 @@ public class ProductController {
         return "product/product";
     }
 
-    //상세페이지
+    //상세페이지 (수정된 메소드)
     @GetMapping("/product/{productId}")
-    public String productDetail(@PathVariable Long productId, Model model) {
+    public String productDetail(@PathVariable Long productId,
+                                // 리뷰 필터링을 위한 파라미터 추가
+                                @RequestParam(required = false, defaultValue = "all") String filter,
+                                @RequestParam(required = false, defaultValue = "latest") String sort,
+                                @RequestParam(required = false) String ratingRange,
+                                @RequestParam(required = false) Long optionId,
+                                @RequestParam(required = false, defaultValue = "1") int page,
+                                @RequestParam(required = false, defaultValue = "10") int size,
+                                // 문의글 페이징을 위한 파라미터 추가 (리뷰와 겹치지 않게 q_ prefix 사용)
+                                @RequestParam(required = false, defaultValue = "1") int q_page,
+                                @RequestParam(required = false, defaultValue = "5") int q_size,
+                                Model model) {
         Optional<Product> productOpt = productService.getProductById(productId);
 
         if (productOpt.isPresent()) {
             Product product = productOpt.get();
-            System.out.println("Product detail: " + product.getProductTitle());
-
             model.addAttribute("product", product);
             model.addAttribute("options", product.getOptions());
             model.addAttribute("brandId", product.getBrand().getBrandId());
             model.addAttribute("brand", product.getBrand());
             model.addAttribute("basePrice", product.getSalePrice());
 
+            // --- 리뷰 정보 로딩  ---
+            try {
+                // 1. 리뷰 목록과 페이징 정보 가져오기
+                Map<String, Object> reviewResult = reviewService.findReviewsByProductIdWithFilterPage(
+                        productId, filter, sort, ratingRange, optionId, page, size);
+                List<ReviewResponse> reviews = (List<ReviewResponse>) reviewResult.get("reviews");
+                long totalReviewCount = (Long) reviewResult.get("totalElements");
+
+                // 2. 리뷰 통계 정보 (필터, 별점 카운트 등) 가져오기
+                Map<String, Integer> filterCounts = reviewService.getFilterCounts(productId);
+                Map<String, Integer> ratingCounts = reviewService.getRatingCounts(productId);
+                List<ProductOption> productOptions = productService.getOptionsByProductId(productId);
+                double overallAverageRating = reviewService.calculateOverallAverageRating(productId); // 전체 평균 평점
+
+                // 3. 모델에 리뷰 관련 데이터 모두 추가
+                model.addAttribute("reviews", reviews);
+                model.addAttribute("totalReviewCount", totalReviewCount);
+                model.addAttribute("currentPage", page);
+                model.addAttribute("totalPages", (Integer) reviewResult.get("totalPages"));
+                model.addAttribute("productId", productId); // 리뷰 템플릿에서 사용할 productId
+
+                // 필터링 유지를 위한 정보
+                model.addAttribute("currentFilter", filter);
+                model.addAttribute("currentSort", sort);
+                model.addAttribute("currentRatingRange", ratingRange);
+                model.addAttribute("currentOptionId", optionId);
+
+                // 통계 정보
+                model.addAttribute("filterCounts", filterCounts);
+                model.addAttribute("ratingCounts", ratingCounts);
+                model.addAttribute("productOptions", productOptions);
+                model.addAttribute("overallAverageRating", overallAverageRating);
+
+            } catch (Exception e) {
+                // 리뷰를 불러오다 에러가 발생해도 상품 상세 페이지는 보여주도록 처리
+                model.addAttribute("reviewError", "리뷰를 불러오는 중 오류가 발생했습니다.");
+            }
+            try {
+                Map<String, Object> questionResult = questionService.findQuestionsByProductIdPaged(productId, q_page, q_size);
+                model.addAttribute("questions", questionResult.get("questions"));
+                model.addAttribute("questionTotalPages", questionResult.get("totalPages"));
+                model.addAttribute("currentQuestionPage", q_page);
+                model.addAttribute("totalQuestionCount", questionResult.get("totalElements"));
+            } catch (Exception e) {
+                model.addAttribute("questionError", "문의를 불러오는 중 오류가 발생했습니다.");
+            }
             return "product/productDetail";
         } else {
             return "redirect:/";
         }
     }
-
 }

@@ -30,6 +30,7 @@ public class AppUserDetailsService implements UserDetailsService {
         var authorities = authorityService.resolveAuthoritiesFor(user);
 
         return CustomUserDetails.builder()
+                .userId(user.getUserId())
                 .authorities(authorities)
                 .name(user.getUserName())
                 .nickname(user.getUserNickname())
