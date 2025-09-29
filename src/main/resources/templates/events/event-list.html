@@ -6,8 +6,9 @@
   <main class="page-main events-main">
     <div class="events-main__inner container">
       <section class="events-header">
-        <p class="events-header__subtitle">취향 맞춤 혜택을 한 곳에 모았어요</p>
         <h1 class="events-header__title">이벤트</h1>
+        <p class="events-header__subtitle">취향 맞춤 혜택을 한 곳에 모았어요</p>
+
       </section>
 
       <section class="events-section" th:if="${#lists.isEmpty(events)}">
@@ -40,7 +41,6 @@
     </div>
   </main>
   <footer th:replace="~{fragments/layout :: footer}"></footer>
-  <link rel="stylesheet" th:href="@{/css/sections.css}">
   <link rel="stylesheet" th:href="@{/css/events/events.css}">
 </body>
 </html>

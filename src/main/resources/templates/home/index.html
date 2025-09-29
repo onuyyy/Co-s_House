@@ -31,13 +31,14 @@
       <div class="product-grid grid-4 today-deals" th:with="dealCount=${todayDeals != null ? todayDeals.size() : 0}, displayCount=${dealCount > 4 ? 4 : dealCount}">
         <article class="p-card" th:each="p, iterStat : ${todayDeals}" th:if="${iterStat.index < 4}">
           <a class="thumb" th:href="@{'/product/' + ${p.id}}">
-            <div class="ph" role="img" aria-label="상품 이미지 플레이스홀더"></div>
+            <img th:if="${p.imageUrl != null}" th:src="${p.imageUrl}" th:alt="${p.title}" loading="lazy" />
+            <div class="ph" th:unless="${p.imageUrl != null}" role="img" aria-label="상품 이미지 플레이스홀더"></div>
             <span class="ribbon" th:if="${p.discountRate != null}" th:text="${'-' + #numbers.formatDecimal(p.discountRate, 0, 0) + '%'}">-20%</span>
           </a>
           <div class="body">
             <h3 class="title" th:text="${p.title}">상품명</h3>
             <div class="price">
-              <b th:text="${#numbers.formatInteger(p.salePrice != null ? p.salePrice : p.price, 0)}">0</b><span class="unit">원</span>
+              <b th:text="${#numbers.formatDecimal(p.salePrice != null ? p.salePrice : p.price, 0, 'COMMA', 0, 'POINT')}">0</b><span class="unit">원</span>
             </div>
             <div class="meta">
               <span class="rating" th:text="${'★ ' + (p.rating != null ? p.rating : 0)}">★ 0</span>
@@ -62,10 +63,13 @@
       </div>
       <div class="product-grid grid-4">
         <article class="p-card small" th:each="p : ${popularProducts}">
-          <a class="thumb" th:href="@{'/product/' + ${p.id}}"><div class="ph" role="img" aria-label="상품 이미지 플레이스홀더"></div></a>
+          <a class="thumb" th:href="@{'/product/' + ${p.id}}">
+            <img th:if="${p.imageUrl != null}" th:src="${p.imageUrl}" th:alt="${p.title}" loading="lazy" />
+            <div class="ph" th:unless="${p.imageUrl != null}" role="img" aria-label="상품 이미지 플레이스홀더"></div>
+          </a>
           <div class="body">
             <h3 class="title" th:text="${p.title}">상품명</h3>
-            <div class="price"><b th:text="${#numbers.formatInteger(p.salePrice != null ? p.salePrice : p.price, 0)}">0</b><span class="unit">원</span></div>
+            <div class="price"><b th:text="${#numbers.formatDecimal(p.salePrice != null ? p.salePrice : p.price, 0, 'COMMA', 0, 'POINT')}">0</b><span class="unit">원</span></div>
           </div>
         </article>
       </div>

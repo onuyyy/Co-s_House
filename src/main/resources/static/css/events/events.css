@@ -1,5 +1,4 @@
 .events-main {
-  padding-top: calc(var(--header-offset, 72px) + 48px);
   padding-bottom: 96px;
   background-color: #f5f7fb;
 }
