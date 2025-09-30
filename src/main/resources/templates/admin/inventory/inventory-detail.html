@@ -6,14 +6,298 @@
 <head>
     <title>재고 상세</title>
     <script>
-        function openModal() {
-            document.getElementById('receiptModal').style.display = 'block';
-            document.getElementById('receiptDate').valueAsDate = new Date();
+        // DOM 로드 완료 후 이벤트 리스너 등록
+        document.addEventListener('DOMContentLoaded', function() {
+
+            function openModal() {
+                document.getElementById('receiptModal').style.display = 'block';
+                document.getElementById('receiptDate').valueAsDate = new Date();
+            }
+
+            function closeModal() {
+                document.getElementById('receiptModal').style.display = 'none';
+            }
+
+            function openHistoryModal() {
+                const modal = document.getElementById('historyModal');
+                if (modal) {
+                    modal.style.display = 'block';
+                    loadInventoryHistory();
+                }
+            }
+
+            function closeHistoryModal() {
+                const modal = document.getElementById('historyModal');
+                if (modal) modal.style.display = 'none';
+            }
+
+            // 버튼 이벤트 리스너 등록
+            const openReceiptBtn = document.getElementById('openReceiptBtn');
+            if (openReceiptBtn) {
+                openReceiptBtn.addEventListener('click', openModal);
+            }
+
+            const viewHistoryBtn = document.getElementById('viewHistoryBtn');
+            if (viewHistoryBtn) {
+            viewHistoryBtn.addEventListener('click', openHistoryModal);
         }
 
-        function closeModal() {
-            document.getElementById('receiptModal').style.display = 'none';
+            // 모달 닫기 버튼들
+            const closeReceiptBtn = document.getElementById('closeReceiptBtn');
+            if (closeReceiptBtn) {
+                closeReceiptBtn.addEventListener('click', closeModal);
+            }
+
+            const cancelReceiptBtn = document.getElementById('cancelReceiptBtn');
+            if (cancelReceiptBtn) {
+                cancelReceiptBtn.addEventListener('click', closeModal);
+            }
+
+            const closeHistoryBtn = document.getElementById('closeHistoryBtn');
+            if (closeHistoryBtn) {
+            closeHistoryBtn.addEventListener('click', closeHistoryModal);
         }
+
+            const closeHistoryFooterBtn = document.getElementById('closeHistoryFooterBtn');
+            if (closeHistoryFooterBtn) {
+            closeHistoryFooterBtn.addEventListener('click', closeHistoryModal);
+        }
+
+            // 모달 외부 클릭시 닫기
+            window.addEventListener('click', function(event) {
+            const receiptModal = document.getElementById('receiptModal');
+            const historyModal = document.getElementById('historyModal');
+            if (event.target === receiptModal) {
+            closeModal();
+        }
+            if (event.target === historyModal) {
+            closeHistoryModal();
+        }
+        });
+
+            // 입고처리 폼 제출 이벤트 리스너
+            const receiptForm = document.getElementById('receiptForm');
+            if (receiptForm) {
+            receiptForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const formData = {
+            productId: parseInt(document.getElementById('hiddenProductId').value),
+            receiptQuantity: parseInt(document.getElementById('receiptQuantity').value),
+            receiptDate: document.getElementById('receiptDate').value,
+            receiptStatus: document.getElementById('receiptStatus').value
+        };
+
+            fetch(`/api/admin/inventory/receipt`, {
+            method: 'POST',
+            headers: {
+            'Content-Type': 'application/json',
+        },
+            body: JSON.stringify(formData)
+        })
+            .then(response => {
+            if (!response.ok) {
+            throw new Error('입고 처리에 실패했습니다.');
+        }
+            return response.json();
+        })
+            .then(data => {
+            alert('입고 처리가 완료되었습니다.');
+            closeModal();
+            // 페이지 새로고침하여 업데이트된 재고 정보 표시
+            location.reload();
+        })
+            .catch((error) => {
+            alert('입고 처리 중 오류가 발생했습니다: ' + error.message);
+        });
+        });
+        }
+
+            // 재고이력 로드
+            function loadInventoryHistory() {
+                const productId = document.getElementById('hiddenProductId').value;
+                const historyContent = document.getElementById('historyContent');
+
+                historyContent.innerHTML = `<p style="text-align: center; padding: 20px; color: #666;">재고 이력을 불러오는 중...</p>`;
+
+                fetch(`/api/admin/inventory/history/${productId}?page=0&size=10`)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('재고 이력을 불러오는데 실패했습니다.');
+                        }
+                        return response.json();
+                    })
+                    .then(historyPage => {
+                        const histories = historyPage.content;
+                        if (histories.length === 0) {
+                            historyContent.innerHTML = `
+                                <p style="text-align: center; padding: 20px; color: #666;">
+                                    재고 변경 이력이 없습니다.
+                                </p>
+                            `;
+                            return;
+                        }
+
+                        let tableHtml = `
+                            <div style="overflow-x: auto;">
+                                <table style="width: 100%; border-collapse: collapse; font-size: 14px;">
+                                    <thead>
+                                        <tr style="background-color: #f8f9fa; border-bottom: 2px solid #dee2e6;">
+                                            <th style="padding: 12px; text-align: left; border: 1px solid #dee2e6; width: 120px;">변경일시</th>
+                                            <th style="padding: 12px; text-align: center; border: 1px solid #dee2e6;">구분</th>
+                                            <th style="padding: 12px; text-align: right; border: 1px solid #dee2e6;">변경수량</th>
+                                            <th style="padding: 12px; text-align: right; border: 1px solid #dee2e6;">변경후재고</th>
+                                            <th style="padding: 12px; text-align: center; border: 1px solid #dee2e6; width: 160px;">상태/관리</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                        `;
+
+                        histories.forEach(history => {
+                            const changeDate = new Date(history.changeDate).toLocaleString('ko-KR', {
+                                month: '2-digit',
+                                day: '2-digit',
+                                hour: '2-digit',
+                                minute: '2-digit'
+                            });
+
+                            // 변경수량 색상 설정
+                            let changeQuantityColor = '#28a745'; // 기본 증가 색상 (초록)
+                            if (history.changeQuantity < 0) {
+                                // 음수일 때 입고 상태에 따라 색상 결정
+                                if (history.changeType === '입고' && history.receiptStatus === 'PENDING') {
+                                    changeQuantityColor = '#f0ad4e'; // 노란색 (대기 롤백)
+                                } else if (history.changeType === '입고' && history.receiptStatus === 'CANCELLED') {
+                                    changeQuantityColor = '#6c757d'; // 회색 (취소)
+                                } else {
+                                    changeQuantityColor = '#dc3545'; // 빨간색 (출고)
+                                }
+                            }
+
+                            const changeQuantitySign = history.changeQuantity > 0 ? '+' : '';
+
+                            // 구분 열 내용 (입고일 경우 상태 포함)
+                            let typeDisplayText = history.changeType;
+                            let typeBackgroundColor = '#f8d7da';
+                            let typeTextColor = '#721c24';
+
+                            if (history.changeType === '입고' && history.receiptStatus) {
+                                const statusText = history.receiptStatus === 'PENDING' ? '대기' :
+                                                 history.receiptStatus === 'COMPLETED' ? '완료' : '취소';
+                                typeDisplayText = `입고 ${statusText}`;
+
+                                // 상태에 따른 색상 설정
+                                if (history.receiptStatus === 'PENDING') {
+                                    typeBackgroundColor = '#fff3cd';
+                                    typeTextColor = '#856404';
+                                } else if (history.receiptStatus === 'COMPLETED') {
+                                    typeBackgroundColor = '#d4edda';
+                                    typeTextColor = '#155724';
+                                } else { // CANCELLED
+                                    typeBackgroundColor = '#f8d7da';
+                                    typeTextColor = '#721c24';
+                                }
+                            } else if (history.changeType === '입고') {
+                                typeBackgroundColor = '#d4edda';
+                                typeTextColor = '#155724';
+                            }
+
+                            // 상태/관리 열 내용 (입고일 경우만 버튼 표시)
+                            let statusActionCell = '';
+                            if (history.changeType === '입고' && history.receiptId) {
+                                // 취소된 입고는 버튼 없이 텍스트만 표시
+                                if (history.receiptStatus === 'CANCELLED') {
+                                    statusActionCell = `
+                                        <span style="color: #6c757d; font-size: 12px; font-weight: bold;">취소됨</span>
+                                    `;
+                                } else {
+                                    statusActionCell = `
+                                        <div style="display: flex; gap: 3px; justify-content: center; flex-wrap: wrap;">
+                                            ${history.receiptStatus !== 'PENDING' ?
+                                              '<button onclick="changeReceiptStatus(' + history.receiptId + ', \'PENDING\')" style="padding: 4px 8px; font-size: 11px; border: none; border-radius: 4px; background-color: #ffc107; color: white; cursor: pointer; font-weight: bold;">대기</button>' : ''}
+                                            ${history.receiptStatus !== 'COMPLETED' ?
+                                              '<button onclick="changeReceiptStatus(' + history.receiptId + ', \'COMPLETED\')" style="padding: 4px 8px; font-size: 11px; border: none; border-radius: 4px; background-color: #28a745; color: white; cursor: pointer; font-weight: bold;">완료</button>' : ''}
+                                            <button onclick="changeReceiptStatus(${history.receiptId}, 'CANCELLED')" style="padding: 4px 8px; font-size: 11px; border: none; border-radius: 4px; background-color: #dc3545; color: white; cursor: pointer; font-weight: bold;">취소</button>
+                                        </div>
+                                    `;
+                                }
+                            } else {
+                                statusActionCell = '<span style="color: #999; font-size: 12px;">-</span>';
+                            }
+
+                            tableHtml += `
+                                <tr style="border-bottom: 1px solid #dee2e6;">
+                                    <td style="padding: 10px; border: 1px solid #dee2e6; font-size: 12px; width: 120px;">${changeDate}</td>
+                                    <td style="padding: 10px; text-align: center; border: 1px solid #dee2e6;">
+                                        <span style="padding: 4px 8px; border-radius: 12px; font-size: 12px; font-weight: bold;
+                                                     background-color: ${typeBackgroundColor};
+                                                     color: ${typeTextColor};">
+                                            ${typeDisplayText}
+                                        </span>
+                                    </td>
+                                    <td style="padding: 10px; text-align: right; border: 1px solid #dee2e6; color: ${changeQuantityColor}; font-weight: bold;">
+                                        ${changeQuantitySign}${history.changeQuantity}
+                                    </td>
+                                    <td style="padding: 10px; text-align: right; border: 1px solid #dee2e6; font-weight: bold;">
+                                        ${history.afterQuantity}
+                                    </td>
+                                    <td style="padding: 10px; text-align: center; border: 1px solid #dee2e6;">
+                                        ${statusActionCell}
+                                    </td>
+                                </tr>
+                            `;
+                        });
+
+                        tableHtml += `
+                                    </tbody>
+                                </table>
+                            </div>
+                        `;
+
+                        historyContent.innerHTML = tableHtml;
+                    })
+                    .catch(error => {
+                        console.error('Error loading inventory history:', error);
+                        historyContent.innerHTML = `
+                            <p style="text-align: center; padding: 20px; color: #dc3545;">
+                                재고 이력을 불러오는 중 오류가 발생했습니다.
+                            </p>
+                        `;
+                    });
+            }
+
+            // 전역 함수로 정의하여 동적으로 생성된 버튼에서 호출 가능하게 함
+            window.changeReceiptStatus = function(receiptId, newStatus) {
+                const statusText = newStatus === 'PENDING' ? '대기' :
+                                 newStatus === 'COMPLETED' ? '완료' : '취소';
+
+                if (confirm(`정말로 입고 상태를 "${statusText}"(으)로 변경하시겠습니까?`)) {
+                    fetch(`/api/admin/inventory/receipt/${receiptId}/status?status=${newStatus}`, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        }
+                    })
+                    .then(response => {
+                        if (response.ok) {
+                            alert('상태가 변경되었습니다.');
+                            // 재고 이력 다시 로드
+                            loadInventoryHistory();
+                            // 페이지도 새로고침하여 재고 수량 업데이트
+                            setTimeout(() => {
+                                location.reload();
+                            }, 1000);
+                        } else {
+                            throw new Error('상태 변경 실패');
+                        }
+                    })
+                    .catch(error => {
+                        alert('상태 변경 중 오류가 발생했습니다.');
+                        console.error('Error:', error);
+                    });
+                }
+            };
+        });
     </script>
     <style>
         .detail-container {
@@ -206,6 +490,13 @@
                     </span>
                 </div>
                 <div class="info-row">
+                    <span class="info-label">입고 가능 상태</span>
+                    <span class="info-value">
+                        <span class="status-badge status-normal">입고 가능</span>
+                        <small style="color: #666; margin-left: 10px;">언제든지 입고 처리가 가능합니다</small>
+                    </span>
+                </div>
+                <div class="info-row">
                     <span class="info-label">생성일</span>
                     <span class="info-value" th:text="${#temporals.format(inventory.inventoryCreatedDate, 'yyyy-MM-dd HH:mm')}">2024-09-26 10:00</span>
                 </div>
@@ -218,7 +509,7 @@
             <!-- 버튼 그룹 -->
             <div class="btn-group">
                 <a href="/api/admin/inventory" class="btn btn-secondary">목록으로</a>
-                <button id="openReceiptBtn" class="btn btn-success" onclick="openModal()">입고 처리</button>
+                <button id="openReceiptBtn" class="btn btn-success">입고 처리</button>
                 <button id="viewHistoryBtn" class="btn btn-primary">재고 이력</button>
             </div>
         </div>
@@ -228,7 +519,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h3 class="modal-title">입고 처리</h3>
-                    <span id="closeReceiptBtn" class="close" onclick="closeModal()">&times;</span>
+                    <span id="closeReceiptBtn" class="close">&times;</span>
                 </div>
                 <form id="receiptForm">
                     <input type="hidden" id="hiddenProductId" name="productId" th:value="${inventory.productId}">
@@ -264,7 +555,7 @@
                     </div>
 
                     <div class="modal-footer">
-                        <button type="button" id="cancelReceiptBtn" class="btn-modal btn-modal-cancel" onclick="closeModal()">취소</button>
+                        <button type="button" id="cancelReceiptBtn" class="btn-modal btn-modal-cancel">취소</button>
                         <button type="submit" class="btn-modal btn-modal-submit">입고 처리</button>
                     </div>
                 </form>
@@ -289,126 +580,5 @@
             </div>
         </div>
     </div>
-
-
-    <script>
-        // DOM 로드 완료 후 이벤트 리스너 등록
-        document.addEventListener('DOMContentLoaded', function() {
-
-
-            function openHistoryModal() {
-                console.log('재고이력 모달 열기');
-                const modal = document.getElementById('historyModal');
-                if (modal) {
-                    modal.style.display = 'block';
-                    loadInventoryHistory();
-                }
-            }
-
-            function closeHistoryModal() {
-                console.log('재고이력 모달 닫기');
-                const modal = document.getElementById('historyModal');
-                if (modal) modal.style.display = 'none';
-            }
-
-            // 버튼 이벤트 리스너 등록
-            const openReceiptBtn = document.getElementById('openReceiptBtn');
-            if (openReceiptBtn) {
-                openReceiptBtn.addEventListener('click', function() {
-                    document.getElementById('receiptModal').style.display = 'block';
-                    document.getElementById('receiptDate').valueAsDate = new Date();
-                });
-            }
-
-            const viewHistoryBtn = document.getElementById('viewHistoryBtn');
-            if (viewHistoryBtn) {
-                viewHistoryBtn.addEventListener('click', openHistoryModal);
-            }
-
-            // 모달 닫기 버튼들
-            const closeReceiptBtn = document.getElementById('closeReceiptBtn');
-            if (closeReceiptBtn) {
-                closeReceiptBtn.addEventListener('click', function() {
-                    document.getElementById('receiptModal').style.display = 'none';
-                });
-            }
-
-            const cancelReceiptBtn = document.getElementById('cancelReceiptBtn');
-            if (cancelReceiptBtn) {
-                cancelReceiptBtn.addEventListener('click', function() {
-                    document.getElementById('receiptModal').style.display = 'none';
-                });
-            }
-
-            const closeHistoryBtn = document.getElementById('closeHistoryBtn');
-            if (closeHistoryBtn) {
-                closeHistoryBtn.addEventListener('click', closeHistoryModal);
-            }
-
-            const closeHistoryFooterBtn = document.getElementById('closeHistoryFooterBtn');
-            if (closeHistoryFooterBtn) {
-                closeHistoryFooterBtn.addEventListener('click', closeHistoryModal);
-            }
-
-            // 모달 외부 클릭시 닫기
-            window.addEventListener('click', function(event) {
-                const receiptModal = document.getElementById('receiptModal');
-                const historyModal = document.getElementById('historyModal');
-                if (event.target === receiptModal) {
-                    closeReceiptModal();
-                }
-                if (event.target === historyModal) {
-                    closeHistoryModal();
-                }
-            });
-
-            // 입고처리 폼 제출 이벤트 리스너
-            const receiptForm = document.getElementById('receiptForm');
-            if (receiptForm) {
-                receiptForm.addEventListener('submit', function(e) {
-                    e.preventDefault();
-
-                    const formData = {
-                        productId: parseInt(document.getElementById('hiddenProductId').value),
-                        receiptQuantity: parseInt(document.getElementById('receiptQuantity').value),
-                        receiptDate: document.getElementById('receiptDate').value,
-                        receiptStatus: document.getElementById('receiptStatus').value
-                    };
-
-                    fetch('/api/admin/inventory/receipt', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify(formData)
-                    })
-                    .then(response => {
-                        if (!response.ok) {
-                            throw new Error('입고 처리에 실패했습니다.');
-                        }
-                        return response.json();
-                    })
-                    .then(data => {
-                        alert('입고 처리가 완료되었습니다.');
-                        closeReceiptModal();
-                        // 페이지 새로고침하여 업데이트된 재고 정보 표시
-                        location.reload();
-                    })
-                    .catch((error) => {
-                        alert('입고 처리 중 오류가 발생했습니다: ' + error.message);
-                        console.error('Error:', error);
-                    });
-                });
-            }
-
-            // 재고이력 로드 (나중에 구현)
-            function loadInventoryHistory() {
-                document.getElementById('historyContent').innerHTML =
-                    `<p style="text-align: center; padding: 20px; color: #666;">
-                        재고 이력 기능은 추후 구현될 예정입니다.
-                    </p>`;
-            }
-        });
-    </script>
 </body>
 </html>
