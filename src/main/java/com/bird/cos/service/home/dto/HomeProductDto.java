@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 public record HomeProductDto(
         Long id,
         String title,
+        String imageUrl,
         BigDecimal price,
         BigDecimal salePrice,
         BigDecimal discountRate,

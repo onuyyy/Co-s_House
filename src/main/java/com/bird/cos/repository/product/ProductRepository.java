@@ -16,11 +16,11 @@ import java.util.Optional;
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
 
-    @Query("select new com.bird.cos.service.home.dto.HomeProductDto(p.productId, p.productTitle, p.originalPrice, p.salePrice, p.discountRate, p.averageRating, p.reviewCount) " +
+    @Query("select new com.bird.cos.service.home.dto.HomeProductDto(p.productId, p.productTitle, p.mainImageUrl, p.originalPrice, p.salePrice, p.discountRate, p.averageRating, p.reviewCount) " +
             "from Product p where p.isTodayDeal = true order by p.discountRate desc nulls last, p.salesCount desc")
     List<HomeProductDto> findTodayDeals(Pageable pageable);
 
-    @Query("select new com.bird.cos.service.home.dto.HomeProductDto(p.productId, p.productTitle, p.originalPrice, p.salePrice, p.discountRate, p.averageRating, p.reviewCount) " +
+    @Query("select new com.bird.cos.service.home.dto.HomeProductDto(p.productId, p.productTitle, p.mainImageUrl, p.originalPrice, p.salePrice, p.discountRate, p.averageRating, p.reviewCount) " +
             "from Product p order by p.salesCount desc, p.viewCount desc")
     List<HomeProductDto> findPopular(Pageable pageable);
 
