@@ -94,7 +94,7 @@ public class OrderService {
         User user = getUserByEmail(email);
         BigDecimal totalPrice = calculateTotalPrice(orderItems);
 
-        CommonCode orderStatusCode = commonCodeRepository.findById(OrderStatusCode.PENDING.getCode())
+        CommonCode orderStatusCode = commonCodeRepository.findById(OrderStatusCode.PAID.getCode())
                 .orElseThrow(BusinessException::codeNotFound);
 
         // Order를 저장하여 ID를 생성
