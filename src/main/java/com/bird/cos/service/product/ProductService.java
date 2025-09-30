@@ -7,10 +7,15 @@ import com.bird.cos.repository.product.ProductImageRepository;
 import com.bird.cos.repository.product.ProductOptionRepository;
 import com.bird.cos.repository.product.ProductRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -89,6 +94,20 @@ public class ProductService {
     public List<ProductImage> getImagesByProductId(Long productId) {
         return productImageRepository.findByProduct_ProductId(productId);
     }
+
+    @Transactional(readOnly = true)
+    public Map<String, Object> getAllProductsPaged(int page, int size) {
+        Pageable pageable = PageRequest.of(page - 1, size);
+        Page<Product> productPage = productRepository.findAll(pageable);
+
+        Map<String, Object> result = new HashMap<>();
+        result.put("products", productPage.getContent());
+        result.put("totalElements", productPage.getTotalElements());
+        result.put("totalPages", productPage.getTotalPages());
+
+        return result;
+    }
 }
+
 
 

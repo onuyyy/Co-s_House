@@ -725,14 +725,6 @@
                 <!-- 상품 이미지 -->
                 <div class="product-image">
                     <img th:src="${product.mainImageUrl}" alt="상품 대표 이미지" style="width:100%;">
-
-                    <div class="thumbnail-images" style="margin-top:10px;">
-                        <img th:each="image : ${productImages}"
-                             th:src="${image.imageUrl}"
-                             th:alt="${image.altText}"
-                             style="width:80px; height:80px; margin-right:5px; cursor:pointer;"
-                             onclick="changeMainImage(this.src)">
-                    </div>
                 </div>
 
 
@@ -1101,292 +1093,291 @@
                             th:onclick="'goToQuestionPage(' + (${currentQuestionPage} + 1) + ')'">다음</button>
                 </div>
             </div>
-</main>
 
 
-<script th:inline="javascript">
-    const GUEST_CART_KEY = 'cohouse_guest_cart_v1';
-    async function addToCart(redirectToCart = false) {
-        if (selectedOptions.length === 0) {
-            alert('상품 옵션을 선택해주세요.');
-            return;
-        }
-
-        const productInfo = document.querySelector('.product-info');
-        if (!productInfo) {
-            alert('상품 정보를 찾을 수 없습니다.');
-            return;
-        }
-        const productId = parseNumber(productInfo.dataset.productId);
-
-        const requests = selectedOptions.map(option => {
-            const basePrice = computeBasePrice(productInfo);
-            const finalUnitPrice = Math.max(0, basePrice + option.additionalPrice);
-
-            const payload = buildCartPayload(productId, option.id, option.quantity);
-
-            return sendAddToCartRequest(payload)
-                .then(() => {
-                    removeGuestCartItem(productId, option.id);
-                    return { status: 'fulfilled', optionId: option.id };
-                })
-                .catch(error => {
-                    if (error === 'unauthorized') {
-                        saveGuestCartItem({
-                            productId,
-                            quantity: payload.quantity,
-                            optionId: option.id,
-                            optionLabel: `${option.name}: ${option.value}`,
-                            title: productInfo.dataset.title || '',
-                            imageUrl: productInfo.dataset.imageUrl || '',
-                            finalUnitPrice,
-                            unitPrice: computeUnitPrice(productInfo),
-                            brandId: parseNumber(productInfo.dataset.brandId),
-                            brandName: productInfo.dataset.brandName || ''
-                        });
-                        return { status: 'fulfilled', optionId: option.id, guest: true };
+            <script th:inline="javascript">
+                const GUEST_CART_KEY = 'cohouse_guest_cart_v1';
+                async function addToCart(redirectToCart = false) {
+                    if (selectedOptions.length === 0) {
+                        alert('상품 옵션을 선택해주세요.');
+                        return;
                     }
-                    return { status: 'rejected', optionId: option.id, reason: error };
+
+                    const productInfo = document.querySelector('.product-info');
+                    if (!productInfo) {
+                        alert('상품 정보를 찾을 수 없습니다.');
+                        return;
+                    }
+                    const productId = parseNumber(productInfo.dataset.productId);
+
+                    const requests = selectedOptions.map(option => {
+                        const basePrice = computeBasePrice(productInfo);
+                        const finalUnitPrice = Math.max(0, basePrice + option.additionalPrice);
+
+                        const payload = buildCartPayload(productId, option.id, option.quantity);
+
+                        return sendAddToCartRequest(payload)
+                            .then(() => {
+                                removeGuestCartItem(productId, option.id);
+                                return { status: 'fulfilled', optionId: option.id };
+                            })
+                            .catch(error => {
+                                if (error === 'unauthorized') {
+                                    saveGuestCartItem({
+                                        productId,
+                                        quantity: payload.quantity,
+                                        optionId: option.id,
+                                        optionLabel: `${option.name}: ${option.value}`,
+                                        title: productInfo.dataset.title || '',
+                                        imageUrl: productInfo.dataset.imageUrl || '',
+                                        finalUnitPrice,
+                                        unitPrice: computeUnitPrice(productInfo),
+                                        brandId: parseNumber(productInfo.dataset.brandId),
+                                        brandName: productInfo.dataset.brandName || ''
+                                    });
+                                    return { status: 'fulfilled', optionId: option.id, guest: true };
+                                }
+                                return { status: 'rejected', optionId: option.id, reason: error };
+                            });
+                    });
+
+
+                    try {
+                        const results = await Promise.all(requests);
+                        const failed = results.filter(r => r.status === 'rejected');
+
+                        if (failed.length > 0) {
+                            console.error('일부 상품을 장바구니에 담지 못했습니다:', failed);
+                            alert('일부 상품을 장바구니에 담는 데 실패했습니다. 페이지를 새로고침 후 다시 시도해주세요.');
+                            return;
+                        }
+
+                        const isGuest = results.some(r => r.guest);
+                        if (isGuest) {
+                            alert('로그인 후 주문하면 보유 쿠폰이 적용돼요. 장바구니에 담았습니다!');
+                        } else {
+                            alert('장바구니에 담았습니다!');
+                        }
+
+                        if (redirectToCart) {
+                            window.location.href = '/cart';
+                        }
+                    } catch (error) {
+                        console.error('장바구니 담기 중 예상치 못한 오류 발생:', error);
+                        alert('장바구니 담기에 실패했습니다. 잠시 후 다시 시도해주세요.');
+                    }
+                }
+
+                function createHiddenInput(name, value) {
+                    const input = document.createElement('input');
+                    input.type = 'hidden';
+                    input.name = name;
+                    input.value = value;
+                    return input;
+                }
+
+
+                function buildCartPayload(productId, optionId, quantity) {
+                    const payload = { productId, quantity };
+                    if (optionId) {
+                        payload.selectedOptions = String(optionId);
+                    }
+                    return payload;
+                }
+
+                async function sendAddToCartRequest(body) {
+                    const response = await fetch('/api/cart', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        credentials: 'include',
+                        body: JSON.stringify(body)
+                    });
+                    if (response.ok) {
+                        return;
+                    }
+                    if (response.status === 401 || response.status === 403) {
+                        throw 'unauthorized';
+                    }
+                    const message = await response.text().catch(() => '');
+                    throw new Error(message || 'Failed to add to cart');
+                }
+
+                function loadGuestCartItems() {
+                    try {
+                        const raw = localStorage.getItem(GUEST_CART_KEY);
+                        if (!raw) return [];
+                        const parsed = JSON.parse(raw);
+                        return Array.isArray(parsed) ? parsed : [];
+                    } catch (error) {
+                        console.warn('Failed to parse guest cart', error);
+                        return [];
+                    }
+                }
+
+                function saveGuestCartItems(items) {
+                    localStorage.setItem(GUEST_CART_KEY, JSON.stringify(items));
+                }
+
+                function saveGuestCartItem(item) {
+                    const items = loadGuestCartItems();
+                    const optionKey = item.optionId != null ? item.optionId : null;
+                    const index = items.findIndex(existing => existing.productId === item.productId && normalizeOption(existing.optionId) === optionKey);
+
+                    if (index >= 0) {
+                        items[index].quantity = (items[index].quantity || 0) + item.quantity;
+                        items[index].finalUnitPrice = item.finalUnitPrice;
+                        items[index].updatedAt = new Date().toISOString();
+                    } else {
+                        items.push({ ...item, updatedAt: new Date().toISOString() });
+                    }
+                    saveGuestCartItems(items);
+                }
+
+
+                function removeGuestCartItem(productId, optionId) {
+                    const optionKey = optionId != null ? optionId : null;
+                    let items = loadGuestCartItems();
+                    items = items.filter(item => {
+                        return !(item.productId === productId && normalizeOption(item.optionId) === optionKey);
+                    });
+                    saveGuestCartItems(items);
+                }
+
+                function normalizeOption(value) {
+                    return value == null ? null : Number(value);
+                }
+
+
+                // 탭 기능 활성화 함수
+                function openTab(evt, tabName) {
+                    var i, tabcontent, tablinks;
+                    tabcontent = document.getElementsByClassName("tab-content");
+                    for (i = 0; i < tabcontent.length; i++) {
+                        tabcontent[i].style.display = "none";
+                    }
+                    tablinks = document.getElementsByClassName("tab-link");
+                    for (i = 0; i < tablinks.length; i++) {
+                        tablinks[i].className = tablinks[i].className.replace(" active", "");
+                    }
+                    document.getElementById(tabName).style.display = "block";
+                    evt.currentTarget.className += " active";
+                }
+
+                // 페이지 로드 시 첫 번째 탭을 기본으로 열기
+                document.addEventListener('DOMContentLoaded', function() {
+                    const hash = window.location.hash;
+                    if (window.location.hash === '#inquiry') {
+                        document.querySelector('.tab-link[onclick*="inquiry"]').click();
+                    } else {
+                        document.querySelector('.tab-link').click();
+                    }
                 });
-        });
+
+                const productId = /*[[${productId}]]*/ null;
+                const currentFilter = /*[[${currentFilter}]]*/ 'all';
+                const currentSort = /*[[${currentSort}]]*/ 'latest';
+                const currentRatingRange = /*[[${currentRatingRange}]]*/ null;
+                const currentOptionId = /*[[${currentOptionId}]]*/ null;
+                const totalReviewCount = /*[[${totalReviewCount}]]*/ 0;
+                const overallAverageRating = /*[[${overallAverageRating}]]*/ 0.0;
+
+                // 리뷰 이미지 클릭 시 확대 보기
+                document.querySelectorAll('.review-image').forEach(img => {
+                    img.addEventListener('click', () => {
+                        window.open(img.src, '_blank');
+                    });
+                });
+
+                // 페이지 로드 시 초기화
+                document.addEventListener('DOMContentLoaded', () => {
+                    updateOverallStars();
+                    updateAverageStars();
+                    initMultiOptionSystem();
+                    initOptionPriceUpdater();
+
+                    // 드롭다운 변경 이벤트 리스너
+                    const optionFilter = document.getElementById('optionFilter');
+                    if (optionFilter) {
+                        optionFilter.addEventListener('change', handleFilterChange);
+                    }
+
+                    // 드롭다운 외부 클릭 시 닫기
+                    document.addEventListener('click', function(e) {
+                        if (!document.getElementById('ratingDropdown').contains(e.target)) {
+                            closeRatingDropdown();
+                        }
+                    });
+
+                    // 현재 선택된 별점 표시
+                    updateSelectedRating();
+                });
 
 
-        try {
-            const results = await Promise.all(requests);
-            const failed = results.filter(r => r.status === 'rejected');
+                // 선택된 옵션들을 저장할 배열
+                let selectedOptions = [];
 
-            if (failed.length > 0) {
-                console.error('일부 상품을 장바구니에 담지 못했습니다:', failed);
-                alert('일부 상품을 장바구니에 담는 데 실패했습니다. 페이지를 새로고침 후 다시 시도해주세요.');
-                return;
-            }
+                // 다중 옵션 시스템 초기화
+                function initMultiOptionSystem() {
+                    const optionsSelect = document.getElementById('product-options');
 
-            const isGuest = results.some(r => r.guest);
-            if (isGuest) {
-                alert('로그인 후 주문하면 보유 쿠폰이 적용돼요. 장바구니에 담았습니다!');
-            } else {
-                alert('장바구니에 담았습니다!');
-            }
+                    if (optionsSelect) {
+                        optionsSelect.addEventListener('change', handleOptionSelect);
+                    }
 
-            if (redirectToCart) {
-                window.location.href = '/cart';
-            }
-        } catch (error) {
-            console.error('장바구니 담기 중 예상치 못한 오류 발생:', error);
-            alert('장바구니 담기에 실패했습니다. 잠시 후 다시 시도해주세요.');
-        }
-    }
+                    // 초기 총 가격 설정
+                    updateTotalPrice();
+                }
 
-    function createHiddenInput(name, value) {
-        const input = document.createElement('input');
-        input.type = 'hidden';
-        input.name = name;
-        input.value = value;
-        return input;
-    }
+                // 옵션 선택 처리
+                function handleOptionSelect() {
+                    const optionsSelect = document.getElementById('product-options');
+                    const selectedOption = optionsSelect.selectedOptions[0];
 
+                    if (!selectedOption || !selectedOption.value) return;
 
-    function buildCartPayload(productId, optionId, quantity) {
-        const payload = { productId, quantity };
-        if (optionId) {
-            payload.selectedOptions = String(optionId);
-        }
-        return payload;
-    }
+                    const optionData = {
+                        id: selectedOption.value,
+                        name: selectedOption.dataset.optionName || '옵션',
+                        value: selectedOption.dataset.optionValue || selectedOption.textContent,
+                        additionalPrice: parseFloat(selectedOption.dataset.additionalPrice) || 0,
+                        quantity: 1
+                    };
 
-    async function sendAddToCartRequest(body) {
-        const response = await fetch('/api/cart', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            credentials: 'include',
-            body: JSON.stringify(body)
-        });
-        if (response.ok) {
-            return;
-        }
-        if (response.status === 401 || response.status === 403) {
-            throw 'unauthorized';
-        }
-        const message = await response.text().catch(() => '');
-        throw new Error(message || 'Failed to add to cart');
-    }
+                    // 이미 선택된 옵션인지 확인
+                    const existingIndex = selectedOptions.findIndex(opt => opt.id === optionData.id);
 
-    function loadGuestCartItems() {
-        try {
-            const raw = localStorage.getItem(GUEST_CART_KEY);
-            if (!raw) return [];
-            const parsed = JSON.parse(raw);
-            return Array.isArray(parsed) ? parsed : [];
-        } catch (error) {
-            console.warn('Failed to parse guest cart', error);
-            return [];
-        }
-    }
+                    if (existingIndex >= 0) {
+                        // 이미 있으면 수량 증가
+                        selectedOptions[existingIndex].quantity += 1;
+                    } else {
+                        // 새로운 옵션 추가
+                        selectedOptions.push(optionData);
+                    }
 
-    function saveGuestCartItems(items) {
-        localStorage.setItem(GUEST_CART_KEY, JSON.stringify(items));
-    }
+                    // 옵션 선택 초기화
+                    optionsSelect.selectedIndex = 0;
 
-    function saveGuestCartItem(item) {
-        const items = loadGuestCartItems();
-        const optionKey = item.optionId != null ? item.optionId : null;
-        const index = items.findIndex(existing => existing.productId === item.productId && normalizeOption(existing.optionId) === optionKey);
+                    // UI 업데이트
+                    renderSelectedOptions();
+                    updateTotalPrice();
+                }
 
-        if (index >= 0) {
-            items[index].quantity = (items[index].quantity || 0) + item.quantity;
-            items[index].finalUnitPrice = item.finalUnitPrice;
-            items[index].updatedAt = new Date().toISOString();
-        } else {
-            items.push({ ...item, updatedAt: new Date().toISOString() });
-        }
-        saveGuestCartItems(items);
-    }
+                // 선택된 옵션 목록 렌더링
+                function renderSelectedOptions() {
+                    const container = document.getElementById('selected-options-container');
+                    const optionsList = document.getElementById('selected-options-list');
 
+                    if (selectedOptions.length === 0) {
+                        container.style.display = 'none';
+                        return;
+                    }
 
-    function removeGuestCartItem(productId, optionId) {
-        const optionKey = optionId != null ? optionId : null;
-        let items = loadGuestCartItems();
-        items = items.filter(item => {
-            return !(item.productId === productId && normalizeOption(item.optionId) === optionKey);
-        });
-        saveGuestCartItems(items);
-    }
+                    container.style.display = 'block';
+                    optionsList.innerHTML = selectedOptions.map((option, index) => {
+                        // 개별 옵션의 총 가격을 계산합니다.
+                        const optionTotalPrice = getOptionTotalPrice(option);
 
-    function normalizeOption(value) {
-        return value == null ? null : Number(value);
-    }
-
-
-    // 탭 기능 활성화 함수
-    function openTab(evt, tabName) {
-        var i, tabcontent, tablinks;
-        tabcontent = document.getElementsByClassName("tab-content");
-        for (i = 0; i < tabcontent.length; i++) {
-            tabcontent[i].style.display = "none";
-        }
-        tablinks = document.getElementsByClassName("tab-link");
-        for (i = 0; i < tablinks.length; i++) {
-            tablinks[i].className = tablinks[i].className.replace(" active", "");
-        }
-        document.getElementById(tabName).style.display = "block";
-        evt.currentTarget.className += " active";
-    }
-
-    // 페이지 로드 시 첫 번째 탭을 기본으로 열기
-    document.addEventListener('DOMContentLoaded', function() {
-        const hash = window.location.hash;
-        if (window.location.hash === '#inquiry') {
-            document.querySelector('.tab-link[onclick*="inquiry"]').click();
-        } else {
-            document.querySelector('.tab-link').click();
-        }
-    });
-
-    const productId = /*[[${productId}]]*/ null;
-    const currentFilter = /*[[${currentFilter}]]*/ 'all';
-    const currentSort = /*[[${currentSort}]]*/ 'latest';
-    const currentRatingRange = /*[[${currentRatingRange}]]*/ null;
-    const currentOptionId = /*[[${currentOptionId}]]*/ null;
-    const totalReviewCount = /*[[${totalReviewCount}]]*/ 0;
-    const overallAverageRating = /*[[${overallAverageRating}]]*/ 0.0;
-
-    // 리뷰 이미지 클릭 시 확대 보기
-    document.querySelectorAll('.review-image').forEach(img => {
-        img.addEventListener('click', () => {
-            window.open(img.src, '_blank');
-        });
-    });
-
-    // 페이지 로드 시 초기화
-    document.addEventListener('DOMContentLoaded', () => {
-        updateOverallStars();
-        updateAverageStars();
-        initMultiOptionSystem();
-        initOptionPriceUpdater();
-
-        // 드롭다운 변경 이벤트 리스너
-        const optionFilter = document.getElementById('optionFilter');
-        if (optionFilter) {
-            optionFilter.addEventListener('change', handleFilterChange);
-        }
-
-        // 드롭다운 외부 클릭 시 닫기
-        document.addEventListener('click', function(e) {
-            if (!document.getElementById('ratingDropdown').contains(e.target)) {
-                closeRatingDropdown();
-            }
-        });
-
-        // 현재 선택된 별점 표시
-        updateSelectedRating();
-    });
-
-
-    // 선택된 옵션들을 저장할 배열
-    let selectedOptions = [];
-
-    // 다중 옵션 시스템 초기화
-    function initMultiOptionSystem() {
-        const optionsSelect = document.getElementById('product-options');
-
-        if (optionsSelect) {
-            optionsSelect.addEventListener('change', handleOptionSelect);
-        }
-
-        // 초기 총 가격 설정
-        updateTotalPrice();
-    }
-
-    // 옵션 선택 처리
-    function handleOptionSelect() {
-        const optionsSelect = document.getElementById('product-options');
-        const selectedOption = optionsSelect.selectedOptions[0];
-
-        if (!selectedOption || !selectedOption.value) return;
-
-        const optionData = {
-            id: selectedOption.value,
-            name: selectedOption.dataset.optionName || '옵션',
-            value: selectedOption.dataset.optionValue || selectedOption.textContent,
-            additionalPrice: parseFloat(selectedOption.dataset.additionalPrice) || 0,
-            quantity: 1
-        };
-
-        // 이미 선택된 옵션인지 확인
-        const existingIndex = selectedOptions.findIndex(opt => opt.id === optionData.id);
-
-        if (existingIndex >= 0) {
-            // 이미 있으면 수량 증가
-            selectedOptions[existingIndex].quantity += 1;
-        } else {
-            // 새로운 옵션 추가
-            selectedOptions.push(optionData);
-        }
-
-        // 옵션 선택 초기화
-        optionsSelect.selectedIndex = 0;
-
-        // UI 업데이트
-        renderSelectedOptions();
-        updateTotalPrice();
-    }
-
-    // 선택된 옵션 목록 렌더링
-    function renderSelectedOptions() {
-        const container = document.getElementById('selected-options-container');
-        const optionsList = document.getElementById('selected-options-list');
-
-        if (selectedOptions.length === 0) {
-            container.style.display = 'none';
-            return;
-        }
-
-        container.style.display = 'block';
-        optionsList.innerHTML = selectedOptions.map((option, index) => {
-            // 개별 옵션의 총 가격을 계산합니다.
-            const optionTotalPrice = getOptionTotalPrice(option);
-
-            return `
+                        return `
             <div class="option-item" data-option-index="${index}">
                 <div class="option-name">${option.name}: ${option.value}</div>
                 <div class="option-controls">
@@ -1402,450 +1393,447 @@
                 </div>
             </div>
         `;
-        }).join('');
-    }
-
-    // 옵션 수량 변경
-    function changeOptionQuantity(index, delta) {
-        if (index < 0 || index >= selectedOptions.length) return;
-
-        const newQuantity = selectedOptions[index].quantity + delta;
-        if (newQuantity < 1) {
-            removeOption(index);
-            return;
-        }
-
-        selectedOptions[index].quantity = newQuantity;
-        renderSelectedOptions();
-        updateTotalPrice();
-    }
-
-    // 옵션 수량 직접 설정
-    function setOptionQuantity(index, quantity) {
-        if (index < 0 || index >= selectedOptions.length) return;
-
-        const qty = parseInt(quantity) || 1;
-        if (qty < 1) {
-            removeOption(index);
-            return;
-        }
-
-        selectedOptions[index].quantity = qty;
-        renderSelectedOptions();
-        updateTotalPrice();
-    }
-
-    // 옵션 제거
-    function removeOption(index) {
-        if (index < 0 || index >= selectedOptions.length) return;
-
-        selectedOptions.splice(index, 1);
-        renderSelectedOptions();
-        updateTotalPrice();
-    }
-
-    // 개별 옵션의 총 가격 계산
-    function getOptionTotalPrice(option) {
-        const productInfo = document.querySelector('.product-info');
-        const basePrice = computeBasePrice(productInfo);
-        return (basePrice + option.additionalPrice) * option.quantity;
-    }
-
-    // 전체 총 가격 업데이트
-    function updateTotalPrice() {
-        const totalPriceElement = document.getElementById('total-price');
-        if (!totalPriceElement) return;
-
-        let totalPrice = 0;
-
-        if (selectedOptions.length === 0) {
-            // 옵션이 선택되지 않은 경우 기본 가격
-            const productInfo = document.querySelector('.product-info');
-            totalPrice = computeBasePrice(productInfo);
-        } else {
-            // 선택된 모든 옵션의 총합
-            totalPrice = selectedOptions.reduce((sum, option) => {
-                return sum + getOptionTotalPrice(option);
-            }, 0);
-        }
-
-        // null 체크 추가
-        if (totalPrice === null || totalPrice === undefined || isNaN(totalPrice)) {
-            totalPrice = 0;
-        }
-
-        const formatted = formatCurrency(totalPrice);
-        totalPriceElement.textContent = formatted + '원';
-    }
-
-
-    // 전체 별점 업데이트 (변경되지 않음)
-    function updateOverallStars() {
-        const overallStarsElement = document.querySelector('#overallStars');
-        if (overallStarsElement) {
-            overallStarsElement.innerHTML = generateStars(overallAverageRating);
-        }
-    }
-
-    // 별점 드롭다운 토글
-    function toggleRatingDropdown() {
-        const header = document.querySelector('.dropdown-header');
-        const content = document.getElementById('ratingDropdownContent');
-
-        header.classList.toggle('open');
-        content.classList.toggle('show');
-    }
-
-    // 별점 드롭다운 닫기
-    function closeRatingDropdown() {
-        const header = document.querySelector('.dropdown-header');
-        const content = document.getElementById('ratingDropdownContent');
-
-        header.classList.remove('open');
-        content.classList.remove('show');
-    }
-
-    // 별점 선택
-    function selectRating(value, text) {
-        document.getElementById('selectedRating').textContent = text;
-        closeRatingDropdown();
-
-        const optionId = document.getElementById('optionFilter') ?
-            document.getElementById('optionFilter').value || null : null;
-
-        updateURL({
-            filter: currentFilter,
-            sort: currentSort,
-            ratingRange: value || null,
-            optionId: optionId
-        });
-    }
-
-    // 현재 선택된 별점 표시 업데이트
-    function updateSelectedRating() {
-        const selectedElement = document.getElementById('selectedRating');
-        if (currentRatingRange) {
-            switch(currentRatingRange) {
-                case '5': selectedElement.textContent = '5점'; break;
-                case '4': selectedElement.textContent = '4점'; break;
-                case '3': selectedElement.textContent = '3점'; break;
-                case '2': selectedElement.textContent = '2점'; break;
-                case '1': selectedElement.textContent = '1점'; break;
-                default: selectedElement.textContent = '전체 별점';
-            }
-        } else {
-            selectedElement.textContent = '전체 별점';
-        }
-    }
-
-    // 필터 변경 처리
-    function handleFilterChange() {
-        const optionFilter = document.getElementById('optionFilter');
-        const optionId = optionFilter ? optionFilter.value || null : null;
-        const ratingRange = currentRatingRange; // 별점은 커스텀 드롭다운에서 처리
-
-        updateURL({
-            filter: currentFilter,
-            sort: currentSort,
-            ratingRange: ratingRange,
-            optionId: optionId
-        });
-    }
-
-    // 필터 탭 클릭
-    function applyFilter(filter) {
-        const optionFilter = document.getElementById('optionFilter');
-        const optionId = optionFilter ? optionFilter.value || null : null;
-        const ratingRange = currentRatingRange;
-
-        document.querySelectorAll('.filter-tab').forEach(tab => {
-            tab.classList.remove('active');
-        });
-
-        event.currentTarget.classList.add('active');
-
-        updateURL({
-            filter: filter,
-            sort: 'latest',
-            ratingRange: ratingRange,
-            optionId: optionId
-        });
-    }
-    // 정렬 탭 클릭
-    function applySort(sort) {
-        const optionFilter = document.getElementById('optionFilter');
-        const optionId = optionFilter ? optionFilter.value || null : null;
-        const ratingRange = currentRatingRange;
-
-        document.querySelectorAll('.filter-tab').forEach(tab => {
-            tab.classList.remove('active');
-        });
-
-        event.currentTarget.classList.add('active');
-
-        updateURL({
-            filter: 'all',
-            sort: sort,
-            ratingRange: ratingRange,
-            optionId: optionId
-        });
-    }
-
-    // URL 업데이트 및 페이지 이동
-    function updateURL(params) {
-        const url = new URL(window.location.href);
-        const searchParams = new URLSearchParams();
-
-        if (params.filter && params.filter !== 'all') {
-            searchParams.append('filter', params.filter);
-        }
-        if (params.sort && params.sort !== 'latest') {
-            searchParams.append('sort', params.sort);
-        }
-        if (params.ratingRange) {
-            searchParams.append('ratingRange', params.ratingRange);
-        }
-        if (params.optionId) {
-            searchParams.append('optionId', params.optionId);
-        }
-        if (params.page && params.page > 1) {
-            searchParams.append('page', params.page);
-        }
-
-        url.search = searchParams.toString();
-        url.hash = 'reviews'
-        window.location.href = url.toString();
-    }
-
-    // 페이지 버튼 호출 함수
-    function goToPage(page) {
-        const optionId = document.getElementById('optionFilter') ?
-            document.getElementById('optionFilter').value || null : null;
-
-        updateURL({
-            filter: currentFilter,
-            sort: currentSort,
-            ratingRange: currentRatingRange,
-            optionId: optionId,
-            page: page
-        });
-    }
-
-    // 필터된 결과의 평균 별점 업데이트
-    function updateAverageStars() {
-        const averageRatingElement = document.querySelector('.current-filter-rating'); // 새로운 클래스
-        const starsElement = document.querySelector('#currentFilterStars'); // 새로운 ID
-
-        if (averageRatingElement && starsElement) {
-            const averageRating = parseFloat(averageRatingElement.textContent);
-            if (!isNaN(averageRating)) {
-                starsElement.innerHTML = generateStars(averageRating);
-            }
-        }
-    }
-
-    // 별점 생성 함수
-    function generateStars(rating) {
-        let stars = '';
-        for (let i = 1; i <= 5; i++) {
-            if (i <= rating) {
-                stars += '★';
-            } else if (i - 0.5 <= rating) {
-                stars += '★';
-            } else {
-                stars += '☆';
-            }
-        }
-        return stars;
-    }
-
-    // 브랜드 페이지 이동
-    function goToBrandPage(element) {
-        const brandId = element.getAttribute('data-brand-id');
-        if (brandId && brandId !== 'null' && brandId.trim() !== '') {
-            window.location.href = '/brands/' + brandId;
-        }
-    }
-
-    // 옵션 값 정규화
-    function normalizeOption(value) {
-        return value == null ? null : Number(value);
-    }
-
-    // 옵션 가격 업데이트 초기화
-    function initOptionPriceUpdater() {
-        const productInfo = document.querySelector('.product-info');
-        const optionsSelect = document.getElementById('product-options');
-        const totalPriceElement = document.getElementById('total-price');
-
-        if (!productInfo || !optionsSelect || !totalPriceElement) {
-            return;
-        }
-
-        const basePrice = computeBasePrice(productInfo);
-        updateTotalPrice(totalPriceElement, basePrice);
-
-        optionsSelect.addEventListener('change', () => {
-            updateTotalPriceFromQuantity();
-        });
-    }
-
-    // 선택된 옵션 정보 가져오기
-    function resolveSelectedOption(selectEl) {
-        if (!selectEl || selectEl.selectedIndex < 0) {
-            return { optionId: null, optionLabel: '', additionalPrice: 0 };
-        }
-        const option = selectEl.selectedOptions[0];
-        if (!option || !option.value) {
-            return { optionId: null, optionLabel: '', additionalPrice: 0 };
-        }
-        return {
-            optionId: parseNumber(option.value),
-            optionLabel: (option.textContent || '').trim(),
-            additionalPrice: parseMoney(option.dataset.additionalPrice)
-        };
-    }
-
-
-    // 기본 가격 계산
-    function computeBasePrice(productInfo) {
-        if (!productInfo) return 0;
-
-        const values = [
-            productInfo.dataset.basePrice,
-            productInfo.dataset.salePrice,
-            productInfo.dataset.couponPrice,
-            productInfo.dataset.unitPrice
-        ];
-
-        for (const value of values) {
-            const amount = parseMoney(value);
-            if (amount > 0) {
-                return amount;
-            }
-        }
-        return 0;
-    }
-
-    // 단위 가격 계산
-    function computeUnitPrice(productInfo) {
-        const amount = parseMoney(productInfo.dataset.unitPrice);
-        return amount > 0 ? amount : computeBasePrice(productInfo);
-    }
-
-    // 총 가격 업데이트
-    function updatePriceDisplay(targetEl, amount) {
-        if (!targetEl) {
-            return;
-        }
-        const formatted = formatCurrency(amount);
-        targetEl.textContent = formatted + '원';
-    }
-
-    // 금액 파싱
-    function parseMoney(value) {
-        if (value === null || value === undefined || value === '') {
-            return 0;
-        }
-        const num = parseFloat(String(value).replace(/[^\d.-]/g, ''));
-        return Number.isFinite(num) ? num : 0;
-    }
-
-    // 숫자 파싱
-    function parseNumber(value) {
-        const num = Number(value);
-        return Number.isFinite(num) ? num : null;
-    }
-
-    // 통화 포맷팅
-    function formatCurrency(value) {
-        const num = parseMoney(value);
-        if (!Number.isFinite(num)) return '0';
-        return Math.floor(num).toLocaleString('ko-KR');
-    }
-
-    window.directPurchase = function () {
-        // 선택된 옵션이 있는지 확인
-        if (selectedOptions.length === 0) {
-            alert('상품 옵션을 선택해주세요.');
-            return;
-        }
-
-        const productInfo = document.querySelector('.product-info');
-        if (!productInfo) {
-            alert('상품 정보를 찾을 수 없습니다.');
-            return;
-        }
-
-        const productId = parseInt(productInfo.dataset.productId, 10);
-        if (!productId) {
-            alert('상품 정보를 찾을 수 없습니다.');
-            return;
-        }
-
-        // 주문 정보를 form으로 전송
-        const form = document.createElement('form');
-        form.method = 'POST';
-        form.action = '/order/preview';
-
-        const basePrice = computeBasePrice(productInfo);
-
-        selectedOptions.forEach((option, index) => {
-            const finalUnitPrice = Math.max(0, basePrice + option.additionalPrice);
-
-            // orderItems[0].productId, orderItems[1].productId ...
-            form.appendChild(createHiddenInput(`orderItems[${index}].productId`, productId));
-            form.appendChild(createHiddenInput(`orderItems[${index}].productOptionId`, option.id));
-            form.appendChild(createHiddenInput(`orderItems[${index}].quantity`, option.quantity));
-            form.appendChild(createHiddenInput(`orderItems[${index}].price`, finalUnitPrice));
-        });
-
-        document.body.appendChild(form);
-        form.submit();
-    };
-
-    function toggleQnaContent(element) {
-        const content = element.nextElementSibling;
-        if (content.style.display === 'block') {
-            content.style.display = 'none';
-        } else {
-            content.style.display = 'block';
-        }
-    }
-
-    function goToReviewPage(page) {
-        const url = new URL(window.location.href);
-        const params = new URLSearchParams(url.search);
-
-        params.set('page', page);
-
-        params.delete('q_page');
-
-        url.search = params.toString();
-
-        url.hash = 'reviews';
-
-        window.location.href = url.toString();
-    }
-
-    /**
-     * 문의 목록 페이지 이동 함수
-     */
-    function goToQuestionPage(q_page) {
-        const url = new URL(window.location.href);
-        const params = new URLSearchParams(url.search);
-        params.set('q_page', q_page);
-        params.delete('page');
-        url.search = params.toString();
-
-        url.hash = 'inquiry';
-        window.location.href = url.toString();
-    }
-
-    function changeMainImage(src) {
-        document.querySelector('.product-image > img').src = src;
-    }
-
-</script>
+                    }).join('');
+                }
+
+                // 옵션 수량 변경
+                function changeOptionQuantity(index, delta) {
+                    if (index < 0 || index >= selectedOptions.length) return;
+
+                    const newQuantity = selectedOptions[index].quantity + delta;
+                    if (newQuantity < 1) {
+                        removeOption(index);
+                        return;
+                    }
+
+                    selectedOptions[index].quantity = newQuantity;
+                    renderSelectedOptions();
+                    updateTotalPrice();
+                }
+
+                // 옵션 수량 직접 설정
+                function setOptionQuantity(index, quantity) {
+                    if (index < 0 || index >= selectedOptions.length) return;
+
+                    const qty = parseInt(quantity) || 1;
+                    if (qty < 1) {
+                        removeOption(index);
+                        return;
+                    }
+
+                    selectedOptions[index].quantity = qty;
+                    renderSelectedOptions();
+                    updateTotalPrice();
+                }
+
+                // 옵션 제거
+                function removeOption(index) {
+                    if (index < 0 || index >= selectedOptions.length) return;
+
+                    selectedOptions.splice(index, 1);
+                    renderSelectedOptions();
+                    updateTotalPrice();
+                }
+
+                // 개별 옵션의 총 가격 계산
+                function getOptionTotalPrice(option) {
+                    const productInfo = document.querySelector('.product-info');
+                    const basePrice = computeBasePrice(productInfo);
+                    return (basePrice + option.additionalPrice) * option.quantity;
+                }
+
+                // 전체 총 가격 업데이트
+                function updateTotalPrice() {
+                    const totalPriceElement = document.getElementById('total-price');
+                    if (!totalPriceElement) return;
+
+                    let totalPrice = 0;
+
+                    if (selectedOptions.length === 0) {
+                        // 옵션이 선택되지 않은 경우 기본 가격
+                        const productInfo = document.querySelector('.product-info');
+                        totalPrice = computeBasePrice(productInfo);
+                    } else {
+                        // 선택된 모든 옵션의 총합
+                        totalPrice = selectedOptions.reduce((sum, option) => {
+                            return sum + getOptionTotalPrice(option);
+                        }, 0);
+                    }
+
+                    // null 체크 추가
+                    if (totalPrice === null || totalPrice === undefined || isNaN(totalPrice)) {
+                        totalPrice = 0;
+                    }
+
+                    const formatted = formatCurrency(totalPrice);
+                    totalPriceElement.textContent = formatted + '원';
+                }
+
+
+                // 전체 별점 업데이트 (변경되지 않음)
+                function updateOverallStars() {
+                    const overallStarsElement = document.querySelector('#overallStars');
+                    if (overallStarsElement) {
+                        overallStarsElement.innerHTML = generateStars(overallAverageRating);
+                    }
+                }
+
+                // 별점 드롭다운 토글
+                function toggleRatingDropdown() {
+                    const header = document.querySelector('.dropdown-header');
+                    const content = document.getElementById('ratingDropdownContent');
+
+                    header.classList.toggle('open');
+                    content.classList.toggle('show');
+                }
+
+                // 별점 드롭다운 닫기
+                function closeRatingDropdown() {
+                    const header = document.querySelector('.dropdown-header');
+                    const content = document.getElementById('ratingDropdownContent');
+
+                    header.classList.remove('open');
+                    content.classList.remove('show');
+                }
+
+                // 별점 선택
+                function selectRating(value, text) {
+                    document.getElementById('selectedRating').textContent = text;
+                    closeRatingDropdown();
+
+                    const optionId = document.getElementById('optionFilter') ?
+                        document.getElementById('optionFilter').value || null : null;
+
+                    updateURL({
+                        filter: currentFilter,
+                        sort: currentSort,
+                        ratingRange: value || null,
+                        optionId: optionId
+                    });
+                }
+
+                // 현재 선택된 별점 표시 업데이트
+                function updateSelectedRating() {
+                    const selectedElement = document.getElementById('selectedRating');
+                    if (currentRatingRange) {
+                        switch(currentRatingRange) {
+                            case '5': selectedElement.textContent = '5점'; break;
+                            case '4': selectedElement.textContent = '4점'; break;
+                            case '3': selectedElement.textContent = '3점'; break;
+                            case '2': selectedElement.textContent = '2점'; break;
+                            case '1': selectedElement.textContent = '1점'; break;
+                            default: selectedElement.textContent = '전체 별점';
+                        }
+                    } else {
+                        selectedElement.textContent = '전체 별점';
+                    }
+                }
+
+                // 필터 변경 처리
+                function handleFilterChange() {
+                    const optionFilter = document.getElementById('optionFilter');
+                    const optionId = optionFilter ? optionFilter.value || null : null;
+                    const ratingRange = currentRatingRange; // 별점은 커스텀 드롭다운에서 처리
+
+                    updateURL({
+                        filter: currentFilter,
+                        sort: currentSort,
+                        ratingRange: ratingRange,
+                        optionId: optionId
+                    });
+                }
+
+                // 필터 탭 클릭
+                function applyFilter(filter) {
+                    const optionFilter = document.getElementById('optionFilter');
+                    const optionId = optionFilter ? optionFilter.value || null : null;
+                    const ratingRange = currentRatingRange;
+
+                    document.querySelectorAll('.filter-tab').forEach(tab => {
+                        tab.classList.remove('active');
+                    });
+
+                    event.currentTarget.classList.add('active');
+
+                    updateURL({
+                        filter: filter,
+                        sort: 'latest',
+                        ratingRange: ratingRange,
+                        optionId: optionId
+                    });
+                }
+                // 정렬 탭 클릭
+                function applySort(sort) {
+                    const optionFilter = document.getElementById('optionFilter');
+                    const optionId = optionFilter ? optionFilter.value || null : null;
+                    const ratingRange = currentRatingRange;
+
+                    document.querySelectorAll('.filter-tab').forEach(tab => {
+                        tab.classList.remove('active');
+                    });
+
+                    event.currentTarget.classList.add('active');
+
+                    updateURL({
+                        filter: 'all',
+                        sort: sort,
+                        ratingRange: ratingRange,
+                        optionId: optionId
+                    });
+                }
+
+                // URL 업데이트 및 페이지 이동
+                function updateURL(params) {
+                    const url = new URL(window.location.href);
+                    const searchParams = new URLSearchParams();
+
+                    if (params.filter && params.filter !== 'all') {
+                        searchParams.append('filter', params.filter);
+                    }
+                    if (params.sort && params.sort !== 'latest') {
+                        searchParams.append('sort', params.sort);
+                    }
+                    if (params.ratingRange) {
+                        searchParams.append('ratingRange', params.ratingRange);
+                    }
+                    if (params.optionId) {
+                        searchParams.append('optionId', params.optionId);
+                    }
+                    if (params.page && params.page > 1) {
+                        searchParams.append('page', params.page);
+                    }
+
+                    url.search = searchParams.toString();
+                    url.hash = 'reviews'
+                    window.location.href = url.toString();
+                }
+
+                // 페이지 버튼 호출 함수
+                function goToPage(page) {
+                    const optionId = document.getElementById('optionFilter') ?
+                        document.getElementById('optionFilter').value || null : null;
+
+                    updateURL({
+                        filter: currentFilter,
+                        sort: currentSort,
+                        ratingRange: currentRatingRange,
+                        optionId: optionId,
+                        page: page
+                    });
+                }
+
+                // 필터된 결과의 평균 별점 업데이트
+                function updateAverageStars() {
+                    const averageRatingElement = document.querySelector('.current-filter-rating'); // 새로운 클래스
+                    const starsElement = document.querySelector('#currentFilterStars'); // 새로운 ID
+
+                    if (averageRatingElement && starsElement) {
+                        const averageRating = parseFloat(averageRatingElement.textContent);
+                        if (!isNaN(averageRating)) {
+                            starsElement.innerHTML = generateStars(averageRating);
+                        }
+                    }
+                }
+
+                // 별점 생성 함수
+                function generateStars(rating) {
+                    let stars = '';
+                    for (let i = 1; i <= 5; i++) {
+                        if (i <= rating) {
+                            stars += '★';
+                        } else if (i - 0.5 <= rating) {
+                            stars += '★';
+                        } else {
+                            stars += '☆';
+                        }
+                    }
+                    return stars;
+                }
+
+                // 브랜드 페이지 이동
+                function goToBrandPage(element) {
+                    const brandId = element.getAttribute('data-brand-id');
+                    if (brandId && brandId !== 'null' && brandId.trim() !== '') {
+                        window.location.href = '/brands/' + brandId;
+                    }
+                }
+
+                // 옵션 값 정규화
+                function normalizeOption(value) {
+                    return value == null ? null : Number(value);
+                }
+
+                // 옵션 가격 업데이트 초기화
+                function initOptionPriceUpdater() {
+                    const productInfo = document.querySelector('.product-info');
+                    const optionsSelect = document.getElementById('product-options');
+                    const totalPriceElement = document.getElementById('total-price');
+
+                    if (!productInfo || !optionsSelect || !totalPriceElement) {
+                        return;
+                    }
+
+                    const basePrice = computeBasePrice(productInfo);
+                    updateTotalPrice(totalPriceElement, basePrice);
+
+                    optionsSelect.addEventListener('change', () => {
+                        updateTotalPriceFromQuantity();
+                    });
+                }
+
+                // 선택된 옵션 정보 가져오기
+                function resolveSelectedOption(selectEl) {
+                    if (!selectEl || selectEl.selectedIndex < 0) {
+                        return { optionId: null, optionLabel: '', additionalPrice: 0 };
+                    }
+                    const option = selectEl.selectedOptions[0];
+                    if (!option || !option.value) {
+                        return { optionId: null, optionLabel: '', additionalPrice: 0 };
+                    }
+                    return {
+                        optionId: parseNumber(option.value),
+                        optionLabel: (option.textContent || '').trim(),
+                        additionalPrice: parseMoney(option.dataset.additionalPrice)
+                    };
+                }
+
+
+                // 기본 가격 계산
+                function computeBasePrice(productInfo) {
+                    if (!productInfo) return 0;
+
+                    const values = [
+                        productInfo.dataset.basePrice,
+                        productInfo.dataset.salePrice,
+                        productInfo.dataset.couponPrice,
+                        productInfo.dataset.unitPrice
+                    ];
+
+                    for (const value of values) {
+                        const amount = parseMoney(value);
+                        if (amount > 0) {
+                            return amount;
+                        }
+                    }
+                    return 0;
+                }
+
+                // 단위 가격 계산
+                function computeUnitPrice(productInfo) {
+                    const amount = parseMoney(productInfo.dataset.unitPrice);
+                    return amount > 0 ? amount : computeBasePrice(productInfo);
+                }
+
+                // 총 가격 업데이트
+                function updatePriceDisplay(targetEl, amount) {
+                    if (!targetEl) {
+                        return;
+                    }
+                    const formatted = formatCurrency(amount);
+                    targetEl.textContent = formatted + '원';
+                }
+
+                // 금액 파싱
+                function parseMoney(value) {
+                    if (value === null || value === undefined || value === '') {
+                        return 0;
+                    }
+                    const num = parseFloat(String(value).replace(/[^\d.-]/g, ''));
+                    return Number.isFinite(num) ? num : 0;
+                }
+
+                // 숫자 파싱
+                function parseNumber(value) {
+                    const num = Number(value);
+                    return Number.isFinite(num) ? num : null;
+                }
+
+                // 통화 포맷팅
+                function formatCurrency(value) {
+                    const num = parseMoney(value);
+                    if (!Number.isFinite(num)) return '0';
+                    return Math.floor(num).toLocaleString('ko-KR');
+                }
+
+                window.directPurchase = function () {
+                    // 선택된 옵션이 있는지 확인
+                    if (selectedOptions.length === 0) {
+                        alert('상품 옵션을 선택해주세요.');
+                        return;
+                    }
+
+                    const productInfo = document.querySelector('.product-info');
+                    if (!productInfo) {
+                        alert('상품 정보를 찾을 수 없습니다.');
+                        return;
+                    }
+
+                    const productId = parseInt(productInfo.dataset.productId, 10);
+                    if (!productId) {
+                        alert('상품 정보를 찾을 수 없습니다.');
+                        return;
+                    }
+
+                    // 주문 정보를 form으로 전송
+                    const form = document.createElement('form');
+                    form.method = 'POST';
+                    form.action = '/order/preview';
+
+                    const basePrice = computeBasePrice(productInfo);
+
+                    selectedOptions.forEach((option, index) => {
+                        const finalUnitPrice = Math.max(0, basePrice + option.additionalPrice);
+
+                        // orderItems[0].productId, orderItems[1].productId ...
+                        form.appendChild(createHiddenInput(`orderItems[${index}].productId`, productId));
+                        form.appendChild(createHiddenInput(`orderItems[${index}].productOptionId`, option.id));
+                        form.appendChild(createHiddenInput(`orderItems[${index}].quantity`, option.quantity));
+                        form.appendChild(createHiddenInput(`orderItems[${index}].price`, finalUnitPrice));
+                    });
+
+                    document.body.appendChild(form);
+                    form.submit();
+                };
+
+                function toggleQnaContent(element) {
+                    const content = element.nextElementSibling;
+                    if (content.style.display === 'block') {
+                        content.style.display = 'none';
+                    } else {
+                        content.style.display = 'block';
+                    }
+                }
+
+                function goToReviewPage(page) {
+                    const url = new URL(window.location.href);
+                    const params = new URLSearchParams(url.search);
+
+                    params.set('page', page);
+
+                    params.delete('q_page');
+
+                    url.search = params.toString();
+
+                    url.hash = 'reviews';
+
+                    window.location.href = url.toString();
+                }
+
+                /**
+                 * 문의 목록 페이지 이동 함수
+                 */
+                function goToQuestionPage(q_page) {
+                    const url = new URL(window.location.href);
+                    const params = new URLSearchParams(url.search);
+                    params.set('q_page', q_page);
+                    params.delete('page');
+                    url.search = params.toString();
+
+                    url.hash = 'inquiry';
+                    window.location.href = url.toString();
+                }
+
+            </script>
 </body>
 </html>
+

@@ -69,14 +69,16 @@ public class ProductController {
 
     //상품 페이지
     @GetMapping("/product")
-    public String selectProduct(Model model) {
-        //실제 데이터를 받아오는 기능
-        List <Product> products = productService.getAllProducts();
-        model.addAttribute("products", products);
+    public String selectProduct(Model model,
+                                @RequestParam(required = false, defaultValue = "1") int page,
+                                @RequestParam(required = false, defaultValue = "12") int size) {
+        // 페이징된 데이터 가져오기
+        Map<String, Object> result = productService.getAllProductsPaged(page, size);
 
-        //실제 데이터 카운트하는 기능
-        int totalCount = products.size();
-        model.addAttribute("totalCount", totalCount);
+        model.addAttribute("products", result.get("products"));
+        model.addAttribute("totalCount", result.get("totalElements"));
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", result.get("totalPages"));
 
         return "product/product";
     }
