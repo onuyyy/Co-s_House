@@ -31,4 +31,8 @@ public class Inventory {
     @Column(name = "inventory_updated_date", nullable = false, insertable = false, updatable = false)
     private LocalDateTime inventoryUpdatedDate;
 
+    // 재고 수량 업데이트 메서드
+    public void updateCurrentQuantity(Integer newQuantity) {
+        this.currentQuantity = newQuantity;
+    }
 }

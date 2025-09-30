@@ -109,7 +109,8 @@
                 receiptStatus: document.getElementById('receiptStatus').value
             };
 
-            fetch('/api/admin/inventory/receipt', {
+            // 수정된 API 엔드포인트 사용
+            fetch(`/api/admin/inventory/receipt`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

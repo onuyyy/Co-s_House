@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/admin-layout}"
+      lang="ko">
+<head>
+    <title>입고 관리</title>
+    <style>
+        .data-table {
+            margin-top: 20px;
+        }
+        .data-table table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+        }
+        .data-table th,
+        .data-table td {
+            padding: 12px 8px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+        .data-table th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+            color: #333;
+        }
+        .status-badge {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+            color: white;
+        }
+        .status-pending {
+            background-color: #ffc107;
+        }
+        .status-completed {
+            background-color: #28a745;
+        }
+        .status-cancelled {
+            background-color: #dc3545;
+        }
+        .btn-change-status {
+            padding: 4px 8px;
+            margin: 2px;
+            border: none;
+            border-radius: 4px;
+            font-size: 11px;
+            cursor: pointer;
+            color: white;
+        }
+        .btn-pending {
+            background-color: #ffc107;
+        }
+        .btn-completed {
+            background-color: #28a745;
+        }
+        .btn-cancelled {
+            background-color: #dc3545;
+        }
+        .btn-change-status:hover {
+            opacity: 0.8;
+        }
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 5px;
+            margin-top: 20px;
+        }
+        .pagination a, .pagination span {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            text-decoration: none;
+            color: #007bff;
+        }
+        .pagination a:hover {
+            background-color: #f5f5f5;
+        }
+        .pagination .current {
+            background-color: #007bff;
+            color: white;
+            border-color: #007bff;
+        }
+    </style>
+</head>
+<body>
+    <div layout:fragment="content-header" class="content-header">
+        <div>
+            <h2 style="color: #333; font-size: 20px;">입고 관리</h2>
+        </div>
+        <div>
+            <a href="/api/admin/inventory/receipt" class="btn btn-primary">새 입고 등록</a>
+        </div>
+    </div>
+
+    <div layout:fragment="content">
+        <div class="data-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>입고ID</th>
+                        <th>상품ID</th>
+                        <th>상품명</th>
+                        <th>입고수량</th>
+                        <th>입고일자</th>
+                        <th>상태</th>
+                        <th>상태변경</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="receipt : ${receiptPage.content}">
+                        <td th:text="${receipt.receiptId}">1</td>
+                        <td th:text="${receipt.productId}">100</td>
+                        <td th:text="${receipt.productTitle}">상품명</td>
+                        <td th:text="${receipt.receiptQuantity}">50</td>
+                        <td th:text="${#temporals.format(receipt.receiptDate, 'yyyy-MM-dd')}">2024-01-01</td>
+                        <td>
+                            <span th:class="'status-badge status-' + ${#strings.toLowerCase(receipt.receiptStatus)}"
+                                  th:text="${receipt.receiptStatus == 'PENDING' ? '대기' :
+                                           receipt.receiptStatus == 'COMPLETED' ? '완료' : '취소'}">대기</span>
+                        </td>
+                        <td>
+                            <button th:if="${receipt.receiptStatus != 'PENDING'}"
+                                    class="btn-change-status btn-pending"
+                                    th:onclick="'changeStatus(' + ${receipt.receiptId} + ', \'PENDING\')'">대기</button>
+                            <button th:if="${receipt.receiptStatus != 'COMPLETED'}"
+                                    class="btn-change-status btn-completed"
+                                    th:onclick="'changeStatus(' + ${receipt.receiptId} + ', \'COMPLETED\')'">완료</button>
+                            <button th:if="${receipt.receiptStatus != 'CANCELLED'}"
+                                    class="btn-change-status btn-cancelled"
+                                    th:onclick="'changeStatus(' + ${receipt.receiptId} + ', \'CANCELLED\')'">취소</button>
+                        </td>
+                    </tr>
+                    <tr th:if="${receiptPage.content.empty}">
+                        <td colspan="7" style="text-align: center; padding: 40px; color: #999;">
+                            입고 데이터가 없습니다.
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Pagination -->
+        <div class="pagination" th:if="${receiptPage.totalPages > 0}">
+            <!-- Previous -->
+            <a th:if="${receiptPage.hasPrevious()}"
+               th:href="@{/api/admin/inventory/receipt-list(page=${receiptPage.number - 1})}">‹</a>
+
+            <!-- Page Numbers -->
+            <th:block th:each="pageNum : ${#numbers.sequence(0, receiptPage.totalPages - 1)}">
+                <span th:if="${pageNum == receiptPage.number}" class="current" th:text="${pageNum + 1}">1</span>
+                <a th:unless="${pageNum == receiptPage.number}"
+                   th:href="@{/api/admin/inventory/receipt-list(page=${pageNum})}"
+                   th:text="${pageNum + 1}">1</a>
+            </th:block>
+
+            <!-- Next -->
+            <a th:if="${receiptPage.hasNext()}"
+               th:href="@{/api/admin/inventory/receipt-list(page=${receiptPage.number + 1})}">›</a>
+        </div>
+    </div>
+
+    <script layout:fragment="scripts">
+        function changeStatus(receiptId, newStatus) {
+            if (confirm(`정말로 상태를 ${getStatusText(newStatus)}(으)로 변경하시겠습니까?`)) {
+                fetch(`/api/admin/inventory/receipt/${receiptId}/status?status=${newStatus}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                })
+                .then(response => {
+                    if (response.ok) {
+                        alert('상태가 변경되었습니다.');
+                        location.reload();
+                    } else {
+                        throw new Error('상태 변경 실패');
+                    }
+                })
+                .catch(error => {
+                    alert('상태 변경 중 오류가 발생했습니다.');
+                    console.error('Error:', error);
+                });
+            }
+        }
+
+        function getStatusText(status) {
+            switch(status) {
+                case 'PENDING': return '대기';
+                case 'COMPLETED': return '완료';
+                case 'CANCELLED': return '취소';
+                default: return status;
+            }
+        }
+    </script>
+</body>
+</html>

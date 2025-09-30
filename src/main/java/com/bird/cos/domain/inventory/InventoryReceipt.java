@@ -40,4 +40,9 @@ public class InventoryReceipt {
         this.receiptStatus = receiptStatus;
         this.receiptDate = receiptDate;
     }
+
+    // 입고 상태 변경
+    public void updateReceiptStatus(String newStatus) {
+        this.receiptStatus = newStatus;
+    }
 }

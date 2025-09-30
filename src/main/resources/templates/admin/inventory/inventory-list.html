@@ -132,6 +132,36 @@
             margin-top: 5px;
             margin-left: -10px;
         }
+
+        /* 검색 폼 스타일 */
+        .search-input {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .search-input-id {
+            width: 100px;
+        }
+        .search-input-name {
+            width: 150px;
+        }
+        .search-select {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .search-btn {
+            padding: 8px 16px;
+        }
+        /* 숫자 입력 필드 스피너 제거 */
+        input[type="number"]::-webkit-outer-spin-button,
+        input[type="number"]::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        input[type="number"] {
+            -moz-appearance: textfield;
+        }
     </style>
 </head>
 <body>
@@ -141,14 +171,22 @@
         </div>
         <div style="display: flex; gap: 20px; align-items: center;">
             <div class="search-section">
-                <form method="get" style="display: flex; gap: 10px;">
-                    <select name="searchType" style="padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
-                        <option value="PRODUCT_ID" th:selected="${param.searchType} == 'PRODUCT_ID'">상품ID</option>
-                        <option value="STOCK_STATUS" th:selected="${param.searchType} == 'STOCK_STATUS'">재고상태</option>
+                <form method="get" style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
+                    <input type="number" name="productId" th:value="${searchRequest.productId}"
+                           class="search-input search-input-id"
+                           placeholder="상품ID"
+                           oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+                    <input type="text" name="productName" th:value="${searchRequest.productName}"
+                           class="search-input search-input-name"
+                           placeholder="상품명">
+                    <select name="inventoryStatus" class="search-select">
+                        <option value="">재고상태 전체</option>
+                        <option value="NORMAL" th:selected="${searchRequest.inventoryStatus} == 'NORMAL'">정상</option>
+                        <option value="WARNING" th:selected="${searchRequest.inventoryStatus} == 'WARNING'">주의</option>
+                        <option value="DANGER" th:selected="${searchRequest.inventoryStatus} == 'DANGER'">재주문필요</option>
                     </select>
-                    <input type="text" name="searchValue" th:value="${param.searchValue}"
-                           class="search-input" placeholder="검색어를 입력하세요">
-                    <button type="submit" class="btn btn-primary">검색</button>
+                    <button type="submit" class="btn btn-primary search-btn">검색</button>
+                    <a href="/api/admin/inventory" class="btn btn-secondary search-btn" style="text-decoration: none;">초기화</a>
                 </form>
             </div>
             <div class="summary-info" style="font-size: 14px; color: #666;">

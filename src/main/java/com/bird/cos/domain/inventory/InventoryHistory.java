@@ -2,15 +2,18 @@ package com.bird.cos.domain.inventory;
 
 import com.bird.cos.domain.product.Product;
 import jakarta.persistence.*;
+import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "INVENTORY_HISTORY")
 @Getter
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class InventoryHistory {
 
     @Id
@@ -40,7 +43,18 @@ public class InventoryHistory {
     @Column(name = "after_quantity", nullable = false)
     private Integer afterQuantity;
 
-    @Column(name = "change_date", nullable = false, insertable = false, updatable = false)
+    @CreationTimestamp
+    @Column(name = "change_date", nullable = false)
     private LocalDateTime changeDate;
 
+    @Builder
+    public InventoryHistory(Product productId, Inventory inventoryId, InventoryReceipt receiptId,
+                           InventoryOutbound outboundId, Integer changeQuantity, Integer afterQuantity) {
+        this.productId = productId;
+        this.inventoryId = inventoryId;
+        this.receiptId = receiptId;
+        this.outboundId = outboundId;
+        this.changeQuantity = changeQuantity;
+        this.afterQuantity = afterQuantity;
+    }
 }
