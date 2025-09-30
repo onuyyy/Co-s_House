@@ -1,5 +1,5 @@
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -11,7 +11,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -23,7 +23,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -35,7 +35,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -47,7 +47,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -59,7 +59,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -71,7 +71,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -83,7 +83,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -95,7 +95,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -107,7 +107,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -119,7 +119,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -131,7 +131,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -143,7 +143,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -155,7 +155,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -167,7 +167,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -179,7 +179,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -191,7 +191,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -203,7 +203,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -215,7 +215,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -227,7 +227,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -239,7 +239,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -251,7 +251,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -263,7 +263,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -275,7 +275,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -287,7 +287,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -299,7 +299,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -311,7 +311,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -323,7 +323,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -335,7 +335,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -347,7 +347,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -359,7 +359,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -371,7 +371,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -383,7 +383,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -395,7 +395,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -407,7 +407,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -419,7 +419,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -431,7 +431,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -443,7 +443,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -455,7 +455,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -467,7 +467,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -479,7 +479,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -491,7 +491,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -503,7 +503,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -515,7 +515,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -527,7 +527,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -539,7 +539,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -551,7 +551,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -563,7 +563,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -575,7 +575,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -587,7 +587,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -599,7 +599,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -611,7 +611,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -623,7 +623,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -635,7 +635,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -647,7 +647,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -659,7 +659,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -671,7 +671,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -683,7 +683,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -695,7 +695,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -707,7 +707,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -719,7 +719,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -731,7 +731,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -743,7 +743,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -755,7 +755,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -767,7 +767,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -779,7 +779,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -791,7 +791,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -803,7 +803,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -815,7 +815,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -827,7 +827,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -839,7 +839,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -851,7 +851,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -863,7 +863,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -875,7 +875,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -887,7 +887,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -899,7 +899,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -911,7 +911,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -923,7 +923,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -935,7 +935,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -947,7 +947,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -959,7 +959,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -971,7 +971,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -983,7 +983,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -995,7 +995,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -1007,7 +1007,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -1019,7 +1019,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -1031,7 +1031,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -1043,7 +1043,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -1055,7 +1055,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -1067,7 +1067,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -1079,7 +1079,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -1091,7 +1091,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -1103,7 +1103,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -1115,7 +1115,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -1127,7 +1127,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -1139,7 +1139,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -1151,7 +1151,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -1163,7 +1163,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -1175,7 +1175,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -1187,7 +1187,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -1199,7 +1199,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -1211,7 +1211,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -1223,7 +1223,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -1235,7 +1235,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -1247,7 +1247,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -1259,7 +1259,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -1271,7 +1271,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -1283,7 +1283,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -1295,7 +1295,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -1307,7 +1307,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -1319,7 +1319,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -1331,7 +1331,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -1343,7 +1343,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -1355,7 +1355,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -1367,7 +1367,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -1379,7 +1379,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -1391,7 +1391,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -1403,7 +1403,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -1415,7 +1415,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -1427,7 +1427,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -1439,7 +1439,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -1451,7 +1451,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -1463,7 +1463,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -1475,7 +1475,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -1487,7 +1487,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -1499,7 +1499,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -1511,7 +1511,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -1523,7 +1523,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -1535,7 +1535,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -1547,7 +1547,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -1559,7 +1559,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -1571,7 +1571,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -1583,7 +1583,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -1595,7 +1595,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -1607,7 +1607,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -1619,7 +1619,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -1631,7 +1631,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -1643,7 +1643,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -1655,7 +1655,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -1667,7 +1667,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -1679,7 +1679,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -1691,7 +1691,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -1703,7 +1703,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -1715,7 +1715,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -1727,7 +1727,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -1739,7 +1739,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -1751,7 +1751,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -1763,7 +1763,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -1775,7 +1775,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -1787,7 +1787,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -1799,7 +1799,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -1811,7 +1811,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -1823,7 +1823,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -1835,7 +1835,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -1847,7 +1847,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -1859,7 +1859,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -1871,7 +1871,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -1883,7 +1883,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -1895,7 +1895,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -1907,7 +1907,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -1919,7 +1919,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -1931,7 +1931,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -1943,7 +1943,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -1955,7 +1955,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -1967,7 +1967,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -1979,7 +1979,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -1991,7 +1991,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -2003,7 +2003,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -2015,7 +2015,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -2027,7 +2027,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -2039,7 +2039,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -2051,7 +2051,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -2063,7 +2063,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -2075,7 +2075,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -2087,7 +2087,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -2099,7 +2099,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -2111,7 +2111,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -2123,7 +2123,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -2135,7 +2135,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -2147,7 +2147,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -2159,7 +2159,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -2171,7 +2171,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -2183,7 +2183,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -2195,7 +2195,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -2207,7 +2207,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -2219,7 +2219,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -2231,7 +2231,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -2243,7 +2243,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -2255,7 +2255,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -2267,7 +2267,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -2279,7 +2279,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -2291,7 +2291,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -2303,7 +2303,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -2315,7 +2315,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -2327,7 +2327,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -2339,7 +2339,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -2351,7 +2351,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -2363,7 +2363,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -2375,7 +2375,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -2387,7 +2387,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -2399,7 +2399,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -2411,7 +2411,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -2423,7 +2423,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -2435,7 +2435,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -2447,7 +2447,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -2459,7 +2459,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -2471,7 +2471,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -2483,7 +2483,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -2495,7 +2495,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -2507,7 +2507,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -2519,7 +2519,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -2531,7 +2531,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -2543,7 +2543,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -2555,7 +2555,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -2567,7 +2567,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -2579,7 +2579,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -2591,7 +2591,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -2603,7 +2603,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -2615,7 +2615,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -2627,7 +2627,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -2639,7 +2639,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -2651,7 +2651,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -2663,7 +2663,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -2675,7 +2675,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -2687,7 +2687,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -2699,7 +2699,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -2711,7 +2711,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -2723,7 +2723,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -2735,7 +2735,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -2747,7 +2747,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -2759,7 +2759,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -2771,7 +2771,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -2783,7 +2783,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -2795,7 +2795,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -2807,7 +2807,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -2819,7 +2819,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -2831,7 +2831,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -2843,7 +2843,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -2855,7 +2855,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -2867,7 +2867,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -2879,7 +2879,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -2891,7 +2891,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -2903,7 +2903,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -2915,7 +2915,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -2927,7 +2927,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -2939,7 +2939,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -2951,7 +2951,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -2963,7 +2963,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -2975,7 +2975,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -2987,7 +2987,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -2999,7 +2999,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -3011,7 +3011,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -3023,7 +3023,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -3035,7 +3035,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -3047,7 +3047,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -3059,7 +3059,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -3071,7 +3071,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -3083,7 +3083,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -3095,7 +3095,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -3107,7 +3107,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -3119,7 +3119,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -3131,7 +3131,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -3143,7 +3143,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -3155,7 +3155,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -3167,7 +3167,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -3179,7 +3179,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -3191,7 +3191,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -3203,7 +3203,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -3215,7 +3215,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -3227,7 +3227,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -3239,7 +3239,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -3251,7 +3251,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -3263,7 +3263,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -3275,7 +3275,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -3287,7 +3287,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -3299,7 +3299,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -3311,7 +3311,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -3323,7 +3323,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -3335,7 +3335,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -3347,7 +3347,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -3359,7 +3359,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -3371,7 +3371,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -3383,7 +3383,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -3395,7 +3395,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -3407,7 +3407,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -3419,7 +3419,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -3431,7 +3431,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -3443,7 +3443,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -3455,7 +3455,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -3467,7 +3467,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -3479,7 +3479,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -3491,7 +3491,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -3503,7 +3503,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -3515,7 +3515,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -3527,7 +3527,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -3539,7 +3539,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -3551,7 +3551,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -3563,7 +3563,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -3575,7 +3575,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -3587,7 +3587,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -3599,7 +3599,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -3611,7 +3611,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -3623,7 +3623,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -3635,7 +3635,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -3647,7 +3647,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -3659,7 +3659,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -3671,7 +3671,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -3683,7 +3683,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -3695,7 +3695,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -3707,7 +3707,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -3719,7 +3719,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -3731,7 +3731,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -3743,7 +3743,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -3755,7 +3755,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -3767,7 +3767,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -3779,7 +3779,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -3791,7 +3791,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -3803,7 +3803,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -3815,7 +3815,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -3827,7 +3827,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -3839,7 +3839,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -3851,7 +3851,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -3863,7 +3863,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -3875,7 +3875,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -3887,7 +3887,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -3899,7 +3899,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -3911,7 +3911,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -3923,7 +3923,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -3935,7 +3935,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -3947,7 +3947,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -3959,7 +3959,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -3971,7 +3971,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -3983,7 +3983,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -3995,7 +3995,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -4007,7 +4007,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -4019,7 +4019,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -4031,7 +4031,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -4043,7 +4043,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -4055,7 +4055,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -4067,7 +4067,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -4079,7 +4079,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -4091,7 +4091,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -4103,7 +4103,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -4115,7 +4115,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -4127,7 +4127,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -4139,7 +4139,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -4151,7 +4151,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -4163,7 +4163,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -4175,7 +4175,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -4187,7 +4187,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -4199,7 +4199,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -4211,7 +4211,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -4223,7 +4223,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -4235,7 +4235,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -4247,7 +4247,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -4259,7 +4259,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -4271,7 +4271,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -4283,7 +4283,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -4295,7 +4295,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -4307,7 +4307,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -4319,7 +4319,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -4331,7 +4331,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -4343,7 +4343,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -4355,7 +4355,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -4367,7 +4367,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -4379,7 +4379,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -4391,7 +4391,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -4403,7 +4403,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -4415,7 +4415,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -4427,7 +4427,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -4439,7 +4439,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -4451,7 +4451,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -4463,7 +4463,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -4475,7 +4475,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -4487,7 +4487,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -4499,7 +4499,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -4511,7 +4511,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -4523,7 +4523,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -4535,7 +4535,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -4547,7 +4547,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -4559,7 +4559,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -4571,7 +4571,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -4583,7 +4583,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -4595,7 +4595,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -4607,7 +4607,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -4619,7 +4619,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -4631,7 +4631,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -4643,7 +4643,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -4655,7 +4655,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -4667,7 +4667,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -4679,7 +4679,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -4691,7 +4691,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -4703,7 +4703,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -4715,7 +4715,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -4727,7 +4727,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -4739,7 +4739,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -4751,7 +4751,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -4763,7 +4763,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -4775,7 +4775,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -4787,7 +4787,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -4799,7 +4799,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -4811,7 +4811,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -4823,7 +4823,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -4835,7 +4835,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -4847,7 +4847,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -4859,7 +4859,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -4871,7 +4871,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -4883,7 +4883,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -4895,7 +4895,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -4907,7 +4907,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -4919,7 +4919,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -4931,7 +4931,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -4943,7 +4943,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -4955,7 +4955,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -4967,7 +4967,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -4979,7 +4979,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -4991,7 +4991,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -5003,7 +5003,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -5015,7 +5015,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -5027,7 +5027,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -5039,7 +5039,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -5051,7 +5051,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -5063,7 +5063,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -5075,7 +5075,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -5087,7 +5087,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -5099,7 +5099,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -5111,7 +5111,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -5123,7 +5123,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -5135,7 +5135,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -5147,7 +5147,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -5159,7 +5159,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -5171,7 +5171,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -5183,7 +5183,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -5195,7 +5195,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -5207,7 +5207,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -5219,7 +5219,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -5231,7 +5231,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -5243,7 +5243,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -5255,7 +5255,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -5267,7 +5267,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -5279,7 +5279,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -5291,7 +5291,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -5303,7 +5303,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -5315,7 +5315,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -5327,7 +5327,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -5339,7 +5339,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -5351,7 +5351,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -5363,7 +5363,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -5375,7 +5375,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -5387,7 +5387,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -5399,7 +5399,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -5411,7 +5411,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -5423,7 +5423,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -5435,7 +5435,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -5447,7 +5447,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -5459,7 +5459,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -5471,7 +5471,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -5483,7 +5483,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -5495,7 +5495,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -5507,7 +5507,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -5519,7 +5519,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -5531,7 +5531,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -5543,7 +5543,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -5555,7 +5555,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -5567,7 +5567,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -5579,7 +5579,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -5591,7 +5591,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -5603,7 +5603,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -5615,7 +5615,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -5627,7 +5627,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -5639,7 +5639,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -5651,7 +5651,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -5663,7 +5663,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -5675,7 +5675,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -5687,7 +5687,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -5699,7 +5699,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -5711,7 +5711,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -5723,7 +5723,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -5735,7 +5735,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -5747,7 +5747,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -5759,7 +5759,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -5771,7 +5771,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -5783,7 +5783,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -5795,7 +5795,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -5807,7 +5807,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -5819,7 +5819,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -5831,7 +5831,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -5843,7 +5843,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -5855,7 +5855,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -5867,7 +5867,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -5879,7 +5879,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -5891,7 +5891,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -5903,7 +5903,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -5915,7 +5915,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -5927,7 +5927,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -5939,7 +5939,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -5951,7 +5951,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -5963,7 +5963,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -5975,7 +5975,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -5987,7 +5987,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -5999,7 +5999,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -6011,7 +6011,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -6023,7 +6023,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -6035,7 +6035,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -6047,7 +6047,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -6059,7 +6059,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -6071,7 +6071,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -6083,7 +6083,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -6095,7 +6095,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -6107,7 +6107,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -6119,7 +6119,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -6131,7 +6131,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -6143,7 +6143,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -6155,7 +6155,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -6167,7 +6167,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -6179,7 +6179,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -6191,7 +6191,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -6203,7 +6203,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -6215,7 +6215,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -6227,7 +6227,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -6239,7 +6239,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -6251,7 +6251,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -6263,7 +6263,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -6275,7 +6275,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -6287,7 +6287,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -6299,7 +6299,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -6311,7 +6311,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -6323,7 +6323,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -6335,7 +6335,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -6347,7 +6347,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -6359,7 +6359,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -6371,7 +6371,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -6383,7 +6383,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -6395,7 +6395,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -6407,7 +6407,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -6419,7 +6419,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -6431,7 +6431,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -6443,7 +6443,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -6455,7 +6455,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -6467,7 +6467,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -6479,7 +6479,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -6491,7 +6491,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -6503,7 +6503,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -6515,7 +6515,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -6527,7 +6527,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -6539,7 +6539,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -6551,7 +6551,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -6563,7 +6563,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -6575,7 +6575,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -6587,7 +6587,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -6599,7 +6599,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -6611,7 +6611,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -6623,7 +6623,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -6635,7 +6635,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -6647,7 +6647,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -6659,7 +6659,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -6671,7 +6671,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -6683,7 +6683,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -6695,7 +6695,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -6707,7 +6707,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -6719,7 +6719,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -6731,7 +6731,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -6743,7 +6743,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -6755,7 +6755,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -6767,7 +6767,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -6779,7 +6779,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -6791,7 +6791,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -6803,7 +6803,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -6815,7 +6815,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -6827,7 +6827,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -6839,7 +6839,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -6851,7 +6851,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -6863,7 +6863,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -6875,7 +6875,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -6887,7 +6887,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -6899,7 +6899,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -6911,7 +6911,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -6923,7 +6923,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -6935,7 +6935,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -6947,7 +6947,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -6959,7 +6959,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -6971,7 +6971,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -6983,7 +6983,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -6995,7 +6995,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -7007,7 +7007,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -7019,7 +7019,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -7031,7 +7031,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -7043,7 +7043,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -7055,7 +7055,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -7067,7 +7067,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -7079,7 +7079,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -7091,7 +7091,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -7103,7 +7103,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -7115,7 +7115,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -7127,7 +7127,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -7139,7 +7139,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -7151,7 +7151,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -7163,7 +7163,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -7175,7 +7175,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -7187,7 +7187,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -7199,7 +7199,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -7211,7 +7211,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -7223,7 +7223,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -7235,7 +7235,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -7247,7 +7247,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -7259,7 +7259,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -7271,7 +7271,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -7283,7 +7283,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -7295,7 +7295,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -7307,7 +7307,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -7319,7 +7319,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -7331,7 +7331,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -7343,7 +7343,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -7355,7 +7355,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -7367,7 +7367,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -7379,7 +7379,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -7391,7 +7391,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -7403,7 +7403,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -7415,7 +7415,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -7427,7 +7427,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -7439,7 +7439,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -7451,7 +7451,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -7463,7 +7463,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -7475,7 +7475,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -7487,7 +7487,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -7499,7 +7499,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -7511,7 +7511,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -7523,7 +7523,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -7535,7 +7535,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -7547,7 +7547,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -7559,7 +7559,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -7571,7 +7571,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -7583,7 +7583,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -7595,7 +7595,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -7607,7 +7607,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -7619,7 +7619,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -7631,7 +7631,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -7643,7 +7643,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -7655,7 +7655,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -7667,7 +7667,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -7679,7 +7679,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -7691,7 +7691,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -7703,7 +7703,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -7715,7 +7715,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -7727,7 +7727,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -7739,7 +7739,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -7751,7 +7751,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -7763,7 +7763,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -7775,7 +7775,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -7787,7 +7787,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -7799,7 +7799,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -7811,7 +7811,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -7823,7 +7823,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -7835,7 +7835,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -7847,7 +7847,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -7859,7 +7859,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -7871,7 +7871,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -7883,7 +7883,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -7895,7 +7895,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -7907,7 +7907,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -7919,7 +7919,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -7931,7 +7931,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -7943,7 +7943,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -7955,7 +7955,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -7967,7 +7967,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -7979,7 +7979,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -7991,7 +7991,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -8003,7 +8003,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -8015,7 +8015,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -8027,7 +8027,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -8039,7 +8039,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -8051,7 +8051,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -8063,7 +8063,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -8075,7 +8075,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -8087,7 +8087,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -8099,7 +8099,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -8111,7 +8111,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -8123,7 +8123,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -8135,7 +8135,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -8147,7 +8147,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -8159,7 +8159,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -8171,7 +8171,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -8183,7 +8183,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -8195,7 +8195,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -8207,7 +8207,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -8219,7 +8219,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -8231,7 +8231,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -8243,7 +8243,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -8255,7 +8255,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -8267,7 +8267,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -8279,7 +8279,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -8291,7 +8291,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -8303,7 +8303,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -8315,7 +8315,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -8327,7 +8327,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -8339,7 +8339,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -8351,7 +8351,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -8363,7 +8363,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -8375,7 +8375,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -8387,7 +8387,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -8399,7 +8399,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -8411,7 +8411,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -8423,7 +8423,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -8435,7 +8435,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -8447,7 +8447,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -8459,7 +8459,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -8471,7 +8471,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -8483,7 +8483,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -8495,7 +8495,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -8507,7 +8507,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -8519,7 +8519,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -8531,7 +8531,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -8543,7 +8543,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -8555,7 +8555,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -8567,7 +8567,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -8579,7 +8579,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -8591,7 +8591,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -8603,7 +8603,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -8615,7 +8615,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -8627,7 +8627,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -8639,7 +8639,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -8651,7 +8651,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -8663,7 +8663,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -8675,7 +8675,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -8687,7 +8687,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -8699,7 +8699,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -8711,7 +8711,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -8723,7 +8723,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -8735,7 +8735,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -8747,7 +8747,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -8759,7 +8759,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -8771,7 +8771,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -8783,7 +8783,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -8795,7 +8795,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -8807,7 +8807,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -8819,7 +8819,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -8831,7 +8831,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -8843,7 +8843,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -8855,7 +8855,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -8867,7 +8867,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -8879,7 +8879,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -8891,7 +8891,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -8903,7 +8903,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -8915,7 +8915,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -8927,7 +8927,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -8939,7 +8939,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -8951,7 +8951,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -8963,7 +8963,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -8975,7 +8975,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -8987,7 +8987,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -8999,7 +8999,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -9011,7 +9011,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -9023,7 +9023,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -9035,7 +9035,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -9047,7 +9047,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -9059,7 +9059,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -9071,7 +9071,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -9083,7 +9083,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -9095,7 +9095,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -9107,7 +9107,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -9119,7 +9119,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -9131,7 +9131,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -9143,7 +9143,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -9155,7 +9155,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -9167,7 +9167,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -9179,7 +9179,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -9191,7 +9191,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -9203,7 +9203,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -9215,7 +9215,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -9227,7 +9227,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -9239,7 +9239,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -9251,7 +9251,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -9263,7 +9263,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -9275,7 +9275,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -9287,7 +9287,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -9299,7 +9299,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -9311,7 +9311,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -9323,7 +9323,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -9335,7 +9335,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -9347,7 +9347,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -9359,7 +9359,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -9371,7 +9371,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -9383,7 +9383,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -9395,7 +9395,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -9407,7 +9407,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -9419,7 +9419,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -9431,7 +9431,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -9443,7 +9443,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -9455,7 +9455,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -9467,7 +9467,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -9479,7 +9479,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -9491,7 +9491,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -9503,7 +9503,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -9515,7 +9515,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -9527,7 +9527,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -9539,7 +9539,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -9551,7 +9551,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -9563,7 +9563,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -9575,7 +9575,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -9587,7 +9587,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -9599,7 +9599,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -9611,7 +9611,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -9623,7 +9623,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -9635,7 +9635,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -9647,7 +9647,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -9659,7 +9659,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -9671,7 +9671,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -9683,7 +9683,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -9695,7 +9695,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -9707,7 +9707,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -9719,7 +9719,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -9731,7 +9731,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -9743,7 +9743,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -9755,7 +9755,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -9767,7 +9767,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -9779,7 +9779,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -9791,7 +9791,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -9803,7 +9803,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -9815,7 +9815,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -9827,7 +9827,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -9839,7 +9839,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -9851,7 +9851,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -9863,7 +9863,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -9875,7 +9875,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -9887,7 +9887,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -9899,7 +9899,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -9911,7 +9911,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -9923,7 +9923,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -9935,7 +9935,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -9947,7 +9947,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -9959,7 +9959,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -9971,7 +9971,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -9983,7 +9983,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -9995,7 +9995,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -10007,7 +10007,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -10019,7 +10019,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -10031,7 +10031,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -10043,7 +10043,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -10055,7 +10055,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -10067,7 +10067,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -10079,7 +10079,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -10091,7 +10091,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -10103,7 +10103,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -10115,7 +10115,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -10127,7 +10127,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -10139,7 +10139,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -10151,7 +10151,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -10163,7 +10163,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -10175,7 +10175,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -10187,7 +10187,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -10199,7 +10199,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -10211,7 +10211,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -10223,7 +10223,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -10235,7 +10235,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -10247,7 +10247,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -10259,7 +10259,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -10271,7 +10271,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -10283,7 +10283,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -10295,7 +10295,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -10307,7 +10307,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -10319,7 +10319,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -10331,7 +10331,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -10343,7 +10343,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -10355,7 +10355,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -10367,7 +10367,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -10379,7 +10379,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -10391,7 +10391,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -10403,7 +10403,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -10415,7 +10415,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -10427,7 +10427,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -10439,7 +10439,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -10451,7 +10451,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -10463,7 +10463,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -10475,7 +10475,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -10487,7 +10487,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -10499,7 +10499,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -10511,7 +10511,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -10523,7 +10523,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -10535,7 +10535,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -10547,7 +10547,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -10559,7 +10559,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -10571,7 +10571,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -10583,7 +10583,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -10595,7 +10595,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -10607,7 +10607,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -10619,7 +10619,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -10631,7 +10631,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -10643,7 +10643,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -10655,7 +10655,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -10667,7 +10667,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -10679,7 +10679,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -10691,7 +10691,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -10703,7 +10703,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -10715,7 +10715,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -10727,7 +10727,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -10739,7 +10739,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -10751,7 +10751,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -10763,7 +10763,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -10775,7 +10775,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -10787,7 +10787,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -10799,7 +10799,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -10811,7 +10811,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -10823,7 +10823,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -10835,7 +10835,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -10847,7 +10847,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -10859,7 +10859,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -10871,7 +10871,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -10883,7 +10883,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -10895,7 +10895,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -10907,7 +10907,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -10919,7 +10919,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -10931,7 +10931,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -10943,7 +10943,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -10955,7 +10955,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -10967,7 +10967,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -10979,7 +10979,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -10991,7 +10991,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -11003,7 +11003,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -11015,7 +11015,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -11027,7 +11027,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -11039,7 +11039,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -11051,7 +11051,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -11063,7 +11063,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -11075,7 +11075,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -11087,7 +11087,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -11099,7 +11099,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -11111,7 +11111,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -11123,7 +11123,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -11135,7 +11135,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -11147,7 +11147,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -11159,7 +11159,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -11171,7 +11171,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -11183,7 +11183,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -11195,7 +11195,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -11207,7 +11207,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -11219,7 +11219,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -11231,7 +11231,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -11243,7 +11243,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -11255,7 +11255,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -11267,7 +11267,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -11279,7 +11279,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -11291,7 +11291,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -11303,7 +11303,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -11315,7 +11315,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -11327,7 +11327,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -11339,7 +11339,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -11351,7 +11351,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -11363,7 +11363,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -11375,7 +11375,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -11387,7 +11387,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -11399,7 +11399,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -11411,7 +11411,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -11423,7 +11423,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -11435,7 +11435,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -11447,7 +11447,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -11459,7 +11459,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -11471,7 +11471,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -11483,7 +11483,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -11495,7 +11495,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -11507,7 +11507,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -11519,7 +11519,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -11531,7 +11531,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -11543,7 +11543,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -11555,7 +11555,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -11567,7 +11567,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -11579,7 +11579,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -11591,7 +11591,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -11603,7 +11603,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -11615,7 +11615,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -11627,7 +11627,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -11639,7 +11639,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -11651,7 +11651,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -11663,7 +11663,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -11675,7 +11675,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -11687,7 +11687,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -11699,7 +11699,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -11711,7 +11711,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -11723,7 +11723,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -11735,7 +11735,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -11747,7 +11747,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -11759,7 +11759,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -11771,7 +11771,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -11783,7 +11783,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -11795,7 +11795,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -11807,7 +11807,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -11819,7 +11819,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -11831,7 +11831,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -11843,7 +11843,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -11855,7 +11855,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -11867,7 +11867,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -11879,7 +11879,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -11891,7 +11891,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -11903,7 +11903,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -11915,7 +11915,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -11927,7 +11927,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -11939,7 +11939,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -11951,7 +11951,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -11963,7 +11963,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -11975,7 +11975,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -11987,7 +11987,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -11999,7 +11999,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -12011,7 +12011,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -12023,7 +12023,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -12035,7 +12035,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -12047,7 +12047,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -12059,7 +12059,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -12071,7 +12071,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -12082,7 +12082,7 @@ INSERT INTO product (
              0, '일반 소재', '표준 사이즈', 0, 0, 0,
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -12094,7 +12094,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -12106,7 +12106,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -12118,7 +12118,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -12130,7 +12130,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -12142,7 +12142,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -12154,7 +12154,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -12166,7 +12166,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -12178,7 +12178,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -12190,7 +12190,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -12202,7 +12202,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -12214,7 +12214,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -12226,7 +12226,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -12238,7 +12238,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -12250,7 +12250,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -12262,7 +12262,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -12274,7 +12274,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -12286,7 +12286,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -12298,7 +12298,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -12310,7 +12310,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -12322,7 +12322,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -12334,7 +12334,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -12346,7 +12346,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -12358,7 +12358,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -12370,7 +12370,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -12382,7 +12382,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -12394,7 +12394,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -12406,7 +12406,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -12418,7 +12418,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -12430,7 +12430,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -12442,7 +12442,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -12454,7 +12454,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -12466,7 +12466,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -12478,7 +12478,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -12490,7 +12490,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -12502,7 +12502,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -12514,7 +12514,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -12526,7 +12526,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -12538,7 +12538,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -12550,7 +12550,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -12562,7 +12562,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -12574,7 +12574,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -12586,7 +12586,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -12598,7 +12598,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -12610,7 +12610,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -12622,7 +12622,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -12634,7 +12634,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -12646,7 +12646,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -12658,7 +12658,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -12670,7 +12670,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -12682,7 +12682,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -12694,7 +12694,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -12706,7 +12706,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -12718,7 +12718,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -12730,7 +12730,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -12742,7 +12742,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -12754,7 +12754,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -12766,7 +12766,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -12778,7 +12778,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -12790,7 +12790,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -12802,7 +12802,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -12814,7 +12814,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -12826,7 +12826,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -12838,7 +12838,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -12850,7 +12850,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -12862,7 +12862,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -12874,7 +12874,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -12886,7 +12886,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -12898,7 +12898,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -12910,7 +12910,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -12922,7 +12922,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -12934,7 +12934,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -12946,7 +12946,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -12958,7 +12958,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -12970,7 +12970,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -12982,7 +12982,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -12994,7 +12994,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -13006,7 +13006,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -13018,7 +13018,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -13030,7 +13030,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -13042,7 +13042,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -13054,7 +13054,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -13066,7 +13066,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -13078,7 +13078,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -13090,7 +13090,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -13102,7 +13102,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -13114,7 +13114,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -13126,7 +13126,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -13138,7 +13138,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -13150,7 +13150,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -13162,7 +13162,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -13174,7 +13174,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -13186,7 +13186,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -13198,7 +13198,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -13210,7 +13210,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -13222,7 +13222,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -13234,7 +13234,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -13246,7 +13246,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -13258,7 +13258,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -13270,7 +13270,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -13282,7 +13282,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -13294,7 +13294,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -13306,7 +13306,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -13318,7 +13318,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -13330,7 +13330,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -13342,7 +13342,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -13354,7 +13354,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -13366,7 +13366,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -13378,7 +13378,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -13390,7 +13390,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -13402,7 +13402,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -13414,7 +13414,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -13426,7 +13426,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -13438,7 +13438,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -13450,7 +13450,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -13462,7 +13462,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -13474,7 +13474,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -13486,7 +13486,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -13498,7 +13498,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -13510,7 +13510,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -13522,7 +13522,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -13534,7 +13534,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -13546,7 +13546,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -13558,7 +13558,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -13570,7 +13570,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -13582,7 +13582,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -13594,7 +13594,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -13606,7 +13606,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -13618,7 +13618,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -13630,7 +13630,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -13642,7 +13642,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -13654,7 +13654,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -13666,7 +13666,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -13678,7 +13678,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -13690,7 +13690,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -13702,7 +13702,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -13714,7 +13714,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -13726,7 +13726,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -13738,7 +13738,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -13750,7 +13750,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -13762,7 +13762,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -13774,7 +13774,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -13786,7 +13786,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -13798,7 +13798,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -13810,7 +13810,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -13822,7 +13822,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -13834,7 +13834,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -13846,7 +13846,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -13858,7 +13858,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -13870,7 +13870,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -13882,7 +13882,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -13894,7 +13894,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -13906,7 +13906,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -13918,7 +13918,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -13930,7 +13930,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -13942,7 +13942,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -13954,7 +13954,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -13966,7 +13966,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -13978,7 +13978,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -13990,7 +13990,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -14002,7 +14002,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -14014,7 +14014,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -14026,7 +14026,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -14038,7 +14038,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -14050,7 +14050,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -14062,7 +14062,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -14074,7 +14074,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -14086,7 +14086,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -14098,7 +14098,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -14110,7 +14110,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -14122,7 +14122,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -14134,7 +14134,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -14146,7 +14146,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -14158,7 +14158,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -14170,7 +14170,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -14182,7 +14182,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -14194,7 +14194,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -14206,7 +14206,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -14218,7 +14218,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -14230,7 +14230,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -14242,7 +14242,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -14254,7 +14254,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -14266,7 +14266,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -14278,7 +14278,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -14290,7 +14290,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -14302,7 +14302,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -14314,7 +14314,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -14326,7 +14326,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -14338,7 +14338,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -14350,7 +14350,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -14362,7 +14362,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -14374,7 +14374,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -14386,7 +14386,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -14398,7 +14398,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -14410,7 +14410,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -14422,7 +14422,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -14434,7 +14434,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -14446,7 +14446,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -14458,7 +14458,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -14470,7 +14470,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -14482,7 +14482,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -14494,7 +14494,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -14506,7 +14506,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -14518,7 +14518,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -14530,7 +14530,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -14542,7 +14542,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -14554,7 +14554,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -14566,7 +14566,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -14578,7 +14578,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -14590,7 +14590,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -14602,7 +14602,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -14614,7 +14614,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -14626,7 +14626,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -14638,7 +14638,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -14650,7 +14650,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -14662,7 +14662,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -14674,7 +14674,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -14686,7 +14686,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -14698,7 +14698,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -14710,7 +14710,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -14722,7 +14722,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -14734,7 +14734,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -14746,7 +14746,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -14758,7 +14758,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -14770,7 +14770,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -14782,7 +14782,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -14794,7 +14794,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -14806,7 +14806,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -14818,7 +14818,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -14830,7 +14830,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -14842,7 +14842,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -14854,7 +14854,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -14866,7 +14866,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -14878,7 +14878,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -14890,7 +14890,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -14902,7 +14902,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -14914,7 +14914,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -14926,7 +14926,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -14938,7 +14938,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -14950,7 +14950,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -14962,7 +14962,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -14974,7 +14974,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -14986,7 +14986,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -14998,7 +14998,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -15010,7 +15010,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -15022,7 +15022,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -15034,7 +15034,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -15046,7 +15046,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -15058,7 +15058,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -15070,7 +15070,7 @@ INSERT INTO product (
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );
 
-INSERT INTO product (
+INSERT IGNORE INTO product (
     product_id, product_title, brand_id, product_category_id, main_image_url, description,
     original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
     product_color, material, capacity, stock_quantity, view_count, sales_count,
@@ -15078,30 +15078,6 @@ INSERT INTO product (
 ) VALUES (
              998, '보루네오 네이블 무헤드 3서랍 고무나무 원목 침대 수납 프레임 SS(슈퍼싱글), 내추럴', 622, 101, 'https://shopping-phinf.pstatic.net/main_5214529/52145297618.20241227110830.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
              198800.0, 198800.0, 0.0, 0, 0, 0,
-             0, '일반 소재', '표준 사이즈', 0, 0, 0,
-             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
-         );
-
-INSERT INTO product (
-    product_id, product_title, brand_id, product_category_id, main_image_url, description,
-    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
-    product_color, material, capacity, stock_quantity, view_count, sales_count,
-    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
-) VALUES (
-             999, '그남자의가구 베이직 원목 호텔 수납 침대 프레임 라지킹 LK 맞춤제작', 113, 101, 'https://shopping-phinf.pstatic.net/main_8294652/82946524822.8.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
-             598000.0, 598000.0, 0.0, 0, 0, 0,
-             0, '일반 소재', '표준 사이즈', 0, 0, 0,
-             0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
-         );
-
-INSERT INTO product (
-    product_id, product_title, brand_id, product_category_id, main_image_url, description,
-    original_price, sale_price, discount_rate, is_free_shipping, is_today_deal, is_cohouse_only,
-    product_color, material, capacity, stock_quantity, view_count, sales_count,
-    review_count, average_rating, bookmark_count, product_status, product_created_at, product_updated_at
-) VALUES (
-             1000, '루디 수납형 원목 침대프레임 LED 조명 라지킹 침대 1800LK', 818, 101, 'https://shopping-phinf.pstatic.net/main_8512040/85120401841.4.jpg', '네이버 쇼핑에서 수집된 상품 (키워드: 침대)',
-             1043000.0, 1043000.0, 0.0, 0, 0, 0,
              0, '일반 소재', '표준 사이즈', 0, 0, 0,
              0, 5.0, 0, 'PRODUCT_001', NOW(), NOW()
          );

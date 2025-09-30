@@ -2,7 +2,7 @@
 -- USER_ROLE 테이블 기본 데이터 (먼저 실행)
 -- ========================================
 
-INSERT INTO user_role (user_role_name, role_description, role_created_date) VALUES
+INSERT IGNORE INTO user_role (user_role_name, role_description, role_created_date) VALUES
 ('USER', '일반 사용자 - 상품 구매 및 기본 서비스 이용', NOW()),
 ('ADMIN', '관리자 - 사용자/상품/주문 관리 권한', NOW()),
 ('SUPER_ADMIN', '최고 관리자 - 모든 시스템 관리 권한', NOW());
@@ -12,7 +12,7 @@ INSERT INTO user_role (user_role_name, role_description, role_created_date) VALU
 -- ========================================
 
 -- 공통 코드 그룹 삽입
-INSERT INTO common_code_group (group_id, group_name, description) VALUES
+INSERT IGNORE INTO common_code_group (group_id, group_name, description) VALUES
 ('PRODUCT_CATEGORY', '상품 카테고리', '상품 카테고리'),
 ('ORDER_STATUS', '주문 상태', '주문의 진행 상태를 나타내는 코드'),
 ('PAYMENT_STATUS', '결제 상태', '결제 진행 상태를 나타내는 코드'),
@@ -33,15 +33,24 @@ INSERT INTO common_code_group (group_id, group_name, description) VALUES
 ('COUPON_SCOPE', '쿠폰 적용 범위', '쿠폰 적용 범위 코드'),
 ('PRODUCT_TYPE', '상품 타입', '상품 분류 타입 코드');
 
+-- 기존 데이터 정리 (중복 방지)
+DELETE FROM common_code WHERE group_id IN (
+    'PRODUCT_CATEGORY', 'ORDER_STATUS', 'PAYMENT_STATUS', 'PAYMENT_METHOD',
+    'DELIVERY_STATUS', 'DELIVERY_TYPE', 'COUPON_STATUS', 'QUESTION_TYPE',
+    'QUESTION_STATUS', 'PRODUCT_STATUS', 'ACTIVITY_TYPE', 'ADMIN_ACTION',
+    'REFUND_TYPE', 'REFUND_STATUS', 'CONTACT_TYPE', 'CUSTOMER_STATUS',
+    'POINT_TYPE', 'COUPON_SCOPE', 'PRODUCT_TYPE'
+);
+
 -- 기본 공통 코드 데이터 삽입
 INSERT INTO common_code (code_id, group_id, code_name, description, sort_order, is_active) VALUES
--- Product_category 코드
-('PD_001', 'PRODUCT_CATEGORY', 'PRODUCT', '상품', 1, TRUE),
-('PD_002', 'PRODUCT_CATEGORY', 'PRODUCT', '상품', 1, TRUE),
-('PD_003', 'PRODUCT_CATEGORY', 'PRODUCT', '상품', 1, TRUE),
-('PD_004', 'PRODUCT_CATEGORY', 'PRODUCT', '상품', 1, TRUE),
-('PD_005', 'PRODUCT_CATEGORY', 'PRODUCT', '상품', 1, TRUE),
-('PD_006', 'PRODUCT_CATEGORY', 'PRODUCT', '상품', 1, TRUE),
+-- Product_category 코드 (실제 카테고리 이름으로 수정)
+('PD_001', 'PRODUCT_CATEGORY', 'SOFA', '소파', 1, TRUE),
+('PD_002', 'PRODUCT_CATEGORY', 'BED', '침대', 2, TRUE),
+('PD_003', 'PRODUCT_CATEGORY', 'DESK', '책상', 3, TRUE),
+('PD_004', 'PRODUCT_CATEGORY', 'CHAIR', '의자', 4, TRUE),
+('PD_005', 'PRODUCT_CATEGORY', 'LIGHTING', '조명', 5, TRUE),
+('PD_006', 'PRODUCT_CATEGORY', 'STORAGE', '수납장', 6, TRUE),
 
 -- 주문 상태 코드
 ('ORDER_001', 'ORDER_STATUS', 'PENDING', '결제 대기', 1, TRUE),
@@ -170,19 +179,19 @@ INSERT INTO common_code (code_id, group_id, code_name, description, sort_order, 
 -- USER 테이블 테스트 데이터 (관리자 + 일반 사용자)
 -- ========================================
 
--- 최고 관리자 (SUPER_ADMIN) 
-INSERT INTO user (user_role, email_verified, user_email, user_password, user_nickname, user_name, user_phone, user_address, terms_agreed) VALUES
+-- 최고 관리자 (SUPER_ADMIN)
+INSERT IGNORE INTO user (user_role, email_verified, user_email, user_password, user_nickname, user_name, user_phone, user_address, terms_agreed) VALUES
 (3, true, 'superadmin@cos.com', '$2a$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2uheWG/igi.', 'SuperAdmin', '최고관리자', '010-0000-0001', '서울특별시 강남구 테헤란로 123', TRUE);
 
 -- 일반 관리자 (ADMIN) - 4명
-INSERT INTO user (user_role, email_verified, user_email, user_password, user_nickname, user_name, user_phone, user_address, terms_agreed) VALUES
+INSERT IGNORE INTO user (user_role, email_verified, user_email, user_password, user_nickname, user_name, user_phone, user_address, terms_agreed) VALUES
 (2, true, 'admin1@cos.com', '$2a$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2uheWG/igi.', 'ProductAdmin', '상품관리자', '010-1111-0001', '서울특별시 서초구 서초대로 456', TRUE),
 (2, true, 'admin2@cos.com', '$2a$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2uheWG/igi.', 'OrderAdmin', '주문관리자', '010-1111-0002', '서울특별시 송파구 올림픽로 789', TRUE),
 (2, true, 'admin3@cos.com', '$2a$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2uheWG/igi.', 'CSAdmin', '고객서비스관리자', '010-1111-0003', '서울특별시 마포구 월드컵북로 111', TRUE),
 (2, true, 'admin4@cos.com', '$2a$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2uheWG/igi.', 'MarketingAdmin', '마케팅관리자', '010-1111-0004', '서울특별시 용산구 한강대로 222', TRUE);
 
--- 일반 사용자 (USER) - 5명  
-INSERT INTO user (user_role, email_verified, user_email, user_password, user_nickname, user_name, user_phone, user_address, terms_agreed) VALUES
+-- 일반 사용자 (USER) - 5명
+INSERT IGNORE INTO user (user_role, email_verified, user_email, user_password, user_nickname, user_name, user_phone, user_address, terms_agreed) VALUES
 (1, true, 'user1@example.com', '$2a$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2uheWG/igi.', 'HomeSeeker', '김집찾', '010-2222-0001', '경기도 성남시 분당구 판교로 333', TRUE),
 (1, true, 'user2@example.com', '$2a$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2uheWG/igi.', 'DesignLover', '박인테리어', '010-2222-0002', '경기도 수원시 영통구 광교로 444', TRUE),
 (1, true, 'user3@example.com', '$2a$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2uheWG/igi.', 'FurnitureFan', '이가구', '010-2222-0003', '인천광역시 연수구 컨벤시아대로 555', TRUE),
@@ -194,15 +203,15 @@ INSERT INTO user (user_role, email_verified, user_email, user_password, user_nic
 -- ========================================
 
 -- 카카오 소셜 사용자
-INSERT INTO user (user_role, email_verified, user_email, user_password, user_nickname, user_name, user_phone, user_address, social_provider, social_id, terms_agreed) VALUES
+INSERT IGNORE INTO user (user_role, email_verified, user_email, user_password, user_nickname, user_name, user_phone, user_address, social_provider, social_id, terms_agreed) VALUES
 (1, true, 'kakao_user@kakao.com', NULL, 'KakaoUser', '카카오유저', '010-3333-0001', '광주광역시 서구 상무대로 888', 'KAKAO', 'kakao_12345', TRUE);
 
--- 네이버 소셜 사용자  
-INSERT INTO user (user_role, email_verified,  user_email, user_password, user_nickname, user_name, user_phone, user_address, social_provider, social_id, terms_agreed) VALUES
+-- 네이버 소셜 사용자
+INSERT IGNORE INTO user (user_role, email_verified,  user_email, user_password, user_nickname, user_name, user_phone, user_address, social_provider, social_id, terms_agreed) VALUES
 (1, true, 'naver_user@naver.com', NULL, 'NaverUser', '네이버유저', '010-3333-0002', '대전광역시 유성구 대학로 999', 'NAVER', 'naver_67890', TRUE);
 
 -- 구글 소셜 사용자
-INSERT INTO user (user_role, email_verified, user_email, user_password, user_nickname, user_name, user_phone, user_address, social_provider, social_id, terms_agreed) VALUES
+INSERT IGNORE INTO user (user_role, email_verified, user_email, user_password, user_nickname, user_name, user_phone, user_address, social_provider, social_id, terms_agreed) VALUES
 (1, true, 'google_user@gmail.com', NULL, 'GoogleUser', '구글유저', '010-3333-0003', '울산광역시 남구 삼산로 101', 'GOOGLE', 'google_abcde', TRUE);
 
 -- ========================================
@@ -210,7 +219,7 @@ INSERT INTO user (user_role, email_verified, user_email, user_password, user_nic
 -- ========================================
 
 -- 일반 사용자들에게 초기 포인트 지급
-INSERT INTO user_point (user_id, available_point, total_point, updated_at) VALUES
+INSERT IGNORE INTO user_point (user_id, available_point, total_point, updated_at) VALUES
 (6, 5000, 5000, NOW()),  -- user1@example.com (김집찾)
 (7, 3000, 3000, NOW()),  -- user2@example.com (박인테리어)
 (8, 10000, 10000, NOW()), -- user3@example.com (이가구)
@@ -218,7 +227,7 @@ INSERT INTO user_point (user_id, available_point, total_point, updated_at) VALUE
 (10, 2000, 2000, NOW()); -- user5@example.com (정모던)
 
 -- 포인트 적립 히스토리
-INSERT INTO point_history (user_id, type, amount, balance_before, balance_after, description, reference_id, reference_type, created_at) VALUES
+INSERT IGNORE INTO point_history (user_id, type, amount, balance_before, balance_after, description, reference_id, reference_type, created_at) VALUES
 (6, 'EARN', 5000, 0, 5000, '회원가입 적립', 'SIGNUP_6', 'SIGNUP', NOW()),
 (7, 'EARN', 3000, 0, 3000, '회원가입 적립', 'SIGNUP_7', 'SIGNUP', NOW()),
 (8, 'EARN', 10000, 0, 10000, '회원가입 적립', 'SIGNUP_8', 'SIGNUP', NOW()),
@@ -230,13 +239,13 @@ INSERT INTO point_history (user_id, type, amount, balance_before, balance_after,
 -- ========================================
 
 -- 전역 쿠폰 (모든 상품에 사용 가능)
-INSERT INTO coupon (scope, coupon_title, coupon_description, discount_rate, discount_amount, max_discount_amount, min_purchase_amount, start_date, expired_at, is_active) VALUES
+INSERT IGNORE INTO coupon (scope, coupon_title, coupon_description, discount_rate, discount_amount, max_discount_amount, min_purchase_amount, start_date, expired_at, is_active) VALUES
 ('GLOBAL', '신규가입 10% 할인', '신규 회원 대상 10% 할인 쿠폰', 10.00, NULL, 50000.00, 50000.00, NOW(), DATE_ADD(NOW(), INTERVAL 30 DAY), TRUE),
 ('GLOBAL', '무료배송 쿠폰', '배송비 무료 쿠폰', NULL, 3000.00, 3000.00, 30000.00, NOW(), DATE_ADD(NOW(), INTERVAL 30 DAY), TRUE),
 ('GLOBAL', '5만원 이상 5천원 할인', '5만원 이상 구매시 5천원 할인', NULL, 5000.00, 5000.00, 50000.00, NOW(), DATE_ADD(NOW(), INTERVAL 15 DAY), TRUE);
 
 -- 사용자별 쿠폰 발급 (user1, user2, user3에게 발급)
-INSERT INTO user_coupon (user_id, coupon_id, coupon_status, used_at) VALUES
+INSERT IGNORE INTO user_coupon (user_id, coupon_id, coupon_status, used_at) VALUES
 (6, 1, 'COUPON_001', NULL),  -- user1에게 신규가입 할인 (ISSUED)
 (6, 2, 'COUPON_001', NULL),  -- user1에게 무료배송 (ISSUED)
 (7, 1, 'COUPON_001', NULL),  -- user2에게 신규가입 할인 (ISSUED)
@@ -250,6 +259,3 @@ INSERT INTO user_coupon (user_id, coupon_id, coupon_status, used_at) VALUES
 -- 모든 일반 계정의 비밀번호: "password123!"
 -- BCrypt 해시값: $2a$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2uheWG/igi.
 -- 소셜 로그인 계정은 비밀번호가 NULL
-
-
-
