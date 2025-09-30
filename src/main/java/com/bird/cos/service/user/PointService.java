@@ -75,16 +75,23 @@ public class PointService {
     public void earnPoints(Long userId, int amount, String description, String referenceId, String referenceType) {
         validatePositiveAmount(amount);
 
-        UserPoint point = getOrCreateUserPoint(userId);
-        int balanceBefore = point.getAvailablePoint();
+        User user = userRepository.findById(userId)
+                .orElseThrow(BusinessException::userNotFound);
 
-        // 포인트 적립
-        point.earnPoints(amount);
-        userPointRepository.save(point);
+        // 현재 포인트 조회 (Point 테이블 기반)
+        Integer currentPoints = getAvailablePoints(userId);
 
-        // 내역 저장
+        // Point 테이블에 양수 금액 레코드 추가 (적립 내역)
+        com.bird.cos.domain.user.Point pointRecord = com.bird.cos.domain.user.Point.builder()
+                .user(user)
+                .pointAmount(amount)
+                .pointDescription(description)
+                .build();
+        pointRepository.save(pointRecord);
+
+        // 내역 저장 (PointHistory)
         PointHistory history = PointHistory.createEarn(
-                point.getUser(), amount, balanceBefore, point.getAvailablePoint(),
+                user, amount, currentPoints, currentPoints + amount,
                 description, referenceId, referenceType
         );
         pointHistoryRepository.save(history);
@@ -103,22 +110,34 @@ public class PointService {
     public void usePoints(Long userId, int amount, String description, String referenceId, String referenceType) {
         validatePositiveAmount(amount);
 
-        UserPoint point = getOrCreateUserPoint(userId);
-        int balanceBefore = point.getAvailablePoint();
+        User user = userRepository.findById(userId)
+                .orElseThrow(BusinessException::userNotFound);
 
-        // 포인트 사용 (UserPoint 엔티티에서 잔액 부족 검증)
-        point.usePoints(amount);
-        userPointRepository.save(point);
+        // 현재 포인트 조회 (Point 테이블 기반)
+        Integer currentPoints = getAvailablePoints(userId);
 
-        // 내역 저장
+        // 잔액 부족 검증
+        if (currentPoints < amount) {
+            throw BusinessException.pointInsufficient(userId, amount, currentPoints);
+        }
+
+        // Point 테이블에 음수 금액 레코드 추가 (사용 내역)
+        com.bird.cos.domain.user.Point pointRecord = com.bird.cos.domain.user.Point.builder()
+                .user(user)
+                .pointAmount(-amount)
+                .pointDescription(description)
+                .build();
+        pointRepository.save(pointRecord);
+
+        // 내역 저장 (PointHistory)
         PointHistory history = PointHistory.createUse(
-                point.getUser(), amount, balanceBefore, point.getAvailablePoint(),
+                user, amount, currentPoints, currentPoints - amount,
                 description, referenceId, referenceType
         );
         pointHistoryRepository.save(history);
 
         log.info("포인트 사용 완료 - userId: {}, amount: {}, balanceAfter: {}",
-                userId, amount, point.getAvailablePoint());
+                userId, amount, currentPoints - amount);
     }
 
 
