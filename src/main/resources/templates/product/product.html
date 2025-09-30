@@ -17,7 +17,7 @@
                          th:data-index="${iter.index}"
                          th:classappend="${iter.index == 0} ? ' is-active' : ''">
                     <div class="hero-slide__background"
-                         th:style="${item.mainImageUrl != null} ? 'background-image:url(' + item.mainImageUrl + ');' : 'background-image:url(' + defaultHero + ');'"></div>
+                         th:style="'background-image:url(' + (${item.mainImageUrl} != null ? ${item.mainImageUrl} : ${defaultHero}) + ');'"></div>
                     <div class="hero-slide__layer"></div>
                     <div class="hero-slide__content">
                         <span class="hero-slide__eyebrow" th:text="${item.brand != null ? item.brand.brandName : '추천 상품'}">추천 상품</span>

@@ -125,10 +125,14 @@ html {
 }
 
 .summary-card h2 {
-    font-size: 1.25rem;
+    font-size: 1.5rem;
     font-weight: 600;
     color: var(--gray-900);
-    margin-bottom: 0.75rem;
+    margin: 0 0 1.5rem 0;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid var(--gray-100);
+    display: flex;
+    align-items: center;
 }
 
 .summary-desc {
@@ -384,7 +388,7 @@ html {
 .item-select input {
     width: 18px;
     height: 18px;
-    accent-color: var(--primary-color);
+    /*accent-color: var(--primary-color);*/
     cursor: pointer;
 }
 
@@ -427,19 +431,6 @@ html {
     margin-top: auto;
 }
 
-.item-pending-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    margin-left: 8px;
-    padding: 2px 8px;
-    font-size: 0.75rem;
-    font-weight: 600;
-    color: var(--accent-color);
-    background: rgba(245, 158, 11, 0.15);
-    border-radius: 999px;
-}
-
 .item-pending-message {
     font-size: 0.75rem;
     color: var(--accent-color);
@@ -463,37 +454,6 @@ html {
     align-items: center;
     gap: 1rem;
     margin-top: 1rem;
-}
-
-.apply-btn {
-    display: none;
-    padding: 0.5rem 1.1rem;
-    border: none;
-    border-radius: 999px;
-    background: var(--primary-color);
-    color: #ffffff;
-    font-size: 0.875rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: var(--transition);
-    box-shadow: var(--shadow-sm);
-}
-
-.apply-btn.is-visible {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.apply-btn:hover {
-    filter: brightness(1.05);
-}
-
-.apply-btn:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-    filter: none;
-    box-shadow: none;
 }
 
 .quantity-control {
@@ -559,17 +519,17 @@ html {
     outline-offset: 2px;
 }
 
-.remove-btn {
-    margin-left: auto;
-    padding: 0.5rem;
-    border: none;
-    background: none;
-    color: var(--gray-400);
-    cursor: pointer;
-    border-radius: 6px;
-    transition: var(--transition);
-    font-size: 1.2rem;
-}
+/*.remove-btn {*/
+/*    margin-left: auto;*/
+/*    padding: 0.5rem;*/
+/*    border: none;*/
+/*    background: none;*/
+/*    color: var(--gray-400);*/
+/*    cursor: pointer;*/
+/*    border-radius: 6px;*/
+/*    transition: var(--transition);*/
+/*    font-size: 1.2rem;*/
+/*}*/
 
 .remove-btn:hover {
     background: rgb(239 68 68 / 0.1);
@@ -980,7 +940,7 @@ body.modal-open {
         --gray-600: #cbd5e1;
         --gray-700: #e2e8f0;
         --gray-800: #f1f5f9;
-        --gray-900: #f8fafc;
+        --gray-900: #0f172a;
     }
 
     body {

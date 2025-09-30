@@ -2,280 +2,280 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/layout :: head('코딩의 집 | 쇼핑')"></head>
 <body class="page font-body product-page">
-  <header th:replace="fragments/layout :: header"></header>
+<header th:replace="fragments/layout :: header"></header>
 
-  <main class="page-main product-page__main"
-        th:with="uri=${#httpServletRequest.requestURI},
+<main class="page-main"
+      th:with="uri=${#httpServletRequest.requestURI},
                  isCategory=${#strings.startsWith(uri, '/product/category')},
                  defaultHero=@{/images/home.jpeg},
                  visibleSlides=${products != null ? (products.size() > 8 ? 8 : products.size()) : 0}">
-    <section class="product-hero">
-      <div class="hero-carousel" th:if="${visibleSlides > 0}">
-        <div class="hero-carousel__track">
-          <article class="hero-slide"
-                   th:each="item, iter : ${products}"
-                   th:if="${iter.index < visibleSlides}"
-                   th:data-index="${iter.index}"
-                   th:classappend="${iter.index == 0} ? ' is-active' : ''">
-            <div class="hero-slide__background"
-                 th:style="${item.mainImageUrl != null} ? 'background-image:url(' + item.mainImageUrl + ');' : 'background-image:url(' + defaultHero + ');'"></div>
-            <div class="hero-slide__layer"></div>
-            <div class="hero-slide__content">
-              <span class="hero-slide__eyebrow" th:text="${item.brand != null ? item.brand.brandName : '추천 상품'}">추천 상품</span>
-              <h2 class="hero-slide__title" th:text="${item.productTitle}">상품명</h2>
-              <p class="hero-slide__desc"
-                 th:text="${item.description != null && !item.description.isEmpty() ? item.description : '취향을 담은 공간을 지금 만나보세요.'}">취향을 담은 공간을 지금 만나보세요.</p>
-              <div class="hero-slide__meta">
+  <section class="product-hero">
+    <div class="hero-carousel" th:if="${visibleSlides > 0}">
+      <div class="hero-carousel__track">
+        <article class="hero-slide"
+                 th:each="item, iter : ${products}"
+                 th:if="${iter.index < visibleSlides}"
+                 th:data-index="${iter.index}"
+                 th:classappend="${iter.index == 0} ? ' is-active' : ''">
+          <div class="hero-slide__background"
+               th:style="${item.mainImageUrl != null} ? 'background-image:url(' + item.mainImageUrl + ');' : 'background-image:url(' + defaultHero + ');'"></div>
+          <div class="hero-slide__layer"></div>
+          <div class="hero-slide__content">
+            <span class="hero-slide__eyebrow" th:text="${item.brand != null ? item.brand.brandName : '추천 상품'}">추천 상품</span>
+            <h2 class="hero-slide__title" th:text="${item.productTitle}">상품명</h2>
+            <p class="hero-slide__desc"
+               th:text="${item.description != null && !item.description.isEmpty() ? item.description : '취향을 담은 공간을 지금 만나보세요.'}">취향을 담은 공간을 지금 만나보세요.</p>
+            <div class="hero-slide__meta">
                 <span class="hero-slide__price"
                       th:text="${#numbers.formatInteger(item.salePrice != null ? item.salePrice : (item.originalPrice != null ? item.originalPrice : 0), 0, 'COMMA')} + '원부터'">0원부터</span>
-                <a class="hero-slide__cta" th:href="@{'/product/' + ${item.productId}}">자세히 보기</a>
-              </div>
+              <a class="hero-slide__cta" th:href="@{'/product/' + ${item.productId}}">자세히 보기</a>
             </div>
-          </article>
-        </div>
-        <div class="hero-carousel__nav" aria-hidden="true" th:if="${visibleSlides > 1}">
-          <button type="button" class="hero-carousel__control prev" aria-label="이전 슬라이드"></button>
-          <button type="button" class="hero-carousel__control next" aria-label="다음 슬라이드"></button>
-        </div>
-        <div class="hero-carousel__dots" role="tablist" th:if="${visibleSlides > 1}">
-          <button type="button"
-                  class="hero-carousel__dot"
-                  th:each="item, iter : ${products}"
-                  th:if="${iter.index < visibleSlides}"
-                  th:data-index="${iter.index}"
-                  th:classappend="${iter.index == 0} ? ' is-active' : ''"
-                  th:aria-label="${'슬라이드 ' + (iter.index + 1)}"
-                  role="tab"></button>
-        </div>
+          </div>
+        </article>
       </div>
-      <div class="product-hero__inner" th:if="${visibleSlides == 0}">
-        <div class="product-hero__copy">
-          <span class="product-hero__eyebrow">Living Inspiration</span>
-          <h1 class="product-hero__title">햇살 가득한 리빙룸을 완성해요</h1>
-          <p class="product-hero__desc">포근한 패브릭 소파부터 감각적인 조명까지, 취향에 맞는 아이템을 골라보세요.</p>
-          <span class="product-hero__count"
-                th:text="${totalCount != null ? '총 ' + totalCount + '개 상품' : (products != null ? '총 ' + #lists.size(products) + '개 상품' : '진열 준비중입니다')}">
+      <div class="hero-carousel__nav" aria-hidden="true" th:if="${visibleSlides > 1}">
+        <button type="button" class="hero-carousel__control prev" aria-label="이전 슬라이드"></button>
+        <button type="button" class="hero-carousel__control next" aria-label="다음 슬라이드"></button>
+      </div>
+      <div class="hero-carousel__dots" role="tablist" th:if="${visibleSlides > 1}">
+        <button type="button"
+                class="hero-carousel__dot"
+                th:each="item, iter : ${products}"
+                th:if="${iter.index < visibleSlides}"
+                th:data-index="${iter.index}"
+                th:classappend="${iter.index == 0} ? ' is-active' : ''"
+                th:aria-label="${'슬라이드 ' + (iter.index + 1)}"
+                role="tab"></button>
+      </div>
+    </div>
+    <div class="product-hero__inner" th:if="${visibleSlides == 0}">
+      <div class="product-hero__copy">
+        <span class="product-hero__eyebrow">Living Inspiration</span>
+        <h1 class="product-hero__title">햇살 가득한 리빙룸을 완성해요</h1>
+        <p class="product-hero__desc">포근한 패브릭 소파부터 감각적인 조명까지, 취향에 맞는 아이템을 골라보세요.</p>
+        <span class="product-hero__count"
+              th:text="${totalCount != null ? '총 ' + totalCount + '개 상품' : (products != null ? '총 ' + #lists.size(products) + '개 상품' : '진열 준비중입니다')}">
             총 0개 상품
           </span>
-        </div>
-        <figure class="product-hero__visual" aria-hidden="true">
-          <img class="product-hero__image" th:src="${defaultHero}" alt="햇살이 들어오는 거실과 원목 가구" loading="lazy" />
-        </figure>
       </div>
-    </section>
+      <figure class="product-hero__visual" aria-hidden="true">
+        <img class="product-hero__image" th:src="${defaultHero}" alt="햇살이 들어오는 거실과 원목 가구" loading="lazy" />
+      </figure>
+    </div>
+  </section>
 
-    <section class="product-toolbar" aria-label="상품 탐색">
-      <div class="container product-toolbar__inner">
-        <nav class="category-scroll" aria-label="상품 카테고리">
-          <a th:href="@{/product}" th:classappend="${uri == '/product' ? 'is-active' : ''}">전체</a>
-          <a th:href="@{/product/category/100}" th:classappend="${#strings.startsWith(uri, '/product/category/100') ? 'is-active' : ''}">수납용품</a>
-          <a th:href="@{/product/category/103}" th:classappend="${#strings.startsWith(uri, '/product/category/103') ? 'is-active' : ''}">가구</a>
-          <a th:href="@{/product/category/104}" th:classappend="${#strings.startsWith(uri, '/product/category/104') ? 'is-active' : ''}">침실</a>
-          <a th:href="@{/product/category/108}" th:classappend="${#strings.startsWith(uri, '/product/category/108') ? 'is-active' : ''}">주방</a>
-          <a th:href="@{/product/category/5}" th:classappend="${#strings.startsWith(uri, '/product/category/5') ? 'is-active' : ''}">욕실</a>
-          <a th:href="@{/product/category/6}" th:classappend="${#strings.startsWith(uri, '/product/category/6') ? 'is-active' : ''}">조명</a>
-        </nav>
-        <div class="product-toolbar__actions" th:if="${isCategory}">
-          <span class="sort-label">정렬</span>
-          <div class="sort-pills" role="tablist">
-            <button type="button" class="sort-pill" data-sort="default" role="tab">추천순</button>
-            <button type="button" class="sort-pill" data-sort="price-asc" role="tab">낮은 가격순</button>
-            <button type="button" class="sort-pill" data-sort="price-desc" role="tab">높은 가격순</button>
-            <button type="button" class="sort-pill" data-sort="rating-desc" role="tab">평점 높은순</button>
-          </div>
+  <section class="product-toolbar" aria-label="상품 탐색">
+    <div class="container product-toolbar__inner">
+      <nav class="category-scroll" aria-label="상품 카테고리">
+        <a th:href="@{/product}" th:classappend="${uri == '/product' ? 'is-active' : ''}">전체</a>
+        <a th:href="@{/product/category/100}" th:classappend="${#strings.startsWith(uri, '/product/category/100') ? 'is-active' : ''}">수납용품</a>
+        <a th:href="@{/product/category/103}" th:classappend="${#strings.startsWith(uri, '/product/category/103') ? 'is-active' : ''}">가구</a>
+        <a th:href="@{/product/category/104}" th:classappend="${#strings.startsWith(uri, '/product/category/104') ? 'is-active' : ''}">침실</a>
+        <a th:href="@{/product/category/108}" th:classappend="${#strings.startsWith(uri, '/product/category/108') ? 'is-active' : ''}">주방</a>
+        <a th:href="@{/product/category/5}" th:classappend="${#strings.startsWith(uri, '/product/category/5') ? 'is-active' : ''}">욕실</a>
+        <a th:href="@{/product/category/6}" th:classappend="${#strings.startsWith(uri, '/product/category/6') ? 'is-active' : ''}">조명</a>
+      </nav>
+      <div class="product-toolbar__actions" th:if="${isCategory}">
+        <span class="sort-label">정렬</span>
+        <div class="sort-pills" role="tablist">
+          <button type="button" class="sort-pill" data-sort="default" role="tab">추천순</button>
+          <button type="button" class="sort-pill" data-sort="price-asc" role="tab">낮은 가격순</button>
+          <button type="button" class="sort-pill" data-sort="price-desc" role="tab">높은 가격순</button>
+          <button type="button" class="sort-pill" data-sort="rating-desc" role="tab">평점 높은순</button>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section class="product-list container">
-      <header class="product-list__head">
-        <h2 class="product-list__title" th:text="${isCategory ? '카테고리 상품' : '전체 상품'}">전체 상품</h2>
-        <span class="product-list__count"
-              th:text="${totalCount != null ? '총 ' + totalCount + '개' : (products != null ? '총 ' + #lists.size(products) + '개' : '0개')}">
+  <section class="product-list container">
+    <header class="product-list__head">
+      <h2 class="product-list__title" th:text="${isCategory ? '카테고리 상품' : '전체 상품'}">전체 상품</h2>
+      <span class="product-list__count"
+            th:text="${totalCount != null ? '총 ' + totalCount + '개' : (products != null ? '총 ' + #lists.size(products) + '개' : '0개')}">
           총 0개
         </span>
-      </header>
+    </header>
 
-      <div class="product-grid" th:if="${products != null and !#lists.isEmpty(products)}">
-        <article class="product-card" th:each="product : ${products}">
-          <a class="product-card__link" th:href="@{'/product/' + ${product.productId}}">
-            <div class="product-card__image">
-              <img th:if="${product.mainImageUrl != null}" th:src="${product.mainImageUrl}" th:alt="${product.productTitle}" loading="lazy" />
-              <div class="product-card__placeholder" th:unless="${product.mainImageUrl != null}">📦</div>
-              <span class="product-card__badge"
-                    th:if="${product.originalPrice != null and product.salePrice != null and product.originalPrice > product.salePrice and product.originalPrice > 0}"
-                    th:text="${'-' + #numbers.formatDecimal((1 - product.salePrice.doubleValue() / product.originalPrice.doubleValue()) * 100, 0, 0) + '%'}">
+    <div class="product-grid" th:if="${products != null and !#lists.isEmpty(products)}">
+      <article class="product-card" th:each="product : ${products}">
+        <a class="product-card__link" th:href="@{'/product/' + ${product.productId}}">
+          <div class="product-card__image">
+            <img th:if="${product.mainImageUrl != null}" th:src="${product.mainImageUrl}" th:alt="${product.productTitle}" loading="lazy" />
+            <div class="product-card__placeholder" th:unless="${product.mainImageUrl != null}">📦</div>
+            <span class="product-card__badge"
+                  th:if="${product.originalPrice != null and product.salePrice != null and product.originalPrice > product.salePrice and product.originalPrice > 0}"
+                  th:text="${'-' + #numbers.formatDecimal((1 - product.salePrice.doubleValue() / product.originalPrice.doubleValue()) * 100, 0, 0) + '%'}">
                 -0%
               </span>
-            </div>
-            <div class="product-card__body">
-              <p class="product-card__brand"
-                 th:text="${product.brand != null ? product.brand.brandName : '브랜드 미등록'}">브랜드명</p>
-              <h3 class="product-card__title" th:text="${product.productTitle}">상품명</h3>
-              <div class="product-card__price">
+          </div>
+          <div class="product-card__body">
+            <p class="product-card__brand"
+               th:text="${product.brand != null ? product.brand.brandName : '브랜드 미등록'}">브랜드명</p>
+            <h3 class="product-card__title" th:text="${product.productTitle}">상품명</h3>
+            <div class="product-card__price">
                 <span class="product-card__sale"
                       th:text="${#numbers.formatInteger(product.salePrice != null ? product.salePrice : (product.originalPrice != null ? product.originalPrice : 0), 0, 'COMMA')} + '원'">
                   0원
                 </span>
-                <span class="product-card__original"
-                      th:if="${product.originalPrice != null and product.salePrice != null and product.originalPrice > product.salePrice}"
-                      th:text="${#numbers.formatInteger(product.originalPrice, 0, 'COMMA')} + '원'">
+              <span class="product-card__original"
+                    th:if="${product.originalPrice != null and product.salePrice != null and product.originalPrice > product.salePrice}"
+                    th:text="${#numbers.formatInteger(product.originalPrice, 0, 'COMMA')} + '원'">
                   0원
                 </span>
-              </div>
-              <div class="product-card__meta"
-                   th:if="${(product.averageRating != null and product.averageRating > 0) or (product.reviewCount != null)}">
+            </div>
+            <div class="product-card__meta"
+                 th:if="${(product.averageRating != null and product.averageRating > 0) or (product.reviewCount != null)}">
                 <span class="product-card__rating"
                       th:if="${product.averageRating != null and product.averageRating > 0}"
                       th:text="${'★ ' + #numbers.formatDecimal(product.averageRating, 1, 1)}">
                   ★ 0.0
                 </span>
-                <span class="product-card__reviews"
-                      th:if="${product.reviewCount != null}"
-                      th:text="${'후기 ' + product.reviewCount}">
+              <span class="product-card__reviews"
+                    th:if="${product.reviewCount != null}"
+                    th:text="${'후기 ' + product.reviewCount}">
                   후기 0
                 </span>
-              </div>
             </div>
-          </a>
-        </article>
+          </div>
+        </a>
+      </article>
+    </div>
+
+    <div class="product-empty" th:if="${products == null or #lists.isEmpty(products)}">
+      <div class="product-empty__card">
+        <div class="product-empty__icon">🛒</div>
+        <h3>등록된 상품이 없습니다</h3>
+        <p>곧 새로운 상품으로 채워질 예정이에요. 조금만 기다려 주세요!</p>
+        <a class="btn" th:href="@{/}">홈으로 가기</a>
       </div>
+    </div>
+  </section>
+</main>
 
-      <div class="product-empty" th:if="${products == null or #lists.isEmpty(products)}">
-        <div class="product-empty__card">
-          <div class="product-empty__icon">🛒</div>
-          <h3>등록된 상품이 없습니다</h3>
-          <p>곧 새로운 상품으로 채워질 예정이에요. 조금만 기다려 주세요!</p>
-          <a class="btn" th:href="@{/}">홈으로 가기</a>
-        </div>
-      </div>
-    </section>
-  </main>
+<footer th:replace="fragments/layout :: footer"></footer>
 
-  <footer th:replace="fragments/layout :: footer"></footer>
+<link rel="stylesheet" th:href="@{/css/product/product.css}">
+<script th:inline="javascript">
+  /*<![CDATA[*/
+  const currentUri = /*[[${#httpServletRequest.requestURI}]]*/ '';
 
-  <link rel="stylesheet" th:href="@{/css/product/product.css}">
-  <script th:inline="javascript">
-    /*<![CDATA[*/
-    const currentUri = /*[[${#httpServletRequest.requestURI}]]*/ '';
+  (function initHeroCarousel() {
+    const carousel = document.querySelector('.hero-carousel');
+    if (!carousel) { return; }
 
-    (function initHeroCarousel() {
-      const carousel = document.querySelector('.hero-carousel');
-      if (!carousel) { return; }
+    const slides = Array.from(carousel.querySelectorAll('.hero-slide'));
+    if (slides.length === 0) { return; }
 
-      const slides = Array.from(carousel.querySelectorAll('.hero-slide'));
-      if (slides.length === 0) { return; }
+    const dots = Array.from(carousel.querySelectorAll('.hero-carousel__dot'));
+    const prev = carousel.querySelector('.hero-carousel__control.prev');
+    const next = carousel.querySelector('.hero-carousel__control.next');
+    let current = slides.findIndex((slide) => slide.classList.contains('is-active'));
+    if (current < 0) {
+      current = 0;
+      slides[0].classList.add('is-active');
+      if (dots[0]) { dots[0].classList.add('is-active'); }
+    }
 
-      const dots = Array.from(carousel.querySelectorAll('.hero-carousel__dot'));
-      const prev = carousel.querySelector('.hero-carousel__control.prev');
-      const next = carousel.querySelector('.hero-carousel__control.next');
-      let current = slides.findIndex((slide) => slide.classList.contains('is-active'));
-      if (current < 0) {
-        current = 0;
-        slides[0].classList.add('is-active');
-        if (dots[0]) { dots[0].classList.add('is-active'); }
+    const hasControls = slides.length > 1 && prev && next;
+    const interval = 5000;
+    let timerId;
+
+    function setActive(index) {
+      if (index === current) { return; }
+      slides[current].classList.remove('is-active');
+      if (dots[current]) { dots[current].classList.remove('is-active'); }
+
+      current = index;
+      slides[current].classList.add('is-active');
+      if (dots[current]) { dots[current].classList.add('is-active'); }
+    }
+
+    function goStep(step) {
+      const nextIndex = (current + step + slides.length) % slides.length;
+      setActive(nextIndex);
+    }
+
+    function onDotClick(event) {
+      const index = Number(event.currentTarget.dataset.index || 0);
+      setActive(index);
+    }
+
+    function startAuto() {
+      stopAuto();
+      timerId = setInterval(() => goStep(1), interval);
+    }
+
+    function stopAuto() {
+      if (timerId) {
+        clearInterval(timerId);
+        timerId = null;
       }
+    }
 
-      const hasControls = slides.length > 1 && prev && next;
-      const interval = 5000;
-      let timerId;
+    if (hasControls) {
+      prev.addEventListener('click', () => { goStep(-1); startAuto(); });
+      next.addEventListener('click', () => { goStep(1); startAuto(); });
+    }
 
-      function setActive(index) {
-        if (index === current) { return; }
-        slides[current].classList.remove('is-active');
-        if (dots[current]) { dots[current].classList.remove('is-active'); }
-
-        current = index;
-        slides[current].classList.add('is-active');
-        if (dots[current]) { dots[current].classList.add('is-active'); }
-      }
-
-      function goStep(step) {
-        const nextIndex = (current + step + slides.length) % slides.length;
-        setActive(nextIndex);
-      }
-
-      function onDotClick(event) {
-        const index = Number(event.currentTarget.dataset.index || 0);
-        setActive(index);
-      }
-
-      function startAuto() {
-        stopAuto();
-        timerId = setInterval(() => goStep(1), interval);
-      }
-
-      function stopAuto() {
-        if (timerId) {
-          clearInterval(timerId);
-          timerId = null;
-        }
-      }
-
-      if (hasControls) {
-        prev.addEventListener('click', () => { goStep(-1); startAuto(); });
-        next.addEventListener('click', () => { goStep(1); startAuto(); });
-      }
-
-      if (dots.length > 0) {
-        dots.forEach((dot) => {
-          dot.addEventListener('click', (event) => {
-            onDotClick(event);
-            startAuto();
-          });
-        });
-      }
-
-      carousel.addEventListener('mouseenter', stopAuto);
-      carousel.addEventListener('mouseleave', startAuto);
-      carousel.addEventListener('touchstart', stopAuto, { passive: true });
-      carousel.addEventListener('touchend', startAuto, { passive: true });
-
-      if (slides.length > 1) {
-        startAuto();
-      }
-    })();
-
-    (function initProductSort(){
-      const pills = document.querySelectorAll('.sort-pill');
-      if (!pills.length) { return; }
-
-      let active = 'default';
-      if (currentUri.includes('/price-asc')) {
-        active = 'price-asc';
-      } else if (currentUri.includes('/price-desc')) {
-        active = 'price-desc';
-      } else if (currentUri.includes('/rating-desc')) {
-        active = 'rating-desc';
-      }
-
-      pills.forEach((pill) => {
-        const sort = pill.dataset.sort;
-        pill.classList.toggle('is-active', sort === active);
-        pill.addEventListener('click', () => {
-          handleSortChange(sort);
+    if (dots.length > 0) {
+      dots.forEach((dot) => {
+        dot.addEventListener('click', (event) => {
+          onDotClick(event);
+          startAuto();
         });
       });
-    })();
-
-    function handleSortChange(sortType) {
-      const path = window.location.pathname;
-      const match = path.match(/\/product\/category\/(\d+)/);
-      if (!match) {
-        return;
-      }
-      const categoryId = match[1];
-      let target = `/product/category/${categoryId}`;
-      if (sortType === 'price-asc') {
-        target += '/price-asc';
-      } else if (sortType === 'price-desc') {
-        target += '/price-desc';
-      } else if (sortType === 'rating-desc') {
-        target += '/rating-desc';
-      }
-      window.location.href = target;
     }
-    /*]]>*/
-  </script>
+
+    carousel.addEventListener('mouseenter', stopAuto);
+    carousel.addEventListener('mouseleave', startAuto);
+    carousel.addEventListener('touchstart', stopAuto, { passive: true });
+    carousel.addEventListener('touchend', startAuto, { passive: true });
+
+    if (slides.length > 1) {
+      startAuto();
+    }
+  })();
+
+  (function initProductSort(){
+    const pills = document.querySelectorAll('.sort-pill');
+    if (!pills.length) { return; }
+
+    let active = 'default';
+    if (currentUri.includes('/price-asc')) {
+      active = 'price-asc';
+    } else if (currentUri.includes('/price-desc')) {
+      active = 'price-desc';
+    } else if (currentUri.includes('/rating-desc')) {
+      active = 'rating-desc';
+    }
+
+    pills.forEach((pill) => {
+      const sort = pill.dataset.sort;
+      pill.classList.toggle('is-active', sort === active);
+      pill.addEventListener('click', () => {
+        handleSortChange(sort);
+      });
+    });
+  })();
+
+  function handleSortChange(sortType) {
+    const path = window.location.pathname;
+    const match = path.match(/\/product\/category\/(\d+)/);
+    if (!match) {
+      return;
+    }
+    const categoryId = match[1];
+    let target = `/product/category/${categoryId}`;
+    if (sortType === 'price-asc') {
+      target += '/price-asc';
+    } else if (sortType === 'price-desc') {
+      target += '/price-desc';
+    } else if (sortType === 'rating-desc') {
+      target += '/rating-desc';
+    }
+    window.location.href = target;
+  }
+  /*]]>*/
+</script>
 </body>
 </html>

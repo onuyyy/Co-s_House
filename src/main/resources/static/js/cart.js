@@ -191,8 +191,13 @@ async function handleOptionSave() {
         item.pendingOptionLabel = label;
     }
 
+    const targetIndex = editingOptionIndex;
+
     closeOptionModal(true);
     refreshCart();
+    if (targetIndex != null) {
+        applyItemChanges(targetIndex);
+    }
 
     if (saveBtn) {
         saveBtn.disabled = false;
@@ -274,9 +279,8 @@ async function loadCartPreview() {
         syncSelectionWithCart();
 
         const baseSummary = calculateSummary(cartItems);
-        const mergedSummary = Object.assign({}, baseSummary, data?.summary || {});
-        renderSummary(mergedSummary, refs);
         renderItems(cartItems, refs, mergedSummary);
+        updateSelectedSummary();
 
         if (cartItems.length > 0) {
             if (refs.actionsEl) refs.actionsEl.hidden = false;
@@ -309,7 +313,7 @@ function createDemoData() {
         items: [
             {
                 id: 1,
-                cartItemId: 1,
+                cartItemId: null,
                 title: '모던 원목 책상',
                 quantity: 2,
                 unitPrice: 150000,
@@ -321,7 +325,7 @@ function createDemoData() {
             },
             {
                 id: 2,
-                cartItemId: 2,
+                cartItemId: null,
                 title: '에르고 체어',
                 quantity: 1,
                 unitPrice: 89000,
@@ -333,7 +337,7 @@ function createDemoData() {
             },
             {
                 id: 3,
-                cartItemId: 3,
+                cartItemId: null,
                 title: '북유럽 스탠드 조명',
                 quantity: 1,
                 unitPrice: 45000,
@@ -345,7 +349,7 @@ function createDemoData() {
             },
             {
                 id: 4,
-                cartItemId: 4,
+                cartItemId: null,
                 title: '미니멀 수납함',
                 quantity: 3,
                 unitPrice: 25000,
@@ -357,7 +361,7 @@ function createDemoData() {
             },
             {
                 id: 5,
-                cartItemId: 5,
+                cartItemId: null,
                 title: '소프트 쿠션',
                 quantity: 2,
                 unitPrice: 18000,
@@ -400,6 +404,7 @@ function renderGuestCart(refs) {
 
     renderSummary(guestSummary, refs);
     renderItems(normalized, refs, guestSummary);
+    updateSelectedSummary();
 
     if (refs.guestInfoEl) refs.guestInfoEl.hidden = false;
     if (refs.actionsEl) refs.actionsEl.hidden = false;
@@ -454,7 +459,7 @@ function renderItems(items, refs, summaryOverride) {
     products.forEach((item, index) => {
         const title = item && item.title != null ? item.title : '상품';
         const quantity = Number(item && item.quantity != null ? item.quantity : 0);
-        const unitPrice = Number(item && item.unitPrice != null ? item.unitPrice : 0);
+        const unitPrice = getEffectiveUnitPrice(item);
         const baseLineTotal = Number(item && item.lineTotal != null ? item.lineTotal : unitPrice * quantity);
         const imageUrl = item && item.imageUrl ? item.imageUrl : '';
         const isOut = item && item.outOfStock === true;
@@ -473,10 +478,8 @@ function renderItems(items, refs, summaryOverride) {
         const displayLineTotal = pendingLineTotal != null ? pendingLineTotal : (pendingQuantityPresent ? unitPrice * displayQuantity : baseLineTotal);
         const pendingOptionLabel = pendingOptionPresent ? (item.pendingOptionLabel || '') : '';
         const displayOptionLabel = pendingOptionPresent ? pendingOptionLabel : (selectedOptionLabel || optionLabel);
-        const quantityChanged = pendingQuantityPresent && displayQuantity !== quantity;
-        const optionChanged = pendingOptionPresent && (item.pendingOptionId ?? null) !== (item && item.selectedOptionId != null ? item.selectedOptionId : null);
         const isApplying = Boolean(item && item.isApplying);
-        const highlightPending = isApplying || quantityChanged || optionChanged;
+        const highlightPending = isApplying;
 
         const li = document.createElement('li');
         li.className = 'item-card';
@@ -489,10 +492,9 @@ function renderItems(items, refs, summaryOverride) {
             li.setAttribute('data-cart-item-id', cartItemId);
         }
 
-        const showApplyButton = highlightPending;
-        const priceBadge = (quantityChanged || optionChanged) ? '<span class="item-pending-badge">미적용</span>' : '';
-        const pendingMessage = (quantityChanged || optionChanged) ? '<p class="item-pending-message">변경 사항을 적용해야 주문 요약에 반영됩니다.</p>' : '';
-        const applyButtonLabel = isApplying ? '적용 중...' : '변경 적용';
+        const statusMessage = isApplying
+            ? '<p class="item-pending-message">변경 사항을 적용 중입니다…</p>'
+            : '';
 
         li.innerHTML = `
             <div class="item-select">
@@ -509,14 +511,14 @@ function renderItems(items, refs, summaryOverride) {
             <div class="item-body">
                 <h3 class="item-title">${escapeHtml(title)}</h3>
                 ${optionsAvailable
-                    ? `<div class="item-option-group">
+            ? `<div class="item-option-group">
                             <div class="item-option">${displayOptionLabel ? escapeHtml(displayOptionLabel) : '옵션 미선택'}</div>
                             <button type="button" class="option-edit-btn" ${isApplying ? 'disabled' : ''}>옵션 변경</button>
                        </div>`
-                    : (displayOptionLabel ? `<div class="item-option">${escapeHtml(displayOptionLabel)}</div>` : '')}
-                <div class="item-meta">단가 ${formatCurrency(unitPrice)}원</div>
-                <div class="item-price">합계 ${formatCurrency(displayLineTotal)}원 ${priceBadge}</div>
-                ${pendingMessage}
+            : (displayOptionLabel ? `<div class="item-option">${escapeHtml(displayOptionLabel)}</div>` : '')}
+                <div class="item-meta">금액 ${formatCurrency(unitPrice)}원</div>
+                <div class="item-price">합계 ${formatCurrency(displayLineTotal)}원</div>
+                ${statusMessage}
                 ${isOut ? '<div class="item-status">재고가 부족한 상품입니다.</div>' : ''}
                 
                 <div class="item-controls">
@@ -525,11 +527,6 @@ function renderItems(items, refs, summaryOverride) {
                         <input type="number" class="quantity-input" min="1" max="99" value="${displayQuantity}" aria-label="수량 입력" ${isApplying ? 'disabled' : ''}>
                         <button type="button" class="quantity-btn quantity-btn--plus" aria-label="수량 늘리기" ${displayQuantity >= 99 || isApplying ? 'disabled' : ''}>+</button>
                     </div>
-                    <button type="button" class="apply-btn${showApplyButton ? ' is-visible' : ''}" ${(quantityChanged || optionChanged) && !isApplying ? '' : 'disabled'}>${applyButtonLabel}</button>
-                    <button type="button" class="remove-btn" 
-                            onclick="removeItem(${index})" 
-                            aria-label="${escapeHtml(title)} 삭제"
-                            title="삭제" ${isApplying ? 'disabled' : ''}>🗑️</button>
                 </div>
             </div>
         `;
@@ -542,7 +539,6 @@ function renderItems(items, refs, summaryOverride) {
         const minusBtn = li.querySelector('.quantity-btn--minus');
         const plusBtn = li.querySelector('.quantity-btn--plus');
         const quantityInput = li.querySelector('.quantity-input');
-        const applyBtn = li.querySelector('.apply-btn');
 
         if (minusBtn) {
             minusBtn.addEventListener('click', () => {
@@ -565,9 +561,6 @@ function renderItems(items, refs, summaryOverride) {
         if (optionBtn) {
             optionBtn.addEventListener('click', () => openOptionModal(index, optionBtn));
         }
-        if (applyBtn) {
-            applyBtn.addEventListener('click', () => applyItemChanges(index));
-        }
         fragment.appendChild(li);
     });
 
@@ -584,6 +577,7 @@ function toggleItemSelection(itemId, isChecked) {
         selectedItemIds.delete(id);
     }
     updateSelectionUI();
+    updateSelectedSummary();
 }
 
 function syncSelectionWithCart() {
@@ -658,9 +652,10 @@ function updateQuantity(index, newQuantity) {
     }
 
     item.pendingQuantity = qty;
-    item.pendingLineTotal = item.unitPrice * qty;
+    item.pendingLineTotal = getEffectiveUnitPrice(item) * qty;
 
     refreshCart();
+    applyItemChanges(index);
 }
 
 async function applyItemChanges(index) {
@@ -700,7 +695,7 @@ async function applyItemChanges(index) {
 
         if (quantityChanged) {
             item.quantity = Number(item.pendingQuantity);
-            item.lineTotal = item.pendingLineTotal != null ? Number(item.pendingLineTotal) : item.unitPrice * item.quantity;
+            item.lineTotal = item.pendingLineTotal != null ? Number(item.pendingLineTotal) : getEffectiveUnitPrice(item) * item.quantity;
             delete item.pendingQuantity;
             delete item.pendingLineTotal;
         }
@@ -719,17 +714,29 @@ async function applyItemChanges(index) {
             delete item.pendingOptionLabel;
         }
 
-        item.isApplying = false;
-        refreshCart();
-
-        if (isGuestCart) {
-            saveGuestCartItems(cartItems);
-        }
     } catch (error) {
         console.error('Failed to apply item changes:', error);
         alert('변경 사항을 적용하지 못했습니다. 잠시 후 다시 시도해주세요.');
+        if (quantityChanged && Object.prototype.hasOwnProperty.call(item, 'pendingQuantity')) {
+            delete item.pendingQuantity;
+            delete item.pendingLineTotal;
+        }
+        if (optionChanged && Object.prototype.hasOwnProperty.call(item, 'pendingOptionId')) {
+            delete item.pendingSelectedOptions;
+            delete item.pendingOptionId;
+            delete item.pendingOptionLabel;
+        }
         item.isApplying = false;
         refreshCart();
+        return;
+    }
+
+    item.isApplying = false;
+    item.lineTotal = getEffectiveLineTotal(item);
+    refreshCart();
+
+    if (isGuestCart) {
+        saveGuestCartItems(cartItems);
     }
 }
 
@@ -799,14 +806,12 @@ function refreshCart() {
         checkoutBtn: document.getElementById('checkout-button')
     };
 
-    // 카운트 업데이트
     syncSelectionWithCart();
 
-    // 요약 정보 업데이트
-    const summary = calculateSummary(cartItems);
-    renderSummary(summary, refs);
+    const totalSummary = calculateSummary(cartItems);
+    updateCartCount(totalSummary.totalQuantity);
+    updateSelectedSummary();
 
-    // 아이템 목록 다시 렌더링
     if (refs.listEl) refs.listEl.innerHTML = '';
 
     if (cartItems.length === 0) {
@@ -816,7 +821,7 @@ function refreshCart() {
         selectedItemIds.clear();
         updateSelectionUI();
     } else {
-        renderItems(cartItems, refs, summary);
+        renderItems(cartItems, refs, totalSummary);
         if (refs.actionsEl) refs.actionsEl.hidden = false;
         if (refs.checkoutBtn) refs.checkoutBtn.disabled = false;
     }
@@ -824,8 +829,19 @@ function refreshCart() {
 
 // 요약 정보 계산
 function calculateSummary(items) {
-    const totalQuantity = items.reduce((sum, item) => sum + Number(item.quantity || 0), 0);
-    const totalAmount = items.reduce((sum, item) => sum + Number(item.lineTotal || 0), 0);
+    const totals = items.reduce((acc, item) => {
+        if (!item) {
+            return acc;
+        }
+        const qty = getEffectiveQuantity(item);
+        const lineTotal = getEffectiveLineTotal(item);
+        acc.quantity += Number.isFinite(qty) ? qty : 0;
+        acc.amount += Number.isFinite(lineTotal) ? lineTotal : 0;
+        return acc;
+    }, { quantity: 0, amount: 0 });
+
+    const totalQuantity = totals.quantity;
+    const totalAmount = totals.amount;
     const expectedDiscount = totalAmount >= 100000 ? Math.floor(totalAmount * 0.05) : 0;
     const expectedAmount = totalAmount - expectedDiscount;
 
@@ -838,6 +854,89 @@ function calculateSummary(items) {
     };
 }
 
+function resolveItemsForCheckout() {
+    if (!Array.isArray(cartItems)) {
+        return [];
+    }
+    // If no items are selected, return an empty array for checkout.
+    if (selectedItemIds.size === 0) {
+        return [];
+    }
+    return cartItems.filter(item => selectedItemIds.has(String(item?.id)));
+}
+
+function hasPendingChanges(item) {
+    if (!item) {
+        return false;
+    }
+    return Object.prototype.hasOwnProperty.call(item, 'pendingQuantity')
+        || Object.prototype.hasOwnProperty.call(item, 'pendingOptionId');
+}
+
+function getEffectiveQuantity(item) {
+    if (!item) {
+        return 0;
+    }
+    const hasPending = Object.prototype.hasOwnProperty.call(item, 'pendingQuantity');
+    const value = hasPending ? Number(item.pendingQuantity) : Number(item.quantity ?? 0);
+    return Number.isFinite(value) ? value : 0;
+}
+
+function getEffectiveUnitPrice(item) {
+    if (!item) {
+        return 0;
+    }
+    const candidates = [
+        Object.prototype.hasOwnProperty.call(item, 'pendingUnitPrice') ? item.pendingUnitPrice : undefined,
+        item.finalUnitPrice,
+        item.finalPrice,
+        item.unitPrice,
+        item.price
+    ];
+    for (const candidate of candidates) {
+        const value = Number(candidate);
+        if (Number.isFinite(value) && value >= 0) {
+            return value;
+        }
+    }
+    return 0;
+}
+
+function getEffectiveLineTotal(item) {
+    if (!item) {
+        return 0;
+    }
+    if (Object.prototype.hasOwnProperty.call(item, 'pendingLineTotal')) {
+        const pending = Number(item.pendingLineTotal);
+        if (Number.isFinite(pending)) {
+            return pending;
+        }
+    }
+    const stored = Number(item.lineTotal ?? 0);
+    if (Number.isFinite(stored)) {
+        return stored;
+    }
+    return getEffectiveUnitPrice(item) * getEffectiveQuantity(item);
+}
+
+function createHiddenInput(name, value) {
+    const input = document.createElement('input');
+    input.type = 'hidden';
+    input.name = name;
+    input.value = value != null ? value : '';
+    return input;
+}
+
+function appendCsrfToken(form) {
+    if (!form) {
+        return;
+    }
+    const csrfInput = document.querySelector('input[name="_csrf"]');
+    if (csrfInput && csrfInput.value) {
+        form.appendChild(createHiddenInput(csrfInput.name, csrfInput.value));
+    }
+}
+
 function selectAllItems() {
     selectedItemIds.clear();
     cartItems.forEach(item => selectedItemIds.add(String(item.id)));
@@ -845,6 +944,7 @@ function selectAllItems() {
         checkbox.checked = true;
     });
     updateSelectionUI();
+    updateSelectedSummary();
 }
 
 function deselectAllItems() {
@@ -853,6 +953,7 @@ function deselectAllItems() {
         checkbox.checked = false;
     });
     updateSelectionUI();
+    updateSelectedSummary();
 }
 
 async function removeSelectedItems() {
@@ -885,6 +986,9 @@ async function removeSelectedItems() {
                 alert('선택한 상품을 삭제하지 못했습니다. 잠시 후 다시 시도해주세요.');
                 return;
             }
+        } else {
+            // 서버에서 삭제할 항목이 없는 경우 (데모 데이터 등)
+            console.log('No valid cartItemIds found for server deletion - proceeding with local deletion only');
         }
     }
 
@@ -898,26 +1002,67 @@ async function removeSelectedItems() {
 
 // 주문하기
 function proceedToCheckout() {
-    if (cartItems.length === 0) {
+    if (!Array.isArray(cartItems) || cartItems.length === 0) {
         alert('장바구니가 비어있습니다.');
         return;
     }
 
-    // 재고 부족 상품 확인
-    const outOfStockItems = cartItems.filter(item => item.outOfStock);
+    const itemsToOrder = resolveItemsForCheckout();
+    if (itemsToOrder.length === 0) {
+        alert('주문할 상품을 선택해주세요.');
+        return;
+    }
+
+    const applyingItem = itemsToOrder.find(item => item?.isApplying);
+    const pendingItem = itemsToOrder.find(hasPendingChanges);
+    if (applyingItem || pendingItem) {
+        alert('변경 사항을 적용 중입니다. 잠시 후 다시 시도해주세요.');
+        return;
+    }
+
+    const outOfStockItems = itemsToOrder.filter(item => item?.outOfStock);
     if (outOfStockItems.length > 0) {
         alert('재고가 부족한 상품이 있습니다. 해당 상품을 제거하고 다시 시도해주세요.');
         return;
     }
 
-    const summary = calculateSummary(cartItems);
+    const summary = calculateSummary(itemsToOrder);
     const message = `총 ${formatNumber(summary.totalQuantity)}개 상품\n예상 결제 금액: ${formatCurrency(summary.expectedAmount)}원\n\n주문 페이지로 이동하시겠습니까?`;
 
-    if (confirm(message)) {
-        console.log('주문 진행:', { items: cartItems, summary });
-        alert('주문 페이지로 이동합니다!');
-        // window.location.href = '/order';
+    if (!confirm(message)) {
+        return;
     }
+
+    const form = document.createElement('form');
+    form.method = 'POST';
+    form.action = '/order/preview';
+    form.style.display = 'none';
+
+    appendCsrfToken(form);
+
+    let appended = 0;
+    itemsToOrder.forEach(item => {
+        if (!item || item.productId == null) {
+            return;
+        }
+        const quantity = Math.max(1, Math.floor(getEffectiveQuantity(item)));
+        const unitPrice = Math.max(0, Math.floor(getEffectiveUnitPrice(item)));
+
+        form.appendChild(createHiddenInput(`orderItems[${appended}].productId`, item.productId));
+        const optionValue = item.selectedOptionId != null ? item.selectedOptionId : 'default';
+        form.appendChild(createHiddenInput(`orderItems[${appended}].productOptionId`, optionValue));
+        form.appendChild(createHiddenInput(`orderItems[${appended}].quantity`, quantity));
+        form.appendChild(createHiddenInput(`orderItems[${appended}].price`, unitPrice));
+        appended += 1;
+    });
+
+    if (appended === 0) {
+        alert('주문할 상품 정보를 찾을 수 없습니다.');
+        return;
+    }
+
+    document.body.appendChild(form);
+    form.submit();
 }
 
 // 유틸리티 함수들
@@ -954,8 +1099,12 @@ function normalizeApiItems(items) {
         const cartItemId = item?.cartItemId ?? item?.id ?? null;
         const resolvedId = cartItemId ?? item?.productId ?? Math.random().toString(36).slice(2);
         const quantity = Math.max(1, Number(item?.quantity ?? 1));
-        const unit = Number(item?.unitPrice ?? item?.price ?? item?.finalPrice ?? 0);
-        const lineTotal = Number(item?.lineTotal ?? (unit * quantity));
+        const finalUnit = Number(item?.finalPrice ?? item?.finalUnitPrice ?? item?.unitPrice ?? item?.price ?? 0);
+        const unit = Number(item?.unitPrice ?? item?.price ?? item?.finalPrice ?? finalUnit);
+        const resolvedUnit = Number.isFinite(unit) ? unit : 0;
+        const resolvedFinalUnit = Number.isFinite(finalUnit) ? finalUnit : resolvedUnit;
+        const rawLineTotal = Number(item?.lineTotal);
+        const lineTotal = Number.isFinite(rawLineTotal) ? rawLineTotal : resolvedFinalUnit * quantity;
         const selectedOptionId = item?.selectedOptionId != null ? Number(item.selectedOptionId) : null;
         const selectedOptionLabel = item?.selectedOptionLabel ?? '';
         const options = Array.isArray(item?.options) ? item.options : [];
@@ -966,7 +1115,8 @@ function normalizeApiItems(items) {
             productId: item?.productId ?? null,
             title: item?.title ?? '상품',
             quantity,
-            unitPrice: unit,
+            unitPrice: resolvedUnit,
+            finalUnitPrice: resolvedFinalUnit,
             lineTotal,
             imageUrl: item?.imageUrl ?? item?.thumbnailUrl ?? '',
             outOfStock: Boolean(item?.outOfStock),
@@ -992,6 +1142,7 @@ function toGuestDisplayItem(item) {
         title: item?.title ?? '상품',
         quantity,
         unitPrice: unit,
+        finalUnitPrice: unit,
         lineTotal: unit * quantity,
         imageUrl: item?.imageUrl ?? item?.thumbnailUrl ?? '',
         outOfStock: false,
@@ -1036,8 +1187,25 @@ function updateSummary(summary, refs) {
     if (elements.shipping) elements.shipping.textContent = formatCurrency(shippingAmount);
     if (elements.discount) elements.discount.textContent = formatCurrency(expectedDiscount);
     if (elements.expected) elements.expected.textContent = formatCurrency(expectedAmount);
+}
 
-    updateCartCount(totalQuantity);
+function updateSelectedSummary() {
+    const selectedItems = cartItems.filter(item => selectedItemIds.has(String(item.id)));
+    const summary = calculateSummary(selectedItems);
+
+    const elements = {
+        quantity: document.getElementById('summary-quantity'),
+        total: document.getElementById('summary-total'),
+        shipping: document.getElementById('summary-shipping'),
+        discount: document.getElementById('summary-discount'),
+        expected: document.getElementById('summary-expected')
+    };
+
+    if (elements.quantity) elements.quantity.textContent = formatNumber(summary.totalQuantity);
+    if (elements.total) elements.total.textContent = formatCurrency(summary.totalAmount);
+    if (elements.shipping) elements.shipping.textContent = formatCurrency(summary.shippingCost);
+    if (elements.discount) elements.discount.textContent = formatCurrency(summary.expectedDiscount);
+    if (elements.expected) elements.expected.textContent = formatCurrency(summary.expectedAmount);
 }
 
 function loadGuestCartItems() {
@@ -1058,9 +1226,10 @@ function saveGuestCartItems(items) {
             id: item.id,
             cartItemId: item.cartItemId ?? item.id,
             title: item.title,
-            quantity: item.quantity,
-            unitPrice: item.unitPrice,
-            lineTotal: item.lineTotal,
+            quantity: getEffectiveQuantity(item),
+            unitPrice: getEffectiveUnitPrice(item),
+            finalUnitPrice: getEffectiveUnitPrice(item),
+            lineTotal: getEffectiveLineTotal(item),
             imageUrl: item.imageUrl,
             outOfStock: item.outOfStock,
             optionLabel: item.optionLabel,
