@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>포인트 내역 - COS Mall</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+    <link rel="stylesheet" th:href="@{/css/main/header.css}">
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #f8f9fa;
+        }
+
+        .point-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* 포인트 요약 카드 */
+        .point-summary-card {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .point-summary-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .point-summary-title {
+            font-size: 16px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .point-main {
+            display: flex;
+            align-items: baseline;
+            gap: 10px;
+            margin-bottom: 25px;
+            padding: 30px 0;
+            border-top: 1px solid #f0f0f0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .point-amount {
+            font-size: 48px;
+            font-weight: bold;
+            color: #1e88e5;
+        }
+
+        .point-unit {
+            font-size: 24px;
+            color: #1e88e5;
+        }
+
+        .point-info-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            padding-top: 20px;
+        }
+
+        .point-info-item {
+            text-align: center;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .point-info-label {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 8px;
+        }
+
+        .point-info-value {
+            font-size: 20px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        /* 탭 메뉴 */
+        .tabs {
+            background: white;
+            border-radius: 10px;
+            padding: 0;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            overflow: hidden;
+        }
+
+        .tab-list {
+            display: flex;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .tab-item {
+            flex: 1;
+            text-align: center;
+        }
+
+        .tab-link {
+            display: block;
+            padding: 20px;
+            text-decoration: none;
+            color: #666;
+            font-weight: 500;
+            border-bottom: 3px solid transparent;
+            transition: all 0.2s;
+        }
+
+        .tab-link:hover {
+            background: #f8f9fa;
+            color: #333;
+        }
+
+        .tab-link.active {
+            color: #1e88e5;
+            border-bottom-color: #1e88e5;
+            background: #f8f9fa;
+        }
+
+        /* 필터 섹션 */
+        .filter-section {
+            background: white;
+            padding: 20px 30px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .filter-left {
+            display: flex;
+            gap: 15px;
+        }
+
+        .filter-select {
+            padding: 10px 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+            cursor: pointer;
+            background: white;
+        }
+
+        .filter-info {
+            color: #666;
+            font-size: 14px;
+        }
+
+        /* 포인트 내역 리스트 */
+        .point-list {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            overflow: hidden;
+        }
+
+        .point-list-header {
+            background: #f8f9fa;
+            padding: 20px 30px;
+            font-weight: bold;
+            border-bottom: 2px solid #e0e0e0;
+            display: grid;
+            grid-template-columns: 2fr 3fr 1fr 1fr 1fr;
+            gap: 20px;
+        }
+
+        .point-list-item {
+            padding: 25px 30px;
+            border-bottom: 1px solid #f0f0f0;
+            display: grid;
+            grid-template-columns: 2fr 3fr 1fr 1fr 1fr;
+            gap: 20px;
+            align-items: center;
+            transition: background 0.2s;
+        }
+
+        .point-list-item:hover {
+            background: #f8f9fa;
+        }
+
+        .point-list-item:last-child {
+            border-bottom: none;
+        }
+
+        .point-date {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .point-description {
+            font-size: 15px;
+            color: #333;
+        }
+
+        .point-type {
+            text-align: center;
+        }
+
+        .point-badge {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 15px;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .point-badge.earn {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .point-badge.use {
+            background: #ffebee;
+            color: #c62828;
+        }
+
+        .point-amount-col {
+            text-align: right;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .point-amount-col.plus {
+            color: #2e7d32;
+        }
+
+        .point-amount-col.minus {
+            color: #c62828;
+        }
+
+        .point-balance {
+            text-align: right;
+            color: #666;
+            font-size: 14px;
+        }
+
+        /* 빈 상태 */
+        .empty-point {
+            text-align: center;
+            padding: 80px 20px;
+        }
+
+        .empty-point-icon {
+            font-size: 60px;
+            color: #ddd;
+            margin-bottom: 20px;
+        }
+
+        .empty-point-text {
+            font-size: 16px;
+            color: #999;
+        }
+
+        /* 페이징 */
+        .pagination-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+            padding: 20px;
+        }
+
+        .pagination {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .page-item {
+            display: inline-block;
+        }
+
+        .page-link {
+            display: block;
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            background: white;
+            color: #333;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: all 0.2s;
+            min-width: 40px;
+            text-align: center;
+        }
+
+        .page-link:hover {
+            background: #f8f9fa;
+            border-color: #1e88e5;
+            color: #1e88e5;
+        }
+
+        .page-item.active .page-link {
+            background: #1e88e5;
+            color: white;
+            border-color: #1e88e5;
+        }
+
+        .page-item.disabled .page-link {
+            background: #f8f9fa;
+            color: #ccc;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+<!-- 헤더 -->
+<header th:replace="~{fragments/layout :: header}"></header>
+
+<!-- 메인 컨텐츠 -->
+<div class="point-container">
+    <!-- 포인트 요약 카드 -->
+    <div class="point-summary-card">
+        <div class="point-summary-header">
+            <div class="point-summary-title">나의 포인트</div>
+        </div>
+        <div class="point-main">
+            <div class="point-amount" th:text="${#numbers.formatInteger(currentPoints, 0, 'COMMA')}">0</div>
+            <div class="point-unit">P</div>
+        </div>
+        <div class="point-info-grid">
+            <div class="point-info-item">
+                <div class="point-info-label">이번 달 적립</div>
+                <div class="point-info-value" th:text="${#numbers.formatInteger(monthlyEarn, 0, 'COMMA') + 'P'}">0P</div>
+            </div>
+            <div class="point-info-item">
+                <div class="point-info-label">이번 달 사용</div>
+                <div class="point-info-value" th:text="${#numbers.formatInteger(monthlyUse, 0, 'COMMA') + 'P'}">0P</div>
+            </div>
+            <div class="point-info-item">
+                <div class="point-info-label">소멸 예정</div>
+                <div class="point-info-value" th:text="${#numbers.formatInteger(expiringPoints, 0, 'COMMA') + 'P'}">0P</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 탭 메뉴 -->
+    <div class="tabs">
+        <ul class="tab-list">
+            <li class="tab-item">
+                <a href="?type=ALL" 
+                   class="tab-link" 
+                   th:classappend="${searchRequest == null || searchRequest.type == null || searchRequest.type == 'ALL'} ? 'active' : ''">전체</a>
+            </li>
+            <li class="tab-item">
+                <a href="?type=EARN" 
+                   class="tab-link"
+                   th:classappend="${searchRequest != null && searchRequest.type == 'EARN'} ? 'active' : ''">적립</a>
+            </li>
+            <li class="tab-item">
+                <a href="?type=USE" 
+                   class="tab-link"
+                   th:classappend="${searchRequest != null && searchRequest.type == 'USE'} ? 'active' : ''">사용</a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- 필터 섹션 -->
+    <form method="get" action="/mypage/points">
+        <input type="hidden" name="type" th:value="${searchRequest != null ? searchRequest.type : 'ALL'}">
+        <div class="filter-section">
+            <div class="filter-left">
+                <select class="filter-select" name="period" onchange="this.form.submit()">
+                    <option value="ALL" th:selected="${searchRequest == null || searchRequest.period == null || searchRequest.period == 'ALL'}">전체</option>
+                    <option value="MONTH_1" th:selected="${searchRequest != null && searchRequest.period == 'MONTH_1'}">최근 1개월</option>
+                    <option value="MONTH_3" th:selected="${searchRequest != null && searchRequest.period == 'MONTH_3'}">최근 3개월</option>
+                    <option value="MONTH_6" th:selected="${searchRequest != null && searchRequest.period == 'MONTH_6'}">최근 6개월</option>
+                    <option value="YEAR_1" th:selected="${searchRequest != null && searchRequest.period == 'YEAR_1'}">최근 1년</option>
+                </select>
+            </div>
+            <div class="filter-info">
+                <span th:text="'총 ' + ${totalElements} + '건'">총 0건</span>
+            </div>
+        </div>
+    </form>
+
+    <!-- 포인트 내역 리스트 -->
+    <div class="point-list">
+        <div class="point-list-header">
+            <div>날짜</div>
+            <div>내용</div>
+            <div>구분</div>
+            <div>포인트</div>
+            <div>잔액</div>
+        </div>
+
+        <!-- 빈 상태 -->
+        <div class="empty-point" th:if="${pointsPage.content.isEmpty()}">
+            <div class="empty-point-icon">💰</div>
+            <div class="empty-point-text">포인트 내역이 없습니다.</div>
+        </div>
+
+        <!-- 포인트 내역 -->
+        <div th:each="point : ${pointsPage.content}" class="point-list-item">
+            <div class="point-date" th:text="${#temporals.format(point.createdAt, 'yyyy.MM.dd HH:mm')}">2024.01.15 14:30</div>
+            <div class="point-description" th:text="${point.description}">상품 구매</div>
+            <div class="point-type">
+                <span class="point-badge"
+                      th:classappend="${point.pointType.name() == 'EARN'} ? 'earn' : 'use'"
+                      th:text="${point.pointType.name() == 'EARN'} ? '적립' : '사용'">적립</span>
+            </div>
+            <div class="point-amount-col"
+                 th:classappend="${point.pointType.name() == 'EARN'} ? 'plus' : 'minus'"
+                 th:text="${point.pointType.name() == 'EARN' ? '+' : '-'} + ${#numbers.formatInteger(point.points, 0, 'COMMA')} + 'P'">+1,000P</div>
+            <div class="point-balance" th:text="${#numbers.formatInteger(point.balance, 0, 'COMMA')} + 'P'">10,000P</div>
+        </div>
+    </div>
+
+    <!-- 페이징 -->
+    <div class="pagination-container" th:if="${!pointsPage.content.isEmpty()}">
+        <nav>
+            <ul class="pagination">
+                <!-- 이전 버튼 -->
+                <li class="page-item" th:classappend="${pointsPage.first} ? 'disabled' : ''">
+                    <a class="page-link" 
+                       th:href="@{/mypage/points(page=${pointsPage.number - 1}, size=${pointsPage.size}, type=${searchRequest?.type}, period=${searchRequest?.period})}"
+                       th:unless="${pointsPage.first}">‹ 이전</a>
+                    <span class="page-link" th:if="${pointsPage.first}">‹ 이전</span>
+                </li>
+
+                <!-- 페이지 번호 -->
+                <th:block th:with="start=${T(java.lang.Math).max(0, pointsPage.number - 2)}, 
+                                   end=${T(java.lang.Math).min(pointsPage.totalPages - 1, pointsPage.number + 2)}">
+                    <li class="page-item" 
+                        th:each="i : ${#numbers.sequence(start, end)}"
+                        th:classappend="${i == pointsPage.number} ? 'active' : ''">
+                        <a class="page-link" 
+                           th:href="@{/mypage/points(page=${i}, size=${pointsPage.size}, type=${searchRequest?.type}, period=${searchRequest?.period})}"
+                           th:text="${i + 1}">1</a>
+                    </li>
+                </th:block>
+
+                <!-- 다음 버튼 -->
+                <li class="page-item" th:classappend="${pointsPage.last} ? 'disabled' : ''">
+                    <a class="page-link" 
+                       th:href="@{/mypage/points(page=${pointsPage.number + 1}, size=${pointsPage.size}, type=${searchRequest?.type}, period=${searchRequest?.period})}"
+                       th:unless="${pointsPage.last}">다음 ›</a>
+                    <span class="page-link" th:if="${pointsPage.last}">다음 ›</span>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+
+<!-- 푸터 -->
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+</body>
+</html>

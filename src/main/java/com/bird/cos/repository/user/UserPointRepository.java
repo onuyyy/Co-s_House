@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface UserPointRepository extends JpaRepository<UserPoint, Long> {
+public interface UserPointRepository extends JpaRepository<UserPoint, Long>, PointRepositoryCustom {
 
     /**
      * 사용자의 포인트 엔티티 조회

@@ -1,11 +1,8 @@
 package com.bird.cos.controller.mypage;
 
-import com.bird.cos.dto.mypage.MyOrderRequest;
-import com.bird.cos.dto.mypage.MypageUserManageResponse;
-import com.bird.cos.dto.mypage.MypageUserUpdateRequest;
+import com.bird.cos.dto.mypage.*;
 import com.bird.cos.dto.order.MyOrderResponse;
 import com.bird.cos.security.CustomUserDetails;
-import com.bird.cos.service.event.EventService;
 import com.bird.cos.service.mypage.CouponService;
 import com.bird.cos.service.mypage.MypageService;
 import com.bird.cos.service.order.OrderService;
@@ -36,7 +33,6 @@ public class MypageController {
     private final OrderService orderService;
     private final CouponService couponService;
     private final PointService pointService;
-    private final EventService eventService;
 
     /**
      * 마이페이지 홈
@@ -122,8 +118,8 @@ public class MypageController {
     public String mypageOrderList(@AuthenticationPrincipal CustomUserDetails user,
                                    @ModelAttribute MyOrderRequest request,
                                    Model model,
-                                   @PageableDefault(size = 10) Pageable pageable) {
-        
+                                   @PageableDefault(size = 10) Pageable pageable)
+    {
         Page<MyOrderResponse> orderPage = orderService.getMyOrders(user.getUserId(), request, pageable);
         
         model.addAttribute("orders", orderPage.getContent());
@@ -154,6 +150,43 @@ public class MypageController {
         model.addAttribute("confirmedCount", confirmedCount);
 
         return "mypage/order-list";
+    }
+
+    /**
+     * 적립금 내역 조회
+     * @param user 인증된 사용자 정보
+     * @param pageable 페이징 정보
+     * @param request 검색 조건
+     * @param model 뷰에 전달할 데이터
+     * @return 적립금 내역 페이지
+     */
+    @RequestMapping(value = "/points", method =  {RequestMethod.GET, RequestMethod.POST})
+    public String mypagePointPage(@AuthenticationPrincipal CustomUserDetails user,
+                                  @PageableDefault(size = 10) Pageable pageable,
+                                  MyPointRequest request,
+                                  Model model)
+    {
+        log.info("=== 포인트 페이지 조회 시작 - userId: {} ===", user.getUserId());
+
+        // 적립금 내역 조회
+        Page<MyPointResponse> pointsPage = pointService.getMyPointsHistory(user.getUserId(), request, pageable);
+        log.info("포인트 내역 조회 완료 - 총 {}건", pointsPage.getTotalElements());
+
+        // 포인트 요약 정보 조회
+        MyPointSummary pointSummary = pointService.getPointSummary(user.getUserId());
+        log.info("포인트 요약 - 현재: {}P, 월적립: {}P, 월사용: {}P",
+                pointSummary.getCurrentPoint(), pointSummary.getMonthEarned(), pointSummary.getMonthUsed());
+
+        // Model에 데이터 추가
+        model.addAttribute("pointsPage", pointsPage);
+        model.addAttribute("currentPoints", pointSummary.getCurrentPoint());
+        model.addAttribute("monthlyEarn", pointSummary.getMonthEarned());
+        model.addAttribute("monthlyUse", pointSummary.getMonthUsed());
+        model.addAttribute("expiringPoints", pointSummary.getExpiringPoint());
+        model.addAttribute("searchRequest", request != null ? request : new MyPointRequest());
+        model.addAttribute("totalElements", pointsPage.getTotalElements());
+
+        return "mypage/points";
     }
 
 }

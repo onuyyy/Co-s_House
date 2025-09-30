@@ -12,12 +12,8 @@ import org.springframework.stereotype.Repository;
 import java.time.LocalDateTime;
 import java.util.List;
 
-/**
- * 포인트 변동 내역 관리 Repository
- * User와 N:1 관계로 모든 포인트 변동 내역 추적
- */
 @Repository
-public interface PointHistoryRepository extends JpaRepository<PointHistory, Long> {
+public interface PointHistoryRepository extends JpaRepository<PointHistory, Long>, PointRepositoryCustom {
 
     /**
      * 사용자 ID로 포인트 내역 조회 (페이징)
