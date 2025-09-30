@@ -162,30 +162,30 @@ public class MypageController {
      */
     @RequestMapping(value = "/points", method =  {RequestMethod.GET, RequestMethod.POST})
     public String mypagePointPage(@AuthenticationPrincipal CustomUserDetails user,
-                                  @PageableDefault(size = 10, sort = "createdAt,desc") Pageable pageable,
+                                  @PageableDefault(size = 10) Pageable pageable,
                                   MyPointRequest request,
                                   Model model)
     {
+        log.info("=== 포인트 페이지 조회 시작 - userId: {} ===", user.getUserId());
+
         // 적립금 내역 조회
         Page<MyPointResponse> pointsPage = pointService.getMyPointsHistory(user.getUserId(), request, pageable);
-        
-        // 현재 보유 적립금 조회
-        Integer currentPoints = Optional.ofNullable(pointService.getAvailablePoints(user.getUserId())).orElse(0);
-        
-        // 이번 달 적립/사용 금액 조회 (서비스에 메서드가 있다면 사용, 없으면 0으로 표시)
-        Integer monthlyEarn = 0;  // TODO: pointService.getMonthlyEarnPoints() 구현 필요
-        Integer monthlyUse = 0;   // TODO: pointService.getMonthlyUsePoints() 구현 필요
-        Integer expiringPoints = 0; // TODO: pointService.getExpiringPoints() 구현 필요
-        
+        log.info("포인트 내역 조회 완료 - 총 {}건", pointsPage.getTotalElements());
+
+        // 포인트 요약 정보 조회
+        MyPointSummary pointSummary = pointService.getPointSummary(user.getUserId());
+        log.info("포인트 요약 - 현재: {}P, 월적립: {}P, 월사용: {}P",
+                pointSummary.getCurrentPoint(), pointSummary.getMonthEarned(), pointSummary.getMonthUsed());
+
         // Model에 데이터 추가
         model.addAttribute("pointsPage", pointsPage);
-        model.addAttribute("currentPoints", currentPoints);
-        model.addAttribute("monthlyEarn", monthlyEarn);
-        model.addAttribute("monthlyUse", monthlyUse);
-        model.addAttribute("expiringPoints", expiringPoints);
+        model.addAttribute("currentPoints", pointSummary.getCurrentPoint());
+        model.addAttribute("monthlyEarn", pointSummary.getMonthEarned());
+        model.addAttribute("monthlyUse", pointSummary.getMonthUsed());
+        model.addAttribute("expiringPoints", pointSummary.getExpiringPoint());
         model.addAttribute("searchRequest", request != null ? request : new MyPointRequest());
         model.addAttribute("totalElements", pointsPage.getTotalElements());
-        
+
         return "mypage/points";
     }
 

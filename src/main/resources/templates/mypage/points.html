@@ -411,13 +411,13 @@
             <div class="point-date" th:text="${#temporals.format(point.createdAt, 'yyyy.MM.dd HH:mm')}">2024.01.15 14:30</div>
             <div class="point-description" th:text="${point.description}">상품 구매</div>
             <div class="point-type">
-                <span class="point-badge" 
-                      th:classappend="${point.pointType == 'EARN'} ? 'earn' : 'use'"
-                      th:text="${point.pointType == 'EARN'} ? '적립' : '사용'">적립</span>
+                <span class="point-badge"
+                      th:classappend="${point.pointType.name() == 'EARN'} ? 'earn' : 'use'"
+                      th:text="${point.pointType.name() == 'EARN'} ? '적립' : '사용'">적립</span>
             </div>
-            <div class="point-amount-col" 
-                 th:classappend="${point.pointType == 'EARN'} ? 'plus' : 'minus'"
-                 th:text="${point.pointType == 'EARN' ? '+' : '-'} + ${#numbers.formatInteger(point.amount, 0, 'COMMA')} + 'P'">+1,000P</div>
+            <div class="point-amount-col"
+                 th:classappend="${point.pointType.name() == 'EARN'} ? 'plus' : 'minus'"
+                 th:text="${point.pointType.name() == 'EARN' ? '+' : '-'} + ${#numbers.formatInteger(point.points, 0, 'COMMA')} + 'P'">+1,000P</div>
             <div class="point-balance" th:text="${#numbers.formatInteger(point.balance, 0, 'COMMA')} + 'P'">10,000P</div>
         </div>
     </div>

@@ -96,6 +96,7 @@ public class OAuth2LoginSuccessHandler implements AuthenticationSuccessHandler {
 
         var authorities = authorityService.resolveAuthoritiesFor(user);
         CustomUserDetails principal = CustomUserDetails.builder()
+                .userId(user.getUserId())  // userId 추가
                 .userEmail(email)
                 .nickname(nickname)
                 .name(name)

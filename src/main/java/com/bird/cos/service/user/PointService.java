@@ -9,6 +9,7 @@ import com.bird.cos.dto.mypage.MyPointResponse;
 import com.bird.cos.dto.mypage.MyPointSummary;
 import com.bird.cos.exception.BusinessException;
 import com.bird.cos.repository.user.PointHistoryRepository;
+import com.bird.cos.repository.user.PointRepository;
 import com.bird.cos.repository.user.UserPointRepository;
 import com.bird.cos.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -27,15 +28,17 @@ public class PointService {
 
     private final UserPointRepository userPointRepository;
     private final PointHistoryRepository pointHistoryRepository;
+    private final PointRepository pointRepository;
     private final UserRepository userRepository;
 
     /**
-     * 사용자의 현재 사용 가능한 포인트 조회
+     * 사용자의 현재 사용 가능한 포인트 조회 - Point 테이블 기반
      * @param userId 사용자 ID
      * @return 사용 가능한 포인트
      */
     public Integer getAvailablePoints(Long userId) {
-        return userPointRepository.getAvailablePointByUserId(userId);
+        Integer points = pointRepository.getTotalPointsByUserId(userId);
+        return points != null ? points : 0;
     }
 
     /**
@@ -120,7 +123,7 @@ public class PointService {
 
 
     /**
-     * 포인트 사용 가능 여부 검증
+     * 포인트 사용 가능 여부 검증 - Point 테이블 기반
      * @param userId 사용자 ID
      * @param requestAmount 사용하려는 포인트
      * @return 사용 가능 여부
@@ -130,8 +133,8 @@ public class PointService {
             return false;
         }
 
-        UserPoint point = userPointRepository.findByUser_UserId(userId).orElse(null);
-        return point != null && point.canUse(requestAmount);
+        Integer availablePoints = getAvailablePoints(userId);
+        return availablePoints >= requestAmount;
     }
 
     /**
@@ -208,13 +211,14 @@ public class PointService {
     }
 
     /**
-     * 사용자 포인트 내역 조회 (페이징, 필터링)
+     * 사용자 포인트 내역 조회 (페이징, 필터링) - PointHistory 테이블 기반
      * @param userId 사용자 ID
      * @param request 검색 조건
      * @param pageable 페이징 정보
      * @return 포인트 내역 페이지
      */
     public Page<MyPointResponse> getMyPointsHistory(Long userId, MyPointRequest request, Pageable pageable) {
+        // PointHistory 테이블에서 데이터 조회
         Page<PointHistory> historyPage = pointHistoryRepository.searchPointHistory(userId, request, pageable);
 
         return historyPage.map(this::convertToMyPointResponse);
@@ -226,10 +230,10 @@ public class PointService {
      * @return 포인트 통계 정보
      */
     public MyPointSummary getPointSummary(Long userId) {
-        // 현재 포인트
-        Integer currentPoint = getAvailablePoints(userId);
+        // 현재 포인트 (Point 테이블의 합계)
+        Integer currentPoint = pointRepository.getTotalPointsByUserId(userId);
 
-        // 이번 달 적립/사용 포인트
+        // 이번 달 적립/사용 포인트 (PointHistory 테이블)
         java.time.LocalDateTime now = java.time.LocalDateTime.now();
         int year = now.getYear();
         int month = now.getMonthValue();
@@ -263,4 +267,5 @@ public class PointService {
                 .referenceType(history.getReferenceType())
                 .build();
     }
+
 }
