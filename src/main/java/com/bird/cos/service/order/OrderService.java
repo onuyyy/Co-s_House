@@ -121,12 +121,8 @@ public class OrderService {
 
         // 포인트 사용 처리
         if (usedPoints != null && usedPoints.compareTo(BigDecimal.ZERO) > 0) {
-            log.info("Debug - Processing point usage: usedPoints={}", usedPoints);
             try {
-                // 포인트 사용 처리 (UserPoint 차감 + PointHistory 저장)
                 pointService.useOrderPoints(user.getUserId(), usedPoints.intValue(), order.getOrderId().toString());
-                log.info("Debug - Point usage completed: userId={}, usedPoints={}, orderId={}",
-                        user.getUserId(), usedPoints, order.getOrderId());
             } catch (Exception e) {
                 log.error("Debug - Point usage failed: userId={}, usedPoints={}, error={}",
                         user.getUserId(), usedPoints, e.getMessage());
