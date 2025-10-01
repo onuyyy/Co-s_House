@@ -68,8 +68,7 @@ public class CartService {
         Cart cart = cartHeaderRepository.findByUser(user)
                 .orElseGet(() -> cartHeaderRepository.save(Cart.of(user)));
 
-        CartItem item = cartItemRepository.findByCartAndProductAndSelectedOptions(cart, product, selectedOptions)
-                .orElseGet(() -> CartItem.of(cart, product, 0, selectedOptions));
+        CartItem item = getOrCreateCartItem(cart, product, selectedOptions);
 
         Integer availableStock = getAvailableStock(product);
         int desired = defaultZero(item.getQuantity()) + requestQty;
@@ -194,8 +193,7 @@ public class CartService {
             Product product = productRepository.findById(g.productId)
                     .orElseThrow(() -> new RuntimeException("상품을 찾을 수 없습니다."));
             String selectedOptions = prepareSelectedOptions(g.selectedOptions, product);
-            CartItem item = cartItemRepository.findByCartAndProductAndSelectedOptions(cart, product, selectedOptions)
-                    .orElseGet(() -> CartItem.of(cart, product, 0, selectedOptions));
+            CartItem item = getOrCreateCartItem(cart, product, selectedOptions);
             Integer availableStock = getAvailableStock(product);
             int desired = defaultZero(item.getQuantity()) + defaultZero(g.quantity);
             int normalized = normalizeQuantity(desired, availableStock);
@@ -504,6 +502,27 @@ public class CartService {
 
     private static int defaultZero(Integer v) {
         return v == null ? 0 : v;
+    }
+
+    private CartItem getOrCreateCartItem(Cart cart, Product product, String selectedOptions) {
+        CartItem existing = null;
+        String normalizedOptions = (selectedOptions != null && !selectedOptions.isBlank()) ? selectedOptions : null;
+
+        if (normalizedOptions != null) {
+            existing = cartItemRepository.findByCartAndProductAndSelectedOptions(cart, product, normalizedOptions)
+                    .orElse(null);
+        }
+
+        if (existing == null) {
+            existing = cartItemRepository.findByCartAndProduct(cart, product)
+                    .orElse(null);
+        }
+
+        if (existing == null) {
+            existing = CartItem.of(cart, product, 0, normalizedOptions);
+        }
+
+        return existing;
     }
 
     //수량 검증: 최대 수량/재고 제한 위반 시 예외 처리
