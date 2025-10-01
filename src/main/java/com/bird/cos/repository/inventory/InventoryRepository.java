@@ -21,11 +21,7 @@ public interface InventoryRepository extends JpaRepository<Inventory, Long> {
     @Query("SELECT i FROM Inventory i LEFT JOIN FETCH i.productId")
     Page<Inventory> findAllWithProduct(Pageable pageable);
 
-    // 특정 상품의 재고 정보 조회
-    @Query("SELECT i FROM Inventory i LEFT JOIN FETCH i.productId WHERE i.productId.productId = :productId")
-    Optional<Inventory> findByProductIdWithProduct(@Param("productId") Long productId);
-
-    Optional<Inventory> findByProductId(Product productId);
+    Optional<Inventory> findFirstByProductIdOrderByInventoryIdAsc(Product productId);
 
     @Query("SELECT i FROM Inventory i WHERE i.productId.productId IN :productIds")
     List<Inventory> findByProductIds(@Param("productIds") Collection<Long> productIds);
