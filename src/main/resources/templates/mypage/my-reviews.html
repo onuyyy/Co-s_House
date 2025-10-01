@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>내가 작성한 리뷰 - 코딩의 집</title>
+    <link rel="stylesheet" th:href="@{/css/main/header.css}">
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+    <link rel="stylesheet" th:href="@{/css/question/question-list.css}">
+    <style>
+        .review-image-preview {
+            display: flex;
+            gap: 8px;
+            margin-top: 8px;
+        }
+        .review-image-preview img {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 4px;
+            border: 1px solid #e0e0e0;
+        }
+        .review-rating {
+            color: #ffa500;
+            font-size: 16px;
+        }
+        .review-content-preview {
+            max-width: 400px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .product-name {
+            font-size: 13px;
+            color: #666;
+            margin-top: 4px;
+        }
+    </style>
+</head>
+<body class="page font-body">
+<div th:replace="fragments/layout :: header"></div>
+
+<!-- 메인 컨텐츠 -->
+<main class="main-content">
+    <div class="container">
+        <div class="question-list-header">
+            <div class="question-list-header-title">
+                <h1 class="question-list-title">내가 작성한 리뷰</h1>
+                <span class="question-total-count" th:text="'전체 ' + ${totalReviewCount} + '개'">전체 0개</span>
+            </div>
+            <div class="question-list-header-actions">
+                <select class="form-select" onchange="changeSortOrder(this.value)">
+                    <option value="latest" th:selected="${currentSort == 'latest'}">최신순</option>
+                    <option value="oldest" th:selected="${currentSort == 'oldest'}">오래된순</option>
+                    <option value="rating-high" th:selected="${currentSort == 'rating-high'}">별점 높은순</option>
+                    <option value="rating-low" th:selected="${currentSort == 'rating-low'}">별점 낮은순</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- 리뷰 목록 테이블 -->
+        <div class="question-table-container">
+            <table th:if="${reviews != null and !reviews.isEmpty()}" class="question-table">
+                <thead>
+                <tr>
+                    <th>번호</th>
+                    <th>상품정보</th>
+                    <th>제목</th>
+                    <th>별점</th>
+                    <th>내용</th>
+                    <th>작성일</th>
+                    <th>관리</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="review, iterStat : ${reviews}">
+                    <td th:text="${totalReviewCount - (currentPage - 1) * 10 - iterStat.index}">1</td>
+                    <td>
+                        <div th:if="${review.optionName != null}" th:text="${review.optionName}" class="product-name">상품 옵션</div>
+                        <div th:if="${review.isPhotoReview}" class="review-image-preview">
+                            <img th:each="imageUrl, idx : ${review.imageUrls}"
+                                 th:if="${idx.index < 3}"
+                                 th:src="${imageUrl}"
+                                 alt="리뷰 이미지">
+                        </div>
+                    </td>
+                    <td class="question-title-cell">
+                        <span th:text="${review.title}">리뷰 제목</span>
+                    </td>
+                    <td>
+                        <span class="review-rating" th:text="${review.starRating}">★★★★★</span>
+                    </td>
+                    <td>
+                        <div class="review-content-preview" th:text="${review.content}">리뷰 내용</div>
+                    </td>
+                    <td th:text="${review.formattedCreatedAt}">2024-10-01</td>
+                    <td>
+                        <button class="btn-small" th:onclick="'viewProductDetail(' + ${review.productId} + ')'">상품보기</button>
+                        <button class="btn-small" th:onclick="'editReview(' + ${review.reviewId} + ')'">수정</button>
+                        <button class="btn-small" th:onclick="'deleteReview(' + ${review.reviewId} + ', ' + ${review.productId} + ')'">삭제</button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+            <!-- 리뷰가 없을 때 -->
+            <div th:if="${reviews == null or reviews.isEmpty()}" class="empty-state">
+                <div class="empty-content">
+                    <div class="empty-icon">📝</div>
+                    <h3>작성한 리뷰가 없습니다</h3>
+                    <p>구매하신 상품에 대한 리뷰를 작성해보세요.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 페이징 -->
+        <div th:if="${totalPages != null and totalPages > 1}" class="question-pagination">
+            <nav class="question-pagination-nav">
+                <ul class="question-pagination-list">
+                    <!-- 맨 처음으로 -->
+                    <li class="question-page-item arrow">
+                        <a th:href="@{/mypage/reviews(page=1, sort=${currentSort})}"
+                           th:classappend="${currentPage == 1} ? 'disabled' : ''"
+                           class="question-page-link">≪</a>
+                    </li>
+
+                    <!-- 이전 페이지 -->
+                    <li class="question-page-item arrow">
+                        <a th:href="@{/mypage/reviews(page=${currentPage - 1}, sort=${currentSort})}"
+                           th:classappend="${currentPage == 1} ? 'disabled' : ''"
+                           class="question-page-link">‹</a>
+                    </li>
+
+                    <!-- 페이지 번호 (현재 페이지 주변 5개만 표시) -->
+                    <li th:each="pageNum : ${#numbers.sequence(
+                        T(java.lang.Math).max(1, currentPage - 2),
+                        T(java.lang.Math).min(totalPages, currentPage + 2)
+                    )}"
+                        th:classappend="${pageNum == currentPage} ? 'question-page-item active' : 'question-page-item'">
+                        <a th:href="@{/mypage/reviews(page=${pageNum}, sort=${currentSort})}"
+                           th:text="${pageNum}"
+                           class="question-page-link">1</a>
+                    </li>
+
+                    <!-- 다음 페이지 -->
+                    <li class="question-page-item arrow">
+                        <a th:href="@{/mypage/reviews(page=${currentPage + 1}, sort=${currentSort})}"
+                           th:classappend="${currentPage == totalPages} ? 'disabled' : ''"
+                           class="question-page-link">›</a>
+                    </li>
+
+                    <!-- 맨 마지막으로 -->
+                    <li class="question-page-item arrow">
+                        <a th:href="@{/mypage/reviews(page=${totalPages}, sort=${currentSort})}"
+                           th:classappend="${currentPage == totalPages} ? 'disabled' : ''"
+                           class="question-page-link">≫</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</main>
+
+<div th:replace="fragments/layout :: footer"></div>
+
+<script>
+    function changeSortOrder(sort) {
+        location.href = '/mypage/reviews?page=1&sort=' + sort;
+    }
+
+    function viewProductDetail(productId) {
+        location.href = '/product/' + productId;
+    }
+
+    function editReview(reviewId) {
+        location.href = '/reviews/' + reviewId + '/edit';
+    }
+
+    function deleteReview(reviewId, productId) {
+        if (confirm('리뷰를 삭제하시겠습니까?')) {
+            const form = document.createElement('form');
+            form.method = 'POST';
+            form.action = '/reviews/' + reviewId + '/delete';
+
+            const input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = 'productId';
+            input.value = productId;
+            form.appendChild(input);
+
+            document.body.appendChild(form);
+            form.submit();
+        }
+    }
+</script>
+
+</body>
+</html>
