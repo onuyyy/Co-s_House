@@ -80,10 +80,19 @@
             <div class="order-item" th:each="item : ${order.items}">
               <div class="item-info">
                 <div class="item-image">
-                  <div class="product-img-placeholder">📦</div>
+                  <a class="product-img-link"
+                     th:href="@{'/product/' + ${item.productId}}"
+                     aria-label="${item.productName}">
+                    <img th:if="${item.imageUrl != null}" th:src="${item.imageUrl}" th:alt="${item.productName}" class="product-img" loading="lazy" />
+                    <div class="product-img-placeholder" th:unless="${item.imageUrl != null}">📦</div>
+                  </a>
                 </div>
                 <div class="item-details">
-                  <p class="item-name" th:text="${item.productName}">상품명</p>
+                  <p class="item-name">
+                    <a class="item-name__link"
+                       th:href="@{'/product/' + ${item.productId}}"
+                       th:text="${item.productName}">상품명</a>
+                  </p>
                   <p class="item-option" th:if="${item.productOptionName != null}" th:text="${item.productOptionName}">옵션명</p>
                   <p class="item-quantity" th:text="'수량: ' + ${item.quantity} + '개'">수량: 0개</p>
                 </div>

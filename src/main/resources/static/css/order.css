@@ -188,10 +188,26 @@
     flex-shrink: 0;
 }
 
+.product-img-link {
+    display: inline-flex;
+    width: 100%;
+    height: 100%;
+}
+
 .product-img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+}
+
+.product-img-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    font-size: 32px;
+    color: #a0a0a0;
 }
 
 .item-details {
@@ -199,6 +215,15 @@
     flex-direction: column;
     gap: 4px;
     flex: 1;
+}
+
+.item-name__link {
+    color: inherit;
+    text-decoration: none;
+}
+
+.item-name__link:hover {
+    text-decoration: underline;
 }
 
 .item-name {

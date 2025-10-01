@@ -71,6 +71,7 @@ public class OrderService {
                     .quantity(orderItem.getQuantity())
                     .price(orderItem.getPrice())
                     .itemTotalPrice(itemTotalPrice)
+                    .imageUrl(product.getMainImageUrl())
                     .build();
 
             itemPreviews.add(itemPreview);
@@ -246,6 +247,7 @@ public class OrderService {
                             item.getProductOption().getOptionName() + " : " + item.getProductOption().getOptionValue() : null)
                     .quantity(item.getQuantity())
                     .price(item.getPrice())
+                    .imageUrl(item.getProduct().getMainImageUrl())
                     .build();
 
             itemResponses.add(itemResponse);

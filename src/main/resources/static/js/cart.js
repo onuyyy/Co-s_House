@@ -279,7 +279,8 @@ async function loadCartPreview() {
         syncSelectionWithCart();
 
         const baseSummary = calculateSummary(cartItems);
-        renderItems(cartItems, refs, mergedSummary);
+        renderSummary(baseSummary, refs);
+        renderItems(cartItems, refs, baseSummary);
         updateSelectedSummary();
 
         if (cartItems.length > 0) {
@@ -290,95 +291,18 @@ async function loadCartPreview() {
         console.error('Cart loading error:', error);
         if (refs.loadingEl) refs.loadingEl.hidden = true;
 
-        // 데모 데이터로 폴백
-        const demoData = createDemoData();
-        cartItems = demoData.items;
+        cartItems = [];
         isGuestCart = false;
         selectedItemIds.clear();
         syncSelectionWithCart();
 
-        const mergedSummary = Object.assign({}, calculateSummary(cartItems), demoData.summary || {});
-        renderSummary(mergedSummary, refs);
-        renderItems(cartItems, refs, mergedSummary);
+        renderSummary(null, refs);
+        renderItems(cartItems, refs);
 
-        if (cartItems.length > 0) {
-            if (refs.actionsEl) refs.actionsEl.hidden = false;
-            if (refs.checkoutBtn) refs.checkoutBtn.disabled = false;
-        }
+        if (refs.actionsEl) refs.actionsEl.hidden = true;
+        if (refs.checkoutBtn) refs.checkoutBtn.disabled = true;
+        if (refs.errorEl) refs.errorEl.hidden = false;
     }
-}
-
-function createDemoData() {
-    return {
-        items: [
-            {
-                id: 1,
-                cartItemId: null,
-                title: '모던 원목 책상',
-                quantity: 2,
-                unitPrice: 150000,
-                finalPrice: 150000,
-                lineTotal: 300000,
-                imageUrl: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=300&h=300&fit=crop',
-                optionLabel: '오크 브라운, 120cm',
-                outOfStock: false
-            },
-            {
-                id: 2,
-                cartItemId: null,
-                title: '에르고 체어',
-                quantity: 1,
-                unitPrice: 89000,
-                finalPrice: 89000,
-                lineTotal: 89000,
-                imageUrl: 'https://images.unsplash.com/photo-1581539250439-c96689b516dd?w=300&h=300&fit=crop',
-                optionLabel: '블랙',
-                outOfStock: false
-            },
-            {
-                id: 3,
-                cartItemId: null,
-                title: '북유럽 스탠드 조명',
-                quantity: 1,
-                unitPrice: 45000,
-                finalPrice: 45000,
-                lineTotal: 45000,
-                imageUrl: 'https://images.unsplash.com/photo-1507473885765-e6ed057f782c?w=300&h=300&fit=crop',
-                optionLabel: '화이트',
-                outOfStock: false
-            },
-            {
-                id: 4,
-                cartItemId: null,
-                title: '미니멀 수납함',
-                quantity: 3,
-                unitPrice: 25000,
-                finalPrice: 25000,
-                lineTotal: 75000,
-                imageUrl: 'https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=300&h=300&fit=crop',
-                optionLabel: '네이처 우드',
-                outOfStock: false
-            },
-            {
-                id: 5,
-                cartItemId: null,
-                title: '소프트 쿠션',
-                quantity: 2,
-                unitPrice: 18000,
-                finalPrice: 18000,
-                lineTotal: 36000,
-                imageUrl: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=300&h=300&fit=crop',
-                optionLabel: '베이지, 45x45cm',
-                outOfStock: true
-            }
-        ],
-        summary: {
-            totalQuantity: 9,
-            totalAmount: 545000,
-            expectedDiscount: 27250,
-            expectedAmount: 517750
-        }
-    };
 }
 
 function renderGuestCart(refs) {
@@ -470,6 +394,8 @@ function renderItems(items, refs, summaryOverride) {
         const itemId = String(item && item.id != null ? item.id : index);
         const cartItemId = item && item.cartItemId != null ? item.cartItemId : null;
         const isChecked = selectedItemIds.has(itemId);
+        const productId = item && item.productId != null ? item.productId : null;
+        const detailUrl = productId != null ? `/product/${productId}` : null;
         const pendingQuantityPresent = Object.prototype.hasOwnProperty.call(item || {}, 'pendingQuantity');
         const pendingOptionPresent = Object.prototype.hasOwnProperty.call(item || {}, 'pendingOptionId');
         const pendingQuantity = pendingQuantityPresent ? Number(item.pendingQuantity) : null;
@@ -505,11 +431,13 @@ function renderItems(items, refs, summaryOverride) {
                        ${isChecked ? 'checked' : ''}>
             </div>
             <div class="item-thumb">
+                ${detailUrl ? `<a class="item-thumb__link" href="${detailUrl}" aria-label="${escapeHtml(title)} 상세보기">` : ''}
                 ${imageUrl ? `<img src="${imageUrl}" alt="${escapeHtml(title)}" loading="lazy" />` :
             '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:var(--gray-400);font-size:0.75rem;">No Image</div>'}
+                ${detailUrl ? '</a>' : ''}
             </div>
             <div class="item-body">
-                <h3 class="item-title">${escapeHtml(title)}</h3>
+                <h3 class="item-title">${detailUrl ? `<a href="${detailUrl}" class="item-title__link">${escapeHtml(title)}</a>` : escapeHtml(title)}</h3>
                 ${optionsAvailable
             ? `<div class="item-option-group">
                             <div class="item-option">${displayOptionLabel ? escapeHtml(displayOptionLabel) : '옵션 미선택'}</div>
