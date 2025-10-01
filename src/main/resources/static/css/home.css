@@ -43,7 +43,7 @@
   overflow: hidden;
   border-radius: 16px;
   flex: 1;
-  --event-viewport-bg: url('/images/home.jpeg');
+  --event-viewport-bg: url('/static/images/home.jpeg');
 }
 
 .event-viewport::before {
