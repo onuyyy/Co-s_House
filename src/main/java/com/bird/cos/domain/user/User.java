@@ -93,9 +93,9 @@ public class User {
 
     // 관리자 여부 확인
     public boolean isAdmin() {
-        return this.userRole != null && 
-               ("ADMIN".equals(this.userRole.getUserRoleName()) || 
-                "SUPER_ADMIN".equals(this.userRole.getUserRoleName()));
+        return this.userRole != null &&
+                ("ADMIN".equals(this.userRole.getUserRoleName()) ||
+                        "SUPER_ADMIN".equals(this.userRole.getUserRoleName()));
     }
 
     // 일반 사용자 여부 확인  
@@ -104,7 +104,8 @@ public class User {
     }
 
 
-    public String getNickname() { return this.userNickname;
+    public String getNickname() {
+        return this.userNickname;
     }
 
     public void updatePassword(String encodedPassword) {
@@ -145,4 +146,6 @@ public class User {
     public void updateUserRole(UserRole newRole) {
         this.userRole = newRole;
     }
+
 }
+
