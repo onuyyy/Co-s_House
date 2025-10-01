@@ -126,6 +126,35 @@
                 <a class="btn" th:href="@{/shop}">쇼핑 메인으로</a>
             </div>
         </div>
+
+        <nav class="product-pagination" th:if="${totalPages != null and totalPages > 1}">
+            <button type="button"
+                    class="product-pagination__control"
+                    th:disabled="${currentPage <= 1}"
+                    th:onclick="|goToProductPage(${currentPage - 1})|"
+                    aria-label="이전 페이지">‹</button>
+
+            <span class="product-pagination__pages"
+                  th:with="start=${T(java.lang.Math).max(1, currentPage - 4)},
+                           end=${T(java.lang.Math).min(totalPages, currentPage + 4)}">
+                <th:block th:each="i : ${#numbers.sequence(start, end)}">
+                    <a th:if="${i != currentPage}"
+                       href="javascript:void(0)"
+                       class="product-pagination__page"
+                       th:onclick="|goToProductPage(${i})|"
+                       th:text="${i}"></a>
+                    <span th:if="${i == currentPage}"
+                          class="product-pagination__page is-active"
+                          th:text="${i}"></span>
+                </th:block>
+            </span>
+
+            <button type="button"
+                    class="product-pagination__control"
+                    th:disabled="${currentPage >= totalPages}"
+                    th:onclick="|goToProductPage(${currentPage + 1})|"
+                    aria-label="다음 페이지">›</button>
+        </nav>
     </section>
 </main>
 
@@ -273,6 +302,12 @@
         }
 
         window.location.href = target;
+    }
+
+    function goToProductPage(page) {
+        const url = new URL(window.location.href);
+        url.searchParams.set('page', page);
+        window.location.href = url.toString();
     }
     /*]]>*/
 </script>
