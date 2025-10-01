@@ -125,7 +125,7 @@ html {
 }
 
 .summary-card h2 {
-    font-size: 1.5rem;
+    font-size: 1rem;
     font-weight: 600;
     color: var(--gray-900);
     margin: 0 0 1.5rem 0;
@@ -156,9 +156,8 @@ html {
 }
 
 .summary-list > div:last-child {
-    border-bottom: 2px solid var(--primary-color);
-    margin-top: 0.5rem;
-    padding-top: 1.25rem;
+    /*border-bottom: 2px solid var(--primary-color);*/
+    padding-top: 1.30rem;
 }
 
 .summary-list dt {
