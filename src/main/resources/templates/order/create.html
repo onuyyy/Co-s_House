@@ -41,27 +41,36 @@
                     <div class="section-head">
                         <h2 id="delivery-info-title" class="section-title">
                             배송지 정보
-                            <button type="button" class="coupon-link">변경</button>
+                            <button type="button" class="coupon-link" onclick="openAddressModal()">주소록 보기</button>
                         </h2>
                     </div>
 
                     <div class="form-group">
                         <label class="form-label" for="recipient-name">받는 분</label>
-                        <input type="text" id="recipient-name" class="input" th:value="${order.user.userName}" readonly>
+                        <input type="text" id="recipient-name" class="input" th:value="${order.user.userName}" placeholder="예: 홍길동" required>
                     </div>
 
                     <div class="form-group">
                         <label class="form-label" for="recipient-phone">연락처</label>
-                        <input type="text" id="recipient-phone" class="input" th:value="${order.user.phone}" readonly>
+                        <input type="text" id="recipient-phone" class="input" th:value="${order.user.phone}" placeholder="예: 010-1234-5678" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="recipient-postcode">우편번호</label>
+                        <div class="form-row">
+                            <input type="text" id="recipient-postcode" class="input" placeholder="우편번호" readonly required>
+                            <button type="button" class="btn-address-search" onclick="openAddressSearch(false)">주소 검색</button>
+                        </div>
                     </div>
 
                     <div class="form-group">
                         <label class="form-label" for="recipient-address">주소</label>
-                        <input type="text" id="recipient-address" class="input" th:value="${order.user.address}" readonly>
+                        <input type="text" id="recipient-address" class="input" placeholder="주소" readonly required>
                     </div>
 
                     <div class="form-group">
-                        <button type="button" class="address-search-btn">기본 배송지로 저장</button>
+                        <label class="form-label" for="recipient-detail-address">상세주소</label>
+                        <input type="text" id="recipient-detail-address" class="input" placeholder="예: 101동 1203호" required>
                     </div>
 
                     <div class="form-group">
@@ -180,6 +189,73 @@
     </div>
 </main>
 
+<!-- 주소록 모달 -->
+<div id="addressModal" class="modal">
+    <div class="modal-content" style="max-width: 700px;">
+        <div class="modal-header">
+            <h2>내 배송지 목록</h2>
+            <button type="button" class="close" onclick="closeAddressModal()" aria-label="주소록 모달 닫기">&times;</button>
+        </div>
+        <div class="modal-body">
+            <div id="addressList" class="modal-card-list">
+                <!-- 주소 목록이 여기에 동적으로 추가됩니다. -->
+                <div class="loading-message">주소록을 불러오는 중...</div>
+            </div>
+        </div>
+        <div class="modal-footer" style="padding: 1.5rem; text-align: right; border-top: 1px solid var(--gray-200);">
+            <button type="button" class="btn" onclick="openAddressAddForm()">새 배송지 추가</button>
+        </div>
+    </div>
+</div>
+
+<!-- 새 주소 추가/수정 모달 -->
+<div id="addressFormModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 id="addressFormTitle">새 배송지 추가</h2>
+            <button type="button" class="close" onclick="closeAddressFormModal()" aria-label="주소 추가 모달 닫기">&times;</button>
+        </div>
+        <div class="modal-body">
+            <form id="addressForm">
+                <input type="hidden" id="addressId" name="id">
+                <div class="form-group">
+                    <label class="form-label" for="form-recipient-name">받는 분</label>
+                    <input type="text" id="form-recipient-name" name="recipientName" class="input" placeholder="홍길동" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="form-recipient-phone">연락처</label>
+                    <input type="text" id="form-recipient-phone" name="recipientPhone" class="input" placeholder="010-1234-5678" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="form-postcode">우편번호</label>
+                    <div class="form-row">
+                        <input type="text" id="form-postcode" name="postcode" class="input" readonly required>
+                        <button type="button" class="btn-address-search" onclick="openAddressSearch(true)">주소 검색</button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="form-address">주소</label>
+                    <input type="text" id="form-address" name="address" class="input" readonly required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="form-detail-address">상세주소</label>
+                    <input type="text" id="form-detail-address" name="detailAddress" class="input" placeholder="예: 101동 1203호" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" style="display: flex; align-items: center;">
+                        <input type="checkbox" id="form-is-default" name="isDefault" style="margin-right: 8px;">
+                        기본 배송지로 설정
+                    </label>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer" style="padding: 1.5rem; text-align: right; border-top: 1px solid var(--gray-200);">
+            <button type="button" class="btn" onclick="saveAddress()">저장하기</button>
+        </div>
+    </div>
+</div>
+
+
 <!-- 쿠폰 모달 -->
 <div id="couponModal" class="modal">
     <div class="modal-content">
@@ -188,7 +264,7 @@
             <button type="button" class="close" onclick="closeCouponModal()" aria-label="쿠폰 모달 닫기">&times;</button>
         </div>
         <div class="modal-body">
-            <div id="couponList" class="coupon-list">
+            <div id="couponList" class="modal-card-list">
                 <div class="loading-message">쿠폰을 불러오는 중...</div>
             </div>
         </div>
@@ -210,6 +286,293 @@
 </div>
 
 <script src="/js/payment/checkout.js"></script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script>
+    // 주소록 모달
+    function openAddressModal() {
+        document.getElementById('addressModal').style.display = 'block';
+        document.body.style.overflow = 'hidden';
+        loadAddresses();
+    }
+
+    function closeAddressModal() {
+        document.getElementById('addressModal').style.display = 'none';
+        document.body.style.overflow = '';
+    }
+
+    // 주소 추가/수정 폼 모달
+    function openAddressAddForm() {
+        document.getElementById('addressForm').reset();
+        document.getElementById('addressId').value = '';
+        document.getElementById('addressFormTitle').textContent = '새 배송지 추가';
+        document.getElementById('addressFormModal').style.display = 'block';
+    }
+
+    function openAddressEditForm(address) {
+        document.getElementById('addressForm').reset();
+        document.getElementById('addressId').value = address.id;
+        document.getElementById('addressFormTitle').textContent = '배송지 수정';
+
+        document.getElementById('form-recipient-name').value = address.recipientName;
+        document.getElementById('form-recipient-phone').value = address.recipientPhone;
+        document.getElementById('form-postcode').value = address.postcode;
+        document.getElementById('form-address').value = address.address;
+        document.getElementById('form-detail-address').value = address.detailAddress || '';
+        document.getElementById('form-is-default').checked = address.default;
+
+        document.getElementById('addressFormModal').style.display = 'block';
+    }
+
+    function closeAddressFormModal() {
+        document.getElementById('addressFormModal').style.display = 'none';
+    }
+
+    // Daum 주소 검색
+    function openAddressSearch(isForm) {
+        new daum.Postcode({
+            oncomplete: function(data) {
+                if (isForm) {
+                    document.getElementById('form-postcode').value = data.zonecode;
+                    document.getElementById('form-address').value = data.address;
+                    document.getElementById('form-detail-address').focus();
+                } else {
+                    document.getElementById('recipient-postcode').value = data.zonecode;
+                    document.getElementById('recipient-address').value = data.address;
+                    document.getElementById('recipient-detail-address').focus();
+                }
+            }
+        }).open();
+    }
+
+    // 주소록 로드
+    async function loadAddresses() {
+        const addressListEl = document.getElementById('addressList');
+        addressListEl.innerHTML = '<div class="loading-message">주소록을 불러오는 중...</div>';
+
+        try {
+            const response = await fetch('/api/mypage/shipping-addresses');
+            if (!response.ok) {
+                throw new Error('주소록을 불러오는 데 실패했습니다.');
+            }
+            const addresses = await response.json();
+            renderAddresses(addresses);
+        } catch (error) {
+            console.error('주소록 로드 실패:', error);
+            addressListEl.innerHTML = `<div class="error-message">${error.message}</div>`;
+        }
+    }
+
+    function renderAddresses(addresses) {
+        const addressListEl = document.getElementById('addressList');
+        addressListEl.className = 'modal-card-list'; // 클래스명 변경
+        if (!addresses || addresses.length === 0) {
+            addressListEl.innerHTML = '<div class="no-items-message">저장된 배송지가 없습니다.</div>';
+            return;
+        }
+
+        addressListEl.innerHTML = addresses.map(addr => `
+        <div class="modal-card">
+            <div class="modal-card-content">
+                <div class="modal-card-header">
+                    <strong class="recipient-name">${addr.recipientName}</strong>
+                    ${addr.default ? '<span class="default-badge">기본</span>' : ''}
+                </div>
+                <div class="address-details">
+                    <p>[${addr.postcode}] ${addr.address}</p>
+                    <p>${addr.detailAddress || ''}</p>
+                    <p class="phone-number">${addr.recipientPhone}</p>
+                </div>
+            </div>
+            <div class="modal-card-actions">
+                <button class="btn-text" onclick='selectAddress(${JSON.stringify(addr)})'>선택</button>
+                <button class="btn-text" onclick='openAddressEditForm(${JSON.stringify(addr)})'>수정</button>
+                <button class="btn-text btn-danger" onclick="deleteAddress(${addr.id})">삭제</button>
+                ${!addr.default ? `<button class="btn-text" onclick="setDefaultAddress(${addr.id})">기본으로 설정</button>` : ''}
+            </div>
+        </div>
+    `).join('');
+    }
+
+
+    // 주소 선택
+    function selectAddress(address) {
+        const trim = (value) => value != null ? String(value).trim() : '';
+
+        document.getElementById('recipient-name').value = trim(address.recipientName);
+        document.getElementById('recipient-phone').value = trim(address.recipientPhone);
+        document.getElementById('recipient-postcode').value = trim(address.postcode);
+        document.getElementById('recipient-address').value = trim(address.address);
+        document.getElementById('recipient-detail-address').value = trim(address.detailAddress);
+        closeAddressModal();
+    }
+
+    // 주소 저장 또는 수정
+    function requireValue(value, message) {
+        if (!value || !value.trim()) {
+            throw new Error(message);
+        }
+        return value.trim();
+    }
+
+    function validatePhone(value) {
+        const phonePattern = /^0\d{1,2}-?\d{3,4}-?\d{4}$/;
+        if (!phonePattern.test(value)) {
+            throw new Error('연락처 형식을 다시 확인해주세요.');
+        }
+        return value;
+    }
+
+    function validateAddressForm(form) {
+        const recipientName = requireValue(form.elements['form-recipient-name'].value, '받는 분을 입력해주세요.');
+        const phone = validatePhone(requireValue(form.elements['form-recipient-phone'].value, '연락처를 입력해주세요.'));
+        const postcode = requireValue(form.elements['form-postcode'].value, '우편번호를 입력해주세요.');
+        const address = requireValue(form.elements['form-address'].value, '주소를 입력해주세요.');
+        const detailAddress = requireValue(form.elements['form-detail-address'].value, '상세주소를 입력해주세요.');
+
+        return {
+            recipientName,
+            recipientPhone: phone,
+            postcode,
+            address,
+            detailAddress
+        };
+    }
+
+    function validateRecipientInfo() {
+        const nameInput = document.getElementById('recipient-name');
+        const phoneInput = document.getElementById('recipient-phone');
+        const postcodeInput = document.getElementById('recipient-postcode');
+        const addressInput = document.getElementById('recipient-address');
+        const detailInput = document.getElementById('recipient-detail-address');
+
+        requireValue(nameInput.value, '받는 분을 입력해주세요.');
+        validatePhone(requireValue(phoneInput.value, '연락처를 입력해주세요.'));
+        requireValue(postcodeInput.value, '우편번호를 입력해주세요.');
+        requireValue(addressInput.value, '주소를 입력해주세요.');
+        requireValue(detailInput.value, '상세주소를 입력해주세요.');
+    }
+
+    async function saveAddress() {
+        const form = document.getElementById('addressForm');
+        const addressId = form.elements['addressId'].value;
+        const isDefault = form.elements['form-is-default'].checked;
+
+        let validated;
+        try {
+            validated = validateAddressForm(form);
+        } catch (error) {
+            alert(error.message);
+            return;
+        }
+
+        const data = {
+            ...validated,
+            isDefault: isDefault
+        };
+
+        const method = addressId ? 'PUT' : 'POST';
+        const url = addressId ? `/api/mypage/shipping-addresses/${addressId}` : '/api/mypage/shipping-addresses';
+
+        try {
+            const response = await fetch(url, {
+                method: method,
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
+
+            if (!response.ok) {
+                let errorMessage = '주소 저장에 실패했습니다.';
+                try {
+                    const errorData = await response.json();
+                    if (errorData && errorData.message) {
+                        errorMessage = errorData.message;
+                    }
+                } catch (parseError) {
+                    // ignore JSON parse errors
+                }
+                throw new Error(errorMessage);
+            }
+
+            alert('주소가 성공적으로 저장되었습니다.');
+            closeAddressFormModal();
+            await loadAddresses();
+
+            // 만약 '기본 배송지로 설정'이 체크되었다면, 메인 폼의 주소도 업데이트
+            if (isDefault) {
+                selectAddress({
+                    recipientName: data.recipientName,
+                    recipientPhone: data.recipientPhone,
+                    postcode: data.postcode,
+                    address: data.address,
+                    detailAddress: data.detailAddress
+                });
+            }
+
+        } catch (error) {
+            console.error('주소 저장 실패:', error);
+            alert(error.message);
+        }
+    }
+
+    // 주소 삭제
+    async function deleteAddress(addressId) {
+        if (!confirm('정말로 이 주소를 삭제하시겠습니까?')) {
+            return;
+        }
+
+        try {
+            const response = await fetch(`/api/mypage/shipping-addresses/${addressId}`, {
+                method: 'DELETE'
+            });
+
+            if (!response.ok) {
+                throw new Error('주소 삭제에 실패했습니다.');
+            }
+
+            alert('주소가 삭제되었습니다.');
+            loadAddresses(); // 목록 새로고침
+        } catch (error) {
+            console.error('주소 삭제 실패:', error);
+            alert(error.message);
+        }
+    }
+
+
+    // 기본 주소로 설정
+    async function setDefaultAddress(addressId) {
+        try {
+            const response = await fetch(`/api/mypage/shipping-addresses/${addressId}/default`, {
+                method: 'PUT'
+            });
+
+            if (!response.ok) {
+                throw new Error('기본 배송지 설정에 실패했습니다.');
+            }
+
+            alert('기본 배송지로 설정되었습니다.');
+            loadAddresses(); // 목록 새로고침
+        } catch (error) {
+            console.error('기본 배송지 설정 실패:', error);
+            alert(error.message);
+        }
+    }
+
+    // 페이지 로드 시 기본 배송지 정보가 있으면 채워넣기
+    document.addEventListener('DOMContentLoaded', async function() {
+        try {
+            const response = await fetch('/api/mypage/shipping-addresses');
+            if (response.ok) {
+                const addresses = await response.json();
+                const defaultAddress = addresses.find(addr => addr.default);
+                if (defaultAddress) {
+                    selectAddress(defaultAddress);
+                }
+            }
+        } catch (error) {
+            console.error('기본 배송지 로드 실패:', error);
+        }
+    });
+</script>
 <script th:inline="javascript">
     // 전역 변수
     let selectedCouponData = null;
@@ -327,21 +690,25 @@
                 }
 
                 return `
-                    <div class="coupon-item ${!isUsable ? 'disabled' : ''}">
-                        <div class="coupon-info">
-                            <div class="coupon-title">${coupon.coupon.couponTitle || ''}</div>
-                            <div class="coupon-description">${coupon.coupon.couponDescription || ''}</div>
-                            <div class="coupon-discount-type">${discountType === 'AMOUNT' ? '금액할인' : '퍼센트할인'}</div>
-                            <div class="coupon-discount">${discountText}</div>
-                            <div class="coupon-expire">만료일: ${formatDate(coupon.coupon.expiredAt)}</div>
+                    <div class="modal-card ${!isUsable ? 'disabled' : ''}">
+                        <div class="modal-card-content">
+                            <div class="modal-card-header">
+                                <strong class="coupon-title">${coupon.coupon.couponTitle || ''}</strong>
+                            </div>
+                            <div class="coupon-details">
+                                <p>${coupon.coupon.couponDescription || ''}</p>
+                                <p><span class="discount-label">${discountText}</span></p>
+                                <p class="expiry-date">만료일: ${formatDate(coupon.coupon.expiredAt)}</p>
+                            </div>
                         </div>
-                        <button
-                            class="coupon-use-btn ${!isUsable ? 'disabled' : ''}"
-                            onclick="applyCoupon(${coupon.userCouponId}, '${escapeQuotes(coupon.coupon.couponTitle)}', '${discountType}', ${discountValue})"
-                            ${!isUsable ? 'disabled' : ''}
-                        >
-                            ${isUsable ? '적용하기' : '사용불가'}
-                        </button>
+                        <div class="modal-card-actions">
+                            <button
+                                class="btn-text"
+                                onclick="applyCoupon(${coupon.userCouponId}, '${escapeQuotes(coupon.coupon.couponTitle)}', '${discountType}', ${discountValue})"
+                                ${!isUsable ? 'disabled' : ''}>
+                                ${isUsable ? '적용하기' : '사용불가'}
+                            </button>
+                        </div>
                     </div>
                 `;
             }).join('');
@@ -510,6 +877,13 @@
             return;
         }
 
+        try {
+            validateRecipientInfo();
+        } catch (error) {
+            alert(error.message);
+            return;
+        }
+
         await processPayment(currentFinalAmount, selectedCouponData, currentUsedPoints);
     }
 
@@ -632,7 +1006,7 @@
 
     function escapeQuotes(str) {
         if (!str) return '';
-        return str.replace(/'/g, "\\'").replace(/"/g, '\\"');
+        return str.replace(/'/g, "'").replace(/"/g, '"');
     }
 
     window.onclick = function(event) {
@@ -640,701 +1014,17 @@
         if (event.target === modal) {
             closeCouponModal();
         }
+        
+        const addressModal = document.getElementById('addressModal');
+        if (event.target === addressModal) {
+            closeAddressModal();
+        }
+
+        const addressFormModal = document.getElementById('addressFormModal');
+        if (event.target === addressFormModal) {
+            closeAddressFormModal();
+        }
     }
 </script>
 </body>
 </html>
-
-<!--<!doctype html>-->
-<!--<html lang="ko" xmlns:th="http://www.thymeleaf.org">-->
-<!--<head th:replace="~{fragments/layout :: head('주문/결제')}"></head>-->
-<!--&lt;!&ndash; 페이지 전용 CSS 추가 &ndash;&gt;-->
-<!--<link rel="stylesheet" th:href="@{/css/order.css}">-->
-<!--<body class="page font-body">-->
-<!--  <div th:replace="~{fragments/layout :: header}"></div>-->
-
-<!--  &lt;!&ndash; Main Content &ndash;&gt;-->
-<!--  <section class="items-card" aria-labelledby="page-title">-->
-<!--      <div class="section-head">-->
-
-<!--    <div class="order-layout">-->
-<!--      &lt;!&ndash; 왼쪽 섹션 &ndash;&gt;-->
-<!--      <div class="left-section">-->
-
-<!--        &lt;!&ndash; 주문 결제 / 주문자 정보 섹션 &ndash;&gt;-->
-<!--        <div class="section-card">-->
-<!--          <h2 class="section-title">주문 결제 / 주문자 정보</h2>-->
-
-<!--          <div class="form-group">-->
-<!--            <label class="form-label">주문자명</label>-->
-<!--            <input type="text" class="input" th:value="${order.user.userName}" readonly>-->
-<!--          </div>-->
-
-<!--          <div class="form-group">-->
-<!--            <label class="form-label">연락처</label>-->
-<!--            <input type="text" class="input" th:value="${order.user.phone}" readonly>-->
-<!--          </div>-->
-
-<!--          <div class="form-group">-->
-<!--            <label class="form-label">이메일</label>-->
-<!--            <input type="text" class="input" th:value="${order.user.userEmail}" readonly>-->
-<!--          </div>-->
-<!--        </div>-->
-
-<!--        &lt;!&ndash; 배송지 정보 섹션 &ndash;&gt;-->
-<!--        <div class="section-card">-->
-<!--          <h2 class="section-title">배송지 정보-->
-<!--            <button type="button" class="coupon-link">변경</button>-->
-<!--          </h2>-->
-
-<!--          <div class="form-group">-->
-<!--            <label class="form-label">받는 분</label>-->
-<!--            <input type="text" class="input" th:value="${order.user.userName}" readonly>-->
-<!--          </div>-->
-
-<!--          <div class="form-group">-->
-<!--            <label class="form-label">연락처</label>-->
-<!--            <input type="text" class="input" th:value="${order.user.phone}" readonly>-->
-<!--          </div>-->
-
-<!--          <div class="form-group">-->
-<!--            <label class="form-label">주소</label>-->
-<!--            <input type="text" class="input" th:value="${order.user.address}" readonly>-->
-<!--          </div>-->
-
-<!--          <div class="form-group">-->
-<!--            <button type="button" class="address-search-btn coupon-link">기본 배송지로 저장</button>-->
-<!--          </div>-->
-
-<!--          <div class="form-group">-->
-<!--            <label class="form-label">배송시 요청사항을 선택해주세요</label>-->
-<!--            <select class="input">-->
-<!--              <option>배송시 요청사항을 선택해주세요</option>-->
-<!--              <option>문 앞에 놓아주세요</option>-->
-<!--              <option>경비실에 맡겨주세요</option>-->
-<!--              <option>택배보관함에 넣어주세요</option>-->
-<!--              <option>직접 받겠습니다</option>-->
-<!--            </select>-->
-<!--          </div>-->
-<!--        </div>-->
-
-<!--        &lt;!&ndash; 주문 상품 정보 섹션 &ndash;&gt;-->
-<!--        <div class="section-card">-->
-<!--          <h2 class="section-title">주문 상품 정보-->
-<!--            <span class="item-count" th:text="${#lists.size(order.items)} + '건'">1건</span>-->
-<!--          </h2>-->
-
-<!--          <div class="order-items">-->
-<!--            <div class="order-item" th:each="item : ${order.items}">-->
-<!--              <div class="item-info">-->
-<!--                <div class="item-image">-->
-<!--                  <div class="product-img-placeholder">📦</div>-->
-<!--                </div>-->
-<!--                <div class="item-details">-->
-<!--                  <p class="item-name" th:text="${item.productName}">상품명</p>-->
-<!--                  <p class="item-option" th:if="${item.productOptionName != null}" th:text="${item.productOptionName}">옵션명</p>-->
-<!--                  <p class="item-quantity" th:text="'수량: ' + ${item.quantity} + '개'">수량: 0개</p>-->
-<!--                </div>-->
-<!--              </div>-->
-<!--              <div class="item-shipping">-->
-<!--                <div>-->
-<!--                  <p class="item-price" th:text="${#numbers.formatDecimal(item.price, 0, 'COMMA', 0, 'POINT')} + '원'">139,000원</p>-->
-<!--                  <span class="shipping-label">무료배송</span>-->
-<!--                </div>-->
-<!--              </div>-->
-<!--            </div>-->
-<!--          </div>-->
-<!--        </div>-->
-
-<!--        &lt;!&ndash; 포인트/쿠폰 정보 섹션 &ndash;&gt;-->
-<!--        <div class="section-card">-->
-<!--          <h2 class="section-title">포인트/쿠폰 정보</h2>-->
-
-<!--          &lt;!&ndash; 쿠폰 부분 &ndash;&gt;-->
-<!--          <div class="coupon-section">-->
-<!--            <h3 class="sub-section-title">쿠폰</h3>-->
-<!--            <div class="coupon-selected" id="selectedCoupon" style="display: none;">-->
-<!--              <div class="selected-coupon-info">-->
-<!--                <span class="selected-coupon-name"></span>-->
-<!--                <span class="selected-coupon-discount"></span>-->
-<!--              </div>-->
-<!--              <button type="button" class="coupon-cancel-btn" onclick="cancelCoupon()">취소</button>-->
-<!--            </div>-->
-<!--            <p class="coupon-message" id="couponMessage">선택된 쿠폰이 없습니다</p>-->
-<!--            <button type="button" class="coupon-link" onclick="openCouponModal()">내 쿠폰 목록 보기</button>-->
-<!--          </div>-->
-
-<!--          &lt;!&ndash; 포인트 부분 &ndash;&gt;-->
-<!--          <div class="point-section">-->
-<!--            <h3 class="sub-section-title">포인트</h3>-->
-<!--            <div class="point-input-group">-->
-<!--              <input type="number" id="pointInput" class="point-input" placeholder="0" value="0" min="0" onchange="calculateTotal()">-->
-<!--              <button type="button" class="point-all-btn coupon-link" onclick="useAllPoints()">전액 사용</button>-->
-<!--            </div>-->
-<!--            <p class="point-available">사용 가능 포인트 <span class="point-amount">155,555 P</span></p>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--      </div>-->
-
-<!--      &lt;!&ndash; 오른쪽 섹션 - 결제 금액 &ndash;&gt;-->
-<!--      <div class="right-section">-->
-<!--        <div class="payment-summary">-->
-<!--          <h2 class="summary-title">결제금액</h2>-->
-
-<!--          <div class="price-row">-->
-<!--            <span class="price-label">총 상품 금액</span>-->
-<!--            <span class="price-value" th:text="${#numbers.formatDecimal(order.totalPrice, 0, 'COMMA', 0, 'POINT')} + '원'">139,000원</span>-->
-<!--          </div>-->
-
-<!--          <div class="price-row">-->
-<!--            <span class="price-label">배송비</span>-->
-<!--            <span class="price-value" id="shippingFee">0원</span>-->
-<!--          </div>-->
-
-<!--          <div class="price-row">-->
-<!--            <span class="price-label">쿠폰 사용</span>-->
-<!--            <span class="price-value" data-role="coupon-discount">0원</span>-->
-<!--          </div>-->
-
-<!--          <div class="price-row">-->
-<!--            <span class="price-label">포인트 사용</span>-->
-<!--            <span class="price-value" data-role="points-discount">0원</span>-->
-<!--          </div>-->
-
-<!--          <div class="total-row">-->
-<!--            <span class="total-label">최종 결제 금액</span>-->
-<!--            <span class="total-price" th:text="${#numbers.formatDecimal(order.totalAmount, 0, 'COMMA', 0, 'POINT')} + ' 원'">179,000 원</span>-->
-<!--            <span class="installment-text">139 P 적립 예정</span>-->
-<!--          </div>-->
-
-<!--          <div class="terms-notice">-->
-<!--            받아볼 텍스트 제안 이후입니다, 추후 내용을 업데이트합니다.-->
-<!--            <br><br>-->
-<!--            이용약관/결제대행 및 쇼핑몰 이용약관 개인정보 수집, 결제대행 서비스와 등 서비스에 대한 저 공인 시킬인증을 필이 방면 내용입니다.-->
-<!--          </div>-->
-
-<!--          <button type="button" class="payment-btn" th:text="${#numbers.formatDecimal(order.totalAmount, 0, 'COMMA', 0, 'POINT')} + '원 결제하기'">179,000 원 결제하기</button>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--  </div>-->
-
-<!--  &lt;!&ndash; 쿠폰 모달 &ndash;&gt;-->
-<!--  <div id="couponModal" class="modal">-->
-<!--    <div class="modal-content">-->
-<!--      <div class="modal-header">-->
-<!--        <h2>내 쿠폰 목록</h2>-->
-<!--        <span class="close" onclick="closeCouponModal()">&times;</span>-->
-<!--      </div>-->
-<!--      <div class="modal-body">-->
-<!--        <div id="couponList" class="coupon-list">-->
-<!--          <div class="loading-message">쿠폰을 불러오는 중...</div>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--  </div>-->
-
-<!--  <div th:replace="~{fragments/layout :: footer}"></div>-->
-
-<!--  &lt;!&ndash; Hidden form with order data for JavaScript &ndash;&gt;-->
-<!--  <div id="hiddenOrderData" style="display: none;">-->
-<!--    <div th:each="item, itemStat : ${order.items}">-->
-<!--      <input type="hidden" th:id="'item-' + ${itemStat.index} + '-productId'" th:value="${item.productId}" />-->
-<!--      <input type="hidden" th:id="'item-' + ${itemStat.index} + '-productOptionId'" th:value="${item.productOptionId}" />-->
-<!--      <input type="hidden" th:id="'item-' + ${itemStat.index} + '-quantity'" th:value="${item.quantity}" />-->
-<!--      <input type="hidden" th:id="'item-' + ${itemStat.index} + '-price'" th:value="${item.price}" />-->
-<!--      <input type="hidden" th:id="'item-' + ${itemStat.index} + '-productName'" th:value="${item.productName}" />-->
-<!--    </div>-->
-<!--    <input type="hidden" id="totalItemsCount" th:value="${#lists.size(order.items)}" />-->
-<!--  </div>-->
-
-<!--  <script src="/js/payment/checkout.js"></script>-->
-<!--  <script th:inline="javascript">-->
-<!--    // 전역 변수-->
-<!--    let selectedCouponData = null;-->
-<!--    const totalPrice = parseFloat('[[${ order.totalPrice }]]') || 0;-->
-<!--    let shippingCost = determineShippingCost(totalPrice);-->
-<!--    let availablePoints = 0;-->
-<!--    const customerEmail = /*[[${order.user.userEmail}]]*/ '';-->
-<!--    const customerName = /*[[${order.user.userName}]]*/ '';-->
-<!--    let currentFinalAmount = totalPrice + shippingCost;-->
-<!--    let currentUsedPoints = 0;-->
-
-<!--    const orderProductIds = getOrderProductIds();-->
-
-<!--    document.addEventListener('DOMContentLoaded', async function() {-->
-<!--        await loadUserPoints();-->
-<!--        updatePaymentSummary();-->
-
-<!--        const paymentBtn = document.querySelector('.payment-btn');-->
-<!--        if (paymentBtn) {-->
-<!--            paymentBtn.addEventListener('click', handlePaymentButtonClick);-->
-<!--        }-->
-<!--    });-->
-
-<!--    function determineShippingCost(productAmount) {-->
-<!--        const freeShippingThreshold = 30000;-->
-<!--        return productAmount >= freeShippingThreshold ? 0 : 3000;-->
-<!--    }-->
-
-<!--    function getOrderProductIds() {-->
-<!--        const totalItemsCount = parseInt(document.getElementById('totalItemsCount').value) || 0;-->
-<!--        const productIds = [];-->
-
-<!--        for (let index = 0; index < totalItemsCount; index++) {-->
-<!--            const productIdElement = document.getElementById(`item-${index}-productId`);-->
-<!--            if (productIdElement && productIdElement.value) {-->
-<!--                productIds.push(parseInt(productIdElement.value, 10));-->
-<!--            }-->
-<!--        }-->
-
-<!--        return productIds;-->
-<!--    }-->
-
-<!--    async function loadUserPoints() {-->
-<!--        try {-->
-<!--            const response = await fetch('/order/my-points');-->
-<!--            const data = await response.json();-->
-
-<!--            if (data.success) {-->
-<!--                availablePoints = data.totalPoints || 0;-->
-<!--            } else {-->
-<!--                availablePoints = 0;-->
-<!--                console.error('포인트 로딩 실패:', data.message);-->
-<!--            }-->
-<!--        } catch (error) {-->
-<!--            availablePoints = 0;-->
-<!--            console.error('포인트 로딩 중 오류:', error);-->
-<!--        } finally {-->
-<!--            const pointAmountEl = document.querySelector('.point-amount');-->
-<!--            if (pointAmountEl) {-->
-<!--                pointAmountEl.textContent = `${formatPrice(availablePoints)} P`;-->
-<!--            }-->
-<!--            const pointInput = document.getElementById('pointInput');-->
-<!--            if (pointInput) {-->
-<!--                pointInput.max = availablePoints;-->
-<!--            }-->
-<!--        }-->
-<!--    }-->
-
-<!--    function openCouponModal() {-->
-<!--        document.getElementById('couponModal').style.display = 'block';-->
-<!--        loadMyCoupons();-->
-<!--    }-->
-
-<!--    function closeCouponModal() {-->
-<!--        document.getElementById('couponModal').style.display = 'none';-->
-<!--    }-->
-
-<!--    async function loadMyCoupons() {-->
-<!--        try {-->
-<!--            const productIdsParam = orderProductIds.length > 0-->
-<!--                ? `?${orderProductIds.map(id => `productIds=${id}`).join('&')}`-->
-<!--                : '';-->
-
-<!--            const response = await fetch(`/order/my-coupons${productIdsParam}`);-->
-<!--            const coupons = await response.json();-->
-
-<!--            const couponList = document.getElementById('couponList');-->
-
-<!--            if (coupons.length === 0) {-->
-<!--                couponList.innerHTML = '<div class="no-coupons">사용 가능한 쿠폰이 없습니다.</div>';-->
-<!--                return;-->
-<!--            }-->
-
-<!--            couponList.innerHTML = coupons.map(coupon => {-->
-<!--                const isUsable = coupon.usable;-->
-<!--                const discountAmount = coupon.coupon.discountAmount || 0;-->
-<!--                const discountRate = coupon.coupon.discountRate || 0;-->
-
-<!--                let discountType = 'AMOUNT';-->
-<!--                let discountValue = discountAmount;-->
-<!--                let discountText = '';-->
-
-<!--                if (discountAmount > 0) {-->
-<!--                    discountType = 'AMOUNT';-->
-<!--                    discountValue = discountAmount;-->
-<!--                    discountText = `${formatPrice(discountAmount)}원 할인`;-->
-<!--                } else if (discountRate > 0) {-->
-<!--                    discountType = 'RATE';-->
-<!--                    discountValue = discountRate;-->
-<!--                    discountText = `${discountRate}% 할인`;-->
-<!--                } else {-->
-<!--                    discountText = '할인 정보 없음';-->
-<!--                }-->
-
-<!--                return `-->
-<!--                    <div class="coupon-item ${!isUsable ? 'disabled' : ''}">-->
-<!--                        <div class="coupon-info">-->
-<!--                            <div class="coupon-title">${coupon.coupon.couponTitle || ''}</div>-->
-<!--                            <div class="coupon-description">${coupon.coupon.couponDescription || ''}</div>-->
-<!--                            <div class="coupon-discount-type">${discountType === 'AMOUNT' ? '금액할인' : '퍼센트할인'}</div>-->
-<!--                            <div class="coupon-discount">${discountText}</div>-->
-<!--                            <div class="coupon-expire">만료일: ${formatDate(coupon.coupon.expiredAt)}</div>-->
-<!--                        </div>-->
-<!--                        <button-->
-<!--                            class="coupon-use-btn ${!isUsable ? 'disabled' : ''}"-->
-<!--                            onclick="applyCoupon(${coupon.userCouponId}, '${escapeQuotes(coupon.coupon.couponTitle)}', '${discountType}', ${discountValue})"-->
-<!--                            ${!isUsable ? 'disabled' : ''}-->
-<!--                        >-->
-<!--                            ${isUsable ? '적용하기' : '사용불가'}-->
-<!--                        </button>-->
-<!--                    </div>-->
-<!--                `;-->
-<!--            }).join('');-->
-<!--        } catch (error) {-->
-<!--            console.error('쿠폰 목록 로드 실패:', error);-->
-<!--            document.getElementById('couponList').innerHTML = '<div class="error-message">쿠폰 목록을 불러올 수 없습니다.</div>';-->
-<!--        }-->
-<!--    }-->
-
-<!--    async function applyCoupon(userCouponId, couponTitle, discountType, discountValue) {-->
-<!--        try {-->
-<!--            const currentOrderAmount = totalPrice + shippingCost;-->
-<!--            const response = await fetch(`/order/my-coupons/${userCouponId}?orderAmount=${currentOrderAmount}`);-->
-
-<!--            if (!response.ok) {-->
-<!--                const errorText = await response.text();-->
-<!--                console.error('쿠폰 검증 실패:', response.status, errorText);-->
-
-<!--                if (response.status === 400) {-->
-<!--                    alert('쿠폰이 만료되었거나 이미 사용된 쿠폰입니다.');-->
-<!--                } else if (response.status === 404) {-->
-<!--                    alert('쿠폰을 찾을 수 없습니다.');-->
-<!--                } else {-->
-<!--                    alert('쿠폰 검증에 실패했습니다. 다시 시도해주세요.');-->
-<!--                }-->
-<!--                return;-->
-<!--            }-->
-
-<!--            const couponInfo = await response.json();-->
-
-<!--            if (!couponInfo.applicable) {-->
-<!--                alert(`이 쿠폰은 최소 주문 금액 ${formatPrice(couponInfo.minPurchaseAmount)}원 이상부터 사용 가능합니다.`);-->
-<!--                return;-->
-<!--            }-->
-
-<!--            const actualDiscount = Number(couponInfo.calculatedDiscountAmount) || 0;-->
-<!--            const finalAmountFromServer = Number(couponInfo.finalAmount) || 0;-->
-
-<!--            selectedCouponData = {-->
-<!--                userCouponId: userCouponId,-->
-<!--                title: couponTitle,-->
-<!--                discountType: discountType,-->
-<!--                discountValue: discountValue,-->
-<!--                calculatedDiscountAmount: actualDiscount,-->
-<!--                finalAmount: finalAmountFromServer-->
-<!--            };-->
-
-<!--            document.getElementById('selectedCoupon').style.display = 'flex';-->
-<!--            document.getElementById('couponMessage').textContent = '쿠폰이 적용되었습니다.';-->
-<!--            document.querySelector('.selected-coupon-name').textContent = couponTitle;-->
-
-<!--            if (discountType === 'RATE') {-->
-<!--                document.querySelector('.selected-coupon-discount').textContent = `-${discountValue}% (${formatPrice(actualDiscount)}원)`;-->
-<!--            } else {-->
-<!--                document.querySelector('.selected-coupon-discount').textContent = `-${formatPrice(actualDiscount)}원`;-->
-<!--            }-->
-
-<!--            updatePaymentSummary();-->
-<!--            closeCouponModal();-->
-<!--        } catch (error) {-->
-<!--            console.error('쿠폰 적용 중 오류:', error);-->
-<!--            alert('쿠폰 적용 중 오류가 발생했습니다. 다시 시도해주세요.');-->
-<!--        }-->
-<!--    }-->
-
-<!--    function calculateDiscountAmount(discountType, discountValue) {-->
-<!--        if (discountType === 'RATE') {-->
-<!--            return Math.floor((totalPrice + shippingCost) * (discountValue / 100));-->
-<!--        }-->
-<!--        return discountValue;-->
-<!--    }-->
-
-<!--    function cancelCoupon() {-->
-<!--        selectedCouponData = null;-->
-<!--        const selectedCouponEl = document.getElementById('selectedCoupon');-->
-<!--        if (selectedCouponEl) {-->
-<!--            selectedCouponEl.style.display = 'none';-->
-<!--        }-->
-<!--        const couponMessageEl = document.getElementById('couponMessage');-->
-<!--        if (couponMessageEl) {-->
-<!--            couponMessageEl.textContent = '선택된 쿠폰이 없습니다';-->
-<!--        }-->
-<!--        const couponDiscountLabel = document.querySelector('.selected-coupon-discount');-->
-<!--        if (couponDiscountLabel) {-->
-<!--            couponDiscountLabel.textContent = '';-->
-<!--        }-->
-<!--        updatePaymentSummary();-->
-<!--    }-->
-
-<!--    function useAllPoints() {-->
-<!--        const pointInput = document.getElementById('pointInput');-->
-<!--        if (pointInput) {-->
-<!--            pointInput.value = availablePoints;-->
-<!--            calculateTotal();-->
-<!--        }-->
-<!--    }-->
-
-<!--    function calculateTotal() {-->
-<!--        updatePaymentSummary();-->
-<!--    }-->
-
-<!--    function updatePaymentSummary() {-->
-<!--        let couponDiscount = 0;-->
-<!--        if (selectedCouponData) {-->
-<!--            if (selectedCouponData.calculatedDiscountAmount != null) {-->
-<!--                couponDiscount = selectedCouponData.calculatedDiscountAmount;-->
-<!--            } else if (selectedCouponData.discountType) {-->
-<!--                couponDiscount = calculateDiscountAmount(selectedCouponData.discountType, selectedCouponData.discountValue);-->
-<!--            }-->
-<!--        }-->
-
-<!--        const discountedProductPrice = Math.max(0, totalPrice - couponDiscount);-->
-<!--        shippingCost = determineShippingCost(discountedProductPrice);-->
-
-<!--        const pointInput = document.getElementById('pointInput');-->
-<!--        const usedPointsRaw = pointInput ? parseInt(pointInput.value, 10) || 0 : 0;-->
-<!--        const payableBeforePoints = Math.max(0, totalPrice + shippingCost - couponDiscount);-->
-<!--        const maxUsablePoints = Math.min(availablePoints, payableBeforePoints);-->
-<!--        const validUsedPoints = Math.min(usedPointsRaw, maxUsablePoints);-->
-
-<!--        if (pointInput && usedPointsRaw !== validUsedPoints) {-->
-<!--            pointInput.value = validUsedPoints;-->
-<!--        }-->
-
-<!--        const shippingFeeEl = document.getElementById('shippingFee');-->
-<!--        if (shippingFeeEl) {-->
-<!--            shippingFeeEl.textContent = shippingCost > 0 ? `${formatPrice(shippingCost)}원` : '무료배송';-->
-<!--        }-->
-
-<!--        const couponDiscountEl = document.querySelector('[data-role="coupon-discount"]');-->
-<!--        if (couponDiscountEl) {-->
-<!--            couponDiscountEl.textContent = couponDiscount > 0 ? `-${formatPrice(couponDiscount)}원` : '0원';-->
-<!--        }-->
-
-<!--        const pointsDiscountEl = document.querySelector('[data-role="points-discount"]');-->
-<!--        if (pointsDiscountEl) {-->
-<!--            pointsDiscountEl.textContent = validUsedPoints > 0 ? `-${formatPrice(validUsedPoints)}원` : '0원';-->
-<!--        }-->
-
-<!--        const finalAmount = Math.max(0, totalPrice + shippingCost - couponDiscount - validUsedPoints);-->
-<!--        currentFinalAmount = finalAmount;-->
-<!--        currentUsedPoints = validUsedPoints;-->
-
-<!--        const totalPriceEl = document.querySelector('.total-price');-->
-<!--        if (totalPriceEl) {-->
-<!--            totalPriceEl.textContent = `${formatPrice(finalAmount)} 원`;-->
-<!--        }-->
-
-<!--        const paymentBtn = document.querySelector('.payment-btn');-->
-<!--        if (paymentBtn) {-->
-<!--            paymentBtn.textContent = `${formatPrice(finalAmount)}원 결제하기`;-->
-<!--        }-->
-
-<!--        const earnPoints = Math.floor(finalAmount * 0.01);-->
-<!--        const installmentEl = document.querySelector('.installment-text');-->
-<!--        if (installmentEl) {-->
-<!--            installmentEl.textContent = `${formatPrice(earnPoints)} P 적립 예정`;-->
-<!--        }-->
-<!--    }-->
-
-<!--    async function handlePaymentButtonClick(event) {-->
-<!--        event.preventDefault();-->
-
-<!--        if (currentFinalAmount < 100) {-->
-<!--            alert('최종 결제 금액은 100원 이상이어야 합니다.');-->
-<!--            return;-->
-<!--        }-->
-
-<!--        await processPayment(currentFinalAmount, selectedCouponData, currentUsedPoints);-->
-<!--    }-->
-
-<!--    function collectOrderItemsData() {-->
-<!--        const items = [];-->
-<!--        const totalItemsCount = parseInt(document.getElementById('totalItemsCount').value) || 0;-->
-
-<!--        for (let index = 0; index < totalItemsCount; index++) {-->
-<!--            const productIdElement = document.getElementById(`item-${index}-productId`);-->
-<!--            const productOptionIdElement = document.getElementById(`item-${index}-productOptionId`);-->
-<!--            const quantityElement = document.getElementById(`item-${index}-quantity`);-->
-<!--            const priceElement = document.getElementById(`item-${index}-price`);-->
-<!--            const productNameElement = document.getElementById(`item-${index}-productName`);-->
-
-<!--            if (!productIdElement || !quantityElement || !priceElement) {-->
-<!--                continue;-->
-<!--            }-->
-
-<!--            const productId = Number(productIdElement.value);-->
-<!--            const quantity = Number(quantityElement.value);-->
-<!--            const priceValue = priceElement.value;-->
-<!--            const priceNumber = Number(priceValue);-->
-
-<!--            if (Number.isNaN(productId) || Number.isNaN(quantity) || Number.isNaN(priceNumber)) {-->
-<!--                continue;-->
-<!--            }-->
-
-<!--            const optionRaw = productOptionIdElement ? productOptionIdElement.value : null;-->
-<!--            const optionValue = optionRaw && optionRaw !== 'null' && optionRaw !== 'default'-->
-<!--                ? Number(optionRaw)-->
-<!--                : null;-->
-
-<!--            items.push({-->
-<!--                productId,-->
-<!--                productOptionId: optionValue,-->
-<!--                quantity,-->
-<!--                price: priceValue,-->
-<!--                productName: productNameElement ? productNameElement.value : ''-->
-<!--            });-->
-<!--        }-->
-
-<!--        return items;-->
-<!--    }-->
-
-<!--    function buildOrderPayload(finalAmount, couponData, usedPoints) {-->
-<!--        const orderItems = collectOrderItemsData();-->
-<!--        if (!orderItems.length) {-->
-<!--            throw new Error('주문할 상품이 없습니다.');-->
-<!--        }-->
-
-<!--        const couponDiscount = couponData-->
-<!--            ? (couponData.calculatedDiscountAmount != null-->
-<!--                ? couponData.calculatedDiscountAmount-->
-<!--                : calculateDiscountAmount(couponData.discountType, couponData.discountValue))-->
-<!--            : 0;-->
-
-<!--        const paymentOrderId = `ORDER-${Date.now()}`;-->
-<!--        let fallbackOrderName = '상품 주문';-->
-<!--        const fallbackNameElement = document.querySelector('.order-item .item-name');-->
-<!--        if (fallbackNameElement && typeof fallbackNameElement.textContent === 'string') {-->
-<!--            const trimmed = fallbackNameElement.textContent.trim();-->
-<!--            if (trimmed.length > 0) {-->
-<!--                fallbackOrderName = trimmed;-->
-<!--            }-->
-<!--        }-->
-
-<!--        const orderName = orderItems[0].productName || fallbackOrderName;-->
-<!--        const sanitizedFinalAmount = Math.max(Math.round(finalAmount || 0), 0);-->
-
-<!--        if (sanitizedFinalAmount < 100) {-->
-<!--            throw new Error('최종 결제 금액은 100원 이상이어야 합니다.');-->
-<!--        }-->
-
-<!--        return {-->
-<!--            paymentOrderId,-->
-<!--            orderItems,-->
-<!--            userCouponId: couponData ? couponData.userCouponId : null,-->
-<!--            couponDiscountAmount: couponDiscount,-->
-<!--            usedPoints: usedPoints || 0,-->
-<!--            finalAmount: sanitizedFinalAmount,-->
-<!--            orderName,-->
-<!--            customerEmail,-->
-<!--            customerName-->
-<!--        };-->
-<!--    }-->
-
-<!--    async function processPayment(finalAmount, couponData, usedPoints) {-->
-<!--        try {-->
-<!--            const orderPayload = buildOrderPayload(finalAmount, couponData, usedPoints);-->
-
-<!--            sessionStorage.removeItem('pendingOrderPayload');-->
-<!--            sessionStorage.setItem('pendingOrderPayload', JSON.stringify(orderPayload));-->
-
-<!--            await PaymentSdk.processTossPayment({-->
-<!--                orderId: orderPayload.paymentOrderId,-->
-<!--                finalAmount: orderPayload.finalAmount,-->
-<!--                orderName: orderPayload.orderName,-->
-<!--                customerEmail: orderPayload.customerEmail,-->
-<!--                customerName: orderPayload.customerName-->
-<!--            });-->
-<!--        } catch (error) {-->
-<!--            console.error('결제 요청 중 오류:', error);-->
-<!--            sessionStorage.removeItem('pendingOrderPayload');-->
-<!--            alert(error.message || '결제 처리 중 오류가 발생했습니다. 다시 시도해 주세요.');-->
-<!--        }-->
-<!--    }-->
-
-<!--    function formatPrice(price) {-->
-<!--        if (price === null || price === undefined || isNaN(price)) {-->
-<!--            return '0';-->
-<!--        }-->
-<!--        return Number(price).toLocaleString('ko-KR');-->
-<!--    }-->
-
-<!--    function formatDate(dateString) {-->
-<!--        if (!dateString) return '';-->
-<!--        const date = new Date(dateString);-->
-<!--        return date.toLocaleDateString('ko-KR');-->
-<!--    }-->
-
-<!--    function escapeQuotes(str) {-->
-<!--        if (!str) return '';-->
-<!--        return str.replace(/'/g, "\\'").replace(/"/g, '\\"');-->
-<!--    }-->
-
-<!--    window.onclick = function(event) {-->
-<!--        const modal = document.getElementById('couponModal');-->
-<!--        if (event.target === modal) {-->
-<!--            modal.style.display = 'none';-->
-<!--        }-->
-<!--    }-->
-<!--  </script>-->
-
-<!--  <style>-->
-<!--    .payment-method {-->
-<!--      display: flex;-->
-<!--      flex-direction: column;-->
-<!--      gap: 12px;-->
-<!--    }-->
-
-<!--    .method-option {-->
-<!--      display: flex;-->
-<!--      align-items: center;-->
-<!--    }-->
-
-<!--    .method-option input[type="radio"] {-->
-<!--      margin-right: 12px;-->
-<!--    }-->
-
-<!--    .method-option label {-->
-<!--      display: flex;-->
-<!--      align-items: center;-->
-<!--      gap: 8px;-->
-<!--      cursor: pointer;-->
-<!--      font-size: 14px;-->
-<!--    }-->
-
-<!--    .method-logo {-->
-<!--      font-size: 16px;-->
-<!--    }-->
-
-<!--    .method-tag {-->
-<!--      background: #e3f2fd;-->
-<!--      color: #1976d2;-->
-<!--      padding: 2px 6px;-->
-<!--      border-radius: 4px;-->
-<!--      font-size: 11px;-->
-<!--      font-weight: 500;-->
-<!--    }-->
-
-<!--    .installment-info {-->
-<!--      margin-top: 16px;-->
-<!--      padding-top: 16px;-->
-<!--      border-top: 1px solid #eee;-->
-<!--      font-size: 12px;-->
-<!--      color: #666;-->
-<!--    }-->
-
-<!--    .installment-info p {-->
-<!--      margin: 0;-->
-<!--      font-weight: 500;-->
-<!--      color: #333;-->
-<!--    }-->
-
-<!--    .installment-info small {-->
-<!--      display: block;-->
-<!--      margin-top: 4px;-->
-<!--    }-->
-<!--  </style>-->
-<!--</body>-->
-<!--</html>-->
