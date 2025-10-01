@@ -3,8 +3,11 @@ package com.bird.cos.domain.inventory;
 import com.bird.cos.domain.order.Order;
 import com.bird.cos.domain.product.Product;
 import jakarta.persistence.*;
+import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -12,7 +15,7 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "INVENTORY_OUTBOUND")
 @Getter
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class InventoryOutbound {
 
     @Id
@@ -37,7 +40,17 @@ public class InventoryOutbound {
     @Column(name = "outbound_date", nullable = false)
     private LocalDate outboundDate;
 
-    @Column(name = "outbound_created_date", nullable = false, insertable = false, updatable = false)
+    @CreationTimestamp
+    @Column(name = "outbound_created_date", nullable = false, updatable = false)
     private LocalDateTime outboundCreatedDate;
 
+    @Builder
+    public InventoryOutbound(Order orderId, Product productId, Integer outboundQuantity,
+                            String outboundStatus, LocalDate outboundDate) {
+        this.orderId = orderId;
+        this.productId = productId;
+        this.outboundQuantity = outboundQuantity;
+        this.outboundStatus = outboundStatus;
+        this.outboundDate = outboundDate;
+    }
 }
