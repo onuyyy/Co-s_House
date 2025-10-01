@@ -43,9 +43,13 @@
         </div>
       </section>
 
-      <section class="event-section" id="benefit">
-        <h2 class="event-section__title">이벤트 혜택</h2>
-        <p class="event-section__description" th:text="${event.benefitText}"></p>
+      <section class="event-section event-benefit" id="benefit"
+               th:classappend="${event.image != null} ? ' event-benefit--image' : ''"
+               th:style="${event.image != null} ? |background-image:url(${event.image})| : null">
+        <div class="event-benefit__inner">
+<!--          <h2 class="event-section__title">이벤트 혜택</h2>-->
+<!--          <p class="event-section__description" th:text="${event.benefitText}"></p>-->
+        </div>
       </section>
 
       <section class="event-section event-section--coupons" th:if="${event.coupons != null && !event.coupons.isEmpty()}">
@@ -68,7 +72,6 @@
   </main>
   <footer th:replace="~{fragments/layout :: footer}"></footer>
   <link rel="stylesheet" th:href="@{/css/sections.css}">
-  <link rel="stylesheet" th:href="@{/css/events/events.css}">
   <link rel="stylesheet" th:href="@{/css/events/event-detail.css}">
 </body>
 </html>
