@@ -17,7 +17,7 @@
                          th:data-index="${iter.index}"
                          th:classappend="${iter.index == 0} ? ' is-active' : ''">
                     <div class="hero-slide__background"
-                         th:style="${item.mainImageUrl != null} ? 'background-image:url(' + item.mainImageUrl + ');' : 'background-image:url(' + defaultHero + ');'"></div>
+                         th:style="'background-image:url(' + (${item.mainImageUrl} != null ? ${item.mainImageUrl} : ${defaultHero}) + ');'"></div>
                     <div class="hero-slide__layer"></div>
                     <div class="hero-slide__content">
                         <span class="hero-slide__eyebrow" th:text="${item.brand != null ? item.brand.brandName : '추천 상품'}">추천 상품</span>
@@ -125,42 +125,6 @@
                 <p>곧 새로운 상품을 준비 중입니다. 다른 카테고리도 살펴보세요!</p>
                 <a class="btn" th:href="@{/shop}">쇼핑 메인으로</a>
             </div>
-        </div>
-    </section>
-
-    <!-- 페이지네이션  -->
-    <section class="product-pagination container" th:if="${totalPages != null and totalPages > 1}">
-        <div class="pagination">
-            <!-- 이전 버튼 -->
-            <button type="button"
-                    class="pagination-btn"
-                    th:disabled="${currentPage == 1}"
-                    th:onclick="'goToProductPage(' + (${currentPage} - 1) + ')'">
-                <span>‹</span>
-            </button>
-
-            <!-- 페이지 번호들 (최대 9개) -->
-            <th:block th:with="startPage=${currentPage <= 5 ? 1 : (currentPage >= totalPages - 4 ? totalPages - 8 : currentPage - 4)},
-                           endPage=${startPage + 8 > totalPages ? totalPages : startPage + 8}">
-                <th:block th:each="i : ${#numbers.sequence(startPage > 0 ? startPage : 1, endPage)}">
-                    <a th:if="${i != currentPage}"
-                       href="javascript:void(0)"
-                       class="pagination-number"
-                       th:onclick="'goToProductPage(' + ${i} + ')'"
-                       th:text="${i}"></a>
-                    <span th:if="${i == currentPage}"
-                          class="pagination-number active"
-                          th:text="${i}"></span>
-                </th:block>
-            </th:block>
-
-            <!-- 다음 버튼 -->
-            <button type="button"
-                    class="pagination-btn"
-                    th:disabled="${currentPage >= totalPages}"
-                    th:onclick="'goToProductPage(' + (${currentPage} + 1) + ')'">
-                <span>›</span>
-            </button>
         </div>
     </section>
 </main>
@@ -310,14 +274,7 @@
 
         window.location.href = target;
     }
-
-    function goToProductPage(page) {
-        const url = new URL(window.location.href);
-        url.searchParams.set('page', page);
-        window.location.href = url.toString();
-    }
     /*]]>*/
 </script>
 </body>
 </html>
-

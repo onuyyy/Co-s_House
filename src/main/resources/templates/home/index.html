@@ -118,26 +118,28 @@
 
     <!-- Banner / events -->
     <section id="events" class="section container section--spaced">
-      <div class="event-slider" data-event-slider th:if="${highlightEvents != null and !highlightEvents.isEmpty()}">
+      <div class="event-slider" data-event-slider
+           th:if="${highlightEvents != null and !highlightEvents.isEmpty()}"
+           th:with="eventBg=${highlightEvents != null and !highlightEvents.isEmpty() and highlightEvents.get(0).imageUrl() != null
+                          ? highlightEvents.get(0).imageUrl()
+                          : null}">
         <button type="button" class="event-nav event-nav--prev" data-event-prev aria-label="이전 이벤트">‹</button>
-        <div class="event-viewport">
-          <div class="event-track" data-event-track>
-            <article class="event-slide" th:each="event, iterStat : ${highlightEvents}" th:attr="data-index=${iterStat.index}">
-              <div class="banner event-banner">
-                <div class="banner-text">
-                  <div class="eyebrow" th:text="${event.eyebrow()}">이벤트</div>
-                  <h3 th:text="${event.title()}">가을맞이 리빙페어</h3>
-                  <p th:text="${event.description()}">브랜드 단독 특가와 10% 쿠폰</p>
-                  <a class="btn btn-outline" th:href="${event.linkUrl()}" th:text="${'자세히 보기'}">자세히 보기</a>
-                </div>
-                <div class="banner-img event-banner__media">
-                  <img th:if="${event.imageUrl() != null}" th:src="${event.imageUrl()}" alt="" loading="lazy" />
-                  <div class="ph ph-banner" th:unless="${event.imageUrl() != null}" role="img" aria-label="이벤트 이미지"></div>
-                </div>
-              </div>
-            </article>
+        <div class="event-viewport"
+             th:attr="style=${eventBg} != null ? '--event-viewport-bg: url(' + eventBg + ')' : null">
+            <div class="event-track" data-event-track>
+              <article class="event-slide"
+                       th:each="event, iterStat : ${highlightEvents}"
+                       th:attr="data-index=${iterStat.index}"
+                       th:with="imageUrl=${event.imageUrl()}">
+                <a class="event-banner"
+                   th:href="${event.linkUrl()}"
+                   th:attr="aria-label=${event.title()}"
+                   th:style="|background-image: url(${imageUrl});|">
+                  <span class="sr-only" th:text="${event.title()}">이벤트 보기</span>
+                </a>
+              </article>
+            </div>
           </div>
-        </div>
         <button type="button" class="event-nav event-nav--next" data-event-next aria-label="다음 이벤트">›</button>
         <div class="event-dots" aria-label="이벤트 이동">
           <button type="button" class="event-dot" th:each="event, iterStat : ${highlightEvents}" th:attr="data-event-dot=${iterStat.index}" aria-label="이벤트 보기"></button>

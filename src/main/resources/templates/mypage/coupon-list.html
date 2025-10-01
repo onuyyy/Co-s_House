@@ -1,48 +1,10 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>쿠폰 발급</title>
-    <link rel="stylesheet" th:href="@{/css/app.css}">
-    <style>
-        body { font-family: 'Noto Sans KR', sans-serif; background:#f8fafc; margin:0; }
-        .container { max-width:960px; margin:40px auto; padding:0 24px; }
-        h1 { font-size:24px; margin-bottom:24px; }
-        .filter-box { background:white; border-radius:12px; padding:16px; box-shadow:0 10px 24px rgba(15,23,42,0.06); margin-bottom:24px; display:grid; gap:12px; }
-        .filter-row { display:grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap:12px; }
-        .filter-row label { font-size:13px; color:#475569; display:flex; flex-direction:column; gap:6px; }
-        .filter-row select, .filter-row input { height:38px; border:1px solid #d1d5db; border-radius:8px; padding:0 10px; font-size:13px; }
-        .filter-actions { display:flex; gap:10px; justify-content:flex-end; }
-        .filter-actions button, .filter-actions a { border:none; border-radius:8px; padding:8px 16px; font-size:13px; cursor:pointer; text-decoration:none; display:inline-flex; align-items:center; }
-        .btn-primary { background:#2563eb; color:white; border:none; border-radius:8px; padding:8px 16px; font-size:13px; cursor:pointer; text-decoration:none; display:inline-flex; align-items:center; }
-        .btn-secondary { background:#e2e8f0; color:#1f2937; border:none; border-radius:8px; padding:8px 16px; font-size:13px; cursor:pointer; text-decoration:none; display:inline-flex; align-items:center; }
-        .coupon-list { display:grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap:16px; }
-        .coupon-card { background:white; border-radius:12px; padding:16px; box-shadow:0 12px 30px rgba(15,23,42,0.08); min-height:220px; display:flex; flex-direction:column; }
-        .coupon-title { font-size:16px; font-weight:700; margin:8px 0; }
-        .coupon-meta { color:#6b7280; font-size:12px; margin-bottom:4px; }
-        .coupon-body { font-size:13px; color:#1f2937; margin-bottom:6px; flex:1; }
-        .coupon-footer { display:flex; justify-content:space-between; align-items:center; font-size:12px; color:#475569; }
-        .badge { display:inline-block; padding:4px 8px; border-radius:999px; font-size:11px; font-weight:600; }
-        .badge-global { background:#e0f2fe; color:#0369a1; }
-        .badge-brand { background:#fef3c7; color:#b45309; }
-        .badge-product { background:#dcfce7; color:#047857; }
-        .empty-state { text-align:center; padding:80px 0; color:#94a3b8; }
-        .btn-claim { width:100%; height:38px; border:none; border-radius:8px; background:#16a34a; color:white; font-weight:600; cursor:pointer; transition:background 0.2s ease; }
-        .btn-claim:hover { background:#15803d; }
-        .alert { padding:12px 16px; border-radius:8px; margin-bottom:16px; font-size:13px; }
-        .alert-success { background:#dcfce7; color:#166534; }
-        .alert-error { background:#fee2e2; color:#b91c1c; }
-        .pagination { display:flex; justify-content:center; gap:8px; margin-top:24px; }
-        .pagination a, .pagination span { padding:6px 10px; border-radius:6px; border:1px solid #d1d5db; font-size:12px; color:#1f2937; text-decoration:none; }
-        .pagination .active { background:#2563eb; color:white; border-color:#2563eb; }
-        .pagination .disabled { border-style:dashed; color:#9ca3af; cursor:default; }
-        @media (max-width: 640px) {
-            .coupon-list { grid-template-columns: 1fr; }
-        }
-    </style>
-</head>
-<body>
-<div class="container">
+<head th:replace="~{fragments/layout :: head('코딩의 집 | 쿠폰발급')}"></head>
+<body class="page font-body">
+<header th:replace="~{fragments/layout :: header}"></header>
+<main class="page-main coupon-main">
+<div class="coupon-main__inner container">
     <h1>쿠폰 발급</h1>
 
     <div th:if="${success}" class="alert alert-success" th:text="${success}"></div>
@@ -141,23 +103,26 @@
         <a th:if="${!page.last}" th:href="@{/mypage/coupons(page=${page.number + 1}, scope=${selectedScope}, brandId=${selectedBrandId}, status=${selectedStatus}, keyword=${keyword})}">다음</a>
         <span th:if="${page.last}" class="disabled">다음</span>
     </div>
-</div>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
         const storageKey = 'couponListScroll';
         const savedScroll = sessionStorage.getItem(storageKey);
         if (savedScroll !== null) {
-            window.scrollTo({ top: parseInt(savedScroll, 10), behavior: 'auto' });
-            sessionStorage.removeItem(storageKey);
+          window.scrollTo({ top: parseInt(savedScroll, 10), behavior: 'auto' });
+          sessionStorage.removeItem(storageKey);
         }
 
         document.querySelectorAll('.coupon-card form').forEach(function(form) {
-            form.addEventListener('submit', function() {
-                sessionStorage.setItem(storageKey, window.scrollY || window.pageYOffset);
-            });
+          form.addEventListener('submit', function() {
+            sessionStorage.setItem(storageKey, window.scrollY || window.pageYOffset);
+          });
         });
-    });
-</script>
+      });
+    </script>
+</div>
+</main>
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+<link rel="stylesheet" th:href="@{/css/sections.css}">
+<link rel="stylesheet" th:href="@{/css/mypage/coupon.css}">
 </body>
 </html>

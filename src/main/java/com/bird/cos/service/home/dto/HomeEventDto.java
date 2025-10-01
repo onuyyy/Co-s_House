@@ -4,6 +4,7 @@ public record HomeEventDto(
         String eyebrow,
         String title,
         String description,
+        String period,
         String linkUrl,
         String imageUrl
 ) {}
