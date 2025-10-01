@@ -4,7 +4,6 @@ import com.bird.cos.domain.cart.Cart;
 import com.bird.cos.domain.cart.CartItem;
 import com.bird.cos.domain.coupon.Coupon;
 import com.bird.cos.domain.coupon.UserCoupon;
-import com.bird.cos.domain.inventory.Inventory;
 import com.bird.cos.domain.product.Product;
 import com.bird.cos.domain.product.ProductOption;
 import com.bird.cos.domain.user.User;
