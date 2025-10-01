@@ -1,207 +1,216 @@
 <!doctype html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{fragments/layout :: head('주문/결제')}"></head>
-<!-- 페이지 전용 CSS 추가 -->
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head th:replace="~{fragments/layout :: head('주문/결제 | 코딩의 집')}"></head>
 <link rel="stylesheet" th:href="@{/css/order.css}">
 <body class="page font-body">
-  <div th:replace="~{fragments/layout :: header}"></div>
+<header th:replace="fragments/layout :: header"></header>
 
-  <div class="container">
-    <h1 class="page-title">주문/결제</h1>
+<!-- Main Content -->
+<main class="main-content">
+    <div class="page-card">
+<!--        <h1 class="page-title">주문/결제</h1>-->
 
-    <div class="order-layout">
-      <!-- 왼쪽 섹션 -->
-      <div class="left-section">
+        <div class="order-layout">
+            <!-- 왼쪽 섹션 -->
+            <div class="left-section">
 
-        <!-- 주문 결제 / 주문자 정보 섹션 -->
-        <div class="section-card">
-          <h2 class="section-title">주문 결제 / 주문자 정보</h2>
+                <!-- 주문자 정보 섹션 -->
+                <section class="section-card" aria-labelledby="orderer-info-title">
+                    <div class="section-head">
+                        <h2 id="orderer-info-title" class="section-title">주문자 정보</h2>
+                    </div>
 
-          <div class="form-group">
-            <label class="form-label">주문자명</label>
-            <input type="text" class="input" th:value="${order.user.userName}" readonly>
-          </div>
+                    <div class="form-group">
+                        <label class="form-label" for="orderer-name">주문자명</label>
+                        <input type="text" id="orderer-name" class="input" th:value="${order.user.userName}" readonly>
+                    </div>
 
-          <div class="form-group">
-            <label class="form-label">연락처</label>
-            <input type="text" class="input" th:value="${order.user.phone}" readonly>
-          </div>
+                    <div class="form-group">
+                        <label class="form-label" for="orderer-phone">연락처</label>
+                        <input type="text" id="orderer-phone" class="input" th:value="${order.user.phone}" readonly>
+                    </div>
 
-          <div class="form-group">
-            <label class="form-label">이메일</label>
-            <input type="text" class="input" th:value="${order.user.userEmail}" readonly>
-          </div>
-        </div>
+                    <div class="form-group">
+                        <label class="form-label" for="orderer-email">이메일</label>
+                        <input type="text" id="orderer-email" class="input" th:value="${order.user.userEmail}" readonly>
+                    </div>
+                </section>
 
-        <!-- 배송지 정보 섹션 -->
-        <div class="section-card">
-          <h2 class="section-title">배송지 정보
-            <button type="button" class="coupon-link">변경</button>
-          </h2>
+                <!-- 배송지 정보 섹션 -->
+                <section class="section-card" aria-labelledby="delivery-info-title">
+                    <div class="section-head">
+                        <h2 id="delivery-info-title" class="section-title">
+                            배송지 정보
+                            <button type="button" class="coupon-link">변경</button>
+                        </h2>
+                    </div>
 
-          <div class="form-group">
-            <label class="form-label">받는 분</label>
-            <input type="text" class="input" th:value="${order.user.userName}" readonly>
-          </div>
+                    <div class="form-group">
+                        <label class="form-label" for="recipient-name">받는 분</label>
+                        <input type="text" id="recipient-name" class="input" th:value="${order.user.userName}" readonly>
+                    </div>
 
-          <div class="form-group">
-            <label class="form-label">연락처</label>
-            <input type="text" class="input" th:value="${order.user.phone}" readonly>
-          </div>
+                    <div class="form-group">
+                        <label class="form-label" for="recipient-phone">연락처</label>
+                        <input type="text" id="recipient-phone" class="input" th:value="${order.user.phone}" readonly>
+                    </div>
 
-          <div class="form-group">
-            <label class="form-label">주소</label>
-            <input type="text" class="input" th:value="${order.user.address}" readonly>
-          </div>
+                    <div class="form-group">
+                        <label class="form-label" for="recipient-address">주소</label>
+                        <input type="text" id="recipient-address" class="input" th:value="${order.user.address}" readonly>
+                    </div>
 
-          <div class="form-group">
-            <button type="button" class="address-search-btn coupon-link">기본 배송지로 저장</button>
-          </div>
+                    <div class="form-group">
+                        <button type="button" class="address-search-btn">기본 배송지로 저장</button>
+                    </div>
 
-          <div class="form-group">
-            <label class="form-label">배송시 요청사항을 선택해주세요</label>
-            <select class="input">
-              <option>배송시 요청사항을 선택해주세요</option>
-              <option>문 앞에 놓아주세요</option>
-              <option>경비실에 맡겨주세요</option>
-              <option>택배보관함에 넣어주세요</option>
-              <option>직접 받겠습니다</option>
-            </select>
-          </div>
-        </div>
+                    <div class="form-group">
+                        <label class="form-label" for="delivery-request">배송 요청사항</label>
+                        <select id="delivery-request" class="input">
+                            <option>배송시 요청사항을 선택해주세요</option>
+                            <option>문 앞에 놓아주세요</option>
+                            <option>경비실에 맡겨주세요</option>
+                            <option>택배보관함에 넣어주세요</option>
+                            <option>직접 받겠습니다</option>
+                        </select>
+                    </div>
+                </section>
 
-        <!-- 주문 상품 정보 섹션 -->
-        <div class="section-card">
-          <h2 class="section-title">주문 상품 정보
-            <span class="item-count" th:text="${#lists.size(order.items)} + '건'">1건</span>
-          </h2>
+                <!-- 주문 상품 정보 섹션 -->
+                <section class="section-card" aria-labelledby="order-items-title">
+                    <div class="section-head">
+                        <h2 id="order-items-title" class="section-title">
+                            주문 상품 정보
+                            <span class="item-count" th:text="${#lists.size(order.items)} + '건'">1건</span>
+                        </h2>
+                    </div>
 
-          <div class="order-items">
-            <div class="order-item" th:each="item : ${order.items}">
-              <div class="item-info">
-                <div class="item-image">
-                  <div class="product-img-placeholder">📦</div>
-                </div>
-                <div class="item-details">
-                  <p class="item-name" th:text="${item.productName}">상품명</p>
-                  <p class="item-option" th:if="${item.productOptionName != null}" th:text="${item.productOptionName}">옵션명</p>
-                  <p class="item-quantity" th:text="'수량: ' + ${item.quantity} + '개'">수량: 0개</p>
-                </div>
-              </div>
-              <div class="item-shipping">
-                <div>
-                  <p class="item-price" th:text="${#numbers.formatDecimal(item.price, 0, 'COMMA', 0, 'POINT')} + '원'">139,000원</p>
-                  <span class="shipping-label">무료배송</span>
-                </div>
-              </div>
+                    <div class="order-items">
+                        <div class="order-item" th:each="item : ${order.items}">
+                            <div class="item-info">
+                                <div class="item-image">
+                                    <div class="product-img-placeholder">📦</div>
+                                </div>
+                                <div class="item-details">
+                                    <h3 class="item-name" th:text="${item.productName}">상품명</h3>
+                                    <p class="item-option" th:if="${item.productOptionName != null}" th:text="${item.productOptionName}">옵션명</p>
+                                    <p class="item-quantity" th:text="'수량: ' + ${item.quantity} + '개'">수량: 0개</p>
+                                </div>
+                            </div>
+                            <div class="item-shipping">
+                                <p class="item-price" th:text="${#numbers.formatDecimal(item.price, 0, 'COMMA', 0, 'POINT')} + '원'">139,000원</p>
+                                <span class="shipping-label">무료배송</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 포인트/쿠폰 정보 섹션 -->
+                <section class="section-card" aria-labelledby="discount-info-title">
+                    <div class="section-head">
+                        <h2 id="discount-info-title" class="section-title">포인트/쿠폰 정보</h2>
+                    </div>
+
+                    <!-- 쿠폰 부분 -->
+                    <div class="coupon-section">
+                        <h3 class="sub-section-title">쿠폰</h3>
+                        <div class="coupon-selected" id="selectedCoupon" style="display: none;">
+                            <div class="selected-coupon-info">
+                                <span class="selected-coupon-name"></span>
+                                <span class="selected-coupon-discount"></span>
+                            </div>
+                            <button type="button" class="coupon-cancel-btn" onclick="cancelCoupon()">취소</button>
+                        </div>
+                        <p class="coupon-message" id="couponMessage">선택된 쿠폰이 없습니다</p>
+                        <button type="button" class="coupon-link" onclick="openCouponModal()">내 쿠폰 목록 보기</button>
+                    </div>
+
+                    <!-- 포인트 부분 -->
+                    <div class="point-section">
+                        <h3 class="sub-section-title">포인트</h3>
+                        <div class="point-input-group">
+                            <input type="number" id="pointInput" class="point-input" placeholder="0" value="0" min="0" onchange="calculateTotal()">
+                            <button type="button" class="point-all-btn" onclick="useAllPoints()">전액 사용</button>
+                        </div>
+                        <p class="point-available">사용 가능 포인트 <span class="point-amount">155,555 P</span></p>
+                    </div>
+                </section>
             </div>
-          </div>
+
+            <!-- 오른쪽 섹션 - 결제 금액 -->
+            <aside class="right-section">
+                <div class="payment-summary" aria-labelledby="payment-summary-title">
+                    <h2 id="payment-summary-title" class="summary-title">결제금액</h2>
+
+                    <div class="price-row">
+                        <span class="price-label">총 상품 금액</span>
+                        <span class="price-value" th:text="${#numbers.formatDecimal(order.totalPrice, 0, 'COMMA', 0, 'POINT')} + '원'">139,000원</span>
+                    </div>
+
+                    <div class="price-row">
+                        <span class="price-label">배송비</span>
+                        <span class="price-value" id="shippingFee">0원</span>
+                    </div>
+
+                    <div class="price-row">
+                        <span class="price-label">쿠폰 사용</span>
+                        <span class="price-value" data-role="coupon-discount" style="color: var(--success-color);">0원</span>
+                    </div>
+
+                    <div class="price-row">
+                        <span class="price-label">포인트 사용</span>
+                        <span class="price-value" data-role="points-discount" style="color: var(--success-color);">0원</span>
+                    </div>
+                    <div class="total-row"></div>
+                        <div class="total-amount-row">
+                            <span class="total-label">최종 결제 금액</span>
+                            <span class="total-price" th:text="${#numbers.formatDecimal(order.totalAmount, 0, 'COMMA', 0, 'POINT')} + ' 원'">179,000 원</span>
+                        </div>
+                        <span class="installment-text">139 P 적립 예정</span>
+
+                    <button type="button" class="payment-btn" th:text="${#numbers.formatDecimal(order.totalAmount, 0, 'COMMA', 0, 'POINT')} + '원 결제하기'">179,000 원 결제하기</button>
+                    <p class="terms-notice">
+                        💡 <strong>결제 안내:</strong> 브랜드별 최적 쿠폰이 자동 적용됩니다.
+                        이벤트 쿠폰을 발급하여 할인 받으세요!
+                    </p>
+
+                </div>
+            </aside>
         </div>
-
-        <!-- 포인트/쿠폰 정보 섹션 -->
-        <div class="section-card">
-          <h2 class="section-title">포인트/쿠폰 정보</h2>
-
-          <!-- 쿠폰 부분 -->
-          <div class="coupon-section">
-            <h3 class="sub-section-title">쿠폰</h3>
-            <div class="coupon-selected" id="selectedCoupon" style="display: none;">
-              <div class="selected-coupon-info">
-                <span class="selected-coupon-name"></span>
-                <span class="selected-coupon-discount"></span>
-              </div>
-              <button type="button" class="coupon-cancel-btn" onclick="cancelCoupon()">취소</button>
-            </div>
-            <p class="coupon-message" id="couponMessage">선택된 쿠폰이 없습니다</p>
-            <button type="button" class="coupon-link" onclick="openCouponModal()">내 쿠폰 목록 보기</button>
-          </div>
-
-          <!-- 포인트 부분 -->
-          <div class="point-section">
-            <h3 class="sub-section-title">포인트</h3>
-            <div class="point-input-group">
-              <input type="number" id="pointInput" class="point-input" placeholder="0" value="0" min="0" onchange="calculateTotal()">
-              <button type="button" class="point-all-btn coupon-link" onclick="useAllPoints()">전액 사용</button>
-            </div>
-            <p class="point-available">사용 가능 포인트 <span class="point-amount">155,555 P</span></p>
-          </div>
-        </div>
-      </div>
-
-      <!-- 오른쪽 섹션 - 결제 금액 -->
-      <div class="right-section">
-        <div class="payment-summary">
-          <h2 class="summary-title">결제금액</h2>
-
-          <div class="price-row">
-            <span class="price-label">총 상품 금액</span>
-            <span class="price-value" th:text="${#numbers.formatDecimal(order.totalPrice, 0, 'COMMA', 0, 'POINT')} + '원'">139,000원</span>
-          </div>
-
-          <div class="price-row">
-            <span class="price-label">배송비</span>
-            <span class="price-value" id="shippingFee">0원</span>
-          </div>
-
-          <div class="price-row">
-            <span class="price-label">쿠폰 사용</span>
-            <span class="price-value" data-role="coupon-discount">0원</span>
-          </div>
-
-          <div class="price-row">
-            <span class="price-label">포인트 사용</span>
-            <span class="price-value" data-role="points-discount">0원</span>
-          </div>
-
-          <div class="total-row">
-            <span class="total-label">최종 결제 금액</span>
-            <span class="total-price" th:text="${#numbers.formatDecimal(order.totalAmount, 0, 'COMMA', 0, 'POINT')} + ' 원'">179,000 원</span>
-            <span class="installment-text">139 P 적립 예정</span>
-          </div>
-
-          <div class="terms-notice">
-            받아볼 텍스트 제안 이후입니다, 추후 내용을 업데이트합니다.
-            <br><br>
-            이용약관/결제대행 및 쇼핑몰 이용약관 개인정보 수집, 결제대행 서비스와 등 서비스에 대한 저 공인 시킬인증을 필이 방면 내용입니다.
-          </div>
-
-          <button type="button" class="payment-btn" th:text="${#numbers.formatDecimal(order.totalAmount, 0, 'COMMA', 0, 'POINT')} + '원 결제하기'">179,000 원 결제하기</button>
-        </div>
-      </div>
     </div>
-  </div>
+</main>
 
-  <!-- 쿠폰 모달 -->
-  <div id="couponModal" class="modal">
+<!-- 쿠폰 모달 -->
+<div id="couponModal" class="modal">
     <div class="modal-content">
-      <div class="modal-header">
-        <h2>내 쿠폰 목록</h2>
-        <span class="close" onclick="closeCouponModal()">&times;</span>
-      </div>
-      <div class="modal-body">
-        <div id="couponList" class="coupon-list">
-          <div class="loading-message">쿠폰을 불러오는 중...</div>
+        <div class="modal-header">
+            <h2>내 쿠폰 목록</h2>
+            <button type="button" class="close" onclick="closeCouponModal()" aria-label="쿠폰 모달 닫기">&times;</button>
         </div>
-      </div>
+        <div class="modal-body">
+            <div id="couponList" class="coupon-list">
+                <div class="loading-message">쿠폰을 불러오는 중...</div>
+            </div>
+        </div>
     </div>
-  </div>
+</div>
 
-  <div th:replace="~{fragments/layout :: footer}"></div>
+<footer th:replace="fragments/layout :: footer"></footer>
 
-  <!-- Hidden form with order data for JavaScript -->
-  <div id="hiddenOrderData" style="display: none;">
+<!-- Hidden form with order data for JavaScript -->
+<div id="hiddenOrderData" style="display: none;">
     <div th:each="item, itemStat : ${order.items}">
-      <input type="hidden" th:id="'item-' + ${itemStat.index} + '-productId'" th:value="${item.productId}" />
-      <input type="hidden" th:id="'item-' + ${itemStat.index} + '-productOptionId'" th:value="${item.productOptionId}" />
-      <input type="hidden" th:id="'item-' + ${itemStat.index} + '-quantity'" th:value="${item.quantity}" />
-      <input type="hidden" th:id="'item-' + ${itemStat.index} + '-price'" th:value="${item.price}" />
-      <input type="hidden" th:id="'item-' + ${itemStat.index} + '-productName'" th:value="${item.productName}" />
+        <input type="hidden" th:id="'item-' + ${itemStat.index} + '-productId'" th:value="${item.productId}" />
+        <input type="hidden" th:id="'item-' + ${itemStat.index} + '-productOptionId'" th:value="${item.productOptionId}" />
+        <input type="hidden" th:id="'item-' + ${itemStat.index} + '-quantity'" th:value="${item.quantity}" />
+        <input type="hidden" th:id="'item-' + ${itemStat.index} + '-price'" th:value="${item.price}" />
+        <input type="hidden" th:id="'item-' + ${itemStat.index} + '-productName'" th:value="${item.productName}" />
     </div>
     <input type="hidden" id="totalItemsCount" th:value="${#lists.size(order.items)}" />
-  </div>
+</div>
 
-  <script src="/js/payment/checkout.js"></script>
-  <script th:inline="javascript">
+<script src="/js/payment/checkout.js"></script>
+<script th:inline="javascript">
     // 전역 변수
     let selectedCouponData = null;
     const totalPrice = parseFloat('[[${ order.totalPrice }]]') || 0;
@@ -271,11 +280,13 @@
 
     function openCouponModal() {
         document.getElementById('couponModal').style.display = 'block';
+        document.body.style.overflow = 'hidden';
         loadMyCoupons();
     }
 
     function closeCouponModal() {
         document.getElementById('couponModal').style.display = 'none';
+        document.body.style.overflow = '';
     }
 
     async function loadMyCoupons() {
@@ -627,66 +638,703 @@
     window.onclick = function(event) {
         const modal = document.getElementById('couponModal');
         if (event.target === modal) {
-            modal.style.display = 'none';
+            closeCouponModal();
         }
     }
-  </script>
-
-  <style>
-    .payment-method {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    .method-option {
-      display: flex;
-      align-items: center;
-    }
-
-    .method-option input[type="radio"] {
-      margin-right: 12px;
-    }
-
-    .method-option label {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      cursor: pointer;
-      font-size: 14px;
-    }
-
-    .method-logo {
-      font-size: 16px;
-    }
-
-    .method-tag {
-      background: #e3f2fd;
-      color: #1976d2;
-      padding: 2px 6px;
-      border-radius: 4px;
-      font-size: 11px;
-      font-weight: 500;
-    }
-
-    .installment-info {
-      margin-top: 16px;
-      padding-top: 16px;
-      border-top: 1px solid #eee;
-      font-size: 12px;
-      color: #666;
-    }
-
-    .installment-info p {
-      margin: 0;
-      font-weight: 500;
-      color: #333;
-    }
-
-    .installment-info small {
-      display: block;
-      margin-top: 4px;
-    }
-  </style>
+</script>
 </body>
 </html>
+
+<!--<!doctype html>-->
+<!--<html lang="ko" xmlns:th="http://www.thymeleaf.org">-->
+<!--<head th:replace="~{fragments/layout :: head('주문/결제')}"></head>-->
+<!--&lt;!&ndash; 페이지 전용 CSS 추가 &ndash;&gt;-->
+<!--<link rel="stylesheet" th:href="@{/css/order.css}">-->
+<!--<body class="page font-body">-->
+<!--  <div th:replace="~{fragments/layout :: header}"></div>-->
+
+<!--  &lt;!&ndash; Main Content &ndash;&gt;-->
+<!--  <section class="items-card" aria-labelledby="page-title">-->
+<!--      <div class="section-head">-->
+
+<!--    <div class="order-layout">-->
+<!--      &lt;!&ndash; 왼쪽 섹션 &ndash;&gt;-->
+<!--      <div class="left-section">-->
+
+<!--        &lt;!&ndash; 주문 결제 / 주문자 정보 섹션 &ndash;&gt;-->
+<!--        <div class="section-card">-->
+<!--          <h2 class="section-title">주문 결제 / 주문자 정보</h2>-->
+
+<!--          <div class="form-group">-->
+<!--            <label class="form-label">주문자명</label>-->
+<!--            <input type="text" class="input" th:value="${order.user.userName}" readonly>-->
+<!--          </div>-->
+
+<!--          <div class="form-group">-->
+<!--            <label class="form-label">연락처</label>-->
+<!--            <input type="text" class="input" th:value="${order.user.phone}" readonly>-->
+<!--          </div>-->
+
+<!--          <div class="form-group">-->
+<!--            <label class="form-label">이메일</label>-->
+<!--            <input type="text" class="input" th:value="${order.user.userEmail}" readonly>-->
+<!--          </div>-->
+<!--        </div>-->
+
+<!--        &lt;!&ndash; 배송지 정보 섹션 &ndash;&gt;-->
+<!--        <div class="section-card">-->
+<!--          <h2 class="section-title">배송지 정보-->
+<!--            <button type="button" class="coupon-link">변경</button>-->
+<!--          </h2>-->
+
+<!--          <div class="form-group">-->
+<!--            <label class="form-label">받는 분</label>-->
+<!--            <input type="text" class="input" th:value="${order.user.userName}" readonly>-->
+<!--          </div>-->
+
+<!--          <div class="form-group">-->
+<!--            <label class="form-label">연락처</label>-->
+<!--            <input type="text" class="input" th:value="${order.user.phone}" readonly>-->
+<!--          </div>-->
+
+<!--          <div class="form-group">-->
+<!--            <label class="form-label">주소</label>-->
+<!--            <input type="text" class="input" th:value="${order.user.address}" readonly>-->
+<!--          </div>-->
+
+<!--          <div class="form-group">-->
+<!--            <button type="button" class="address-search-btn coupon-link">기본 배송지로 저장</button>-->
+<!--          </div>-->
+
+<!--          <div class="form-group">-->
+<!--            <label class="form-label">배송시 요청사항을 선택해주세요</label>-->
+<!--            <select class="input">-->
+<!--              <option>배송시 요청사항을 선택해주세요</option>-->
+<!--              <option>문 앞에 놓아주세요</option>-->
+<!--              <option>경비실에 맡겨주세요</option>-->
+<!--              <option>택배보관함에 넣어주세요</option>-->
+<!--              <option>직접 받겠습니다</option>-->
+<!--            </select>-->
+<!--          </div>-->
+<!--        </div>-->
+
+<!--        &lt;!&ndash; 주문 상품 정보 섹션 &ndash;&gt;-->
+<!--        <div class="section-card">-->
+<!--          <h2 class="section-title">주문 상품 정보-->
+<!--            <span class="item-count" th:text="${#lists.size(order.items)} + '건'">1건</span>-->
+<!--          </h2>-->
+
+<!--          <div class="order-items">-->
+<!--            <div class="order-item" th:each="item : ${order.items}">-->
+<!--              <div class="item-info">-->
+<!--                <div class="item-image">-->
+<!--                  <div class="product-img-placeholder">📦</div>-->
+<!--                </div>-->
+<!--                <div class="item-details">-->
+<!--                  <p class="item-name" th:text="${item.productName}">상품명</p>-->
+<!--                  <p class="item-option" th:if="${item.productOptionName != null}" th:text="${item.productOptionName}">옵션명</p>-->
+<!--                  <p class="item-quantity" th:text="'수량: ' + ${item.quantity} + '개'">수량: 0개</p>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--              <div class="item-shipping">-->
+<!--                <div>-->
+<!--                  <p class="item-price" th:text="${#numbers.formatDecimal(item.price, 0, 'COMMA', 0, 'POINT')} + '원'">139,000원</p>-->
+<!--                  <span class="shipping-label">무료배송</span>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+
+<!--        &lt;!&ndash; 포인트/쿠폰 정보 섹션 &ndash;&gt;-->
+<!--        <div class="section-card">-->
+<!--          <h2 class="section-title">포인트/쿠폰 정보</h2>-->
+
+<!--          &lt;!&ndash; 쿠폰 부분 &ndash;&gt;-->
+<!--          <div class="coupon-section">-->
+<!--            <h3 class="sub-section-title">쿠폰</h3>-->
+<!--            <div class="coupon-selected" id="selectedCoupon" style="display: none;">-->
+<!--              <div class="selected-coupon-info">-->
+<!--                <span class="selected-coupon-name"></span>-->
+<!--                <span class="selected-coupon-discount"></span>-->
+<!--              </div>-->
+<!--              <button type="button" class="coupon-cancel-btn" onclick="cancelCoupon()">취소</button>-->
+<!--            </div>-->
+<!--            <p class="coupon-message" id="couponMessage">선택된 쿠폰이 없습니다</p>-->
+<!--            <button type="button" class="coupon-link" onclick="openCouponModal()">내 쿠폰 목록 보기</button>-->
+<!--          </div>-->
+
+<!--          &lt;!&ndash; 포인트 부분 &ndash;&gt;-->
+<!--          <div class="point-section">-->
+<!--            <h3 class="sub-section-title">포인트</h3>-->
+<!--            <div class="point-input-group">-->
+<!--              <input type="number" id="pointInput" class="point-input" placeholder="0" value="0" min="0" onchange="calculateTotal()">-->
+<!--              <button type="button" class="point-all-btn coupon-link" onclick="useAllPoints()">전액 사용</button>-->
+<!--            </div>-->
+<!--            <p class="point-available">사용 가능 포인트 <span class="point-amount">155,555 P</span></p>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+
+<!--      &lt;!&ndash; 오른쪽 섹션 - 결제 금액 &ndash;&gt;-->
+<!--      <div class="right-section">-->
+<!--        <div class="payment-summary">-->
+<!--          <h2 class="summary-title">결제금액</h2>-->
+
+<!--          <div class="price-row">-->
+<!--            <span class="price-label">총 상품 금액</span>-->
+<!--            <span class="price-value" th:text="${#numbers.formatDecimal(order.totalPrice, 0, 'COMMA', 0, 'POINT')} + '원'">139,000원</span>-->
+<!--          </div>-->
+
+<!--          <div class="price-row">-->
+<!--            <span class="price-label">배송비</span>-->
+<!--            <span class="price-value" id="shippingFee">0원</span>-->
+<!--          </div>-->
+
+<!--          <div class="price-row">-->
+<!--            <span class="price-label">쿠폰 사용</span>-->
+<!--            <span class="price-value" data-role="coupon-discount">0원</span>-->
+<!--          </div>-->
+
+<!--          <div class="price-row">-->
+<!--            <span class="price-label">포인트 사용</span>-->
+<!--            <span class="price-value" data-role="points-discount">0원</span>-->
+<!--          </div>-->
+
+<!--          <div class="total-row">-->
+<!--            <span class="total-label">최종 결제 금액</span>-->
+<!--            <span class="total-price" th:text="${#numbers.formatDecimal(order.totalAmount, 0, 'COMMA', 0, 'POINT')} + ' 원'">179,000 원</span>-->
+<!--            <span class="installment-text">139 P 적립 예정</span>-->
+<!--          </div>-->
+
+<!--          <div class="terms-notice">-->
+<!--            받아볼 텍스트 제안 이후입니다, 추후 내용을 업데이트합니다.-->
+<!--            <br><br>-->
+<!--            이용약관/결제대행 및 쇼핑몰 이용약관 개인정보 수집, 결제대행 서비스와 등 서비스에 대한 저 공인 시킬인증을 필이 방면 내용입니다.-->
+<!--          </div>-->
+
+<!--          <button type="button" class="payment-btn" th:text="${#numbers.formatDecimal(order.totalAmount, 0, 'COMMA', 0, 'POINT')} + '원 결제하기'">179,000 원 결제하기</button>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+
+<!--  &lt;!&ndash; 쿠폰 모달 &ndash;&gt;-->
+<!--  <div id="couponModal" class="modal">-->
+<!--    <div class="modal-content">-->
+<!--      <div class="modal-header">-->
+<!--        <h2>내 쿠폰 목록</h2>-->
+<!--        <span class="close" onclick="closeCouponModal()">&times;</span>-->
+<!--      </div>-->
+<!--      <div class="modal-body">-->
+<!--        <div id="couponList" class="coupon-list">-->
+<!--          <div class="loading-message">쿠폰을 불러오는 중...</div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+
+<!--  <div th:replace="~{fragments/layout :: footer}"></div>-->
+
+<!--  &lt;!&ndash; Hidden form with order data for JavaScript &ndash;&gt;-->
+<!--  <div id="hiddenOrderData" style="display: none;">-->
+<!--    <div th:each="item, itemStat : ${order.items}">-->
+<!--      <input type="hidden" th:id="'item-' + ${itemStat.index} + '-productId'" th:value="${item.productId}" />-->
+<!--      <input type="hidden" th:id="'item-' + ${itemStat.index} + '-productOptionId'" th:value="${item.productOptionId}" />-->
+<!--      <input type="hidden" th:id="'item-' + ${itemStat.index} + '-quantity'" th:value="${item.quantity}" />-->
+<!--      <input type="hidden" th:id="'item-' + ${itemStat.index} + '-price'" th:value="${item.price}" />-->
+<!--      <input type="hidden" th:id="'item-' + ${itemStat.index} + '-productName'" th:value="${item.productName}" />-->
+<!--    </div>-->
+<!--    <input type="hidden" id="totalItemsCount" th:value="${#lists.size(order.items)}" />-->
+<!--  </div>-->
+
+<!--  <script src="/js/payment/checkout.js"></script>-->
+<!--  <script th:inline="javascript">-->
+<!--    // 전역 변수-->
+<!--    let selectedCouponData = null;-->
+<!--    const totalPrice = parseFloat('[[${ order.totalPrice }]]') || 0;-->
+<!--    let shippingCost = determineShippingCost(totalPrice);-->
+<!--    let availablePoints = 0;-->
+<!--    const customerEmail = /*[[${order.user.userEmail}]]*/ '';-->
+<!--    const customerName = /*[[${order.user.userName}]]*/ '';-->
+<!--    let currentFinalAmount = totalPrice + shippingCost;-->
+<!--    let currentUsedPoints = 0;-->
+
+<!--    const orderProductIds = getOrderProductIds();-->
+
+<!--    document.addEventListener('DOMContentLoaded', async function() {-->
+<!--        await loadUserPoints();-->
+<!--        updatePaymentSummary();-->
+
+<!--        const paymentBtn = document.querySelector('.payment-btn');-->
+<!--        if (paymentBtn) {-->
+<!--            paymentBtn.addEventListener('click', handlePaymentButtonClick);-->
+<!--        }-->
+<!--    });-->
+
+<!--    function determineShippingCost(productAmount) {-->
+<!--        const freeShippingThreshold = 30000;-->
+<!--        return productAmount >= freeShippingThreshold ? 0 : 3000;-->
+<!--    }-->
+
+<!--    function getOrderProductIds() {-->
+<!--        const totalItemsCount = parseInt(document.getElementById('totalItemsCount').value) || 0;-->
+<!--        const productIds = [];-->
+
+<!--        for (let index = 0; index < totalItemsCount; index++) {-->
+<!--            const productIdElement = document.getElementById(`item-${index}-productId`);-->
+<!--            if (productIdElement && productIdElement.value) {-->
+<!--                productIds.push(parseInt(productIdElement.value, 10));-->
+<!--            }-->
+<!--        }-->
+
+<!--        return productIds;-->
+<!--    }-->
+
+<!--    async function loadUserPoints() {-->
+<!--        try {-->
+<!--            const response = await fetch('/order/my-points');-->
+<!--            const data = await response.json();-->
+
+<!--            if (data.success) {-->
+<!--                availablePoints = data.totalPoints || 0;-->
+<!--            } else {-->
+<!--                availablePoints = 0;-->
+<!--                console.error('포인트 로딩 실패:', data.message);-->
+<!--            }-->
+<!--        } catch (error) {-->
+<!--            availablePoints = 0;-->
+<!--            console.error('포인트 로딩 중 오류:', error);-->
+<!--        } finally {-->
+<!--            const pointAmountEl = document.querySelector('.point-amount');-->
+<!--            if (pointAmountEl) {-->
+<!--                pointAmountEl.textContent = `${formatPrice(availablePoints)} P`;-->
+<!--            }-->
+<!--            const pointInput = document.getElementById('pointInput');-->
+<!--            if (pointInput) {-->
+<!--                pointInput.max = availablePoints;-->
+<!--            }-->
+<!--        }-->
+<!--    }-->
+
+<!--    function openCouponModal() {-->
+<!--        document.getElementById('couponModal').style.display = 'block';-->
+<!--        loadMyCoupons();-->
+<!--    }-->
+
+<!--    function closeCouponModal() {-->
+<!--        document.getElementById('couponModal').style.display = 'none';-->
+<!--    }-->
+
+<!--    async function loadMyCoupons() {-->
+<!--        try {-->
+<!--            const productIdsParam = orderProductIds.length > 0-->
+<!--                ? `?${orderProductIds.map(id => `productIds=${id}`).join('&')}`-->
+<!--                : '';-->
+
+<!--            const response = await fetch(`/order/my-coupons${productIdsParam}`);-->
+<!--            const coupons = await response.json();-->
+
+<!--            const couponList = document.getElementById('couponList');-->
+
+<!--            if (coupons.length === 0) {-->
+<!--                couponList.innerHTML = '<div class="no-coupons">사용 가능한 쿠폰이 없습니다.</div>';-->
+<!--                return;-->
+<!--            }-->
+
+<!--            couponList.innerHTML = coupons.map(coupon => {-->
+<!--                const isUsable = coupon.usable;-->
+<!--                const discountAmount = coupon.coupon.discountAmount || 0;-->
+<!--                const discountRate = coupon.coupon.discountRate || 0;-->
+
+<!--                let discountType = 'AMOUNT';-->
+<!--                let discountValue = discountAmount;-->
+<!--                let discountText = '';-->
+
+<!--                if (discountAmount > 0) {-->
+<!--                    discountType = 'AMOUNT';-->
+<!--                    discountValue = discountAmount;-->
+<!--                    discountText = `${formatPrice(discountAmount)}원 할인`;-->
+<!--                } else if (discountRate > 0) {-->
+<!--                    discountType = 'RATE';-->
+<!--                    discountValue = discountRate;-->
+<!--                    discountText = `${discountRate}% 할인`;-->
+<!--                } else {-->
+<!--                    discountText = '할인 정보 없음';-->
+<!--                }-->
+
+<!--                return `-->
+<!--                    <div class="coupon-item ${!isUsable ? 'disabled' : ''}">-->
+<!--                        <div class="coupon-info">-->
+<!--                            <div class="coupon-title">${coupon.coupon.couponTitle || ''}</div>-->
+<!--                            <div class="coupon-description">${coupon.coupon.couponDescription || ''}</div>-->
+<!--                            <div class="coupon-discount-type">${discountType === 'AMOUNT' ? '금액할인' : '퍼센트할인'}</div>-->
+<!--                            <div class="coupon-discount">${discountText}</div>-->
+<!--                            <div class="coupon-expire">만료일: ${formatDate(coupon.coupon.expiredAt)}</div>-->
+<!--                        </div>-->
+<!--                        <button-->
+<!--                            class="coupon-use-btn ${!isUsable ? 'disabled' : ''}"-->
+<!--                            onclick="applyCoupon(${coupon.userCouponId}, '${escapeQuotes(coupon.coupon.couponTitle)}', '${discountType}', ${discountValue})"-->
+<!--                            ${!isUsable ? 'disabled' : ''}-->
+<!--                        >-->
+<!--                            ${isUsable ? '적용하기' : '사용불가'}-->
+<!--                        </button>-->
+<!--                    </div>-->
+<!--                `;-->
+<!--            }).join('');-->
+<!--        } catch (error) {-->
+<!--            console.error('쿠폰 목록 로드 실패:', error);-->
+<!--            document.getElementById('couponList').innerHTML = '<div class="error-message">쿠폰 목록을 불러올 수 없습니다.</div>';-->
+<!--        }-->
+<!--    }-->
+
+<!--    async function applyCoupon(userCouponId, couponTitle, discountType, discountValue) {-->
+<!--        try {-->
+<!--            const currentOrderAmount = totalPrice + shippingCost;-->
+<!--            const response = await fetch(`/order/my-coupons/${userCouponId}?orderAmount=${currentOrderAmount}`);-->
+
+<!--            if (!response.ok) {-->
+<!--                const errorText = await response.text();-->
+<!--                console.error('쿠폰 검증 실패:', response.status, errorText);-->
+
+<!--                if (response.status === 400) {-->
+<!--                    alert('쿠폰이 만료되었거나 이미 사용된 쿠폰입니다.');-->
+<!--                } else if (response.status === 404) {-->
+<!--                    alert('쿠폰을 찾을 수 없습니다.');-->
+<!--                } else {-->
+<!--                    alert('쿠폰 검증에 실패했습니다. 다시 시도해주세요.');-->
+<!--                }-->
+<!--                return;-->
+<!--            }-->
+
+<!--            const couponInfo = await response.json();-->
+
+<!--            if (!couponInfo.applicable) {-->
+<!--                alert(`이 쿠폰은 최소 주문 금액 ${formatPrice(couponInfo.minPurchaseAmount)}원 이상부터 사용 가능합니다.`);-->
+<!--                return;-->
+<!--            }-->
+
+<!--            const actualDiscount = Number(couponInfo.calculatedDiscountAmount) || 0;-->
+<!--            const finalAmountFromServer = Number(couponInfo.finalAmount) || 0;-->
+
+<!--            selectedCouponData = {-->
+<!--                userCouponId: userCouponId,-->
+<!--                title: couponTitle,-->
+<!--                discountType: discountType,-->
+<!--                discountValue: discountValue,-->
+<!--                calculatedDiscountAmount: actualDiscount,-->
+<!--                finalAmount: finalAmountFromServer-->
+<!--            };-->
+
+<!--            document.getElementById('selectedCoupon').style.display = 'flex';-->
+<!--            document.getElementById('couponMessage').textContent = '쿠폰이 적용되었습니다.';-->
+<!--            document.querySelector('.selected-coupon-name').textContent = couponTitle;-->
+
+<!--            if (discountType === 'RATE') {-->
+<!--                document.querySelector('.selected-coupon-discount').textContent = `-${discountValue}% (${formatPrice(actualDiscount)}원)`;-->
+<!--            } else {-->
+<!--                document.querySelector('.selected-coupon-discount').textContent = `-${formatPrice(actualDiscount)}원`;-->
+<!--            }-->
+
+<!--            updatePaymentSummary();-->
+<!--            closeCouponModal();-->
+<!--        } catch (error) {-->
+<!--            console.error('쿠폰 적용 중 오류:', error);-->
+<!--            alert('쿠폰 적용 중 오류가 발생했습니다. 다시 시도해주세요.');-->
+<!--        }-->
+<!--    }-->
+
+<!--    function calculateDiscountAmount(discountType, discountValue) {-->
+<!--        if (discountType === 'RATE') {-->
+<!--            return Math.floor((totalPrice + shippingCost) * (discountValue / 100));-->
+<!--        }-->
+<!--        return discountValue;-->
+<!--    }-->
+
+<!--    function cancelCoupon() {-->
+<!--        selectedCouponData = null;-->
+<!--        const selectedCouponEl = document.getElementById('selectedCoupon');-->
+<!--        if (selectedCouponEl) {-->
+<!--            selectedCouponEl.style.display = 'none';-->
+<!--        }-->
+<!--        const couponMessageEl = document.getElementById('couponMessage');-->
+<!--        if (couponMessageEl) {-->
+<!--            couponMessageEl.textContent = '선택된 쿠폰이 없습니다';-->
+<!--        }-->
+<!--        const couponDiscountLabel = document.querySelector('.selected-coupon-discount');-->
+<!--        if (couponDiscountLabel) {-->
+<!--            couponDiscountLabel.textContent = '';-->
+<!--        }-->
+<!--        updatePaymentSummary();-->
+<!--    }-->
+
+<!--    function useAllPoints() {-->
+<!--        const pointInput = document.getElementById('pointInput');-->
+<!--        if (pointInput) {-->
+<!--            pointInput.value = availablePoints;-->
+<!--            calculateTotal();-->
+<!--        }-->
+<!--    }-->
+
+<!--    function calculateTotal() {-->
+<!--        updatePaymentSummary();-->
+<!--    }-->
+
+<!--    function updatePaymentSummary() {-->
+<!--        let couponDiscount = 0;-->
+<!--        if (selectedCouponData) {-->
+<!--            if (selectedCouponData.calculatedDiscountAmount != null) {-->
+<!--                couponDiscount = selectedCouponData.calculatedDiscountAmount;-->
+<!--            } else if (selectedCouponData.discountType) {-->
+<!--                couponDiscount = calculateDiscountAmount(selectedCouponData.discountType, selectedCouponData.discountValue);-->
+<!--            }-->
+<!--        }-->
+
+<!--        const discountedProductPrice = Math.max(0, totalPrice - couponDiscount);-->
+<!--        shippingCost = determineShippingCost(discountedProductPrice);-->
+
+<!--        const pointInput = document.getElementById('pointInput');-->
+<!--        const usedPointsRaw = pointInput ? parseInt(pointInput.value, 10) || 0 : 0;-->
+<!--        const payableBeforePoints = Math.max(0, totalPrice + shippingCost - couponDiscount);-->
+<!--        const maxUsablePoints = Math.min(availablePoints, payableBeforePoints);-->
+<!--        const validUsedPoints = Math.min(usedPointsRaw, maxUsablePoints);-->
+
+<!--        if (pointInput && usedPointsRaw !== validUsedPoints) {-->
+<!--            pointInput.value = validUsedPoints;-->
+<!--        }-->
+
+<!--        const shippingFeeEl = document.getElementById('shippingFee');-->
+<!--        if (shippingFeeEl) {-->
+<!--            shippingFeeEl.textContent = shippingCost > 0 ? `${formatPrice(shippingCost)}원` : '무료배송';-->
+<!--        }-->
+
+<!--        const couponDiscountEl = document.querySelector('[data-role="coupon-discount"]');-->
+<!--        if (couponDiscountEl) {-->
+<!--            couponDiscountEl.textContent = couponDiscount > 0 ? `-${formatPrice(couponDiscount)}원` : '0원';-->
+<!--        }-->
+
+<!--        const pointsDiscountEl = document.querySelector('[data-role="points-discount"]');-->
+<!--        if (pointsDiscountEl) {-->
+<!--            pointsDiscountEl.textContent = validUsedPoints > 0 ? `-${formatPrice(validUsedPoints)}원` : '0원';-->
+<!--        }-->
+
+<!--        const finalAmount = Math.max(0, totalPrice + shippingCost - couponDiscount - validUsedPoints);-->
+<!--        currentFinalAmount = finalAmount;-->
+<!--        currentUsedPoints = validUsedPoints;-->
+
+<!--        const totalPriceEl = document.querySelector('.total-price');-->
+<!--        if (totalPriceEl) {-->
+<!--            totalPriceEl.textContent = `${formatPrice(finalAmount)} 원`;-->
+<!--        }-->
+
+<!--        const paymentBtn = document.querySelector('.payment-btn');-->
+<!--        if (paymentBtn) {-->
+<!--            paymentBtn.textContent = `${formatPrice(finalAmount)}원 결제하기`;-->
+<!--        }-->
+
+<!--        const earnPoints = Math.floor(finalAmount * 0.01);-->
+<!--        const installmentEl = document.querySelector('.installment-text');-->
+<!--        if (installmentEl) {-->
+<!--            installmentEl.textContent = `${formatPrice(earnPoints)} P 적립 예정`;-->
+<!--        }-->
+<!--    }-->
+
+<!--    async function handlePaymentButtonClick(event) {-->
+<!--        event.preventDefault();-->
+
+<!--        if (currentFinalAmount < 100) {-->
+<!--            alert('최종 결제 금액은 100원 이상이어야 합니다.');-->
+<!--            return;-->
+<!--        }-->
+
+<!--        await processPayment(currentFinalAmount, selectedCouponData, currentUsedPoints);-->
+<!--    }-->
+
+<!--    function collectOrderItemsData() {-->
+<!--        const items = [];-->
+<!--        const totalItemsCount = parseInt(document.getElementById('totalItemsCount').value) || 0;-->
+
+<!--        for (let index = 0; index < totalItemsCount; index++) {-->
+<!--            const productIdElement = document.getElementById(`item-${index}-productId`);-->
+<!--            const productOptionIdElement = document.getElementById(`item-${index}-productOptionId`);-->
+<!--            const quantityElement = document.getElementById(`item-${index}-quantity`);-->
+<!--            const priceElement = document.getElementById(`item-${index}-price`);-->
+<!--            const productNameElement = document.getElementById(`item-${index}-productName`);-->
+
+<!--            if (!productIdElement || !quantityElement || !priceElement) {-->
+<!--                continue;-->
+<!--            }-->
+
+<!--            const productId = Number(productIdElement.value);-->
+<!--            const quantity = Number(quantityElement.value);-->
+<!--            const priceValue = priceElement.value;-->
+<!--            const priceNumber = Number(priceValue);-->
+
+<!--            if (Number.isNaN(productId) || Number.isNaN(quantity) || Number.isNaN(priceNumber)) {-->
+<!--                continue;-->
+<!--            }-->
+
+<!--            const optionRaw = productOptionIdElement ? productOptionIdElement.value : null;-->
+<!--            const optionValue = optionRaw && optionRaw !== 'null' && optionRaw !== 'default'-->
+<!--                ? Number(optionRaw)-->
+<!--                : null;-->
+
+<!--            items.push({-->
+<!--                productId,-->
+<!--                productOptionId: optionValue,-->
+<!--                quantity,-->
+<!--                price: priceValue,-->
+<!--                productName: productNameElement ? productNameElement.value : ''-->
+<!--            });-->
+<!--        }-->
+
+<!--        return items;-->
+<!--    }-->
+
+<!--    function buildOrderPayload(finalAmount, couponData, usedPoints) {-->
+<!--        const orderItems = collectOrderItemsData();-->
+<!--        if (!orderItems.length) {-->
+<!--            throw new Error('주문할 상품이 없습니다.');-->
+<!--        }-->
+
+<!--        const couponDiscount = couponData-->
+<!--            ? (couponData.calculatedDiscountAmount != null-->
+<!--                ? couponData.calculatedDiscountAmount-->
+<!--                : calculateDiscountAmount(couponData.discountType, couponData.discountValue))-->
+<!--            : 0;-->
+
+<!--        const paymentOrderId = `ORDER-${Date.now()}`;-->
+<!--        let fallbackOrderName = '상품 주문';-->
+<!--        const fallbackNameElement = document.querySelector('.order-item .item-name');-->
+<!--        if (fallbackNameElement && typeof fallbackNameElement.textContent === 'string') {-->
+<!--            const trimmed = fallbackNameElement.textContent.trim();-->
+<!--            if (trimmed.length > 0) {-->
+<!--                fallbackOrderName = trimmed;-->
+<!--            }-->
+<!--        }-->
+
+<!--        const orderName = orderItems[0].productName || fallbackOrderName;-->
+<!--        const sanitizedFinalAmount = Math.max(Math.round(finalAmount || 0), 0);-->
+
+<!--        if (sanitizedFinalAmount < 100) {-->
+<!--            throw new Error('최종 결제 금액은 100원 이상이어야 합니다.');-->
+<!--        }-->
+
+<!--        return {-->
+<!--            paymentOrderId,-->
+<!--            orderItems,-->
+<!--            userCouponId: couponData ? couponData.userCouponId : null,-->
+<!--            couponDiscountAmount: couponDiscount,-->
+<!--            usedPoints: usedPoints || 0,-->
+<!--            finalAmount: sanitizedFinalAmount,-->
+<!--            orderName,-->
+<!--            customerEmail,-->
+<!--            customerName-->
+<!--        };-->
+<!--    }-->
+
+<!--    async function processPayment(finalAmount, couponData, usedPoints) {-->
+<!--        try {-->
+<!--            const orderPayload = buildOrderPayload(finalAmount, couponData, usedPoints);-->
+
+<!--            sessionStorage.removeItem('pendingOrderPayload');-->
+<!--            sessionStorage.setItem('pendingOrderPayload', JSON.stringify(orderPayload));-->
+
+<!--            await PaymentSdk.processTossPayment({-->
+<!--                orderId: orderPayload.paymentOrderId,-->
+<!--                finalAmount: orderPayload.finalAmount,-->
+<!--                orderName: orderPayload.orderName,-->
+<!--                customerEmail: orderPayload.customerEmail,-->
+<!--                customerName: orderPayload.customerName-->
+<!--            });-->
+<!--        } catch (error) {-->
+<!--            console.error('결제 요청 중 오류:', error);-->
+<!--            sessionStorage.removeItem('pendingOrderPayload');-->
+<!--            alert(error.message || '결제 처리 중 오류가 발생했습니다. 다시 시도해 주세요.');-->
+<!--        }-->
+<!--    }-->
+
+<!--    function formatPrice(price) {-->
+<!--        if (price === null || price === undefined || isNaN(price)) {-->
+<!--            return '0';-->
+<!--        }-->
+<!--        return Number(price).toLocaleString('ko-KR');-->
+<!--    }-->
+
+<!--    function formatDate(dateString) {-->
+<!--        if (!dateString) return '';-->
+<!--        const date = new Date(dateString);-->
+<!--        return date.toLocaleDateString('ko-KR');-->
+<!--    }-->
+
+<!--    function escapeQuotes(str) {-->
+<!--        if (!str) return '';-->
+<!--        return str.replace(/'/g, "\\'").replace(/"/g, '\\"');-->
+<!--    }-->
+
+<!--    window.onclick = function(event) {-->
+<!--        const modal = document.getElementById('couponModal');-->
+<!--        if (event.target === modal) {-->
+<!--            modal.style.display = 'none';-->
+<!--        }-->
+<!--    }-->
+<!--  </script>-->
+
+<!--  <style>-->
+<!--    .payment-method {-->
+<!--      display: flex;-->
+<!--      flex-direction: column;-->
+<!--      gap: 12px;-->
+<!--    }-->
+
+<!--    .method-option {-->
+<!--      display: flex;-->
+<!--      align-items: center;-->
+<!--    }-->
+
+<!--    .method-option input[type="radio"] {-->
+<!--      margin-right: 12px;-->
+<!--    }-->
+
+<!--    .method-option label {-->
+<!--      display: flex;-->
+<!--      align-items: center;-->
+<!--      gap: 8px;-->
+<!--      cursor: pointer;-->
+<!--      font-size: 14px;-->
+<!--    }-->
+
+<!--    .method-logo {-->
+<!--      font-size: 16px;-->
+<!--    }-->
+
+<!--    .method-tag {-->
+<!--      background: #e3f2fd;-->
+<!--      color: #1976d2;-->
+<!--      padding: 2px 6px;-->
+<!--      border-radius: 4px;-->
+<!--      font-size: 11px;-->
+<!--      font-weight: 500;-->
+<!--    }-->
+
+<!--    .installment-info {-->
+<!--      margin-top: 16px;-->
+<!--      padding-top: 16px;-->
+<!--      border-top: 1px solid #eee;-->
+<!--      font-size: 12px;-->
+<!--      color: #666;-->
+<!--    }-->
+
+<!--    .installment-info p {-->
+<!--      margin: 0;-->
+<!--      font-weight: 500;-->
+<!--      color: #333;-->
+<!--    }-->
+
+<!--    .installment-info small {-->
+<!--      display: block;-->
+<!--      margin-top: 4px;-->
+<!--    }-->
+<!--  </style>-->
+<!--</body>-->
+<!--</html>-->
