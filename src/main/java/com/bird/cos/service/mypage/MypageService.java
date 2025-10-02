@@ -1,19 +1,30 @@
 package com.bird.cos.service.mypage;
 
+import com.bird.cos.domain.product.Review;
 import com.bird.cos.domain.user.User;
 import com.bird.cos.dto.mypage.MypageUserManageResponse;
 import com.bird.cos.dto.mypage.MypageUserUpdateRequest;
+import com.bird.cos.dto.product.ReviewResponse;
 import com.bird.cos.repository.log.UserActivityLogRepository;
 import com.bird.cos.repository.mypage.MypageRepository;
+import com.bird.cos.repository.product.ReviewRepository;
 import com.bird.cos.repository.question.QuestionRepository;
 import com.bird.cos.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import jakarta.servlet.http.HttpServletRequest;
+
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -27,6 +38,7 @@ public class MypageService {
     private final PasswordEncoder passwordEncoder;
     private final QuestionRepository questionRepository;
     private final UserActivityLogRepository userActivityLogRepository;
+    private final ReviewRepository reviewRepository;
 
     //UserId 정보 넘기기
     public MypageUserManageResponse getUserInfoById(Long userId){
@@ -166,5 +178,29 @@ public class MypageService {
         }
 
         return baseAddress.trim() + ", " + detailAddress.trim();
+    }
+
+    public Map<String, Object> getMyReviews(String userNickname, String sort, int page, int size) {
+        Pageable pageable = PageRequest.of(page - 1, size, getReviewSort(sort));
+        Page<Review> reviewPage = reviewRepository.findByUserNickname(userNickname, pageable);
+
+        List<ReviewResponse> reviews = reviewPage.getContent().stream()
+                .map(ReviewResponse::fromEntity)  // from -> fromEntity로 변경
+                .collect(Collectors.toList());
+
+        return Map.of(
+                "reviews", reviews,
+                "totalPages", reviewPage.getTotalPages(),
+                "totalElements", reviewPage.getTotalElements()
+        );
+    }
+
+    private Sort getReviewSort(String sort) {
+        return switch (sort) {
+            case "oldest" -> Sort.by("createdAt").ascending();
+            case "rating-high" -> Sort.by("rating").descending();
+            case "rating-low" -> Sort.by("rating").ascending();
+            default -> Sort.by("createdAt").descending(); // latest
+        };
     }
 }

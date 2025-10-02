@@ -12,14 +12,18 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface ReviewRepository extends JpaRepository<Review, Long>, JpaSpecificationExecutor<Review>  {
+public interface ReviewRepository extends JpaRepository<Review, Long>, JpaSpecificationExecutor<Review> {
 
     // 기본 조회
-    List<Review> findAllByOrderByCreatedAtDesc();;
+    List<Review> findAllByOrderByCreatedAtDesc();
+
+    ;
+
     List<Review> findByProduct_ProductIdOrderByCreatedAtDesc(Long productId);
 
     // 필터별 조회 - 전체
     List<Review> findByIsPhotoReviewTrueOrderByCreatedAtDesc();
+
     List<Review> findByIsVerifiedPurchaseTrueOrderByCreatedAtDesc();
 
     // 상품 조회
@@ -27,13 +31,17 @@ public interface ReviewRepository extends JpaRepository<Review, Long>, JpaSpecif
 
     // 필터별 조회 - 상품별
     List<Review> findByProduct_ProductIdAndIsPhotoReviewTrueOrderByCreatedAtDesc(Long productId);
+
     List<Review> findByProduct_ProductIdAndIsVerifiedPurchaseTrueOrderByCreatedAtDesc(Long productId);
 
 
     // 평점별 정렬
     List<Review> findAllByOrderByRatingDesc();
+
     List<Review> findAllByOrderByRatingAsc();
+
     List<Review> findByProduct_ProductIdOrderByRatingDesc(Long productId);
+
     List<Review> findByProduct_ProductIdOrderByRatingAsc(Long productId);
 
     // 통계를 위한 쿼리
@@ -59,9 +67,15 @@ public interface ReviewRepository extends JpaRepository<Review, Long>, JpaSpecif
     Page<Review> findPhotoReviewsByProductIdAndOptionId(@Param("productId") Long productId, @Param("optionId") Long optionId, Pageable pageable);
 
     Page<Review> findByProduct_ProductId(Long productId, Pageable pageable);
+
     Page<Review> findByProduct_ProductIdAndProductOption_OptionId(Long productId, Long optionId, Pageable pageable);
+
     List<Review> findByProduct_ProductId(Long productId);
 
+    @Query("SELECT r FROM Review r WHERE r.user.userNickname = :userNickname")
+    Page<Review> findByUserNickname(@Param("userNickname") String userNickname, Pageable pageable);
 
+    @Query("SELECT COUNT(r) FROM Review r WHERE r.user.userNickname = :userNickname")
+    long countByUserNickname(@Param("userNickname") String userNickname);
 }
 

@@ -2,6 +2,8 @@ package com.bird.cos.controller.mypage;
 
 import com.bird.cos.dto.mypage.*;
 import com.bird.cos.dto.order.MyOrderResponse;
+import com.bird.cos.dto.product.ReviewResponse;
+import com.bird.cos.repository.product.ReviewRepository;
 import com.bird.cos.security.CustomUserDetails;
 import com.bird.cos.service.mypage.CouponService;
 import com.bird.cos.service.mypage.MypageService;
@@ -21,6 +23,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Controller
@@ -33,6 +36,7 @@ public class MypageController {
     private final OrderService orderService;
     private final CouponService couponService;
     private final PointService pointService;
+    private final ReviewRepository reviewRepository;
 
     /**
      * 마이페이지 홈
@@ -41,13 +45,15 @@ public class MypageController {
     public String mypage(Model model, Authentication authentication) {
         Long userId = mypageService.getUserIdFromAuthentication(authentication);
 
-        MypageUserManageResponse userInfo = mypageService.getUserInfoById(userId);
+        com.bird.cos.dto.mypage.MypageUserManageResponse userInfo = mypageService.getUserInfoById(userId);
         model.addAttribute("userInfo", userInfo);
 
-        // 임시 더미 데이터로 페이지 확인
+        // 실제 리뷰 개수 조회
+        long reviewCount = reviewRepository.countByUserNickname(userInfo.getUserNickname());
+
         model.addAttribute("orderCount", 5);
         model.addAttribute("wishlistCount", 12);
-        model.addAttribute("reviewCount", 3);
+        model.addAttribute("reviewCount", reviewCount);
         model.addAttribute("questionCount", 2);
 
         return "/mypage/mypage";
@@ -189,4 +195,37 @@ public class MypageController {
         return "mypage/points";
     }
 
+    /**
+     * 내가 작성한 리뷰 조회
+     */
+
+    @GetMapping("/reviews")
+    public String mypageReviews(@AuthenticationPrincipal CustomUserDetails user,
+                                @RequestParam(required = false, defaultValue = "latest") String sort,
+                                @RequestParam(required = false, defaultValue = "1") int page,
+                                @RequestParam(required = false, defaultValue = "10") int size,
+                                Model model) {
+        try {
+            String userNickname = user.getNickname();
+
+            // 해당 사용자가 작성한 리뷰 조회 (페이징 적용)
+            Map<String, Object> result = mypageService.getMyReviews(userNickname, sort, page, size);
+
+            List<ReviewResponse> reviews = (List<ReviewResponse>) result.get("reviews");
+            int totalPages = (Integer) result.get("totalPages");
+            long totalElements = (Long) result.get("totalElements");
+
+            model.addAttribute("reviews", reviews);
+            model.addAttribute("totalReviewCount", totalElements);
+            model.addAttribute("currentPage", page);
+            model.addAttribute("totalPages", totalPages);
+            model.addAttribute("currentSort", sort);
+
+            return "mypage/my-reviews";
+        } catch (Exception e) {
+            log.error("내 리뷰 조회 중 오류 발생", e);
+            model.addAttribute("error", "리뷰를 불러오는 중 오류가 발생했습니다: " + e.getMessage());
+            return "mypage/my-reviews";
+        }
+    }
 }
