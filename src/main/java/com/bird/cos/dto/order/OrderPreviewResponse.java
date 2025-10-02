@@ -35,5 +35,6 @@ public class OrderPreviewResponse {
         private Integer quantity;
         private BigDecimal price;
         private BigDecimal itemTotalPrice; // price * quantity
+        private String imageUrl;
     }
 }

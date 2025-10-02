@@ -454,11 +454,11 @@
 
                         const isGuest = results.some(r => r.guest);
                         if (isGuest) {
-                            alert('로그인 후 주문하면 보유 쿠폰이 적용돼요. 장바구니에 담았습니다!');
+                            alert('장바구니에 담았습니다. 주문을 완료하려면 로그인해 주세요.');
                         } else {
                             alert('장바구니에 담았습니다!');
                         }
-
+                        
                         if (redirectToCart) {
                             window.location.href = '/cart';
                         }
@@ -1135,4 +1135,3 @@
             </script>
 </body>
 </html>
-

@@ -13,6 +13,7 @@ import com.bird.cos.dto.cart.CartListResponse;
 import com.bird.cos.dto.cart.CartSummaryDto;
 import com.bird.cos.repository.cart.CartHeaderRepository;
 import com.bird.cos.repository.cart.CartItemRepository;
+import com.bird.cos.repository.inventory.InventoryRepository;
 import com.bird.cos.repository.mypage.coupon.UserCouponRepository;
 import com.bird.cos.repository.product.ProductOptionRepository;
 import com.bird.cos.repository.product.ProductRepository;
@@ -41,6 +42,7 @@ public class CartService {
     private final ProductRepository productRepository;
     private final ProductOptionRepository productOptionRepository;
     private final UserCouponRepository userCouponRepository;
+    private final InventoryRepository inventoryRepository;
 
     //항목당 최대 수량
     private static final int MAX_PER_ITEM = 50;
@@ -66,11 +68,11 @@ public class CartService {
         Cart cart = cartHeaderRepository.findByUser(user)
                 .orElseGet(() -> cartHeaderRepository.save(Cart.of(user)));
 
-        CartItem item = cartItemRepository.findByCartAndProductAndSelectedOptions(cart, product, selectedOptions)
-                .orElseGet(() -> CartItem.of(cart, product, 0, selectedOptions));
+        CartItem item = getOrCreateCartItem(cart, product, selectedOptions);
 
+        Integer availableStock = getAvailableStock(product);
         int desired = defaultZero(item.getQuantity()) + requestQty;
-        int normalized = normalizeQuantity(desired, product.getStockQuantity());
+        int normalized = normalizeQuantity(desired, availableStock);
 
         item.setQuantity(normalized);
         item.setCart(cart);
@@ -94,8 +96,18 @@ public class CartService {
                 : productOptionRepository.findByProduct_ProductIdIn(productIds).stream()
                 .collect(Collectors.groupingBy(opt -> opt.getProduct().getProductId()));
 
+        Map<Long, Integer> inventoryByProduct;
+        if (productIds.isEmpty()) {
+            inventoryByProduct = Map.of();
+        } else {
+            inventoryByProduct = inventoryRepository.findByProductIds(productIds).stream()
+                    .collect(Collectors.toMap(inv -> inv.getProductId().getProductId(),
+                            inv -> inv.getCurrentQuantity() != null ? inv.getCurrentQuantity() : 0,
+                            (existing, replacement) -> existing));
+        }
+
         List<CartItemResponseDto> items = entities.stream()
-                .map(item -> toDto(item, optionsByProduct))
+                .map(item -> toDto(item, optionsByProduct, inventoryByProduct))
                 .toList();
         CartSummaryDto summary = summarize(user, entities, items);
         return new CartListResponse(items, summary);
@@ -116,7 +128,11 @@ public class CartService {
         Map<Long, List<ProductOption>> optionMap = productId == null
                 ? Map.of()
                 : Map.of(productId, productOptionRepository.findByProduct_ProductId(productId));
-        return toDto(item, optionMap);
+        Integer availableStock = getAvailableStock(item.getProduct());
+        Map<Long, Integer> inventoryMap = (productId == null || availableStock == null)
+                ? Map.of()
+                : Map.of(productId, availableStock);
+        return toDto(item, optionMap, inventoryMap);
     }
 
     //장바구니 상품 삭제 (단건/다건)
@@ -134,7 +150,8 @@ public class CartService {
         CartItem item = cartItemRepository.findByCartItemIdAndCart_User(cartItemId, user)
                 .orElseThrow(() -> new RuntimeException("장바구니 항목을 찾을 수 없습니다."));
         Product product = item.getProduct();
-        int normalized = normalizeQuantity(quantity, product.getStockQuantity());
+        Integer availableStock = getAvailableStock(product);
+        int normalized = normalizeQuantity(quantity, availableStock);
         item.setQuantity(normalized);
         cartItemRepository.save(item);
     }
@@ -176,10 +193,10 @@ public class CartService {
             Product product = productRepository.findById(g.productId)
                     .orElseThrow(() -> new RuntimeException("상품을 찾을 수 없습니다."));
             String selectedOptions = prepareSelectedOptions(g.selectedOptions, product);
-            CartItem item = cartItemRepository.findByCartAndProductAndSelectedOptions(cart, product, selectedOptions)
-                    .orElseGet(() -> CartItem.of(cart, product, 0, selectedOptions));
+            CartItem item = getOrCreateCartItem(cart, product, selectedOptions);
+            Integer availableStock = getAvailableStock(product);
             int desired = defaultZero(item.getQuantity()) + defaultZero(g.quantity);
-            int normalized = normalizeQuantity(desired, product.getStockQuantity());
+            int normalized = normalizeQuantity(desired, availableStock);
             item.setQuantity(normalized);
             item.setCart(cart);
             if ((selectedOptions == null && item.getSelectedOptions() != null)
@@ -396,20 +413,31 @@ public class CartService {
 
     // --------- 내부 헬퍼 ---------
     //DTO 변환 + 가격 계산 동시에 함
-    private CartItemResponseDto toDto(CartItem item, Map<Long, List<ProductOption>> optionsByProduct) {
+    private CartItemResponseDto toDto(CartItem item,
+                                      Map<Long, List<ProductOption>> optionsByProduct,
+                                      Map<Long, Integer> inventoryByProduct) {
         Product p = item.getProduct();
 
         BigDecimal unitOriginal = p.getOriginalPrice();
         BigDecimal unitFinal = PriceCalculator.effectiveUnitPrice(p);
         BigDecimal lineTotal = PriceCalculator.lineTotal(unitFinal, defaultZero(item.getQuantity()));
 
-        boolean outOfStock = p.getStockQuantity() != null && item.getQuantity() != null
-                && p.getStockQuantity() < item.getQuantity();
+        Long productId = p.getProductId();
+        Integer availableStock = null;
+        if (inventoryByProduct != null && inventoryByProduct.containsKey(productId)) {
+            availableStock = inventoryByProduct.get(productId);
+        } else if (p.getStockQuantity() != null) {
+            availableStock = p.getStockQuantity();
+        }
+
+        boolean outOfStock = availableStock != null && item.getQuantity() != null
+                && availableStock < item.getQuantity();
 
         String status = p.getProductStatusCode() != null ? p.getProductStatusCode().getCodeName() : null;
 
-        List<ProductOption> options = p == null ? List.of()
-                : optionsByProduct.getOrDefault(p.getProductId(), List.of());
+        List<ProductOption> options = (productId == null)
+                ? List.of()
+                : optionsByProduct.getOrDefault(productId, List.of());
 
         String selectedOptionsRaw = item.getSelectedOptions();
         Long selectedOptionId = null;
@@ -476,6 +504,27 @@ public class CartService {
         return v == null ? 0 : v;
     }
 
+    private CartItem getOrCreateCartItem(Cart cart, Product product, String selectedOptions) {
+        CartItem existing = null;
+        String normalizedOptions = (selectedOptions != null && !selectedOptions.isBlank()) ? selectedOptions : null;
+
+        if (normalizedOptions != null) {
+            existing = cartItemRepository.findByCartAndProductAndSelectedOptions(cart, product, normalizedOptions)
+                    .orElse(null);
+        }
+
+        if (existing == null) {
+            existing = cartItemRepository.findByCartAndProduct(cart, product)
+                    .orElse(null);
+        }
+
+        if (existing == null) {
+            existing = CartItem.of(cart, product, 0, normalizedOptions);
+        }
+
+        return existing;
+    }
+
     //수량 검증: 최대 수량/재고 제한 위반 시 예외 처리
     private int normalizeQuantity(int desired, Integer stockQuantity) {
         if (desired <= 0) {
@@ -484,9 +533,18 @@ public class CartService {
         if (desired > MAX_PER_ITEM) {
             throw new RuntimeException("최대 " + MAX_PER_ITEM + "개까지 담을 수 있습니다.");
         }
-        if (stockQuantity != null && stockQuantity > 0 && desired > stockQuantity) {
+        if (stockQuantity != null && desired > stockQuantity) {
             throw new RuntimeException("재고 부족: 최대 " + stockQuantity + "개까지 담을 수 있습니다.");
         }
         return desired;
+    }
+
+    private Integer getAvailableStock(Product product) {
+        if (product == null) {
+            return null;
+        }
+        return inventoryRepository.findByProductId(product)
+                .map(inv -> inv.getCurrentQuantity() != null ? inv.getCurrentQuantity() : 0)
+                .orElse(product.getStockQuantity());
     }
 }

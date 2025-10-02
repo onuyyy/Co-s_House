@@ -26,7 +26,6 @@
     }
 
     .header-banner::after {
-        content: "x";
         position: absolute;
         right: 20px;
         font-weight: 600;
@@ -68,7 +67,6 @@
     }
 
     .header-banner::after {
-        content: "x";
         position: absolute;
         right: 20px;
         font-weight: 600;

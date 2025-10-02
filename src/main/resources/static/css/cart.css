@@ -125,7 +125,7 @@ html {
 }
 
 .summary-card h2 {
-    font-size: 1.5rem;
+    font-size: 1rem;
     font-weight: 600;
     color: var(--gray-900);
     margin: 0 0 1.5rem 0;
@@ -156,9 +156,8 @@ html {
 }
 
 .summary-list > div:last-child {
-    border-bottom: 2px solid var(--primary-color);
-    margin-top: 0.5rem;
-    padding-top: 1.25rem;
+    /*border-bottom: 2px solid var(--primary-color);*/
+    padding-top: 1.30rem;
 }
 
 .summary-list dt {
@@ -359,6 +358,12 @@ html {
     background: var(--gray-200);
 }
 
+.item-thumb__link {
+    display: inline-flex;
+    width: 100%;
+    height: 100%;
+}
+
 .item-thumb img {
     width: 100%;
     height: 100%;
@@ -375,6 +380,15 @@ html {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
+}
+
+.item-title__link {
+    color: inherit;
+    text-decoration: none;
+}
+
+.item-title__link:hover {
+    text-decoration: underline;
 }
 
 .item-select {

@@ -15,6 +15,8 @@ import com.bird.cos.repository.mypage.coupon.CouponRepository;
 import com.bird.cos.repository.mypage.coupon.UserCouponRepository;
 import com.bird.cos.repository.user.PointRepository;
 import com.bird.cos.repository.user.UserRepository;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,6 +30,7 @@ import java.util.List;
 public class EventService {
 
     private static final String EVENT_SLUG_PREFIX = "event-";
+    private static final String DEFAULT_EVENT_IMAGE = "/images/home.jpeg";
 
     private static final String WELCOME_POINT_DESCRIPTION = "웰컴 이벤트 3,000포인트";
     private static final int WELCOME_POINT_AMOUNT = 3_000;
@@ -37,6 +40,7 @@ public class EventService {
     private final PointRepository pointRepository;
     private final UserRepository userRepository;
     private final UserCouponRepository userCouponRepository;
+    private final ResourceLoader resourceLoader;
 
     /**
      * 활성화된 이벤트만 조회해 목록으로 변환
@@ -46,6 +50,7 @@ public class EventService {
         return eventRepository.findAll().stream()
                 .filter(event -> Boolean.TRUE.equals(event.getIsActive()))
                 .map(event -> EventCardResponse.from(event, EventType.from(event.getEventType())))
+                .map(this::enrichCardImage)
                 .toList();
     }
 
@@ -67,7 +72,11 @@ public class EventService {
                 .map(EventCouponInfo::from)
                 .toList();
 
-        return EventDetailResponse.from(event, eventType, coupons, false);
+        EventDetailResponse detail = EventDetailResponse.from(event, eventType, coupons, false);
+        String resolvedImage = resolveImage(detail.getSlug(), detail.getImage());
+        return detail.toBuilder()
+                .image(resolvedImage)
+                .build();
     }
 
     /**
@@ -184,5 +193,75 @@ public class EventService {
             return false;
         }
         return true;
+    }
+
+    private EventCardResponse enrichCardImage(EventCardResponse card) {
+        String resolvedImage = resolveImage(card.getSlug(), card.getImage());
+        return EventCardResponse.builder()
+                .slug(card.getSlug())
+                .title(card.getTitle())
+                .summary(card.getSummary())
+                .tag(card.getTag())
+                .period(card.getPeriod())
+                .image(resolvedImage)
+                .build();
+    }
+
+    private String resolveImage(String slug, String original) {
+        String local = resolveLocalImage(slug);
+        if (local != null) {
+            return local;
+        }
+
+        String normalized = normalizeImageUrl(original);
+        return hasText(normalized) ? normalized : DEFAULT_EVENT_IMAGE;
+    }
+
+    private String resolveLocalImage(String slug) {
+        if (!hasText(slug)) {
+            return null;
+        }
+
+        String sanitized = slug.replaceAll("[^a-zA-Z0-9-_]", "");
+        if (!hasText(sanitized)) {
+            return null;
+        }
+
+        String[] baseDirs = {"/images/events/", "/images/"};
+        String[] extensions = {".png", ".jpg", ".jpeg", ".webp"};
+
+        for (String baseDir : baseDirs) {
+            for (String ext : extensions) {
+                String candidate = baseDir + sanitized + ext;
+                if (resourceExists(candidate)) {
+                    return candidate;
+                }
+            }
+        }
+
+        return null;
+    }
+
+    private boolean resourceExists(String webPath) {
+        Resource resource = resourceLoader.getResource("classpath:/static" + webPath);
+        return resource.exists();
+    }
+
+    private String normalizeImageUrl(String url) {
+        if (!hasText(url)) {
+            return null;
+        }
+        String trimmed = url.trim();
+        if (trimmed.startsWith("http://") || trimmed.startsWith("https://") || trimmed.startsWith("//")) {
+            return trimmed;
+        }
+        if (trimmed.startsWith("/")) {
+            return trimmed;
+        }
+        return "/" + trimmed;
+    }
+
+    private boolean hasText(String value) {
+        return value != null && !value.trim().isEmpty();
     }
 }

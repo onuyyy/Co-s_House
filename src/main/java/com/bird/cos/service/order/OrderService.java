@@ -17,6 +17,7 @@ import com.bird.cos.repository.order.OrderRepository;
 import com.bird.cos.repository.product.ProductOptionRepository;
 import com.bird.cos.repository.product.ProductRepository;
 import com.bird.cos.repository.user.UserRepository;
+import com.bird.cos.service.inventory.InventoryOutboundService;
 import com.bird.cos.service.user.PointService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -44,6 +45,7 @@ public class OrderService {
     private final ProductOptionRepository productOptionRepository;
     private final UserCouponRepository userCouponRepository;
     private final PointService pointService;
+    private final InventoryOutboundService inventoryOutboundService;
 
     @Transactional(readOnly = true)
     public OrderPreviewResponse getOrderPreview(String email, List<OrderRequest> orderItems) {
@@ -71,6 +73,7 @@ public class OrderService {
                     .quantity(orderItem.getQuantity())
                     .price(orderItem.getPrice())
                     .itemTotalPrice(itemTotalPrice)
+                    .imageUrl(product.getMainImageUrl())
                     .build();
 
             itemPreviews.add(itemPreview);
@@ -113,6 +116,16 @@ public class OrderService {
 
         // OrderItem 들이 추가된 Order를 다시 저장
         order = orderRepository.save(order);
+
+        // 재고 출고 처리
+        try {
+            inventoryOutboundService.processOutboundForOrder(order.getOrderId());
+        } catch (BusinessException e) {
+            throw e; // BusinessException은 그대로 던짐 (GlobalExceptionHandler에서 처리)
+        } catch (Exception e) {
+            throw BusinessException.of(com.bird.cos.exception.ErrorCode.INVALID_OPERATION,
+                "주문 처리 중 오류가 발생했습니다: " + e.getMessage());
+        }
 
         // 쿠폰 사용 처리
         if (userCouponId != null) {
@@ -246,6 +259,7 @@ public class OrderService {
                             item.getProductOption().getOptionName() + " : " + item.getProductOption().getOptionValue() : null)
                     .quantity(item.getQuantity())
                     .price(item.getPrice())
+                    .imageUrl(item.getProduct().getMainImageUrl())
                     .build();
 
             itemResponses.add(itemResponse);

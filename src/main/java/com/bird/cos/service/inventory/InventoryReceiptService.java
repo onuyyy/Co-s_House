@@ -66,7 +66,7 @@ public class InventoryReceiptService {
 
     private void updateInventoryQuantity(Product product, Integer quantity, InventoryReceipt receipt) {
         // 해당 상품의 재고 조회
-        Inventory inventory = inventoryRepository.findByProductId(product)
+        Inventory inventory = inventoryRepository.findFirstByProductIdOrderByInventoryIdAsc(product)
                 .orElseThrow(() -> BusinessException.of(ErrorCode.INVALID_OPERATION, "해당 상품의 재고 정보를 찾을 수 없습니다."));
 
         // 현재 재고에 입고 수량 추가
@@ -78,12 +78,12 @@ public class InventoryReceiptService {
         inventoryRepository.save(inventory);
 
         // 입고 히스토리 기록
-        recordInventoryHistory(inventory, quantity, beforeQuantity, afterQuantity, product, receipt);
+        recordInventoryHistory(inventory, quantity, afterQuantity, product, receipt);
     }
 
     // 입고 히스토리 기록
     private void recordInventoryHistory(Inventory inventory, Integer changeQuantity,
-                                      Integer beforeQuantity, Integer afterQuantity,
+                                      Integer afterQuantity,
                                       Product product, InventoryReceipt receipt) {
         InventoryHistory history = InventoryHistory.builder()
                 .productId(product)

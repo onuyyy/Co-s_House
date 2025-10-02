@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,11 +21,12 @@ public interface InventoryRepository extends JpaRepository<Inventory, Long> {
     @Query("SELECT i FROM Inventory i LEFT JOIN FETCH i.productId")
     Page<Inventory> findAllWithProduct(Pageable pageable);
 
-    // 특정 상품의 재고 정보 조회
-    @Query("SELECT i FROM Inventory i LEFT JOIN FETCH i.productId WHERE i.productId.productId = :productId")
-    Optional<Inventory> findByProductIdWithProduct(@Param("productId") Long productId);
-
     Optional<Inventory> findByProductId(Product productId);
+
+    Optional<Inventory> findFirstByProductIdOrderByInventoryIdAsc(Product productId);
+
+    @Query("SELECT i FROM Inventory i WHERE i.productId.productId IN :productIds")
+    List<Inventory> findByProductIds(@Param("productIds") Collection<Long> productIds);
 
     // 상품 ID로 재고 검색 (페이징)
     @Query("SELECT i FROM Inventory i LEFT JOIN FETCH i.productId WHERE i.productId.productId = :productId")
