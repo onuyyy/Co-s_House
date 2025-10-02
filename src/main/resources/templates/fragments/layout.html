@@ -4,6 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title th:text="${title}">코딩의 집</title>
+  <link rel="icon" th:href="@{/images/logo.png}" type="image/png" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlKq2a7mS5tnEEn9F/nx0xwu1jHq+8a6B1Z4x1N2R5xjw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" th:href="@{/css/app.css}">
   <link rel="stylesheet" th:href="@{/css/main/header.css}">
@@ -34,7 +35,7 @@
         <div class="nav-right">
           <div class="search-container">
             <form th:action="@{/search}" method="get" class="search-form">
-              <input type="text" name="keyword" class="search-input-global" placeholder="통합검색" />
+              <input type="text" name="keyword" class="search-input-global" placeholder="통합검색" th:value="${param.keyword != null ? param.keyword : (keyword != null ? keyword : '')}" />
               <button type="submit" class="search-btn-global"><i class="fas fa-search"></i></button>
             </form>
           </div>
@@ -181,6 +182,34 @@
       const initialState = authContainer.dataset.authState === 'logged-in' ? 'logged-in' : 'logged-out';
       setState(initialState);
       syncState();
+    })();
+  </script>
+
+  <script>
+    (function () {
+      const forms = document.querySelectorAll('.search-form');
+      if (!forms.length) {
+        return;
+      }
+
+      forms.forEach(function (form) {
+        const input = form.querySelector('input[name="keyword"]');
+        form.addEventListener('submit', function (event) {
+          if (!input) {
+            return;
+          }
+
+          const trimmed = input.value.trim();
+          if (!trimmed) {
+            event.preventDefault();
+            input.value = '';
+            input.focus();
+            return;
+          }
+
+          input.value = trimmed;
+        });
+      });
     })();
   </script>
 

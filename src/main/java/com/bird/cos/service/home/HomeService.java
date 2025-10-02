@@ -119,6 +119,11 @@ public class HomeService {
             return null;
         }
         String trimmed = imageUrl.trim();
+
+        if (!looksLikeImagePath(trimmed)) {
+            return null;
+        }
+
         if (trimmed.startsWith("http://") || trimmed.startsWith("https://") || trimmed.startsWith("//")) {
             return trimmed;
         }
@@ -126,6 +131,11 @@ public class HomeService {
             return trimmed;
         }
         return "/" + trimmed;
+    }
+
+    private boolean looksLikeImagePath(String value) {
+        // 허용 확장자: png, jpg, jpeg, webp, gif, svg (쿼리스트링 허용)
+        return value.matches("(?i).+\\.(png|jpe?g|webp|gif|svg)(\\?.*)?$");
     }
 
     private String resolveLocalImage(EventCardResponse card) {

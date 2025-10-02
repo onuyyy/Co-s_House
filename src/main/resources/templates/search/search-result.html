@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('통합검색 결과')}"></head>
+<body class="page font-body search-page">
+<header th:replace="~{fragments/layout :: header}"></header>
+
+<main class="page-main search-page__main">
+    <section class="search-result container">
+        <header class="search-result__head">
+            <h1 class="search-result__title">통합검색</h1>
+            <p class="search-result__summary" th:if="${hasKeyword}"
+               th:text="${totalCount > 0} ? |&quot;${keyword}&quot; 관련 상품 ${#numbers.formatInteger(totalCount, 0, 'COMMA')}개| : |&quot;${keyword}&quot; 관련 상품을 찾지 못했습니다.|">
+                "검색어" 관련 상품 0개
+            </p>
+            <p class="search-result__summary" th:unless="${hasKeyword}">검색어를 입력해주세요.</p>
+        </header>
+
+        <div class="product-grid" th:if="${products != null and !#lists.isEmpty(products)}">
+            <article class="product-card" th:each="product : ${products}">
+                <a class="product-card__link" th:href="@{'/product/' + ${product.productId}}">
+                    <div class="product-card__image">
+                        <img th:if="${product.mainImageUrl != null}" th:src="${product.mainImageUrl}" th:alt="${product.productTitle}" loading="lazy" />
+                        <div class="product-card__placeholder" th:unless="${product.mainImageUrl != null}">📦</div>
+                        <span class="product-card__badge"
+                              th:if="${product.originalPrice != null and product.salePrice != null and product.originalPrice > product.salePrice and product.originalPrice > 0}"
+                              th:text="${'-' + #numbers.formatDecimal((1 - product.salePrice.doubleValue() / product.originalPrice.doubleValue()) * 100, 0, 0) + '%'}">-0%</span>
+                    </div>
+                    <div class="product-card__body">
+                        <p class="product-card__brand" th:text="${product.brand != null ? product.brand.brandName : '브랜드 미등록'}">브랜드명</p>
+                        <h3 class="product-card__title" th:text="${product.productTitle}">상품명</h3>
+                        <div class="product-card__price">
+                            <span class="product-card__sale"
+                                  th:text="${#numbers.formatInteger(product.salePrice != null ? product.salePrice : (product.originalPrice != null ? product.originalPrice : 0), 0, 'COMMA')} + '원'">0원</span>
+                            <span class="product-card__original"
+                                  th:if="${product.originalPrice != null and product.salePrice != null and product.originalPrice > product.salePrice}"
+                                  th:text="${#numbers.formatInteger(product.originalPrice, 0, 'COMMA')} + '원'">0원</span>
+                        </div>
+                        <div class="product-card__meta" th:if="${(product.averageRating != null and product.averageRating > 0) or (product.reviewCount != null)}">
+                            <span class="product-card__rating" th:if="${product.averageRating != null and product.averageRating > 0}" th:text="${'★ ' + #numbers.formatDecimal(product.averageRating, 1, 1)}">★ 0.0</span>
+                            <span class="product-card__reviews" th:if="${product.reviewCount != null}" th:text="${'후기 ' + product.reviewCount}">후기 0</span>
+                        </div>
+                    </div>
+                </a>
+            </article>
+        </div>
+
+        <div class="search-result__empty" th:if="${hasKeyword and (products == null or #lists.isEmpty(products))}">
+            <p>일치하는 상품이 없습니다. 다른 검색어로 시도해 주세요.</p>
+            <a class="link-primary" th:href="@{/product}">전체 상품 보기</a>
+        </div>
+
+        <div class="search-result__empty" th:if="${!hasKeyword}">
+            <p>검색어를 입력하면 상품을 찾아드립니다.</p>
+            <a class="link-primary" th:href="@{/product}">쇼핑하러 가기</a>
+        </div>
+
+        <nav class="product-pagination" aria-label="검색 결과 페이지네이션" th:if="${totalPages > 1}">
+            <a class="product-pagination__control"
+               th:if="${currentPage > 1}"
+               th:href="@{/search(keyword=${keyword}, page=${currentPage - 1}, size=${pageSize})}"
+               aria-label="이전 페이지">‹</a>
+            <span class="product-pagination__pages" th:if="${pageNumbers != null and !#lists.isEmpty(pageNumbers)}">
+                <a class="product-pagination__page"
+                   th:each="pageNum : ${pageNumbers}"
+                   th:classappend="${pageNum == currentPage} ? ' is-active' : ''"
+                   th:text="${pageNum}"
+                   th:href="@{/search(keyword=${keyword}, page=${pageNum}, size=${pageSize})}">1</a>
+            </span>ㅊ
+            <a class="product-pagination__control"
+               th:if="${currentPage < totalPages}"
+               th:href="@{/search(keyword=${keyword}, page=${currentPage + 1}, size=${pageSize})}"
+               aria-label="다음 페이지">›</a>
+        </nav>
+    </section>
+</main>
+
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+
+<link rel="stylesheet" th:href="@{/css/product/product.css}">
+</body>
+</html>

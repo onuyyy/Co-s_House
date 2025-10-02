@@ -103,7 +103,9 @@ public class SecurityConfig {
                                 "/notices/**",
                                 "/posts",
                                 "/posts/**", //todo: 커뮤니티 권한
-                                "/error" //todo: 에러
+                                "/error", //todo: 에러
+                                "/search/**" //todo: 검색
+
                         ).permitAll()
                         .requestMatchers("/error").permitAll()
 
