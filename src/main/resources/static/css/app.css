@@ -98,7 +98,7 @@ main,
 }
 
 footer.app-footer {
-    margin-top: auto; /* 항상 맨 아래 */
+    margin-top: 90px; /* 항상 맨 아래 */
 }
 
 /* 실제로 내부 스크롤이 필요할 때만 이 유틸을 클래스에 붙여서 사용 */
