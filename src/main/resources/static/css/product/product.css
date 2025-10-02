@@ -332,7 +332,7 @@
 
 /* 툴바 & 카테고리: 고정 정렬 컨트롤 */
 .product-toolbar {
-    background: #fff;
+    background: #f5f6f8;
     position: sticky;
     top: calc(var(100px));
     z-index: 50;
@@ -366,7 +366,7 @@
     align-items: center;
     padding: 8px 18px;
     border-radius: 999px;
-    background: #fff;
+    background: #f5f6f8;
     /*border: 1px solid var(--border-light);*/
     font-size: 0.9rem;
     font-weight: 600;
