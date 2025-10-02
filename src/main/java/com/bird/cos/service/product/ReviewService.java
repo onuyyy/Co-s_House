@@ -237,7 +237,9 @@ public class ReviewService {
         Review fullyLoadedReview = reviewRepository.findById(savedReview.getReviewId())
                 .orElseThrow(() -> new IllegalStateException("리뷰를 다시 불러올 수 없습니다."));
 
+        updateProductReviewStats(productId);
         return ReviewResponse.fromEntity(fullyLoadedReview);
+
     }
 
     // 리뷰 수정
@@ -308,6 +310,7 @@ public class ReviewService {
         Review fullyLoadedReview = reviewRepository.findById(updatedReview.getReviewId())
                 .orElseThrow(() -> new IllegalStateException("리뷰를 다시 불러올 수 없습니다."));
 
+        updateProductReviewStats(review.getProduct().getProductId());
         return ReviewResponse.fromEntity(fullyLoadedReview);
     }
 
@@ -328,6 +331,10 @@ public class ReviewService {
         review.getReviewImages().clear(); // Review 엔티티의 이미지 컬렉션 비우기 (orphanRemoval = true 시 DB에서도 삭제)
 
         reviewRepository.delete(review); // 리뷰 삭제 (cascade = CascadeType.ALL 및 orphanRemoval = true 설정 시 ReviewImage도 함께 삭제됨)
+
+        Long productId = review.getProduct().getProductId();
+        reviewRepository.delete(review);
+        updateProductReviewStats(productId);
     }
 
     // 평균 평점 계산
@@ -480,5 +487,20 @@ public class ReviewService {
                 .mapToDouble(review -> review.getRating() != null ? review.getRating().doubleValue() : 0.0)
                 .average()
                 .orElse(0.0);
+    }
+
+    @Transactional
+    public void updateProductReviewStats(Long productId) {
+        Long count = reviewRepository.countByProduct_ProductId(productId);
+        Double avgRating = reviewRepository.findAverageRatingByProductId(productId);
+
+        Product product = productRepository.findById(productId)
+                .orElseThrow(() -> new IllegalArgumentException("Product not found"));
+
+        // Integer와 BigDecimal 타입에 맞춰 변환
+        product.setReviewCount(count != null ? count.intValue() : 0);  // Long → Integer
+        product.setAverageRating(avgRating != null ? BigDecimal.valueOf(avgRating) : BigDecimal.ZERO);  // Double → BigDecimal
+
+        productRepository.save(product);
     }
 }

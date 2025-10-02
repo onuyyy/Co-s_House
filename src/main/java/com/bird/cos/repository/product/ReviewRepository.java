@@ -77,5 +77,7 @@ public interface ReviewRepository extends JpaRepository<Review, Long>, JpaSpecif
 
     @Query("SELECT COUNT(r) FROM Review r WHERE r.user.userNickname = :userNickname")
     long countByUserNickname(@Param("userNickname") String userNickname);
+
+    Long countByProduct_ProductId(Long productId);
 }
 
