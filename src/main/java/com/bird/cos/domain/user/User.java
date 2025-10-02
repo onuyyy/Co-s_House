@@ -130,6 +130,22 @@ public class User {
         }
     }
 
+    public void updatePhone(String phone) {
+        if (phone == null || phone.trim().isEmpty()) {
+            this.userPhone = null;
+        } else {
+            this.userPhone = phone.trim();
+        }
+    }
+
+    public void updateAddress(String address) {
+        if (address == null || address.trim().isEmpty()) {
+            this.userAddress = null;
+        } else {
+            this.userAddress = address.trim();
+        }
+    }
+
     public void linkSocialAccount(String provider, String id) {
         this.socialProvider = provider;
         this.socialId = id;
@@ -148,4 +164,3 @@ public class User {
     }
 
 }
-

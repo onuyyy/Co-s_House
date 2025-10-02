@@ -15,12 +15,15 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 import java.util.Map;
@@ -100,19 +103,108 @@ public class MypageController {
      * 유저 정보 삭제
      */
     @PostMapping("/mypageUserDelete")
-    public String mypageUserDelete(Authentication authentication, HttpServletRequest request) {
+    public Object mypageUserDelete(@RequestParam String withdrawalReason,
+                                   @RequestParam(required = false) String withdrawalPassword,
+                                   @RequestParam(defaultValue = "false") boolean withdrawalAgree,
+                                   Authentication authentication,
+                                   HttpServletRequest request,
+                                   RedirectAttributes redirectAttributes) {
+        boolean isAjax = "XMLHttpRequest".equalsIgnoreCase(request.getHeader("X-Requested-With"));
         try {
             Long userId = mypageService.getUserIdFromAuthentication(authentication);
             log.info("회원 탈퇴가 시작되었습니다. 사용자 ID: {}", userId);
 
-            mypageService.deleteUserInfoById(userId);
+            if (!StringUtils.hasText(withdrawalReason)) {
+                if (isAjax) {
+                    return ResponseEntity.badRequest().body(Map.of(
+                            "success", false,
+                            "message", "탈퇴 사유를 선택해주세요."
+                    ));
+                }
+                redirectAttributes.addFlashAttribute("withdrawalError", "탈퇴 사유를 선택해주세요.");
+                redirectAttributes.addFlashAttribute("withdrawalFormOpen", true);
+                redirectAttributes.addFlashAttribute("withdrawalReasonValue", withdrawalReason);
+                return "redirect:/mypage/mypageUser";
+            }
+
+            if (!withdrawalAgree) {
+                if (isAjax) {
+                    return ResponseEntity.badRequest().body(Map.of(
+                            "success", false,
+                            "message", "회원탈퇴 안내사항에 동의해주세요."
+                    ));
+                }
+                redirectAttributes.addFlashAttribute("withdrawalError", "회원탈퇴 안내사항에 동의해주세요.");
+                redirectAttributes.addFlashAttribute("withdrawalFormOpen", true);
+                redirectAttributes.addFlashAttribute("withdrawalReasonValue", withdrawalReason);
+                return "redirect:/mypage/mypageUser";
+            }
+
+            boolean passwordRequired = mypageService.requiresPassword(userId);
+            if (passwordRequired) {
+                if (!StringUtils.hasText(withdrawalPassword)) {
+                    if (isAjax) {
+                        return ResponseEntity.badRequest().body(Map.of(
+                                "success", false,
+                                "message", "비밀번호를 입력해주세요."
+                        ));
+                    }
+                    redirectAttributes.addFlashAttribute("withdrawalError", "비밀번호를 입력해주세요.");
+                    redirectAttributes.addFlashAttribute("withdrawalFormOpen", true);
+                    redirectAttributes.addFlashAttribute("withdrawalReasonValue", withdrawalReason);
+                    return "redirect:/mypage/mypageUser";
+                }
+
+                boolean passwordValid = mypageService.validateCurrentPassword(withdrawalPassword, authentication, request);
+                if (!passwordValid) {
+                    if (isAjax) {
+                        return ResponseEntity.badRequest().body(Map.of(
+                                "success", false,
+                                "message", "현재 비밀번호가 일치하지 않습니다."
+                        ));
+                    }
+                    redirectAttributes.addFlashAttribute("withdrawalError", "현재 비밀번호가 일치하지 않습니다.");
+                    redirectAttributes.addFlashAttribute("withdrawalFormOpen", true);
+                    redirectAttributes.addFlashAttribute("withdrawalReasonValue", withdrawalReason);
+                    return "redirect:/mypage/mypageUser";
+                }
+            }
+
+            mypageService.deleteUserInfoById(userId, withdrawalReason);
 
             request.getSession().invalidate();
             log.info("회원 탈퇴가 완료되었습니다. 사용자 ID: {}", userId);
+            if (isAjax) {
+                return ResponseEntity.ok(Map.of(
+                        "success", true,
+                        "redirectUrl", "/"
+                ));
+            }
             return "redirect:/";
 
+        } catch (IllegalStateException e) {
+            log.warn("회원 탈퇴 불가 - userId: {}, cause: {}", authentication != null ? authentication.getName() : "anonymous", e.getMessage());
+            if (isAjax) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of(
+                        "success", false,
+                        "message", e.getMessage()
+                ));
+            }
+            redirectAttributes.addFlashAttribute("withdrawalError", e.getMessage());
+            redirectAttributes.addFlashAttribute("withdrawalFormOpen", true);
+            redirectAttributes.addFlashAttribute("withdrawalReasonValue", withdrawalReason);
+            return "redirect:/mypage/mypageUser?error=withdrawal_failed";
         } catch (Exception e) {
             log.error("회원 탈퇴 처리 중 오류가 발생했습니다: {}", e.getMessage(), e);
+            if (isAjax) {
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Map.of(
+                        "success", false,
+                        "message", "회원 탈퇴 처리 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요."
+                ));
+            }
+            redirectAttributes.addFlashAttribute("withdrawalError", "회원 탈퇴 처리 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
+            redirectAttributes.addFlashAttribute("withdrawalFormOpen", true);
+            redirectAttributes.addFlashAttribute("withdrawalReasonValue", withdrawalReason);
             return "redirect:/mypage/mypageUser?error=withdrawal_failed";
         }
     }
