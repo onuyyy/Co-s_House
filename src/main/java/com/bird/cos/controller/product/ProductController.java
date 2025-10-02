@@ -167,4 +167,19 @@ public class ProductController {
             return "redirect:/";
         }
     }
+    @GetMapping("/admin/update-review-stats")
+    public String updateAllReviewStats() {
+        List<Product> products = productService.getAllProducts(); // 또는 productRepository.findAll()
+
+        for (Product product : products) {
+            try {
+                reviewService.updateProductReviewStats(product.getProductId());
+            } catch (Exception e) {
+                // 에러가 있어도 계속 진행
+                System.err.println("Failed to update stats for product: " + product.getProductId());
+            }
+        }
+
+        return "redirect:/product";
+    }
 }

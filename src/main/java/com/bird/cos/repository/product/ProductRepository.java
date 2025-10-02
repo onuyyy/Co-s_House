@@ -72,4 +72,8 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     // 같은 브랜드, 같은 이름 존재하는지 검색
     Boolean existsByProductTitleAndBrand_BrandId(String productTitle, Long brandId);
 
+    // 카테고리별 조회 시 리뷰 정보를 서브쿼리로 함께 가져오기
+    @Query("SELECT p FROM Product p " +
+            "WHERE p.productCategory.categoryId = :categoryId")
+    List<Product> findByProductCategory_CategoryIdWithReviews(@Param("categoryId") Long categoryId);
 }

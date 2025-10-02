@@ -123,19 +123,17 @@
                   0원
                 </span>
             </div>
-            <div class="product-card__meta"
-                 th:if="${(product.averageRating != null and product.averageRating > 0) or (product.reviewCount != null)}">
+              <div class="product-card__meta"
+                   th:if="${(product.averageRating != null and product.averageRating > 0 and product.reviewCount != null and product.reviewCount > 0)}">
                 <span class="product-card__rating"
-                      th:if="${product.averageRating != null and product.averageRating > 0}"
                       th:text="${'★ ' + #numbers.formatDecimal(product.averageRating, 1, 1)}">
                   ★ 0.0
                 </span>
-              <span class="product-card__reviews"
-                    th:if="${product.reviewCount != null}"
-                    th:text="${'후기 ' + product.reviewCount}">
+                  <span class="product-card__reviews"
+                        th:text="${'후기 ' + product.reviewCount}">
                   후기 0
                 </span>
-            </div>
+              </div>
           </div>
         </a>
       </article>
