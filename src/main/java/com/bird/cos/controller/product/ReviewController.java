@@ -180,7 +180,7 @@ public class ReviewController {
     @PreAuthorize("isAuthenticated()")
     public String createReview(@PathVariable Long productId,
                                @ModelAttribute ReviewRequest requestDto,
-                               @RequestParam("images") List<MultipartFile> imageFiles,
+                               @RequestParam(value = "images", required = false) List<MultipartFile> imageFiles,
                                @AuthenticationPrincipal CustomUserDetails userDetails,
                                Model model) {
         try {
