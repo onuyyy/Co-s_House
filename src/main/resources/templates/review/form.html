@@ -47,7 +47,7 @@
         }
         .form-input:focus, .review-textarea:focus {
             outline: none;
-            border-color: #3c9dfc;
+            border-color: #35c5f0;
             box-shadow: 0 0 0 2px rgba(53, 197, 240, 0.2);
         }
         .review-textarea {
@@ -118,7 +118,7 @@
 
         /* Submit Button */
         .submit-btn {
-            background: #3c9dfc;
+            background: linear-gradient(135deg, #35c5f0, #2ea6d1);
             color: white;
             border: none;
             padding: 15px 30px;
@@ -280,33 +280,27 @@
                       th:text="${isEditMode} ? ${review.content} : ''"></textarea>
         </div>
 
-        <!-- 4. 사진 첨부 -->
         <div class="form-group">
             <label class="form-label">사진 첨부 (선택)</label>
 
-            <!-- 기존 이미지들 (수정 모드일 때만 표시) -->
-            <div th:if="${isEditMode and review.imageUrls != null and !#lists.isEmpty(review.imageUrls)}" class="existing-images">
-                <p style="font-size: 0.9rem; color: #666; margin-bottom: 10px;">기존 이미지 (삭제하려면 × 버튼을 클릭하세요)</p>
-                <div th:each="imageUrl, iterStat : ${review.imageUrls}" class="existing-image-item">
-                    <img th:src="${imageUrl}" alt="기존 리뷰 이미지" class="image-preview">
+            <div th:if="${isEditMode and review.reviewImages != null and !review.reviewImages.isEmpty()}" class="existing-images">
+
+                <p style="font-size: 0.9rem; color: #666; margin-bottom: 10px;">기존 이미지 (삭제하려면 X 버튼을 클릭하세요)</p>
+
+                <div th:each="image : ${review.reviewImages}" class="existing-image-item">
+
+                    <img th:src="${image.url}" alt="기존 리뷰 이미지" class="image-preview">
+
                     <button type="button" class="delete-existing-image"
-                            th:onclick="'deleteExistingImage(' + ${iterStat.index} + ', this)'">×</button>
-                    <input type="hidden" th:name="'existingImageUrls[' + ${iterStat.index} + ']'" th:value="${imageUrl}">
+                            th:onclick="|deleteExistingImage(${image.id}, this)|">X</button>
                 </div>
             </div>
 
-            <!-- 새 이미지 업로드 -->
             <label for="image-files" class="file-upload-btn">
                 <span th:text="${isEditMode} ? '새 파일 추가' : '파일 선택'">파일 선택</span>
             </label>
-            <input type="file"
-                   id="image-files"
-                   name="images"
-                   multiple
-                   accept="image/*"
-                   style="display: none;">
+            <input type="file" id="image-files" name="newImageFiles" multiple accept="image/*" style="display: none;">
             <div id="image-preview-container">
-                <!-- JavaScript를 통해 선택된 이미지 미리보기가 여기에 표시 -->
             </div>
         </div>
 
@@ -321,115 +315,115 @@
 </div>
 
 <script th:inline="javascript">
-    // Thymeleaf에서 전달받은 데이터
-    const isEditMode = /*[[${isEditMode}]]*/ false;
-    const hasExistingImages = /*[[${hasExistingImages}]]*/ false;
-    const existingImageCount = /*[[${existingImageCount}]]*/ 0;
-    const hasProductOptions = /*[[${productOptions != null and !#lists.isEmpty(productOptions)}]]*/ false;
+    let deletedImageIds = [];
+    // --- 함수: 기존 이미지 삭제 처리 ---
+    function deleteExistingImage(imageId, buttonElement) {
+        if (imageId) {
+            // 화면에서 이미지 숨기기
+            buttonElement.closest('.existing-image-item').style.display = 'none';
 
-    let deletedExistingImages = []; // 삭제된 기존 이미지 인덱스 저장
+            // 삭제 목록에 "ID" 추가 (중복 방지)
+            if (!deletedImageIds.includes(imageId)) {
+                deletedImageIds.push(imageId);
+            }
+            console.log('삭제할 이미지 ID 목록:', deletedImageIds);
+        }
+    }
 
-    // 상품 옵션이 없는 경우 처리
+    // --- 전역 변수 선언 ---
     document.addEventListener('DOMContentLoaded', function() {
-        if (!hasProductOptions) {
-            console.log('상품 옵션이 없어서 옵션 선택 필드를 숨깁니다.');
-        }
-    });
-
-    // 이미지 파일 첨부 시 미리보기 기능
-    document.getElementById('image-files').addEventListener('change', function(event) {
+        const reviewForm = document.getElementById('reviewForm');
+        const imageFilesInput = document.getElementById('image-files');
         const previewContainer = document.getElementById('image-preview-container');
-        previewContainer.innerHTML = ''; // 이전 미리보기 초기화
+        const MAX_IMAGES = 5;
 
-        const files = event.target.files;
-        const existingImagesCount = document.querySelectorAll('.existing-image-item:not([style*="display: none"])').length;
-        const totalImages = existingImagesCount + files.length;
+        let newImageFiles = [];
 
-        if (totalImages > 5) {
-            alert('사진은 최대 5장까지 첨부할 수 있습니다.');
-            event.target.value = ''; // 파일 선택 초기화
-            return;
-        }
+        imageFilesInput.addEventListener('change', (event) => {
+            const files = Array.from(event.target.files);
+            const existingImageCount = document.querySelectorAll('.existing-image-item').length - deletedImageIds.length;
+            const totalImages = existingImageCount + newImageFiles.length + files.length;
 
-        for (let i = 0; i < files.length; i++) {
-            const file = files[i];
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                const div = document.createElement('div');
-                div.style.position = 'relative';
-                div.style.display = 'inline-block';
-                div.style.marginRight = '10px';
-                div.style.marginBottom = '10px';
+            if (totalImages > MAX_IMAGES) {
+                alert(`사진은 최대 ${MAX_IMAGES}장까지 첨부할 수 있습니다.`);
+                imageFilesInput.value = '';
+                return;
+            }
 
-                const img = document.createElement('img');
-                img.src = e.target.result;
-                img.classList.add('image-preview');
+            files.forEach(file => {
+                if (!newImageFiles.some(f => f.name === file.name && f.size === file.size)) {
+                    newImageFiles.push(file);
+                }
+            });
 
-                const removeBtn = document.createElement('button');
-                removeBtn.innerHTML = '×';
-                removeBtn.className = 'image-remove-btn';
-                removeBtn.type = 'button';
-                removeBtn.onclick = function() {
-                    removeNewImage(div, i);
-                };
-
-                div.appendChild(img);
-                div.appendChild(removeBtn);
-                previewContainer.appendChild(div);
-            };
-            reader.readAsDataURL(file);
-        }
-    });
-
-    // 새로 추가된 이미지 삭제
-    function removeNewImage(element, index) {
-        element.remove();
-
-        const fileInput = document.getElementById('image-files');
-        if (fileInput) {
-            fileInput.value = '';
-        }
-        document.getElementById('image-preview-container').innerHTML = '';
-    }
-
-    // 기존 이미지 삭제
-    function deleteExistingImage(index, button) {
-        if (confirm('이 이미지를 삭제하시겠습니까?')) {
-            const imageItem = button.parentElement;
-
-            // 삭제된 이미지 인덱스를 추적
-            deletedExistingImages.push(index);
-
-            // DOM에서 완전히 제거
-            imageItem.remove();
-
-            console.log('삭제된 이미지 인덱스:', deletedExistingImages); // 디버깅용
-        }
-    }
-
-    // 폼 제출 전 처리
-    document.getElementById('reviewForm').addEventListener('submit', function(e) {
-        console.log('폼 제출 시 삭제된 이미지:', deletedExistingImages); // 디버깅용
-
-        // 삭제된 이미지 인덱스들을 hidden input으로 추가
-        deletedExistingImages.forEach(index => {
-            const input = document.createElement('input');
-            input.type = 'hidden';
-            input.name = 'deletedImageIndexes';
-            input.value = index;
-            this.appendChild(input);
+            renderNewImagePreviews();
+            imageFilesInput.value = '';
         });
 
-        // 옵션이 없는 경우 빈 값으로 설정
-        if (!hasProductOptions) {
-            const optionInput = document.createElement('input');
-            optionInput.type = 'hidden';
-            optionInput.name = 'optionId';
-            optionInput.value = '';
-            this.appendChild(optionInput);
+
+        function renderNewImagePreviews() {
+            previewContainer.innerHTML = '';
+            newImageFiles.forEach((file, index) => {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const div = document.createElement('div');
+                    div.className = 'existing-image-item';
+
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    img.className = 'image-preview';
+
+                    const removeBtn = document.createElement('button');
+                    removeBtn.textContent = 'X';
+                    removeBtn.className = 'delete-existing-image';
+                    removeBtn.type = 'button';
+                    removeBtn.onclick = () => {
+                        newImageFiles.splice(index, 1);
+                        renderNewImagePreviews();
+                    };
+
+                    div.appendChild(img);
+                    div.appendChild(removeBtn);
+                    previewContainer.appendChild(div);
+                };
+                reader.readAsDataURL(file);
+            });
         }
+
+
+        // --- 이벤트 리스너: 폼 제출 ---
+        reviewForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+            const formData = new FormData(reviewForm);
+
+            newImageFiles.forEach(file => {
+                formData.append('newImageFiles', file);
+            });
+
+            deletedImageIds.forEach(id => {
+                formData.append('deletedImageIds', id);
+            });
+
+            fetch(reviewForm.action, {
+                method: 'POST',
+                body: formData
+                // 여기서 절대 Content-Type 지정하지 말 것!
+            })
+                .then(response => {
+                    if (response.ok) {
+                        window.location.href = response.url;
+                    } else {
+                        alert('리뷰 등록/수정에 실패했습니다.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
+                });
+        });
     });
 </script>
 
 </body>
 </html>
+
