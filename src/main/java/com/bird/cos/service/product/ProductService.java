@@ -107,7 +107,15 @@ public class ProductService {
 
         return result;
     }
+
+    @Transactional(readOnly = true)
+    public Page<Product> searchProducts(String keyword, int page, int size) {
+        if (keyword == null || keyword.isBlank()) {
+            return Page.empty(PageRequest.of(Math.max(page - 1, 0), size));
+        }
+
+        Pageable pageable = PageRequest.of(Math.max(page - 1, 0), size);
+        return productRepository.findProductsByProductTitleContainingIgnoreCase(keyword.trim(), pageable);
+    }
 }
-
-
 
