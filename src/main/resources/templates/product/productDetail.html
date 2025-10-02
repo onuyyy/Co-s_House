@@ -1,732 +1,30 @@
-<!DOCTYPE html>
-<html lang="ko">
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <!--    <th:block th:insert="~{fragments/layout :: common-head}"></th:block>-->
-    <!--    <title>코딩의집 | 쇼핑</title>-->
-    <style>
-        :root {
-            --primary-color: #3c9dfc; /* 메인 색상 (파란색) */
-            --primary-dark-color: #2ea6d1;
-            --text-color-primary: #2f3438; /* 기본 텍스트 */
-            --text-color-secondary: #828c94; /* 보조 텍스트 */
-            --border-color: #dbdbdb; /* 테두리 색상 */
-            --background-color-light: #f7f9fa; /* 밝은 배경색 */
-            --white-color: #ffffff;
-            --danger-color: #dc3545;
-            --warning-color: #ffc107;
-
-            --font-family-base: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
-
-            --border-radius-sm: 4px;
-            --border-radius-md: 8px;
-            --border-radius-lg: 12px;
-
-            --shadow-light: 0 2px 8px rgba(0, 0, 0, 0.05);
-            --shadow-medium: 0 4px 12px rgba(0, 0, 0, 0.1);
-        }
-
-        /* 기본 스타일 초기화 및 설정 */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: var(--font-family-base);
-            background-color: var(--background-color-light);
-            color: var(--text-color-primary);
-            line-height: 1.6;
-        }
-
-        a {
-            text-decoration: none;
-            color: inherit;
-        }
-
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 24px;
-        }
-
-        /* ========================================
-          헤더 및 네비게이션
-          ========================================
-        */
-        header.header {
-            background-color: var(--white-color);
-            border-bottom: 1px solid var(--border-color);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-
-        .nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px 0;
-        }
-
-        .nav-left .logo {
-            font-size: 1.8rem;
-            font-weight: 800;
-            color: var(--primary-color);
-        }
-
-        .nav-right .back-btn {
-            font-weight: 500;
-            padding: 8px 16px;
-            border: 1px solid var(--border-color);
-            border-radius: var(--border-radius-md);
-            transition: all 0.2s ease;
-        }
-
-        .nav-right .back-btn:hover {
-            background-color: var(--background-color-light);
-            border-color: var(--primary-color);
-            color: var(--primary-color);
-        }
-
-        /* ========================================
-          상품 상세 정보 영역
-          ========================================
-        */
-        .product-detail {
-            padding: 30px 0;
-        }
-
-        .product-header {
-            display: flex;
-            gap: 40px;
-            margin-bottom: 50px;
-        }
-
-        .product-image {
-            flex: 1;
-            max-width: 450px;
-        }
-
-        .image-placeholder {
-            width: 100%;
-            height: 450px;
-            background-color: #e9ecef;
-            border-radius: var(--border-radius-lg);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-color-secondary);
-            font-size: 1.2rem;
-        }
-
-        .product-info {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .brand-name {
-            font-size: 1rem;
-            color: var(--primary-color);
-            margin-bottom: 8px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-
-        .product-title {
-            font-size: 2rem;
-            font-weight: 800;
-            color: var(--text-color-primary);
-            margin-bottom: 16px;
-        }
-
-        .price-section {
-            margin-bottom: 24px;
-            border-bottom: 1px solid #eee;
-            padding-bottom: 24px;
-        }
-
-        .current-price {
-            font-size: 2.2rem;
-            font-weight: 800;
-        }
-        .current-price::after { content: '원'; font-size: 1.5rem; font-weight: normal; margin-left: 4px; }
-
-        .discount-rate {
-            color: var(--primary-color);
-            font-weight: 800;
-            font-size: 2.2rem;
-            margin-right: 12px;
-        }
-
-        .original-price {
-            font-size: 1.2rem;
-            color: var(--text-color-secondary);
-            text-decoration: line-through;
-        }
-
-        /* 옵션 선택 */
-        #product-options {
-            width: 100%;
-            padding: 14px;
-            border: 1px solid var(--border-color);
-            border-radius: var(--border-radius-md);
-            font-size: 1rem;
-            appearance: none;
-            background: var(--white-color) url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e") no-repeat right .75rem center/16px 12px;
-        }
-
-        /* 선택된 옵션 */
-        .selected-options {
-            margin-top: 16px;
-            background-color: var(--background-color-light);
-            border-radius: var(--border-radius-md);
-            max-height: 200px;
-            overflow-y: auto;
-        }
-
-        .option-item {
-            padding: 16px;
-            border-bottom: 1px solid #e9ecef;
-        }
-        .option-item:last-child { border-bottom: none; }
-
-        .option-name { font-weight: 500; margin-bottom: 12px; }
-
-        .option-controls {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 8px;
-        }
-
-        .option-qty-container {
-            display: flex;
-            align-items: center;
-            border: 1px solid var(--border-color);
-            border-radius: var(--border-radius-sm);
-            overflow: hidden;
-        }
-
-        .option-qty-price-group {
-            display: flex;
-            align-items: center;
-            gap: 16px; /* 수량 조절기와 가격 사이의 간격 */
-        }
-
-        .option-qty-btn {
-            width: 32px; height: 32px;
-            border: none; background-color: var(--white-color);
-            cursor: pointer;
-        }
-
-        .option-qty-input {
-            width: 40px; height: 32px;
-            text-align: center;
-            border: none; border-left: 1px solid var(--border-color); border-right: 1px solid var(--border-color);
-            font-size: 1rem;
-        }
-        .option-price {
-            font-weight: bold;
-            font-size: 1.1rem;
-        }
-        .remove-option-btn {
-            background: none;
-            border: none; font-size: 1.5rem; color: var(--text-color-secondary);
-            cursor: pointer;
-            padding: 0 4px;
-        }
-
-        /* 총 주문 금액 */
-        .total-price-section {
-            margin-top: auto; /* 하단으로 밀착 */
-            padding-top: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .total-price-label { font-size: 1.1rem; font-weight: bold; }
-        .total-price-value { font-size: 2rem; font-weight: 800; color: var(--primary-color); }
-        .total-price-value::after { content: '원'; font-size: 1.2rem; font-weight: normal; margin-left: 4px; }
-
-
-        /* 구매/장바구니 버튼 */
-        .action-buttons {
-            display: flex;
-            gap: 12px;
-            margin-top: 20px;
-        }
-
-        .btn {
-            flex: 1;
-            padding: 18px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            border: none;
-            border-radius: var(--border-radius-md);
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .btn-primary {
-            background-color: var(--primary-color);
-            color: var(--white-color);
-        }
-
-        .btn-primary:hover {
-            background-color: var(--primary-dark-color);
-            transform: translateY(-2px);
-        }
-
-        /* ========================================
-          탭 메뉴 및 컨텐츠
-          ========================================
-        */
-        .product-tabs {
-            display: flex;
-            border-bottom: 1px solid var(--border-color);
-            margin: 50px 0 30px;
-        }
-
-        .tab-link {
-            padding: 15px 20px;
-            font-size: 1.1rem;
-            color: var(--text-color-secondary);
-            cursor: pointer;
-            border-bottom: 3px solid transparent;
-            margin-bottom: -1px;
-        }
-
-        .tab-link.active {
-            color: var(--primary-color);
-            font-weight: bold;
-            border-bottom-color: var(--primary-color);
-        }
-
-        .tab-content { display: none; }
-        .tab-content.active { display: block; }
-
-        /* ========================================
-          리뷰 영역
-          ========================================
-        */
-        .review-summary {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px;
-            background-color: var(--white-color);
-            border: 1px solid var(--border-color);
-            border-radius: var(--border-radius-lg);
-            margin-bottom: 30px;
-        }
-        .rating-overview .average-rating {
-            font-size: 2.5rem;
-            font-weight: 800;
-            color: var(--text-color-primary);
-        }
-        .rating-overview .stars { color: var(--warning-color); font-size: 1.2rem; }
-
-        .write-review-btn {
-            background-color: var(--primary-color);
-            color: var(--white-color);
-            padding: 12px 24px;
-            border-radius: var(--border-radius-md);
-            font-weight: bold;
-            transition: background-color 0.2s;
-        }
-        .write-review-btn:hover { background-color: var(--primary-dark-color); }
-
-
-
-        /* 드롭다운 필터 */
-        .dropdown-filters {
-            display: flex;
-            gap: 12px;
-            margin-bottom: 20px;
-        }
-        .filter-dropdown {
-            flex: 1;
-            max-width: 250px;
-        }
-        .filter-label {
-            font-size: 0.85rem;
-            color: var(--text-color-secondary);
-            margin-bottom: 6px;
-            font-weight: 500;
-        }
-        .dropdown-select {
-            width: 100%;
-            padding: 10px 14px;
-            border: 1px solid var(--border-color);
-            border-radius: var(--border-radius-md);
-            font-size: 0.95rem;
-            background-color: var(--white-color);
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        .dropdown-select:hover {
-            border-color: var(--primary-color);
-        }
-        .dropdown-select:focus {
-            outline: none;
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 3px rgba(53, 197, 240, 0.1);
-        }
-
-        /* 커스텀 별점 드롭다운 */
-        .custom-dropdown {
-            position: relative;
-        }
-        .dropdown-header {
-            padding: 10px 14px;
-            border: 1px solid var(--border-color);
-            border-radius: var(--border-radius-md);
-            background-color: var(--white-color);
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: all 0.2s;
-        }
-        .dropdown-header:hover {
-            border-color: var(--primary-color);
-        }
-        .dropdown-header.open {
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 3px rgba(53, 197, 240, 0.1);
-        }
-        .dropdown-arrow {
-            font-size: 0.7rem;
-            color: var(--text-color-secondary);
-            transition: transform 0.2s;
-        }
-        .dropdown-header.open .dropdown-arrow {
-            transform: rotate(180deg);
-        }
-        .dropdown-content {
-            position: absolute;
-            top: calc(100% + 4px);
-            left: 0;
-            right: 0;
-            background-color: var(--white-color);
-            border: 1px solid var(--border-color);
-            border-radius: var(--border-radius-md);
-            box-shadow: var(--shadow-medium);
-            z-index: 100;
-            display: none;
-            max-height: 320px;
-            overflow-y: auto;
-        }
-        .dropdown-content.show {
-            display: block;
-        }
-        .rating-option {
-            padding: 12px 16px;
-            cursor: pointer;
-            transition: background-color 0.2s;
-        }
-        .rating-option:hover {
-            background-color: var(--background-color-light);
-        }
-        .rating-option:first-child {
-            border-bottom: 1px solid var(--border-color);
-        }
-        .rating-text {
-            font-size: 0.95rem;
-            color: var(--text-color-primary);
-        }
-        .rating-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 6px;
-        }
-        .rating-item .stars {
-            color: var(--warning-color);
-            font-size: 0.9rem;
-        }
-        .rating-count {
-            font-size: 0.85rem;
-            color: var(--text-color-secondary);
-            font-weight: 500;
-        }
-        .rating-bar {
-            width: 100%;
-            height: 4px;
-            background-color: #e9ecef;
-            border-radius: 2px;
-            overflow: hidden;
-        }
-        .rating-fill {
-            height: 100%;
-            background-color: var(--primary-color);
-            transition: width 0.3s ease;
-        }
-
-        /* 필터 탭 */
-        .filter-tabs {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-bottom: 24px;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 0;
-        }
-        .filter-tab {
-            padding: 12px 20px;
-            border-radius: 0;
-            background-color: transparent;
-            border: none;
-            border-bottom: 2px solid transparent;
-            color: var(--text-color-secondary);
-            font-size: 0.95rem;
-            cursor: pointer;
-            transition: all 0.2s;
-            font-weight: 500;
-        }
-        .filter-tab.active, .filter-tab:hover {
-            background-color: transparent;
-            color: var(--text-color-primary);
-            border-bottom: 2px solid var(--text-color-primary);
-            font-weight: 600;
-        }
-
-        /* 리뷰 아이템 - 카드형 UI */
-        .review-item {
-            background-color: var(--white-color);
-            border: 1px solid var(--border-color);
-            border-radius: var(--border-radius-lg);
-            padding: 24px;
-            margin-bottom: 16px;
-            transition: box-shadow 0.2s;
-        }
-        .review-item:hover {
-            box-shadow: var(--shadow-medium);
-        }
-
-        .review-header { display: flex; justify-content: space-between; align-items: flex-start; }
-        .reviewer-info { display: flex; align-items: center; gap: 12px; }
-        .reviewer-avatar {
-            width: 40px; height: 40px; border-radius: 50%;
-            background-color: var(--primary-color); color: white;
-            display: flex; align-items: center; justify-content: center;
-            font-weight: bold;
-        }
-        .reviewer-name { font-weight: bold; }
-        .review-rating .rating-stars { color: var(--warning-color); }
-        .review-date { font-size: 0.9rem; color: var(--text-color-secondary); }
-        .review-content { margin: 16px 0; }
-        .review-images { display: flex; gap: 8px; }
-        .review-image {
-            width: 80px; height: 80px;
-            border-radius: var(--border-radius-md);
-            object-fit: cover;
-        }
-
-        /* ========================================
-          페이지네이션
-          ========================================
-        */
-        .pagination {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 8px;
-            margin-top: 40px;
-        }
-
-        .pagination button, .pagination a, .pagination span {
-            min-width: 40px;
-            height: 40px;
-            padding: 0 12px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border: 1px solid var(--border-color);
-            border-radius: var(--border-radius-md);
-            background-color: var(--white-color);
-            font-size: 0.9rem;
-        }
-
-        .pagination button:not(:disabled):hover, .pagination a:hover {
-            border-color: var(--primary-color);
-            color: var(--primary-color);
-            background-color: #f0faff;
-        }
-
-        .pagination span[style*="font-weight:bold"] {
-            background-color: var(--primary-color);
-            color: var(--white-color);
-            border-color: var(--primary-color);
-            font-weight: bold;
-        }
-
-        .pagination button:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-        .qna-header-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 24px;
-        }
-
-        .qna-header-container h3 {
-            font-size: 1.5rem;
-            font-weight: bold;
-        }
-
-        .btn-qna-write {
-            background-color: var(--white-color);
-            color: var(--primary-color);
-            border: 1px solid var(--primary-color);
-            padding: 10px 20px;
-            border-radius: var(--border-radius-md);
-            font-weight: bold;
-            transition: all 0.2s;
-        }
-
-        .btn-qna-write:hover {
-            background-color: var(--primary-color);
-            color: var(--white-color);
-        }
-
-        .qna-item {
-            background-color: var(--white-color);
-            border: 1px solid var(--border-color);
-            border-radius: var(--border-radius-lg);
-            margin-bottom: 16px;
-            transition: box-shadow 0.2s;
-        }
-
-        .qna-item:hover {
-            box-shadow: var(--shadow-medium);
-        }
-
-        .qna-title {
-            padding: 24px;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .qna-title-left {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .qna-status {
-            font-size: 0.9rem;
-            font-weight: bold;
-            padding: 4px 10px;
-            border-radius: 12px;
-        }
-        .qna-status.answered {
-            background-color: #e3f2fd;
-            color: #1976d2;
-        }
-        .qna-status.waiting {
-            background-color: #f3f4f6;
-            color: #6b7280;
-        }
-
-        .qna-main-title {
-            font-weight: 500;
-        }
-
-        .qna-title-right {
-            font-size: 0.9rem;
-            color: var(--text-color-secondary);
-        }
-        .qna-author {
-            margin-right: 12px;
-        }
-
-        .qna-content {
-            padding: 0 24px 24px 24px;
-            border-top: 1px solid #f0f0f0;
-            display: none; /* 기본적으로 숨김 */
-        }
-
-        .qna-question-content {
-            padding-top: 24px;
-            display: flex;
-            gap: 8px;
-        }
-        .qna-label {
-            font-weight: bold;
-            color: var(--primary-color);
-        }
-
-        /* 별점 컨테이너 스타일 */
-        .rating-section {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 16px;
-        }
-
-
-        .stars-outer {
-            position: relative;
-            font-size: 1.2rem;
-            color: var(--border-color, #dbdbdb);
-            display: inline-block;
-        }
-
-
-        .stars-inner {
-            position: absolute;
-            top: 0;
-            left: 0;
-            white-space: nowrap;
-            overflow: hidden;
-            font-size: 1.2rem;
-            color: var(--warning-color, #ffc107);
-        }
-
-        /* 리뷰 개수 스타일 */
-        .review-count {
-            font-size: 1rem;
-            color: var(--text-color-secondary, #828c94);
-            font-weight: 500;
-        }
-    </style>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>상품 상세</title>
+
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+    <link rel="stylesheet" th:href="@{/css/main/header.css}">
+    <link rel="stylesheet" th:href="@{/css/product/productdetail.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 
-<body>
-<!-- 헤더 -->
-<header class="header">
-    <div class="container">
-        <nav class="nav">
-            <div class="nav-left">
-                <a th:href="@{/}" class="logo">오늘의집</a>
-            </div>
-            <div class="nav-right">
-                <a href="javascript:history.back()" class="back-btn">← 목록으로</a>
-            </div>
-        </nav>
-    </div>
-</header>
+<body class="page font-body">
 
-<!-- 메인 컨텐츠 -->
-<main class="main-content">
-    <div class="container">
-        <div class="product-detail">
-            <!-- 상품 헤더 -->
-            <div class="product-header">
+    <div th:replace="~{fragments/layout :: header}"></div>
+
+    <!-- 메인 컨텐츠 -->
+    <main class="main-content">
+        <div class="container">
+            <div class="product-detail">
+                <!-- 상품 헤더 -->
+                <div class="product-header">
                 <!-- 상품 이미지 -->
                 <div class="product-image">
                     <img th:src="${product.mainImageUrl}" alt="상품 대표 이미지" style="width:100%;">
                 </div>
-
 
                 <!-- 상품 정보 -->
                 <div class="product-info"
@@ -851,7 +149,7 @@
             </div>
 
             <div id="reviews" class="tab-content">
-                <div class="header">
+                <div class="reviews-header">
                     <!-- 리뷰 요약 섹션 -->
                     <div class="review-summary">
                         <div class="rating-overview">
@@ -1000,13 +298,13 @@
                         </div>
 
                         <!-- 수정, 삭제 -->
-                        <th:block th:if="${currentUserNickname == review.userNickname}">
-                            <a th:href="@{/reviews/{reviewId}/edit(reviewId=${review.reviewId})}">수정</a>
-                            <form th:action="@{/reviews/{reviewId}/delete(reviewId=${review.reviewId})}" method="post" style="display:inline;">
+                        <div class="review-actions" th:if="${currentUserNickname == review.userNickname}">
+                            <a th:href="@{/reviews/{reviewId}/edit(reviewId=${review.reviewId})}" class="btn-edit">수정</a>
+                            <form th:action="@{/reviews/{reviewId}/delete(reviewId=${review.reviewId})}" method="post">
                                 <input type="hidden" name="productId" th:value="${review.productId}">
-                                <button type="submit" onclick="return confirm('삭제하시겠습니까?')">삭제</button>
+                                <button type="submit" class="btn-delete" onclick="return confirm('정말로 삭제하시겠습니까?')">삭제</button>
                             </form>
-                        </th:block>
+                        </div>
 
                         <!-- 리뷰 이미지 (포토리뷰인 경우) -->
                         <div th:if="${review.isPhotoReview}" class="review-images">
@@ -1028,7 +326,7 @@
                         </div>
                     </div>
 
-                    <div class="pagination">
+                    <div class="pagination" th:if="${totalPages > 1}">
                         <button th:disabled="${currentPage == 1}" onclick="goToPage(${currentPage - 1})">이전</button>
                         <span th:each="i : ${#numbers.sequence(1, totalPages)}">
                             <a th:if="${i != currentPage}" href="javascript:void(0)" th:onclick="'goToPage(' + ${i} + ')'" th:text="${i}"></a>
@@ -1075,6 +373,7 @@
                     </div>
                 </div>
 
+
                 <div class="empty-state" th:unless="${questions != null and !questions.isEmpty()}">
                     <p>등록된 문의가 없습니다. 첫 번째 문의를 남겨보세요!</p>
                 </div>
@@ -1094,6 +393,7 @@
                 </div>
             </div>
 
+            </main> <div th:replace="~{fragments/layout :: footer}"></div>
 
             <script th:inline="javascript">
                 const GUEST_CART_KEY = 'cohouse_guest_cart_v1';
@@ -1389,8 +689,7 @@
                         </div>
                         <div class="option-price">${formatCurrency(optionTotalPrice)}원</div>
                     </div>
-                    <button class="remove-option-btn" onclick="removeOption(${index})" title="옵션 제거">×</button>
-                </div>
+                   <button class="remove-option-btn" onclick="removeOption(${index})" title="옵션 제거">&times;</button>
             </div>
         `;
                     }).join('');

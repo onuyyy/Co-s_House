@@ -291,7 +291,7 @@ public class ReviewController {
             ReviewResponse updatedReview = reviewService.updateReview(reviewId, updateRequest, userNickname);
 
             redirectAttributes.addFlashAttribute("message", "리뷰가 성공적으로 수정되었습니다.");
-            return "redirect:/product/" + updatedReview.getProductId() + "/reviews";
+            return "redirect:/product/" + updatedReview.getProductId() + "#reviews";
         } catch (AccessDeniedException e) {
             log.error("리뷰 수정 권한 없음 - reviewId: {}, user: {}", reviewId, userNickname, e);
             redirectAttributes.addFlashAttribute("error", "수정 권한이 없습니다.");
@@ -319,7 +319,7 @@ public class ReviewController {
             }
 
             reviewService.deleteReview(reviewId, userDetails.getNickname());
-            return "redirect:/product/" + productId + "/reviews";
+            return "redirect:/product/" + productId + "#reviews";
         } catch (Exception e) {
             log.error("리뷰 삭제 중 오류 발생 - reviewId: {}", reviewId, e);
             return "redirect:/reviews?error=" + e.getMessage();

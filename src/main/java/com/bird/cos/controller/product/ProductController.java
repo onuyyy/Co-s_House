@@ -4,10 +4,13 @@ import com.bird.cos.domain.product.Product;
 import com.bird.cos.domain.product.ProductImage;
 import com.bird.cos.domain.product.ProductOption;
 import com.bird.cos.dto.product.ReviewResponse;
+import com.bird.cos.security.CustomUserDetails;
 import com.bird.cos.service.product.ProductService;
 import com.bird.cos.service.product.ReviewService;
 import com.bird.cos.service.question.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -83,7 +86,7 @@ public class ProductController {
         return "product/product";
     }
 
-    //상세페이지 (수정된 메소드)
+    //상세페이지
     @GetMapping("/product/{productId}")
     public String productDetail(@PathVariable Long productId,
                                 // 리뷰 필터링을 위한 파라미터 추가
@@ -96,7 +99,8 @@ public class ProductController {
                                 // 문의글 페이징을 위한 파라미터 추가 (리뷰와 겹치지 않게 q_ prefix 사용)
                                 @RequestParam(required = false, defaultValue = "1") int q_page,
                                 @RequestParam(required = false, defaultValue = "5") int q_size,
-                                Model model) {
+                                Model model,
+                                @AuthenticationPrincipal UserDetails userDetails) {
         Optional<Product> productOpt = productService.getProductById(productId);
 
         if (productOpt.isPresent()) {
@@ -154,6 +158,9 @@ public class ProductController {
                 model.addAttribute("totalQuestionCount", questionResult.get("totalElements"));
             } catch (Exception e) {
                 model.addAttribute("questionError", "문의를 불러오는 중 오류가 발생했습니다.");
+            }
+            if (userDetails instanceof CustomUserDetails customUserDetails) {
+                model.addAttribute("currentUserNickname", customUserDetails.getNickname());
             }
             return "product/productDetail";
         } else {

@@ -28,7 +28,7 @@ public class ReviewResponse {
     private Boolean isVerifiedPurchase;
     private Boolean isPhotoReview;
     private LocalDateTime createdAt;
-
+    private List<ReviewImage> reviewImages;
     // 옵션 정보 추가
     private Long optionId;
     private String optionName;  // 옵션명 혹은 옵션식별용
@@ -70,17 +70,22 @@ public class ReviewResponse {
             response.setProductId(review.getProduct().getProductId());
         }
         // 이미지 URL 목록 매핑 (저장된 파일명 -> 접근 가능한 URL)
-        if (review.getReviewImages() != null) {
+        if (review.getReviewImages() != null && !review.getReviewImages().isEmpty()) {
+            // 2-1. 기존 imageUrls 필드 채우기 (그대로 유지)
             response.imageUrls = review.getReviewImages().stream()
-                    .map(image -> "/images/uploaded/" + image.getStoredFileName()) // URL 형식으로 변환
+                    .map(image -> "/images/uploaded/" + image.getStoredFileName())
+                    .collect(Collectors.toList());
+
+            // 2-2. 새로 추가한 reviewImages 필드 채우기
+            response.reviewImages = review.getReviewImages().stream()
+                    .map(image -> new ReviewImage(image.getId(), "/images/uploaded/" + image.getStoredFileName()))
                     .collect(Collectors.toList());
         } else {
             response.imageUrls = Collections.emptyList();
+            response.reviewImages = Collections.emptyList(); // 비어있는 리스트로 초기화
         }
 
-        // isPhotoReview도 실제 이미지 존재 유무로 판단
-        response.isPhotoReview = (response.imageUrls != null && !response.imageUrls.isEmpty());
-
+        response.isPhotoReview = (response.imageUrls != null && !response.getImageUrls().isEmpty());
         return response;
     }
 
