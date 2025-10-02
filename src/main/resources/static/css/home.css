@@ -77,30 +77,31 @@
   display: block;
   position: relative;
   height: 240px;
-  border-radius: 20px;
   overflow: hidden;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  box-shadow: 0 20px 45px rgba(15, 23, 42, 0.25);
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+    /* 기본은 가벼운 그림자 */
+    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.18);
+    /* 그림자/이동을 부드럽게 */
+    transition: transform 0.25s cubic-bezier(.2,.7,.2,1), box-shadow 0.25s cubic-bezier(.2,.7,.2,1);
+    will-change: transform, box-shadow;
 }
 
 .event-banner::after {
-  content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, rgba(15, 23, 42, 0.35) 0%, rgba(15, 23, 42, 0.1) 60%);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.63) 0%, rgba(100, 108, 133, 0.77) 60%);
   transition: background 0.25s ease;
 }
 
 .event-banner:hover {
   transform: translateY(-4px);
-  box-shadow: 0 26px 55px rgba(15, 23, 42, 0.3);
+  /*box-shadow: 30px 90px rgba(173, 173, 173, 0.3);*/
 }
 
 .event-banner:hover::after {
-  background: linear-gradient(135deg, rgba(15, 23, 42, 0.45) 0%, rgba(15, 23, 42, 0.2) 65%);
+  /*background: linear-gradient(135deg, rgba(255, 255, 255, 0.45) 0%, rgba(15, 23, 42, 0.2) 65%);*/
 }
 
 .sr-only {
