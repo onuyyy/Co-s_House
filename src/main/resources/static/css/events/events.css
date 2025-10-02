@@ -1,6 +1,6 @@
 .events-main {
   padding-bottom: 96px;
-  background-color: #f5f7fb;
+  background-color: #f5f6f8;
 }
 
 .events-main__inner {
@@ -21,7 +21,7 @@
 .events-header__title {
   font-size: 40px;
   font-weight: 700;
-  line-height: 1.1;
+  /*line-height: 1.1;*/
   color: #191f28;
 }
 
