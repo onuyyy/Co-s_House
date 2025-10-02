@@ -2,14 +2,20 @@ package com.bird.cos.service.mypage;
 
 import com.bird.cos.domain.product.Review;
 import com.bird.cos.domain.user.User;
+import com.bird.cos.domain.user.UserGrade;
+import com.bird.cos.dto.order.OrderStatusCode;
 import com.bird.cos.dto.mypage.MypageUserManageResponse;
 import com.bird.cos.dto.mypage.MypageUserUpdateRequest;
 import com.bird.cos.dto.product.ReviewResponse;
 import com.bird.cos.repository.log.UserActivityLogRepository;
 import com.bird.cos.repository.mypage.MypageRepository;
+import com.bird.cos.repository.order.OrderRepository;
 import com.bird.cos.repository.product.ReviewRepository;
 import com.bird.cos.repository.question.QuestionRepository;
+import com.bird.cos.repository.user.PointRepository;
+import com.bird.cos.repository.user.UserGradeRepository;
 import com.bird.cos.repository.user.UserRepository;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -20,18 +26,26 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 import jakarta.servlet.http.HttpServletRequest;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
-
+@Getter
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 @Slf4j
 public class MypageService {
+
+    private static final List<String> ORDER_SUMMARY_STATUS_CODES = List.of(
+            OrderStatusCode.DELIVERED.getCode(),
+            OrderStatusCode.CONFIRMED.getCode()
+    );
 
     private final MypageRepository myPageRepository;
     private final UserRepository userRepository;
@@ -39,13 +53,40 @@ public class MypageService {
     private final QuestionRepository questionRepository;
     private final UserActivityLogRepository userActivityLogRepository;
     private final ReviewRepository reviewRepository;
+    private final OrderRepository orderRepository;
+    private final PointRepository pointRepository;
+    private final UserGradeRepository userGradeRepository;
 
     //UserId 정보 넘기기
     public MypageUserManageResponse getUserInfoById(Long userId){
         User user = myPageRepository.findUserForMyPage(userId)
                 .orElseThrow(()-> new IllegalArgumentException("사용자를 찾을 수 없습니다."));
+        AddressParts addressParts = splitAddress(user.getUserAddress());
 
-        return MypageUserManageResponse.from(user);
+        Integer membershipPoints = Optional.ofNullable(pointRepository.getTotalPointsByUserId(userId)).orElse(0);
+        BigDecimal totalOrderAmount = Optional.ofNullable(
+                orderRepository.sumOrderAmountByStatusCodes(userId, ORDER_SUMMARY_STATUS_CODES)
+        ).orElse(BigDecimal.ZERO);
+
+        Optional<UserGrade> latestGrade = userGradeRepository.findTopByUser_UserIdOrderByGradePeriodEndDesc(userId);
+        Integer gradeLevel = latestGrade.map(UserGrade::getGradeLevel).orElse(null);
+        String gradeName = resolveMembershipGradeName(gradeLevel);
+
+        return MypageUserManageResponse.builder()
+                .userName(user.getUserName())
+                .userEmail(user.getUserEmail())
+                .userPhone(user.getUserPhone())
+                .userAddress(addressParts.base())
+                .userDetailAddress(addressParts.detail())
+                .userNickname(user.getUserNickname())
+                .userCreatedAt(user.getUserCreatedAt())
+                .socialProvider(user.getSocialProvider())
+                .userRole(user.getUserRole() != null ? user.getUserRole().getUserRoleName() : null)
+                .membershipGrade(gradeLevel)
+                .membershipGradeName(gradeName)
+                .totalOrderAmount(totalOrderAmount)
+                .membershipPoints(membershipPoints)
+                .build();
     }
 
     //회원 정보 수정
@@ -55,14 +96,14 @@ public class MypageService {
                 .orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다."));
 
         // 비밀번호 변경 시 현재 비밀번호 검증
-        if (request.getUserPassword() != null && !request.getUserPassword().isEmpty()) {
+        if (StringUtils.hasText(request.getUserPassword())) {
             // 소셜 로그인 사용자는 비밀번호 변경 불가
             if (existingUser.getSocialProvider() != null) {
                 throw new IllegalStateException("소셜 로그인 사용자는 비밀번호를 변경할 수 없습니다.");
             }
 
             // 현재 비밀번호가 입력되지 않았거나 일치하지 않는 경우
-            if (currentPassword == null || currentPassword.isEmpty()) {
+            if (!StringUtils.hasText(currentPassword)) {
                 throw new IllegalArgumentException("현재 비밀번호를 입력해주세요.");
             }
 
@@ -76,32 +117,46 @@ public class MypageService {
             }
         }
 
-        User updateUser = User.builder()
-                .userId(existingUser.getUserId())                    // 기존 ID 유지
-                .userName(existingUser.getUserName())                // 기존 이름 유지 (변경불가)
-                .userEmail(existingUser.getUserEmail())              // 기존 이메일 유지 (변경불가)
-                .userPassword(request.getUserPassword() != null && !request.getUserPassword().isEmpty()
-                        ? passwordEncoder.encode(request.getUserPassword())  // 새 비밀번호 암호화
-                        : existingUser.getUserPassword())                 // 기존 비밀번호 유지
-                .userNickname(request.getUserNickname())             // 새 닉네임으로 변경
-                .userPhone(request.getUserPhone())                   // 새 전화번호로 변경
-                .userAddress(combineAddress(request.getUserAddress(), request.getUserDetailAddress())) // 기본주소와 상세주소 합치기
-                .userRole(existingUser.getUserRole())                // 기존 권한 유지
-                .socialProvider(existingUser.getSocialProvider())    // 기존 소셜로그인 정보 유지
-                .socialId(existingUser.getSocialId())                // 기존 소셜 ID 유지
-                .termsAgreed(existingUser.getTermsAgreed())          // 기존 약관 동의 상태 유지
-                .emailVerified(existingUser.isEmailVerified())      // 기존 이메일 인증 상태 유지
-                .userCreatedAt(existingUser.getUserCreatedAt())      // 기존 가입일 유지
-                .build();
+        AddressParts existingAddressParts = splitAddress(existingUser.getUserAddress());
 
-        userRepository.save(updateUser);
+        String nickname = StringUtils.hasText(request.getUserNickname())
+                ? request.getUserNickname().trim()
+                : existingUser.getUserNickname();
+
+        String phone = StringUtils.hasText(request.getUserPhone())
+                ? request.getUserPhone().trim()
+                : existingUser.getUserPhone();
+
+        String baseAddress = StringUtils.hasText(request.getUserAddress())
+                ? request.getUserAddress().trim()
+                : existingAddressParts.base();
+
+        String detailAddress = StringUtils.hasText(request.getUserDetailAddress())
+                ? request.getUserDetailAddress().trim()
+                : existingAddressParts.detail();
+
+        String combinedAddress = combineAddress(baseAddress, detailAddress);
+
+        if (StringUtils.hasText(request.getUserPassword())) {
+            existingUser.updatePassword(passwordEncoder.encode(request.getUserPassword()));
+        }
+
+        existingUser.updateNickname(nickname);
+        existingUser.updatePhone(phone);
+        existingUser.updateAddress(combinedAddress);
+
+        userRepository.save(existingUser);
     }
 
     //회원 탈퇴
     @Transactional
-    public void deleteUserInfoById(Long userId){
+    public void deleteUserInfoById(Long userId, String withdrawalReason){
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다."));
+
+        if (orderRepository.existsByUser_UserId(userId)) {
+            throw new IllegalStateException("진행 중이거나 완료된 주문 내역이 있어 탈퇴할 수 없습니다.");
+        }
 
         // 1. 사용자 활동 로그 삭제 (외래키 제약조건으로 인해 먼저 삭제)
         userActivityLogRepository.deleteByUserId(user);
@@ -113,7 +168,14 @@ public class MypageService {
         // orderRepository.anonymizeOrdersByUser(user);
 
         // 4. 사용자 삭제
+        log.info("회원 탈퇴 - userId: {}, reason: {}", userId, withdrawalReason);
         userRepository.delete(user);
+    }
+
+    public boolean requiresPassword(Long userId) {
+        return userRepository.findById(userId)
+                .map(user -> user.getSocialProvider() == null)
+                .orElse(false);
     }
 
     // Authentication에서 userId 추출
@@ -179,6 +241,34 @@ public class MypageService {
 
         return baseAddress.trim() + ", " + detailAddress.trim();
     }
+
+    private AddressParts splitAddress(String combinedAddress) {
+        if (!StringUtils.hasText(combinedAddress)) {
+            return new AddressParts(null, null);
+        }
+
+        String[] parts = combinedAddress.split(",", 2);
+        String base = parts[0].trim();
+        String detail = parts.length > 1 ? parts[1].trim() : null;
+
+        return new AddressParts(base, detail);
+    }
+
+    private String resolveMembershipGradeName(Integer gradeLevel) {
+        if (gradeLevel == null) {
+            return null;
+        }
+
+        return switch (gradeLevel) {
+            case 1 -> "브론즈";
+            case 2 -> "실버";
+            case 3 -> "골드";
+            case 4 -> "플래티넘";
+            default -> null;
+        };
+    }
+
+    private record AddressParts(String base, String detail) {}
 
     public Map<String, Object> getMyReviews(String userNickname, String sort, int page, int size) {
         Pageable pageable = PageRequest.of(page - 1, size, getReviewSort(sort));

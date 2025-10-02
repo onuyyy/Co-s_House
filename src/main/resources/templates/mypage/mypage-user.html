@@ -117,7 +117,6 @@
         .sidebar-nav a:hover, .sidebar-nav a.active {
             background: rgb(60, 157, 252);
             color: #ffffff;
-            transform: translateX(5px);
             box-shadow: 0 1px 5px rgb(183, 183, 183);
         }
 
@@ -154,18 +153,18 @@
 
         .form-section {
             margin-bottom: 2.5rem;
-            padding-bottom: 2.5rem;
+            padding-bottom: 1.5rem;
             border-bottom: 1px solid var(--border);
         }
 
         .form-section:last-of-type {
             border-bottom: none;
             margin-bottom: 0;
-            padding-bottom: 0;
+            padding-bottom: 40px;
         }
 
         .danger-section {
-            background: linear-gradient(135deg, rgba(226, 242, 255, 0.9), rgba(241, 248, 255, 0.95));
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(241, 248, 255, 0.95));
             border-radius: 20px;
             padding: 2rem 2.25rem;
             margin-bottom: 0;
@@ -307,6 +306,7 @@
 
         /* Password Fields */
         .password-feedback {
+            margin-top: 0.5rem;
             font-size: 0.85rem;
         }
 
@@ -347,6 +347,14 @@
             opacity: 1;
         }
 
+        .withdrawal-card {
+            margin-top: 2.5rem;
+            background: var(--bg-surface);
+            border-radius: 24px;
+            padding: 2.5rem;
+            box-shadow: 0 8px 30px var(--shadow);
+        }
+
         .withdrawal-content.active .withdrawal-arrow {
             transform: rotate(180deg);
         }
@@ -361,9 +369,19 @@
             border-radius: 16px;
             border: 1px solid rgba(148, 163, 184, 0.25);
             box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
-            display: flex;
             flex-direction: column;
             gap: 1.25rem;
+            font-family: inherit;
+            font-size: 1rem;
+        }
+
+        .withdrawal-form label,
+        .withdrawal-form select,
+        .withdrawal-form input,
+        .withdrawal-form button,
+        .withdrawal-form span {
+            font-family: inherit;
+            font-size: 1rem;
         }
 
         .alert-warning h5,
@@ -403,8 +421,8 @@
             gap: 0.75rem;
             justify-content: flex-end;
             margin-top: 2.5rem;
-            padding-top: 2rem;
-            border-top: 2px solid var(--border);
+            /*padding-top: 2rem;*/
+            /*border-top: 2px solid var(--border);*/
         }
 
         .btn {
@@ -521,13 +539,13 @@
         <div class="mypage-sidebar">
             <h3 class="sidebar-title">메뉴</h3>
             <ul class="sidebar-nav">
-                <li><a href="/mypage" class="active"><i class="fas fa-user"></i>내 정보</a></li>
-                <li><a href="/mypage/my-orders"><i class="fas fa-shopping-bag"></i>주문내역</a></li>
-                <li><a href="/mypage/wishlist"><i class="fas fa-heart"></i>북마크</a></li>
-                <li><a href="/mypage/reviews"><i class="fas fa-star"></i>리뷰관리</a></li>
-                <li><a href="/question"><i class="fas fa-question-circle"></i>문의내역</a></li>
-                <li><a href="/mypage/coupons"><i class="fas fa-ticket-alt"></i>쿠폰함</a></li>
-                <li><a href="/mypage/points"><i class="fas fa-coins"></i>적립금</a></li>
+                <li><a href="/mypage" class="active">내 정보</a></li>
+                <li><a href="/mypage/my-orders">주문내역</a></li>
+                <li><a href="/mypage/wishlist">북마크</a></li>
+                <li><a href="/mypage/reviews">리뷰</a></li>
+                <li><a href="/question">문의</a></li>
+                <li><a href="/mypage/coupons">쿠폰함</a></li>
+                <li><a href="/mypage/points">적립금</a></li>
             </ul>
         </div>
 
@@ -539,7 +557,8 @@
                     <p class="update-description">개인정보를 안전하게 관리하세요. 일부 정보는 보안상 수정이 제한될 수 있습니다.</p>
                 </div>
 
-                <form class="user-update-form" action="/mypage/mypageUserUpdate" method="post">
+                <form id="userUpdateForm" class="user-update-form" action="/mypage/mypageUserUpdate" method="post">
+                    <input type="hidden" th:if="${_csrf != null}" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
                     <!-- 기본 정보 섹션 -->
                     <div class="form-section">
                         <h3 class="section-title">
@@ -634,7 +653,8 @@
                                    id="userDetailAddress"
                                    name="userDetailAddress"
                                    class="form-control"
-                                   placeholder="상세 주소를 입력해주세요 (예: 101동 202호)">
+                                   placeholder="상세 주소를 입력해주세요 (예: 101동 202호)"
+                                   th:value="${userInfo?.userDetailAddress}">
                         </div>
                     </div>
 
@@ -664,8 +684,8 @@
                                        autocomplete="new-password"
                                        data-lpignore="true"
                                        readonly onfocus="this.removeAttribute('readonly');">
-                                <div id="currentPasswordFeedback" class="password-feedback"></div>
                                 <small class="form-text">비밀번호 변경을 원하지 않으면 비워두세요.</small>
+                                <div id="currentPasswordFeedback" class="password-feedback"></div>
                             </div>
 
                             <div class="form-row" style="margin-top: 20px;">
@@ -677,8 +697,9 @@
                                            class="form-control password-change-field"
                                            placeholder="새 비밀번호를 입력해주세요"
                                            disabled>
-                                    <div id="newPasswordFeedback" class="password-feedback"></div>
                                     <small class="form-text">영문, 숫자를 포함한 8자 이상</small>
+                                    <div id="newPasswordFeedback" class="password-feedback"></div>
+
                                 </div>
                                 <div class="form-group">
                                     <label for="confirmPassword">새 비밀번호 확인</label>
@@ -705,7 +726,7 @@
                                 <label for="membershipGrade">멤버십 등급</label>
                                 <input type="text"
                                        id="membershipGrade"
-                                       th:value="${userInfo?.membershipGrade != null ? userInfo.membershipGrade + '등급' : '일반회원'}"
+                                       th:value="${userInfo?.membershipGradeName != null ? userInfo.membershipGradeName + ' 등급' : '일반회원'}"
                                        class="form-control"
                                        disabled>
                             </div>
@@ -729,71 +750,76 @@
                         </div>
                     </div>
 
-                    <!-- 회원탈퇴 섹션 -->
-                        <div class="form-section danger-section">
-                        <h3 class="section-title withdrawal-toggle" onclick="toggleWithdrawal()">
-                            <span class="withdrawal-title">회원탈퇴</span>
-                            <i class="fas fa-chevron-down withdrawal-arrow"></i>
-                        </h3>
-
-                        <div class="withdrawal-content" id="withdrawalContent">
-                            <div class="withdrawal-notice">
-                                <div class="alert alert-warning">
-                                    <h5><i class="fas fa-warning"></i> 회원탈퇴 안내</h5>
-                                    <ul style="margin: 8px 0 0 0; padding-left: 20px;">
-                                        <li>탈퇴 시 모든 개인정보가 삭제되며 복구할 수 없습니다.</li>
-                                        <li>주문내역, 적립금, 쿠폰 등 모든 혜택이 소멸됩니다.</li>
-                                        <li>동일한 이메일로 재가입이 제한될 수 있습니다.</li>
-                                    </ul>
-                                </div>
-                            </div>
-
-                            <div class="withdrawal-form">
-                                <div class="form-group">
-                                    <label for="withdrawalReason">탈퇴 사유 (필수)</label>
-                                    <select id="withdrawalReason" name="withdrawalReason" class="form-control withdrawal-field">
-                                        <option value="">선택해주세요</option>
-                                        <option value="service_dissatisfaction">서비스 불만족</option>
-                                        <option value="no_longer_needed">더 이상 필요하지 않음</option>
-                                        <option value="privacy_concern">개인정보 보호</option>
-                                        <option value="other_service">다른 서비스 이용</option>
-                                        <option value="etc">기타</option>
-                                    </select>
-                                </div>
-
-                                <div th:if="${userInfo?.socialProvider == null}" class="form-group">
-                                    <label for="withdrawalPassword">비밀번호 확인</label>
-                                    <input type="password"
-                                           id="withdrawalPassword"
-                                           name="withdrawalPassword"
-                                           class="form-control withdrawal-field"
-                                           placeholder="탈퇴를 위해 비밀번호를 입력해주세요">
-                                    <div id="withdrawalPasswordFeedback" class="password-feedback"></div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="checkbox-container">
-                                        <input type="checkbox" id="withdrawalAgree" name="withdrawalAgree">
-                                        <span>위 안내사항을 모두 확인했으며, 회원탈퇴에 동의합니다.</span>
-                                    </label>
-                                </div>
-                                <button type="button" class="btn btn-danger withdrawal-btn" disabled onclick="handleWithdrawal()">
-                                    <i class="fas fa-user-times"></i> 회원탈퇴
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
                     <!-- 버튼 그룹 -->
                     <div class="button-group">
                         <button type="button" class="btn btn-outline" onclick="history.back()">
                             취소
                         </button>
-                        <button type="submit" class="btn btn-primary">
+                        <button type="submit" class="btn btn-primary" form="userUpdateForm" id="saveButton" disabled>
                             저장하기
                         </button>
                     </div>
                 </form>
+                </div>
+
+            <div class="withdrawal-card font-body">
+                <div class="form-section danger-section" style="margin: 0; border-bottom: none;">
+                    <h3 class="section-title withdrawal-toggle">
+                        <span class="withdrawal-title">회원탈퇴</span>
+                        <i class="fas fa-chevron-down withdrawal-arrow"></i>
+                    </h3>
+
+                    <div class="withdrawal-content" id="withdrawalContent"
+                         th:classappend="${withdrawalFormOpen} == true ? ' active' : ''">
+                        <div class="withdrawal-notice">
+                            <div class="alert alert-warning">
+                                <ul style="margin: 5px 0 0 0; padding-left: 20px;">
+                                    <li>탈퇴 시 모든 개인정보가 삭제되며 복구할 수 없습니다.</li>
+                                    <li>주문내역, 적립금, 쿠폰 등 모든 혜택이 소멸됩니다.</li>
+                                    <li>동일한 이메일로 재가입이 제한될 수 있습니다.</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div id="withdrawalGeneralFeedback" class="alert alert-warning" style="display: none;"></div>
+
+                        <form th:action="@{/mypage/mypageUserDelete}" method="post" class="withdrawal-form" id="withdrawalForm">
+                            <input type="hidden" th:if="${_csrf != null}" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+
+                            <div class="form-group">
+                                <label for="withdrawalReason">탈퇴 사유 (필수)</label>
+                                <select id="withdrawalReason" name="withdrawalReason" class="form-control withdrawal-field" required>
+                                    <option value="" th:selected="${withdrawalReasonValue == null}">선택해주세요</option>
+                                    <option value="service_dissatisfaction" th:selected="${withdrawalReasonValue == 'service_dissatisfaction'}">서비스 불만족</option>
+                                    <option value="no_longer_needed" th:selected="${withdrawalReasonValue == 'no_longer_needed'}">더 이상 필요하지 않음</option>
+                                    <option value="privacy_concern" th:selected="${withdrawalReasonValue == 'privacy_concern'}">개인정보 보호</option>
+                                    <option value="other_service" th:selected="${withdrawalReasonValue == 'other_service'}">다른 서비스 이용</option>
+                                    <option value="etc" th:selected="${withdrawalReasonValue == 'etc'}">기타</option>
+                                </select>
+                            </div>
+
+                            <div th:if="${userInfo?.socialProvider == null}" class="form-group">
+                                <label for="withdrawalPassword">비밀번호 확인</label>
+                                <input type="password"
+                                       id="withdrawalPassword"
+                                       name="withdrawalPassword"
+                                       class="form-control withdrawal-field"
+                                       placeholder="탈퇴를 위해 비밀번호를 입력해주세요">
+                                <div id="withdrawalPasswordFeedback" class="password-feedback"></div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="checkbox-container">
+                                    <input type="checkbox" id="withdrawalAgree" name="withdrawalAgree" required>
+                                    <span>위 안내사항을 모두 확인했으며, 회원탈퇴에 동의합니다.</span>
+                                </label>
+                            </div>
+                            <button type="submit" class="btn btn-danger withdrawal-btn" disabled>
+                                회원탈퇴
+                            </button>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -804,22 +830,422 @@
 <!-- 다음 우편번호 서비스 API -->
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
-    function toggleWithdrawal() {
-        const content = document.getElementById('withdrawalContent');
-        const arrow = document.querySelector('.withdrawal-arrow');
-        content.classList.toggle('active');
-    }
+    document.addEventListener('DOMContentLoaded', function () {
+        const currentPasswordInput = document.getElementById('currentPassword');
+        const newPasswordInput = document.getElementById('newPassword');
+        const confirmPasswordInput = document.getElementById('confirmPassword');
+        const currentPasswordFeedback = document.getElementById('currentPasswordFeedback');
+        const newPasswordFeedback = document.getElementById('newPasswordFeedback');
+        const confirmPasswordFeedback = document.getElementById('confirmPasswordFeedback');
+        const addressSearchBtn = document.querySelector('.address-search-btn');
+        const detailAddressInput = document.getElementById('userDetailAddress');
+        const phoneInput = document.getElementById('userPhone');
+        const userUpdateForm = document.querySelector('.user-update-form');
+        const saveButton = document.getElementById('saveButton');
+        const csrfInput = document.querySelector('.user-update-form input[name="_csrf"]');
 
-    function handleWithdrawal() {
-        if (confirm('정말로 회원탈퇴를 하시겠습니까? 이 작업은 되돌릴 수 없습니다.')) {
-            // 탈퇴 로직 구현
-            alert('회원탈퇴가 처리되었습니다.');
+        const withdrawalContent = document.getElementById('withdrawalContent');
+        const withdrawalToggle = document.querySelector('.withdrawal-toggle');
+        const withdrawalArrow = document.querySelector('.withdrawal-arrow');
+        const withdrawalAgree = document.getElementById('withdrawalAgree');
+        const withdrawalReason = document.getElementById('withdrawalReason');
+        const withdrawalPassword = document.getElementById('withdrawalPassword');
+        const withdrawalForm = document.getElementById('withdrawalForm');
+        const withdrawalBtn = withdrawalForm?.querySelector('.withdrawal-btn');
+        const withdrawalErrorMessage = document.getElementById('withdrawalGeneralFeedback');
+
+        let lastCheckedPassword = '';
+        let lastCheckResult = false;
+
+        function setFeedback(target, message, isValid) {
+            if (!target) {
+                return;
+            }
+            target.textContent = message || '';
+            target.style.color = isValid ? '#16a34a' : '#dc2626';
         }
-    }
 
-    // 탈퇴 동의 체크박스 처리
-    document.getElementById('withdrawalAgree')?.addEventListener('change', function() {
-        document.querySelector('.withdrawal-btn').disabled = !this.checked;
+        function enableNewPasswordFields(enable) {
+            if (!newPasswordInput || !confirmPasswordInput) {
+                return;
+            }
+
+            newPasswordInput.disabled = !enable;
+            confirmPasswordInput.disabled = !enable;
+
+            if (!enable) {
+                newPasswordInput.value = '';
+                confirmPasswordInput.value = '';
+                setFeedback(newPasswordFeedback, '', true);
+                setFeedback(confirmPasswordFeedback, '', true);
+            } else {
+                newPasswordInput.focus();
+            }
+        }
+
+        function validateNewPasswordStrength() {
+            if (!newPasswordInput || newPasswordInput.disabled) {
+                return true;
+            }
+
+            const value = newPasswordInput.value.trim();
+            if (!value) {
+                setFeedback(newPasswordFeedback, '', true);
+                return false;
+            }
+
+            const currentValue = currentPasswordInput ? currentPasswordInput.value.trim() : '';
+            if (currentValue && value && currentValue === value) {
+                setFeedback(newPasswordFeedback, '현재 비밀번호와 다른 비밀번호를 입력해주세요.', false);
+                return false;
+            }
+
+            const isValid = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d!@#$%^&*()_+=-]{8,}$/.test(value);
+            if (isValid) {
+                setFeedback(newPasswordFeedback, '사용 가능한 비밀번호입니다.', true);
+            } else {
+                setFeedback(newPasswordFeedback, '영문과 숫자를 포함한 8자 이상을 입력해주세요.', false);
+            }
+            return isValid;
+        }
+
+        function validatePasswordMatch() {
+            if (!confirmPasswordInput || confirmPasswordInput.disabled) {
+                return true;
+            }
+
+            const value = confirmPasswordInput.value.trim();
+            if (!value) {
+                setFeedback(confirmPasswordFeedback, '', true);
+                return false;
+            }
+
+            if (value === newPasswordInput.value.trim()) {
+                setFeedback(confirmPasswordFeedback, '비밀번호가 일치합니다.', true);
+                return true;
+            }
+
+            setFeedback(confirmPasswordFeedback, '비밀번호가 일치하지 않습니다.', false);
+            return false;
+        }
+
+        function handleCurrentPasswordValidationResult(isValid) {
+            if (isValid) {
+                setFeedback(currentPasswordFeedback, '현재 비밀번호가 확인되었습니다.', true);
+                enableNewPasswordFields(true);
+            } else {
+                if (currentPasswordInput && currentPasswordInput.value.trim().length > 0) {
+                    setFeedback(currentPasswordFeedback, '현재 비밀번호가 일치하지 않습니다.', false);
+                } else {
+                    setFeedback(currentPasswordFeedback, '', true);
+                }
+                enableNewPasswordFields(false);
+            }
+        }
+
+        function validateCurrentPassword() {
+            if (!currentPasswordInput) {
+                return;
+            }
+
+            const value = currentPasswordInput.value.trim();
+            if (!value) {
+                handleCurrentPasswordValidationResult(false);
+                lastCheckedPassword = '';
+                lastCheckResult = false;
+                return;
+            }
+
+            if (value === lastCheckedPassword) {
+                handleCurrentPasswordValidationResult(lastCheckResult);
+                return;
+            }
+
+            const payload = new URLSearchParams();
+            payload.append('currentPassword', value);
+            if (csrfInput) {
+                payload.append(csrfInput.name, csrfInput.value);
+            }
+
+            fetch('/mypage/validatePassword', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: payload
+            })
+                .then(function (response) {
+                    if (!response.ok) {
+                        throw new Error('password validation failed');
+                    }
+                    return response.json();
+                })
+                .then(function (isValid) {
+                    lastCheckedPassword = value;
+                    lastCheckResult = Boolean(isValid);
+                    handleCurrentPasswordValidationResult(lastCheckResult);
+                })
+                .catch(function () {
+                    lastCheckedPassword = '';
+                    lastCheckResult = false;
+                    handleCurrentPasswordValidationResult(false);
+                });
+        }
+
+        if (currentPasswordInput) {
+            currentPasswordInput.addEventListener('input', function () {
+                if (!currentPasswordInput.value.trim()) {
+                    handleCurrentPasswordValidationResult(false);
+                }
+            });
+
+            currentPasswordInput.addEventListener('blur', validateCurrentPassword);
+        }
+
+        newPasswordInput?.addEventListener('input', function () {
+            validateNewPasswordStrength();
+            validatePasswordMatch();
+            updateSaveButtonState();
+        });
+
+        confirmPasswordInput?.addEventListener('input', function () {
+            validatePasswordMatch();
+            updateSaveButtonState();
+        });
+
+        userUpdateForm?.addEventListener('submit', function (event) {
+            const wantsPasswordChange = newPasswordInput && !newPasswordInput.disabled && newPasswordInput.value.trim().length > 0;
+
+            if (wantsPasswordChange) {
+                const strengthOk = validateNewPasswordStrength();
+                const matchOk = validatePasswordMatch();
+                if (!strengthOk || !matchOk) {
+                    event.preventDefault();
+                    return;
+                }
+
+                if (!currentPasswordInput || currentPasswordInput.value.trim().length === 0) {
+                    setFeedback(currentPasswordFeedback, '비밀번호를 변경하려면 현재 비밀번호를 입력해주세요.', false);
+                    enableNewPasswordFields(false);
+                    event.preventDefault();
+                }
+            }
+            updateSaveButtonState();
+        });
+
+        if (addressSearchBtn) {
+            addressSearchBtn.addEventListener('click', function () {
+                new daum.Postcode({
+                    oncomplete: function (data) {
+                        const address = data.roadAddress || data.jibunAddress;
+                        const addressInput = document.getElementById('userAddress');
+                        if (addressInput) {
+                            addressInput.value = address;
+                        }
+                        detailAddressInput?.focus();
+                        updateSaveButtonState();
+                    }
+                }).open();
+            });
+        }
+
+        const trackedFields = [
+            document.getElementById('userNickname'),
+            document.getElementById('userPhone'),
+            document.getElementById('userAddress'),
+            document.getElementById('userDetailAddress'),
+            newPasswordInput,
+            confirmPasswordInput
+        ].filter(Boolean);
+
+        trackedFields.forEach(function (field) {
+            field.addEventListener('input', updateSaveButtonState);
+            field.addEventListener('change', updateSaveButtonState);
+        });
+
+        function updateSaveButtonState() {
+            if (!saveButton) {
+                return;
+            }
+
+            let hasChange = false;
+            let passwordChangeValid = false;
+
+            if (userNicknameOriginal !== null) {
+                hasChange = hasChange || (document.getElementById('userNickname')?.value.trim() !== userNicknameOriginal);
+            }
+
+            if (userPhoneOriginal !== null) {
+                hasChange = hasChange || (document.getElementById('userPhone')?.value.trim() !== userPhoneOriginal);
+            }
+
+            if (userAddressOriginal !== null) {
+                hasChange = hasChange || (document.getElementById('userAddress')?.value.trim() !== userAddressOriginal);
+            }
+
+            if (userDetailAddressOriginal !== null) {
+                hasChange = hasChange || (document.getElementById('userDetailAddress')?.value.trim() !== userDetailAddressOriginal);
+            }
+
+            const wantsPasswordChange = newPasswordInput && !newPasswordInput.disabled && newPasswordInput.value.trim().length > 0;
+            if (wantsPasswordChange) {
+                const strengthOk = validateNewPasswordStrength();
+                const matchOk = validatePasswordMatch();
+                passwordChangeValid = strengthOk && matchOk;
+            }
+
+            saveButton.disabled = !(hasChange || passwordChangeValid);
+        }
+
+        const userNicknameOriginal = document.getElementById('userNickname')?.value.trim() ?? null;
+        const userPhoneOriginal = document.getElementById('userPhone')?.value.trim() ?? null;
+        const userAddressOriginal = document.getElementById('userAddress')?.value.trim() ?? null;
+        const userDetailAddressOriginal = document.getElementById('userDetailAddress')?.value.trim() ?? null;
+
+        updateSaveButtonState();
+
+        if (phoneInput) {
+            phoneInput.addEventListener('input', function (event) {
+                const digits = event.target.value.replace(/[^0-9]/g, '').slice(0, 11);
+                let formatted = digits;
+                if (digits.length > 3 && digits.length <= 7) {
+                    formatted = digits.replace(/(\d{3})(\d{1,4})/, '$1-$2');
+                } else if (digits.length > 7) {
+                    formatted = digits.replace(/(\d{3})(\d{4})(\d{1,4})/, '$1-$2-$3');
+                }
+                event.target.value = formatted;
+            });
+        }
+
+        function updateWithdrawalButtonState() {
+            if (!withdrawalBtn) {
+                return;
+            }
+
+            const reasonSelected = withdrawalReason && withdrawalReason.value && withdrawalReason.value.trim().length > 0;
+            const passwordEntered = !withdrawalPassword || withdrawalPassword.value.trim().length > 0;
+            const agreed = withdrawalAgree && withdrawalAgree.checked;
+
+            withdrawalBtn.disabled = !(reasonSelected && passwordEntered && agreed);
+        }
+
+        withdrawalAgree?.addEventListener('change', updateWithdrawalButtonState);
+        withdrawalReason?.addEventListener('change', updateWithdrawalButtonState);
+        withdrawalPassword?.addEventListener('input', updateWithdrawalButtonState);
+        updateWithdrawalButtonState();
+
+            if (withdrawalToggle && withdrawalContent) {
+                withdrawalToggle.addEventListener('click', function () {
+                    const isActive = withdrawalContent.classList.toggle('active');
+                    if (withdrawalArrow) {
+                        withdrawalArrow.style.transform = isActive ? 'rotate(180deg)' : 'rotate(0)';
+                    }
+            });
+
+            if (withdrawalErrorMessage && !withdrawalContent.classList.contains('active')) {
+                withdrawalContent.classList.add('active');
+            }
+
+            if (withdrawalContent.classList.contains('active')) {
+                if (withdrawalArrow) {
+                    withdrawalArrow.style.transform = 'rotate(180deg)';
+                }
+            }
+        }
+
+        withdrawalForm?.addEventListener('submit', function (event) {
+            if (!withdrawalBtn || withdrawalBtn.disabled) {
+                event.preventDefault();
+                return;
+            }
+
+            event.preventDefault();
+
+             const passwordFeedback = document.getElementById('withdrawalPasswordFeedback');
+             if (passwordFeedback) {
+                 passwordFeedback.textContent = '';
+             }
+
+            if (!confirm('정말로 회원탈퇴를 하시겠습니까? 이 작업은 되돌릴 수 없습니다.')) {
+                return;
+            }
+
+            const formData = new FormData(withdrawalForm);
+            const payload = new URLSearchParams();
+            formData.forEach((value, key) => {
+                let processed = value instanceof File ? value.name : value;
+                if (key === 'withdrawalAgree') {
+                    processed = 'true';
+                }
+                payload.append(key, processed);
+            });
+
+            if (!formData.has('withdrawalAgree')) {
+                payload.append('withdrawalAgree', 'false');
+            }
+
+            fetch('/mypage/mypageUserDelete', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'X-Requested-With': 'XMLHttpRequest'
+                },
+                body: payload.toString()
+            }).then(async function (response) {
+                const contentType = response.headers.get('Content-Type');
+                const isJson = contentType && contentType.includes('application/json');
+                const data = isJson ? await response.json() : null;
+
+                if (response.ok && data && data.success) {
+                    alert('회원탈퇴가 완료되었습니다.');
+                    window.location.href = data.redirectUrl || '/';
+                    return;
+                }
+
+                const message = data && data.message ? data.message : '회원 탈퇴 처리 중 오류가 발생했습니다.';
+                showWithdrawalError(message);
+            }).catch(function () {
+                showWithdrawalError('네트워크 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
+            });
+        });
+
+        function showWithdrawalError(message) {
+            const generalFeedback = document.getElementById('withdrawalGeneralFeedback');
+            const passwordFeedback = document.getElementById('withdrawalPasswordFeedback');
+            const agreeLabel = withdrawalForm?.querySelector('.checkbox-container span');
+
+            if (generalFeedback) {
+                const isGeneralMessage = !(message.includes('비밀번호') || message.includes('동의'));
+                generalFeedback.textContent = message;
+                generalFeedback.style.display = isGeneralMessage ? 'block' : 'none';
+            }
+
+            if (passwordFeedback) {
+                if (message.includes('비밀번호')) {
+                    passwordFeedback.textContent = message;
+                    passwordFeedback.style.color = '#dc2626';
+                } else {
+                    passwordFeedback.textContent = '';
+                }
+            }
+
+            if (agreeLabel) {
+                if (message.includes('동의')) {
+                    agreeLabel.textContent = message;
+                    agreeLabel.style.color = '#dc2626';
+                } else {
+                    agreeLabel.textContent = '위 안내사항을 모두 확인했으며, 회원탈퇴에 동의합니다.';
+                    agreeLabel.style.color = 'inherit';
+                }
+            }
+
+            if (withdrawalContent && !withdrawalContent.classList.contains('active')) {
+                withdrawalContent.classList.add('active');
+            }
+            if (withdrawalArrow) {
+                withdrawalArrow.style.transform = 'rotate(180deg)';
+            }
+        }
     });
 </script>
 </body>

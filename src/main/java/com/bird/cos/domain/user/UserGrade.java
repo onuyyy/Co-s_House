@@ -1,10 +1,12 @@
 package com.bird.cos.domain.user;
 
 import jakarta.persistence.*;
+import lombok.Getter;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+@Getter
 @Entity
 @Table(name = "USER_GRADE")
 public class UserGrade {
