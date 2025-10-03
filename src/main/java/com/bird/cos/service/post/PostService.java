@@ -3,6 +3,7 @@ package com.bird.cos.service.post;
 import com.bird.cos.domain.post.Post;
 import com.bird.cos.domain.post.PostImage;
 import com.bird.cos.domain.user.User;
+import com.bird.cos.dto.post.PostDetailResponse;
 import com.bird.cos.dto.post.PostRequest;
 import com.bird.cos.dto.post.PostResponse;
 import com.bird.cos.dto.post.PostSearchRequest;
@@ -158,5 +159,27 @@ public class PostService {
                 .viewCount(post.getViewCount())
                 .build()
         );
+    }
+
+    public PostDetailResponse getPost(long postId) {
+
+        Post post = postRepository.findById(postId).orElseThrow(BusinessException::notFoundPost);
+
+        return PostDetailResponse.builder()
+                .postId(post.getPostId())
+                .title(post.getTitle())
+                .username(post.getUser().getUserName())
+                .postCreatedAt(post.getPostCreatedAt())
+                .content(post.getContent())
+                .housingType(post.getHousingType())
+                .areaSize(post.getAreaSize())
+                .roomCount(post.getRoomCount())
+                .familyCount(post.getFamilyCount())
+                .hasPet(post.getHasPet())
+                .familyType(post.getFamilyType())
+                .projectType(post.getProjectType())
+                .postUpdatedAt(post.getPostUpdatedAt())
+                .postCreatedAt(post.getPostUpdatedAt())
+                .build();
     }
 }

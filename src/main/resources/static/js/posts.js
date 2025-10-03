@@ -1,6 +1,8 @@
 // 게시글 목록 페이지 JavaScript
 
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('Posts page loaded');
+
     // 필터 드롭다운 토글
     const filterBtns = document.querySelectorAll('.filter-btn');
     const filterDropdowns = document.querySelectorAll('.filter-dropdown');
@@ -10,6 +12,8 @@ document.addEventListener('DOMContentLoaded', function() {
             e.stopPropagation();
             const filterType = this.getAttribute('data-filter');
             const dropdown = document.getElementById(filterType + 'Dropdown');
+            
+            console.log('Filter clicked:', filterType);
             
             // 다른 드롭다운 닫기
             filterDropdowns.forEach(dd => {
@@ -35,6 +39,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     filterInputs.forEach(input => {
         input.addEventListener('change', function() {
+            console.log('Filter changed:', this.name, '=', this.value);
+            
             // 선택된 필터의 드롭다운 닫기
             const dropdown = this.closest('.filter-dropdown');
             if (dropdown) {
@@ -47,11 +53,14 @@ document.addEventListener('DOMContentLoaded', function() {
             
             if (this.value === '') {
                 filterBtn.classList.remove('active');
+                console.log('Filter cleared:', this.name);
             } else {
                 filterBtn.classList.add('active');
+                console.log('Filter applied:', this.name, '=', this.value);
             }
 
             // 폼 제출
+            console.log('Submitting form...');
             searchForm.submit();
         });
     });
@@ -77,15 +86,25 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // URL 파라미터로 필터 상태 복원
     const urlParams = new URLSearchParams(window.location.search);
+    console.log('URL params:', urlParams.toString());
+    
     filterInputs.forEach(input => {
         const paramValue = urlParams.get(input.name);
-        if (paramValue !== null && input.value === paramValue) {
-            input.checked = true;
-            const filterGroup = input.closest('.filter-group');
-            const filterBtn = filterGroup.querySelector('.filter-btn');
-            if (paramValue !== '') {
-                filterBtn.classList.add('active');
+        console.log('Checking param:', input.name, '=', paramValue);
+        
+        if (paramValue !== null) {
+            if (input.value === paramValue) {
+                input.checked = true;
+                const filterGroup = input.closest('.filter-group');
+                const filterBtn = filterGroup.querySelector('.filter-btn');
+                if (paramValue !== '') {
+                    filterBtn.classList.add('active');
+                    console.log('Filter restored:', input.name, '=', paramValue);
+                }
             }
+        } else if (input.value === '') {
+            // 파라미터가 없으면 "전체" 선택
+            input.checked = true;
         }
     });
 });

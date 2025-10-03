@@ -2,6 +2,7 @@ package com.bird.cos.controller.post;
 
 import com.bird.cos.domain.common.CommonCode;
 import com.bird.cos.dto.mypage.MyOrderRequest;
+import com.bird.cos.dto.post.PostDetailResponse;
 import com.bird.cos.dto.post.PostRequest;
 import com.bird.cos.dto.post.PostResponse;
 import com.bird.cos.dto.post.PostSearchRequest;
@@ -40,7 +41,9 @@ public class PostController {
                               Model model,
                               @PageableDefault(size = 12, sort = "postCreatedAt", direction = Sort.Direction.DESC) Pageable pageable)
     {
+        
         Page<PostResponse> posts = postService.getPosts(searchRequest, pageable);
+
         model.addAttribute("posts", posts);
         model.addAttribute("searchRequest", searchRequest);
 
@@ -96,10 +99,11 @@ public class PostController {
         return null;
     }
 
-    @GetMapping("{postId}")
-    public String getPostDetail(@PathVariable String postId, Model model)
+    @GetMapping("/{postId}")
+    public String getPostDetail(@PathVariable long postId, Model model)
     {
-
+        PostDetailResponse post = postService.getPost(postId);
+        model.addAttribute("post", post);
 
         return "posts/detail";
     }

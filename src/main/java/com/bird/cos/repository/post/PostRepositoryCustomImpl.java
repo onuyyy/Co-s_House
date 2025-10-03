@@ -31,14 +31,21 @@ public class PostRepositoryCustomImpl implements PostRepositoryCustom {
                 .select(post.postId)
                 .from(post)
                 .where(
-                        request.getHousingType() != null ? post.housingType.eq(request.getHousingType()) : null,
-                        request.getAreaSize() != null && request.getAreaSize() > 0 ? post.areaSize.eq(request.getAreaSize()) : null,
-                        request.getRoomCount() != null && request.getRoomCount() > 0 ? post.roomCount.eq(request.getRoomCount()) : null,
-                        request.getFamilyType() != null ? post.familyType.eq(request.getFamilyType()) : null,
-                        request.getHasPet() != null ? post.hasPet.eq(request.getHasPet()) : null,
-                        request.getFamilyCount() != null && request.getFamilyCount() > 0 ? post.familyCount.eq(request.getFamilyCount()) : null,
-                        request.getProjectType() != null ? post.projectType.eq(request.getProjectType()) : null,
-                        request.getIsPublic() != null ? post.isPublic.eq(request.getIsPublic()) : post.isPublic.eq(true)
+                        request.getHousingType() != null && !request.getHousingType().isEmpty() 
+                            ? post.housingType.eq(request.getHousingType()) : null,
+                        request.getAreaSize() != null && request.getAreaSize() > 0 
+                            ? post.areaSize.eq(request.getAreaSize()) : null,
+                        request.getRoomCount() != null && request.getRoomCount() > 0 
+                            ? post.roomCount.eq(request.getRoomCount()) : null,
+                        request.getFamilyType() != null && !request.getFamilyType().isEmpty() 
+                            ? post.familyType.eq(request.getFamilyType()) : null,
+                        request.getHasPet() != null 
+                            ? post.hasPet.eq(request.getHasPet()) : null,
+                        request.getFamilyCount() != null && request.getFamilyCount() > 0 
+                            ? post.familyCount.eq(request.getFamilyCount()) : null,
+                        request.getProjectType() != null && !request.getProjectType().isEmpty() 
+                            ? post.projectType.eq(request.getProjectType()) : null,
+                        post.isPublic.eq(true)  // 항상 공개 게시글만 조회
                 )
                 .orderBy(post.postCreatedAt.desc())
                 .offset(pageable.getOffset())
@@ -64,14 +71,21 @@ public class PostRepositoryCustomImpl implements PostRepositoryCustom {
                 .select(post.count())
                 .from(post)
                 .where(
-                        request.getHousingType() != null ? post.housingType.eq(request.getHousingType()) : null,
-                        request.getAreaSize() != null && request.getAreaSize() > 0 ? post.areaSize.eq(request.getAreaSize()) : null,
-                        request.getRoomCount() != null && request.getRoomCount() > 0 ? post.roomCount.eq(request.getRoomCount()) : null,
-                        request.getFamilyType() != null ? post.familyType.eq(request.getFamilyType()) : null,
-                        request.getHasPet() != null ? post.hasPet.eq(request.getHasPet()) : null,
-                        request.getFamilyCount() != null && request.getFamilyCount() > 0 ? post.familyCount.eq(request.getFamilyCount()) : null,
-                        request.getProjectType() != null ? post.projectType.eq(request.getProjectType()) : null,
-                        request.getIsPublic() != null ? post.isPublic.eq(request.getIsPublic()) : post.isPublic.eq(true)
+                        request.getHousingType() != null && !request.getHousingType().isEmpty() 
+                            ? post.housingType.eq(request.getHousingType()) : null,
+                        request.getAreaSize() != null && request.getAreaSize() > 0 
+                            ? post.areaSize.eq(request.getAreaSize()) : null,
+                        request.getRoomCount() != null && request.getRoomCount() > 0 
+                            ? post.roomCount.eq(request.getRoomCount()) : null,
+                        request.getFamilyType() != null && !request.getFamilyType().isEmpty() 
+                            ? post.familyType.eq(request.getFamilyType()) : null,
+                        request.getHasPet() != null 
+                            ? post.hasPet.eq(request.getHasPet()) : null,
+                        request.getFamilyCount() != null && request.getFamilyCount() > 0 
+                            ? post.familyCount.eq(request.getFamilyCount()) : null,
+                        request.getProjectType() != null && !request.getProjectType().isEmpty() 
+                            ? post.projectType.eq(request.getProjectType()) : null,
+                        post.isPublic.eq(true)  // 항상 공개 게시글만 조회
                 )
                 .fetchOne();
 
