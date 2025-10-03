@@ -2,6 +2,7 @@ package com.bird.cos.controller.post;
 
 import com.bird.cos.domain.common.CommonCode;
 import com.bird.cos.dto.mypage.MyOrderRequest;
+import com.bird.cos.dto.order.OrderItemResponse;
 import com.bird.cos.dto.post.PostDetailResponse;
 import com.bird.cos.dto.post.PostRequest;
 import com.bird.cos.dto.post.PostResponse;
@@ -9,6 +10,7 @@ import com.bird.cos.dto.post.PostSearchRequest;
 import com.bird.cos.dto.product.ProductResponse;
 import com.bird.cos.security.CustomUserDetails;
 import com.bird.cos.service.admin.common.CommonCodeService;
+import com.bird.cos.service.order.OrderItemService;
 import com.bird.cos.service.order.OrderService;
 import com.bird.cos.service.post.PostService;
 import com.bird.cos.service.product.ProductService;
@@ -34,7 +36,7 @@ public class PostController {
 
     private final PostService postService;
     private final CommonCodeService commonCodeService;
-    private final OrderService orderService;
+    private final OrderItemService orderItemService;
 
     @GetMapping
     public String getPostPage(PostSearchRequest searchRequest,
@@ -89,14 +91,16 @@ public class PostController {
         }
     }
 
+    @PreAuthorize("isAuthenticated()")
     @GetMapping("/products")
     @ResponseBody
-    public ResponseEntity<List<ProductResponse>> getProducts(Model model,
+    public ResponseEntity<List<OrderItemResponse>> getProducts(Model model,
                                                              @ModelAttribute MyOrderRequest request,
-                                                             @PageableDefault Pageable pageable)
+                                                             @PageableDefault Pageable pageable,
+                                                             @AuthenticationPrincipal CustomUserDetails userDetails)
     {
-
-        return null;
+        List<OrderItemResponse> myOrderItems = orderItemService.getMyOrderItems(userDetails.getUserId());
+        return ResponseEntity.ok(myOrderItems);
     }
 
     @GetMapping("/{postId}")

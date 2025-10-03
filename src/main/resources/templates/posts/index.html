@@ -3,157 +3,164 @@
 <head th:replace="fragments/layout :: head('오늘의 집 | 집들이')"></head>
 <body class="page font-body">
 <header th:replace="fragments/layout :: header"></header>
-<main class="page-main container">
-    <section class="section">
-        <!-- 헤더 -->
-        <div class="posts-header">
-            <h1 class="posts-title">집들이</h1>
-            <div class="posts-count">
-                전체 <span th:text="${posts != null ? #numbers.formatInteger(posts.totalElements, 0, 'COMMA') : '0'}">16,274</span>
+<main class="page-main">
+    <div class="container-posts">
+        <section class="posts-section">
+            <!-- 헤더 -->
+            <div class="posts-header">
+                <h1 class="posts-title">집들이</h1>
+                <div class="posts-count">
+                    전체 <span th:text="${posts != null ? #numbers.formatInteger(posts.totalElements, 0, 'COMMA') : '0'}">16,274</span>
+                </div>
             </div>
-        </div>
 
-        <!-- 필터 -->
-        <div class="posts-filter">
-            <form id="searchForm" th:action="@{/posts}" method="get">
-                <div class="filter-group">
-                    <button type="button" class="filter-btn" data-filter="housingType">
-                        <span>주거형태</span>
-                        <svg width="12" height="12" viewBox="0 0 12 12"><path d="M6 8L2 4h8z" fill="currentColor"/></svg>
-                    </button>
-                    <div class="filter-dropdown" id="housingTypeDropdown">
-                        <label><input type="radio" name="housingType" value=""> 전체</label>
-                        <label><input type="radio" name="housingType" value="원룸"> 원룸</label>
-                        <label><input type="radio" name="housingType" value="오피스텔"> 오피스텔</label>
-                        <label><input type="radio" name="housingType" value="아파트"> 아파트</label>
-                        <label><input type="radio" name="housingType" value="빌라/연립"> 빌라/연립</label>
-                        <label><input type="radio" name="housingType" value="단독주택"> 단독주택</label>
-                    </div>
-                </div>
-
-                <div class="filter-group">
-                    <button type="button" class="filter-btn" data-filter="areaSize">
-                        <span>평수</span>
-                        <svg width="12" height="12" viewBox="0 0 12 12"><path d="M6 8L2 4h8z" fill="currentColor"/></svg>
-                    </button>
-                    <div class="filter-dropdown" id="areaSizeDropdown">
-                        <label><input type="radio" name="areaSize" value=""> 전체</label>
-                        <label><input type="radio" name="areaSize" value="10"> 10평 이하</label>
-                        <label><input type="radio" name="areaSize" value="20"> 10평대</label>
-                        <label><input type="radio" name="areaSize" value="30"> 20평대</label>
-                        <label><input type="radio" name="areaSize" value="40"> 30평대</label>
-                        <label><input type="radio" name="areaSize" value="50"> 40평대 이상</label>
-                    </div>
-                </div>
-
-                <div class="filter-group">
-                    <button type="button" class="filter-btn" data-filter="familyType">
-                        <span>가족형태</span>
-                        <svg width="12" height="12" viewBox="0 0 12 12"><path d="M6 8L2 4h8z" fill="currentColor"/></svg>
-                    </button>
-                    <div class="filter-dropdown" id="familyTypeDropdown">
-                        <label><input type="radio" name="familyType" value=""> 전체</label>
-                        <label><input type="radio" name="familyType" value="싱글"> 싱글</label>
-                        <label><input type="radio" name="familyType" value="신혼부부"> 신혼부부</label>
-                        <label><input type="radio" name="familyType" value="영유아 자녀"> 영유아 자녀</label>
-                        <label><input type="radio" name="familyType" value="초등학생 자녀"> 초등학생 자녀</label>
-                    </div>
-                </div>
-
-                <div class="filter-group">
-                    <button type="button" class="filter-btn" data-filter="projectType">
-                        <span>작업분야</span>
-                        <svg width="12" height="12" viewBox="0 0 12 12"><path d="M6 8L2 4h8z" fill="currentColor"/></svg>
-                    </button>
-                    <div class="filter-dropdown" id="projectTypeDropdown">
-                        <label><input type="radio" name="projectType" value=""> 전체</label>
-                        <label><input type="radio" name="projectType" value="전체 리모델링"> 전체 리모델링</label>
-                        <label><input type="radio" name="projectType" value="부분 리모델링"> 부분 리모델링</label>
-                        <label><input type="radio" name="projectType" value="홈스타일링"> 홈스타일링</label>
-                        <label><input type="radio" name="projectType" value="DIY"> DIY</label>
-                    </div>
-                </div>
-
-                <div class="filter-group">
-                    <button type="button" class="filter-btn" data-filter="roomCount">
-                        <span>방개수</span>
-                        <svg width="12" height="12" viewBox="0 0 12 12"><path d="M6 8L2 4h8z" fill="currentColor"/></svg>
-                    </button>
-                    <div class="filter-dropdown" id="roomCountDropdown">
-                        <label><input type="radio" name="roomCount" value=""> 전체</label>
-                        <label><input type="radio" name="roomCount" value="1"> 1개</label>
-                        <label><input type="radio" name="roomCount" value="2"> 2개</label>
-                        <label><input type="radio" name="roomCount" value="3"> 3개</label>
-                        <label><input type="radio" name="roomCount" value="4"> 4개 이상</label>
-                    </div>
-                </div>
-            </form>
-        </div>
-
-        <!-- 게시글 그리드 -->
-        <div class="posts-grid" th:if="${posts != null and !posts.content.isEmpty()}">
-            <a th:href="@{/posts/{id}(id=${post.postId})}" class="post-card" th:each="post : ${posts.content}">
-                <div class="post-image">
-                    <span class="badge-new">NEW</span>
-                    <img th:src="${post.thumbnail != null ? post.thumbnail : '/images/default-thumbnail.jpg'}" 
-                         th:alt="${post.title}"
-                         onerror="this.src='/images/default-thumbnail.jpg'">
-                    <button class="btn-bookmark" onclick="event.preventDefault(); toggleBookmark(this);">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
-                            <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
-                        </svg>
-                    </button>
-                </div>
-                <div class="post-content">
-                    <h3 class="post-title" th:text="${post.title}">게시글 제목</h3>
-                    <div class="post-meta">
-                        <div class="post-author">
-                            <img src="/images/default-avatar.png" alt="avatar" class="author-avatar">
-                            <span th:text="${post.username}">작성자</span>
-                        </div>
-                        <div class="post-stats">
-                            <span>스크랩 <span th:text="${post.scrapCount != null ? post.scrapCount : 0}">10</span></span>
-                            <span>·</span>
-                            <span>조회 <span th:text="${post.viewCount != null ? post.viewCount : 0}">293</span></span>
+            <!-- 필터 -->
+            <div class="posts-filter">
+                <form id="searchForm" th:action="@{/posts}" method="get">
+                    <div class="filter-group">
+                        <button type="button" class="filter-btn" data-filter="housingType">
+                            <span>주거형태</span>
+                            <svg width="12" height="12" viewBox="0 0 12 12"><path d="M6 8L2 4h8z" fill="currentColor"/></svg>
+                        </button>
+                        <div class="filter-dropdown" id="housingTypeDropdown">
+                            <label><input type="radio" name="housingType" value=""> 전체</label>
+                            <label><input type="radio" name="housingType" value="원룸"> 원룸</label>
+                            <label><input type="radio" name="housingType" value="오피스텔"> 오피스텔</label>
+                            <label><input type="radio" name="housingType" value="아파트"> 아파트</label>
+                            <label><input type="radio" name="housingType" value="빌라/연립"> 빌라/연립</label>
+                            <label><input type="radio" name="housingType" value="단독주택"> 단독주택</label>
                         </div>
                     </div>
-                </div>
-            </a>
-        </div>
 
-        <!-- 빈 상태 -->
-        <div class="empty-state" th:if="${posts == null or posts.content.isEmpty()}">
-            <p>등록된 게시글이 없습니다.</p>
-        </div>
+                    <div class="filter-group">
+                        <button type="button" class="filter-btn" data-filter="areaSize">
+                            <span>평수</span>
+                            <svg width="12" height="12" viewBox="0 0 12 12"><path d="M6 8L2 4h8z" fill="currentColor"/></svg>
+                        </button>
+                        <div class="filter-dropdown" id="areaSizeDropdown">
+                            <label><input type="radio" name="areaSize" value=""> 전체</label>
+                            <label><input type="radio" name="areaSize" value="10"> 10평 이하</label>
+                            <label><input type="radio" name="areaSize" value="20"> 10평대</label>
+                            <label><input type="radio" name="areaSize" value="30"> 20평대</label>
+                            <label><input type="radio" name="areaSize" value="40"> 30평대</label>
+                            <label><input type="radio" name="areaSize" value="50"> 40평대 이상</label>
+                        </div>
+                    </div>
 
-        <!-- 페이징 -->
-        <div class="pagination" th:if="${posts != null and posts.totalPages > 1}">
-            <a th:href="@{/posts(page=${posts.number > 0 ? posts.number - 1 : 0}, size=${posts.size})}" 
-               th:classappend="${posts.first} ? 'disabled'" 
-               class="page-link">
-                ‹
-            </a>
+                    <div class="filter-group">
+                        <button type="button" class="filter-btn" data-filter="familyType">
+                            <span>가족형태</span>
+                            <svg width="12" height="12" viewBox="0 0 12 12"><path d="M6 8L2 4h8z" fill="currentColor"/></svg>
+                        </button>
+                        <div class="filter-dropdown" id="familyTypeDropdown">
+                            <label><input type="radio" name="familyType" value=""> 전체</label>
+                            <label><input type="radio" name="familyType" value="싱글"> 싱글</label>
+                            <label><input type="radio" name="familyType" value="신혼부부"> 신혼부부</label>
+                            <label><input type="radio" name="familyType" value="영유아 자녀"> 영유아 자녀</label>
+                            <label><input type="radio" name="familyType" value="초등학생 자녀"> 초등학생 자녀</label>
+                        </div>
+                    </div>
 
-            <th:block th:each="i : ${#numbers.sequence(0, posts.totalPages - 1)}">
-                <a th:if="${i >= posts.number - 2 and i <= posts.number + 2}"
-                   th:href="@{/posts(page=${i}, size=${posts.size})}" 
-                   th:text="${i + 1}"
-                   th:classappend="${i == posts.number} ? 'active'"
-                   class="page-link">
-                    1
+                    <div class="filter-group">
+                        <button type="button" class="filter-btn" data-filter="projectType">
+                            <span>작업분야</span>
+                            <svg width="12" height="12" viewBox="0 0 12 12"><path d="M6 8L2 4h8z" fill="currentColor"/></svg>
+                        </button>
+                        <div class="filter-dropdown" id="projectTypeDropdown">
+                            <label><input type="radio" name="projectType" value=""> 전체</label>
+                            <label><input type="radio" name="projectType" value="전체 리모델링"> 전체 리모델링</label>
+                            <label><input type="radio" name="projectType" value="부분 리모델링"> 부분 리모델링</label>
+                            <label><input type="radio" name="projectType" value="홈스타일링"> 홈스타일링</label>
+                            <label><input type="radio" name="projectType" value="DIY"> DIY</label>
+                        </div>
+                    </div>
+
+                    <div class="filter-group">
+                        <button type="button" class="filter-btn" data-filter="roomCount">
+                            <span>방개수</span>
+                            <svg width="12" height="12" viewBox="0 0 12 12"><path d="M6 8L2 4h8z" fill="currentColor"/></svg>
+                        </button>
+                        <div class="filter-dropdown" id="roomCountDropdown">
+                            <label><input type="radio" name="roomCount" value=""> 전체</label>
+                            <label><input type="radio" name="roomCount" value="1"> 1개</label>
+                            <label><input type="radio" name="roomCount" value="2"> 2개</label>
+                            <label><input type="radio" name="roomCount" value="3"> 3개</label>
+                            <label><input type="radio" name="roomCount" value="4"> 4개 이상</label>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <!-- 게시글 그리드 -->
+            <div class="posts-grid" th:if="${posts != null and !posts.content.isEmpty()}">
+                <a th:href="@{/posts/{id}(id=${post.postId})}" class="post-card" th:each="post : ${posts.content}">
+                    <div class="post-image">
+                        <span class="badge-new">NEW</span>
+                        <img th:if="${post.thumbnail != null}" 
+                             th:src="${post.thumbnail}" 
+                             th:alt="${post.title}"
+                             onerror="this.style.display='none'; this.parentElement.classList.add('no-image');">
+                        <div th:if="${post.thumbnail == null}" class="no-thumbnail">
+                            <svg width="60" height="60" viewBox="0 0 60 60" fill="none">
+                                <rect width="60" height="60" fill="#f5f5f5"/>
+                                <path d="M30 20v20M20 30h20" stroke="#ddd" stroke-width="2"/>
+                            </svg>
+                        </div>
+                        <button class="btn-bookmark" onclick="event.preventDefault(); toggleBookmark(this);">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                                <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="post-content">
+                        <h3 class="post-title" th:text="${post.title}">게시글 제목</h3>
+                        <div class="post-meta">
+                            <div class="post-author">
+                                <span th:text="${post.username}">작성자</span>
+                            </div>
+                            <div class="post-stats">
+                                <span>스크랩 <span th:text="${post.scrapCount != null ? post.scrapCount : 0}">10</span></span>
+                                <span>·</span>
+                                <span>조회 <span th:text="${post.viewCount != null ? post.viewCount : 0}">293</span></span>
+                            </div>
+                        </div>
+                    </div>
                 </a>
-            </th:block>
+            </div>
 
-            <a th:href="@{/posts(page=${posts.number < posts.totalPages - 1 ? posts.number + 1 : posts.totalPages - 1}, size=${posts.size})}" 
-               th:classappend="${posts.last} ? 'disabled'"
-               class="page-link">
-                ›
-            </a>
-        </div>
-    </section>
+            <!-- 빈 상태 -->
+            <div class="empty-state" th:if="${posts == null or posts.content.isEmpty()}">
+                <p>등록된 게시글이 없습니다.</p>
+            </div>
+
+            <!-- 페이징 -->
+            <div class="pagination" th:if="${posts != null and posts.totalPages > 1}">
+                <a th:href="@{/posts(page=${posts.number > 0 ? posts.number - 1 : 0}, size=${posts.size})}" 
+                   th:classappend="${posts.first} ? 'disabled'" 
+                   class="page-link">
+                    ‹
+                </a>
+
+                <th:block th:each="i : ${#numbers.sequence(0, posts.totalPages - 1)}">
+                    <a th:if="${i >= posts.number - 2 and i <= posts.number + 2}"
+                       th:href="@{/posts(page=${i}, size=${posts.size})}" 
+                       th:text="${i + 1}"
+                       th:classappend="${i == posts.number} ? 'active'"
+                       class="page-link">
+                        1
+                    </a>
+                </th:block>
+
+                <a th:href="@{/posts(page=${posts.number < posts.totalPages - 1 ? posts.number + 1 : posts.totalPages - 1}, size=${posts.size})}" 
+                   th:classappend="${posts.last} ? 'disabled'"
+                   class="page-link">
+                    ›
+                </a>
+            </div>
+        </section>
+    </div>
 </main>
 <footer th:replace="fragments/layout :: footer"></footer>
-<link rel="stylesheet" th:href="@{/css/sections.css}">
 <link rel="stylesheet" th:href="@{/css/posts.css}">
 <script th:src="@{/js/posts.js}"></script>
 </body>

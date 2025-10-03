@@ -15,6 +15,7 @@ public class PostRequest {
     private String title;         // 게시글 제목
     private String content;       // 게시글 내용
     private List<MultipartFile> images;
+    private List<Long> productIds; // 연결된 상품 ID 리스트
 
     private String housingType;   // 주거 형태 (아파트, 원룸, 빌라 등)
     private Integer areaSize;     // 평수

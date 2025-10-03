@@ -7,6 +7,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -18,6 +21,7 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @Table(name = "POST")
+@EntityListeners(AuditingEntityListener.class)
 public class Post {
 
     @Id
@@ -75,10 +79,12 @@ public class Post {
     @Column(name = "report_count")
     private Integer reportCount = 0;
 
-    @Column(name = "post_created_at", insertable = false, updatable = false)
+    @CreatedDate
+    @Column(name = "post_created_at", updatable = false)
     private LocalDateTime postCreatedAt;
 
-    @Column(name = "post_updated_at", insertable = false, updatable = false)
+    @LastModifiedDate
+    @Column(name = "post_updated_at")
     private LocalDateTime postUpdatedAt;
 
     @Column(name = "post_updated_by")
@@ -98,6 +104,14 @@ public class Post {
                         .map(PostImage::getImageUrl)
                         .orElse(null)
                 );
+    }
+
+    /**
+     * 최근 게시글 여부 (7일 이내)
+     */
+    public boolean isRecent() {
+        if (postCreatedAt == null) return false;
+        return postCreatedAt.isAfter(LocalDateTime.now().minusDays(7));
     }
 
     public static Post from(PostRequest request, User user) {

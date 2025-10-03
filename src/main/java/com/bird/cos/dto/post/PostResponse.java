@@ -13,6 +13,8 @@ public class PostResponse {
     private String title;
     private String username;
     private LocalDateTime publishDate;
-    private Integer scrapCount;
+    private Long scrapCount;
     private Integer viewCount;
+    private boolean isRecent;
+    private boolean isScraped;
 }

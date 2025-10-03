@@ -7,11 +7,11 @@ document.addEventListener('DOMContentLoaded', function() {
     
     if (guideToggle && guideContent) {
         guideToggle.addEventListener('click', function() {
-            if (guideContent.style.display === 'none') {
-                guideContent.style.display = 'block';
+            if (guideContent.classList.contains('hidden')) {
+                guideContent.classList.remove('hidden');
                 guideToggle.textContent = '▲';
             } else {
-                guideContent.style.display = 'none';
+                guideContent.classList.add('hidden');
                 guideToggle.textContent = '▼';
             }
         });
@@ -43,13 +43,11 @@ document.addEventListener('DOMContentLoaded', function() {
             const files = Array.from(e.target.files);
             
             files.forEach(file => {
-                // 파일 크기 체크 (20MB)
                 if (file.size > 20 * 1024 * 1024) {
                     alert('파일 크기는 20MB를 초과할 수 없습니다: ' + file.name);
                     return;
                 }
 
-                // 파일 형식 체크
                 const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp', 'image/heif', 'image/heic', 'image/gif'];
                 if (!allowedTypes.includes(file.type)) {
                     alert('지원하지 않는 파일 형식입니다: ' + file.name);
@@ -127,12 +125,135 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // 링크 추가/제거 버튼 - 필요없으므로 제거
-    // const linkInputGroup = document.querySelector('.link-input-group');
-    // const btnAdd = document.querySelector('.btn-add');
-    // const btnRemove = document.querySelector('.btn-remove');
-    // let linkCount = 1;
-    // const maxLinks = 4;
+    // 상품 관련 변수
+    let selectedProducts = [];
+    let allProducts = [];
+
+    // 상품 모달 열기
+    window.openProductModal = function() {
+        const modal = document.getElementById('productModal');
+        modal.classList.add('show');
+        loadProducts();
+    };
+
+    // 상품 모달 닫기
+    window.closeProductModal = function() {
+        const modal = document.getElementById('productModal');
+        modal.classList.remove('show');
+    };
+
+    // 상품 목록 불러오기 (AJAX)
+    function loadProducts() {
+        const productList = document.getElementById('productList');
+        productList.innerHTML = '<p class="loading">상품을 불러오는 중...</p>';
+
+        fetch('/posts/products', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('상품을 불러오는데 실패했습니다.');
+            }
+            return response.json();
+        })
+        .then(products => {
+            allProducts = products;
+            displayProducts(products);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            productList.innerHTML = '<p class="loading">주문한 상품이 없습니다.</p>';
+        });
+    }
+
+    // 상품 목록 표시
+    function displayProducts(products) {
+        const productList = document.getElementById('productList');
+        
+        if (products.length === 0) {
+            productList.innerHTML = '<p class="loading">주문한 상품이 없습니다.</p>';
+            return;
+        }
+
+        productList.innerHTML = products.map(product => `
+            <div class="product-item ${selectedProducts.includes(product.productId) ? 'selected' : ''}" 
+                 data-product-id="${product.productId}"
+                 onclick="toggleProductSelection(${product.productId})">
+                <div class="product-item-image">
+                    <img src="${product.mainImageUrl || '/images/default-product.jpg'}" 
+                         alt="${product.productTitle}"
+                         onerror="this.src='/images/default-product.jpg'">
+                </div>
+                <div class="product-item-info">
+                    <p class="product-item-title">${product.productTitle}</p>
+                    <p class="product-item-price">${formatPrice(product.originalPrice)}원</p>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    // 가격 포맷팅
+    function formatPrice(price) {
+        return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    }
+
+    // 상품 선택 토글
+    window.toggleProductSelection = function(productId) {
+        const index = selectedProducts.indexOf(productId);
+        
+        if (index > -1) {
+            selectedProducts.splice(index, 1);
+        } else {
+            selectedProducts.push(productId);
+        }
+
+        // UI 업데이트
+        const productItem = document.querySelector(`.product-item[data-product-id="${productId}"]`);
+        productItem.classList.toggle('selected');
+    };
+
+    // 상품 선택 완료
+    window.confirmProductSelection = function() {
+        displaySelectedProducts();
+        closeProductModal();
+    };
+
+    // 선택된 상품 표시
+    function displaySelectedProducts() {
+        const container = document.getElementById('selectedProducts');
+        const selectedProductsData = allProducts.filter(p => selectedProducts.includes(p.productId));
+
+        container.innerHTML = selectedProductsData.map(product => `
+            <div class="selected-product-item" onclick="goToProduct(${product.productId})">
+                <div class="selected-product-image">
+                    <img src="${product.mainImageUrl || '/images/default-product.jpg'}" 
+                         alt="${product.productTitle}"
+                         onerror="this.src='/images/default-product.jpg'">
+                    <button class="selected-product-remove" 
+                            onclick="event.stopPropagation(); removeSelectedProduct(${product.productId})"
+                            type="button">×</button>
+                </div>
+                <div class="selected-product-title">${product.productTitle}</div>
+            </div>
+        `).join('');
+    }
+
+    // 선택된 상품 제거
+    window.removeSelectedProduct = function(productId) {
+        const index = selectedProducts.indexOf(productId);
+        if (index > -1) {
+            selectedProducts.splice(index, 1);
+            displaySelectedProducts();
+        }
+    };
+
+    // 상품 상세 페이지로 이동
+    window.goToProduct = function(productId) {
+        window.open(`/product/${productId}`, '_blank');
+    };
 
     // 폼 제출 처리
     const postForm = document.getElementById('postForm');
@@ -140,30 +261,19 @@ document.addEventListener('DOMContentLoaded', function() {
     if (postForm) {
         postForm.addEventListener('submit', function(e) {
             e.preventDefault();
-            console.log('폼 제출 시작');
 
-            // 필수 필드 요소 확인
             const titleInput = document.querySelector('input[name="title"]');
             const contentTextarea = document.querySelector('textarea[name="content"]');
             const housingTypeSelect = document.querySelector('select[name="housingType"]');
 
-            console.log('titleInput:', titleInput);
-            console.log('contentTextarea:', contentTextarea);
-            console.log('housingTypeSelect:', housingTypeSelect);
-
             if (!titleInput || !contentTextarea || !housingTypeSelect) {
-                alert('필수 입력 필드를 찾을 수 없습니다. 페이지를 새로고침해주세요.');
+                alert('필수 입력 필드를 찾을 수 없습니다.');
                 return;
             }
 
-            // 필수 필드 검증
             const title = titleInput.value.trim();
             const content = contentTextarea.value.trim();
             const housingType = housingTypeSelect.value;
-
-            console.log('title:', title);
-            console.log('content:', content);
-            console.log('housingType:', housingType);
 
             if (!title) {
                 alert('제목을 입력해주세요.');
@@ -183,96 +293,67 @@ document.addEventListener('DOMContentLoaded', function() {
                 return;
             }
 
-            // 이미지 업로드 확인
             if (uploadedFiles.length === 0) {
                 if (!confirm('이미지 없이 게시글을 작성하시겠습니까?')) {
                     return;
                 }
             }
 
-            console.log('검증 완료, FormData 생성 시작');
-
-            // FormData 생성
             const formData = new FormData();
 
-            // 기본 필드 추가 (필수)
             formData.append('title', title);
             formData.append('content', content);
             formData.append('housingType', housingType);
 
-            // 선택 필드 추가 (DTO에 있는 필드만)
             const areaSizeInput = document.querySelector('input[name="areaSize"]');
-            if (areaSizeInput && areaSizeInput.value) {
-                formData.append('areaSize', areaSizeInput.value);
-            }
+            if (areaSizeInput && areaSizeInput.value) formData.append('areaSize', areaSizeInput.value);
 
             const roomCountInput = document.querySelector('input[name="roomCount"]');
-            if (roomCountInput && roomCountInput.value) {
-                formData.append('roomCount', roomCountInput.value);
-            }
+            if (roomCountInput && roomCountInput.value) formData.append('roomCount', roomCountInput.value);
 
             const familyTypeSelect = document.querySelector('select[name="familyType"]');
-            if (familyTypeSelect && familyTypeSelect.value) {
-                formData.append('familyType', familyTypeSelect.value);
-            }
+            if (familyTypeSelect && familyTypeSelect.value) formData.append('familyType', familyTypeSelect.value);
 
             const familyCountInput = document.querySelector('input[name="familyCount"]');
-            if (familyCountInput && familyCountInput.value) {
-                formData.append('familyCount', familyCountInput.value);
-            }
+            if (familyCountInput && familyCountInput.value) formData.append('familyCount', familyCountInput.value);
 
             const hasPet = document.querySelector('input[name="hasPet"]:checked');
-            if (hasPet) {
-                formData.append('hasPet', hasPet.value);
-            }
+            if (hasPet) formData.append('hasPet', hasPet.value);
 
             const projectTypeSelect = document.querySelector('select[name="projectType"]');
-            if (projectTypeSelect && projectTypeSelect.value) {
-                formData.append('projectType', projectTypeSelect.value);
-            }
+            if (projectTypeSelect && projectTypeSelect.value) formData.append('projectType', projectTypeSelect.value);
 
             const isPublic = document.querySelector('input[name="isPublic"]:checked');
-            if (isPublic) {
-                formData.append('isPublic', isPublic.value);
-            }
+            if (isPublic) formData.append('isPublic', isPublic.value);
 
-            // 업로드된 이미지 파일 추가
+            // 이미지 파일 추가
             uploadedFiles.forEach((file) => {
                 formData.append('images', file);
             });
 
-            console.log('FormData 생성 완료, 업로드된 파일 수:', uploadedFiles.length);
+            // 선택된 상품 ID 추가
+            selectedProducts.forEach((productId) => {
+                formData.append('productIds', productId);
+            });
 
-            // FormData 내용 확인
-            for (let pair of formData.entries()) {
-                console.log(pair[0] + ': ' + pair[1]);
-            }
+            console.log('선택된 상품 수:', selectedProducts.length);
 
-            // 제출 버튼 비활성화 (중복 제출 방지)
             const submitBtn = postForm.querySelector('.btn-submit');
             if (submitBtn) {
                 submitBtn.disabled = true;
                 submitBtn.textContent = '작성 중...';
             }
 
-            console.log('서버로 전송 시작:', postForm.action);
-
-            // 서버로 전송
             fetch(postForm.action, {
                 method: 'POST',
                 body: formData
             })
             .then(response => {
-                console.log('서버 응답:', response);
-                if (response.ok) {
+                if (response.ok || response.redirected) {
                     alert('게시글이 작성되었습니다.');
                     window.location.href = '/posts';
-                } else if (response.redirected) {
-                    // 리다이렉트된 경우
-                    window.location.href = response.url;
                 } else {
                     return response.text().then(text => {
-                        console.error('서버 에러 응답:', text);
                         throw new Error(text || '게시글 작성에 실패했습니다.');
                     });
                 }
@@ -281,14 +362,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 console.error('Error:', error);
                 alert(error.message || '게시글 작성 중 오류가 발생했습니다.');
                 
-                // 버튼 다시 활성화
                 if (submitBtn) {
                     submitBtn.disabled = false;
                     submitBtn.textContent = '게시글 작성';
                 }
             });
         });
-    } else {
-        console.error('postForm을 찾을 수 없습니다.');
     }
 });

@@ -13,8 +13,6 @@ document.addEventListener('DOMContentLoaded', function() {
             const filterType = this.getAttribute('data-filter');
             const dropdown = document.getElementById(filterType + 'Dropdown');
             
-            console.log('Filter clicked:', filterType);
-            
             // 다른 드롭다운 닫기
             filterDropdowns.forEach(dd => {
                 if (dd !== dropdown) {
@@ -39,7 +37,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     filterInputs.forEach(input => {
         input.addEventListener('change', function() {
-            console.log('Filter changed:', this.name, '=', this.value);
             
             // 선택된 필터의 드롭다운 닫기
             const dropdown = this.closest('.filter-dropdown');
@@ -53,14 +50,10 @@ document.addEventListener('DOMContentLoaded', function() {
             
             if (this.value === '') {
                 filterBtn.classList.remove('active');
-                console.log('Filter cleared:', this.name);
             } else {
                 filterBtn.classList.add('active');
-                console.log('Filter applied:', this.name, '=', this.value);
             }
 
-            // 폼 제출
-            console.log('Submitting form...');
             searchForm.submit();
         });
     });
@@ -81,17 +74,13 @@ document.addEventListener('DOMContentLoaded', function() {
     window.toggleBookmark = function(btn) {
         btn.classList.toggle('active');
         // TODO: 서버에 북마크 상태 저장
-        console.log('Bookmark toggled');
     };
 
     // URL 파라미터로 필터 상태 복원
     const urlParams = new URLSearchParams(window.location.search);
-    console.log('URL params:', urlParams.toString());
     
     filterInputs.forEach(input => {
         const paramValue = urlParams.get(input.name);
-        console.log('Checking param:', input.name, '=', paramValue);
-        
         if (paramValue !== null) {
             if (input.value === paramValue) {
                 input.checked = true;
@@ -99,7 +88,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 const filterBtn = filterGroup.querySelector('.filter-btn');
                 if (paramValue !== '') {
                     filterBtn.classList.add('active');
-                    console.log('Filter restored:', input.name, '=', paramValue);
                 }
             }
         } else if (input.value === '') {
