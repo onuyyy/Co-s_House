@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/layout :: head('코딩의 집 | 커뮤니티')"></head>
+<head th:replace="fragments/layout :: head('코딩의 집 | 오늘의 집')"></head>
 <body class="page font-body">
   <header th:replace="fragments/layout :: header"></header>
   <main class="page-main container">
@@ -9,13 +9,13 @@
         <h1 class="text-h2">집들이 인기 글</h1>
       </div>
       <div class="grid-4">
-        <article class="room-card" th:each="post : ${topPosts}">
-          <a class="thumb" th:href="@{'/posts/' + ${post.id}}"><div class="ph" role="img" aria-label="집들이 이미지"></div></a>
-          <div class="body">
-            <h3 class="title" th:text="${post.title}">집들이 제목</h3>
-            <div class="meta" th:text="${'좋아요 ' + post.likeCount + ' · 댓글 ' + post.commentCount}">좋아요 0 · 댓글 0</div>
-          </div>
-        </article>
+<!--        <article class="room-card" th:each="post : ${topPosts}">-->
+<!--          <a class="thumb" th:href="@{'/posts/' + ${post.id}}"><div class="ph" role="img" aria-label="집들이 이미지"></div></a>-->
+<!--          <div class="body">-->
+<!--            <h3 class="title" th:text="${post.title}">집들이 제목</h3>-->
+<!--            <div class="meta" th:text="${'좋아요 ' + post.likeCount + ' · 댓글 ' + post.commentCount}">좋아요 0 · 댓글 0</div>-->
+<!--          </div>-->
+<!--        </article>-->
       </div>
     </section>
   </main>

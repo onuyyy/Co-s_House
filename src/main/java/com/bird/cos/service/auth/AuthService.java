@@ -25,5 +25,11 @@ public class AuthService {
 
         return user;
     }
+
+    public User getUser(Long userId) {
+        return userRepository.findById(userId)
+                .orElseThrow(() -> new UnauthorizedException(ErrorCode.USER_NOT_FOUND));
+    }
+
 }
 

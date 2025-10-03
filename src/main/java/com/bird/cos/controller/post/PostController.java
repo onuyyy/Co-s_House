@@ -1,0 +1,86 @@
+package com.bird.cos.controller.post;
+
+import com.bird.cos.domain.common.CommonCode;
+import com.bird.cos.dto.post.PostRequest;
+import com.bird.cos.dto.post.PostSearchRequest;
+import com.bird.cos.security.CustomUserDetails;
+import com.bird.cos.service.admin.common.CommonCodeService;
+import com.bird.cos.service.post.PostService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.List;
+
+@RequiredArgsConstructor
+@RequestMapping("/posts")
+@Controller
+public class PostController {
+
+    private final PostService postService;
+    private final CommonCodeService commonCodeService;
+
+    @GetMapping
+    public String getPostPage(PostSearchRequest searchRequest, Model model)
+    {
+
+        return "posts/index";
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/new")
+    public String getNewPostPage(Model model)
+    {
+        List<CommonCode> postInformation = commonCodeService.getCommonCodeList("POST_INFORMATION");
+        model.addAttribute("postInformation", postInformation);
+
+        return "posts/new";
+    }
+
+//    @PreAuthorize("isAuthenticated()")
+//    @PostMapping("/upload-image")
+//    @ResponseBody
+//    public ResponseEntity<?> uploadImage(@RequestParam("file") MultipartFile file)
+//    {
+//        try {
+//            // 파일 업로드 처리
+//           String imageUrl = postService.uploadImage(file);
+//
+//            return ResponseEntity.ok()
+//                .body(Map.of("success", true, "imageUrl", imageUrl));
+//        } catch (Exception e) {
+//            return ResponseEntity.badRequest()
+//                .body(Map.of("success", false, "message", e.getMessage()));
+//        }
+//    }
+
+    @PreAuthorize("isAuthenticated()")
+    @PostMapping("/new")
+    public String submitNewPost(PostRequest postRequest, Model model,
+                                @AuthenticationPrincipal CustomUserDetails userDetails)
+    {
+        try {
+
+            // 게시글 저장
+            postService.createPost(postRequest, userDetails.getUserId());
+
+
+            String imageUrl = postService.uploadImage(postRequest.getImages(), userDetails.getUserId());
+            
+            return "redirect:/posts";
+        } catch (Exception e) {
+            model.addAttribute("error", "게시글 작성 중 오류가 발생했습니다.");
+            
+            // 실패 시 다시 작성 페이지로
+            List<CommonCode> postInformation = commonCodeService.getCommonCodeList("POST_INFORMATION");
+            model.addAttribute("postInformation", postInformation);
+            
+            return "posts/new";
+        }
+    }
+}

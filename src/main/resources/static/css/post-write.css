@@ -1,0 +1,370 @@
+/* 포스트 작성 페이지 스타일 */
+.post-write-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+.post-write-title {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 30px;
+    color: #333;
+}
+
+/* 가이드 박스 */
+.guide-box {
+    background-color: #f7f8fa;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 30px;
+}
+
+.guide-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
+.guide-icon {
+    font-size: 20px;
+}
+
+.guide-header strong {
+    font-size: 16px;
+    color: #333;
+}
+
+.guide-subtitle {
+    font-size: 14px;
+    color: #666;
+    flex: 1;
+}
+
+.guide-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    color: #666;
+    padding: 5px;
+}
+
+.guide-content {
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #e0e0e0;
+}
+
+.guide-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.guide-list li {
+    padding: 8px 0;
+    font-size: 14px;
+    color: #555;
+    line-height: 1.6;
+}
+
+.guide-list li::before {
+    content: "• ";
+    color: #35c5f0;
+    font-weight: bold;
+    margin-right: 8px;
+}
+
+/* 필수 정보 입력 박스 */
+.required-info-box {
+    background-color: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 30px;
+}
+
+.required-info-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
+.required-icon {
+    font-size: 20px;
+}
+
+.required-info-header strong {
+    font-size: 16px;
+    color: #333;
+}
+
+.required-subtitle {
+    font-size: 14px;
+    color: #666;
+    flex: 1;
+}
+
+.required-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    color: #666;
+    padding: 5px;
+}
+
+.required-info-content {
+    display: grid;
+    gap: 20px;
+}
+
+/* 폼 그룹 */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.form-label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #333;
+}
+
+.form-label.required::after {
+    content: " *";
+    color: #ff6b6b;
+}
+
+.form-input,
+.form-select,
+.form-textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    font-size: 14px;
+    transition: border-color 0.3s;
+}
+
+.form-input:focus,
+.form-select:focus,
+.form-textarea:focus {
+    outline: none;
+    border-color: #35c5f0;
+}
+
+.form-textarea {
+    resize: vertical;
+    min-height: 200px;
+    font-family: inherit;
+}
+
+.form-help-text {
+    font-size: 12px;
+    color: #999;
+    margin-top: 5px;
+}
+
+/* 라디오 그룹 */
+.radio-group {
+    display: flex;
+    gap: 20px;
+}
+
+.radio-label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+    color: #555;
+    cursor: pointer;
+}
+
+.radio-label input[type="radio"] {
+    cursor: pointer;
+}
+
+/* 이미지 업로드 */
+.image-upload-box {
+    border: 2px dashed #e0e0e0;
+    border-radius: 8px;
+    padding: 40px;
+    text-align: center;
+    background-color: #fafafa;
+}
+
+.image-upload-label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    cursor: pointer;
+}
+
+.image-upload-label span {
+    font-size: 14px;
+    color: #666;
+    line-height: 1.6;
+}
+
+.btn-upload {
+    padding: 12px 24px;
+    background-color: #35c5f0;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-upload:hover {
+    background-color: #2ba8d4;
+}
+
+.image-upload-info {
+    margin-top: 20px;
+    font-size: 12px;
+    color: #999;
+    line-height: 1.6;
+}
+
+.image-upload-info p {
+    margin: 4px 0;
+}
+
+.image-preview-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.image-preview-item {
+    position: relative;
+    padding-top: 100%;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.image-preview-item img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.image-preview-remove {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* 링크 입력 그룹 */
+.link-input-group {
+    display: grid;
+    grid-template-columns: 1fr 1fr auto auto;
+    gap: 10px;
+    align-items: center;
+}
+
+.btn-add,
+.btn-remove {
+    width: 40px;
+    height: 40px;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    background-color: white;
+    cursor: pointer;
+    font-size: 18px;
+    transition: background-color 0.3s;
+}
+
+.btn-add:hover,
+.btn-remove:hover {
+    background-color: #f5f5f5;
+}
+
+/* 버튼 영역 */
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid #e0e0e0;
+}
+
+.btn-cancel,
+.btn-submit {
+    padding: 12px 32px;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn-cancel {
+    background-color: #f5f5f5;
+    color: #666;
+}
+
+.btn-cancel:hover {
+    background-color: #e0e0e0;
+}
+
+.btn-submit {
+    background-color: #35c5f0;
+    color: white;
+}
+
+.btn-submit:hover {
+    background-color: #2ba8d4;
+}
+
+/* 반응형 */
+@media (max-width: 768px) {
+    .post-write-container {
+        padding: 20px 15px;
+    }
+
+    .link-input-group {
+        grid-template-columns: 1fr;
+    }
+
+    .btn-add,
+    .btn-remove {
+        width: 100%;
+    }
+
+    .form-actions {
+        flex-direction: column;
+    }
+
+    .btn-cancel,
+    .btn-submit {
+        width: 100%;
+    }
+}

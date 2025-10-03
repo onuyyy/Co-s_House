@@ -1,10 +1,20 @@
 package com.bird.cos.domain.post;
 
 import com.bird.cos.domain.user.User;
+import com.bird.cos.dto.post.PostRequest;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
 import java.time.LocalDateTime;
 
 @Entity
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Table(name = "POST")
 public class Post {
 
@@ -17,15 +27,32 @@ public class Post {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "post_category_id", nullable = true)
-    private PostCategory postCategory;
-
     @Column(name = "title", length = 255, nullable = false)
     private String title;
 
     @Column(name = "content", columnDefinition = "TEXT", nullable = false)
     private String content;
+
+    @Column(name = "housing_type", length = 50)
+    private String housingType;   // 주거 형태 (아파트, 원룸 등)
+
+    @Column(name = "area_size")
+    private Integer areaSize;     // 평수
+
+    @Column(name = "room_count")
+    private Integer roomCount;    // 방 개수
+
+    @Column(name = "family_type", length = 50)
+    private String familyType;    // 가족 형태 (싱글, 신혼, 아이 있음 등)
+
+    @Column(name = "has_pet")
+    private Boolean hasPet;       // 반려동물 유무
+
+    @Column(name = "family_count")
+    private Integer familyCount;  // 가족 구성원 수
+
+    @Column(name = "project_type", length = 50)
+    private String projectType;   // 작업 분야 (리모델링, 홈스타일링 등)
 
     @Column(name = "like_count")
     private Integer likeCount = 0;
@@ -51,4 +78,19 @@ public class Post {
     @Column(name = "post_updated_by")
     private Long postUpdatedBy;
 
+    public static Post from(PostRequest request, User user) {
+        return Post.builder()
+                .user(user)
+                .title(request.getTitle())
+                .content(request.getContent())
+                .housingType(request.getHousingType())
+                .areaSize(request.getAreaSize())
+                .roomCount(request.getRoomCount())
+                .familyType(request.getFamilyType())
+                .hasPet(request.getHasPet())
+                .familyCount(request.getFamilyCount())
+                .projectType(request.getProjectType())
+                .isPublic(request.getIsPublic())
+                .build();
+    }
 }
