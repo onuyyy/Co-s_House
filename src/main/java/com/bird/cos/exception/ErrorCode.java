@@ -42,7 +42,12 @@ public enum ErrorCode {
     POINT_ALREADY_EARNED(HttpStatus.CONFLICT, "PT004", "이미 적립된 포인트입니다."),
     POINT_HISTORY_NOT_FOUND(HttpStatus.NOT_FOUND, "PT005", "포인트 내역을 찾을 수 없습니다."),
     POINT_OPERATION_FAILED(HttpStatus.INTERNAL_SERVER_ERROR, "PT006", "포인트 처리 중 오류가 발생했습니다."),
-    POINT_USAGE_FAILED(HttpStatus.INTERNAL_SERVER_ERROR, "PT007", "포인트 사용 처리에 실패했습니다.");
+    POINT_USAGE_FAILED(HttpStatus.INTERNAL_SERVER_ERROR, "PT007", "포인트 사용 처리에 실패했습니다."),
+
+    // post 관련
+    POST_SAVE_FAILED(HttpStatus.INTERNAL_SERVER_ERROR, "PO001", "게시글 저장에 실패했습니다."),
+    POST_NOT_FOUND(HttpStatus.NOT_FOUND, "PO002", "게시글을 찾을 수 없습니다."),
+    FILE_UPLOAD_FAILED(HttpStatus.INTERNAL_SERVER_ERROR, "F001", "파일 업로드에 실패했습니다.");
 
     private final HttpStatus status;
     private final String code;

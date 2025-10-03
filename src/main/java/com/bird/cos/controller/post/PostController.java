@@ -12,8 +12,11 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -61,20 +64,24 @@ public class PostController {
 
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/new")
-    public String submitNewPost(PostRequest postRequest, Model model,
-                                @AuthenticationPrincipal CustomUserDetails userDetails)
+    public String submitNewPost(
+            @ModelAttribute PostRequest postRequest,
+            @RequestParam(value = "images", required = false) List<MultipartFile> images,
+            @AuthenticationPrincipal CustomUserDetails userDetails,
+            Model model)
     {
         try {
+            // 이미지 파일을 PostRequest에 설정
+            if (images != null && !images.isEmpty()) {
+                postRequest.setImages(images);
+            }
 
-            // 게시글 저장
+            // 게시글 저장 (이미지 포함)
             postService.createPost(postRequest, userDetails.getUserId());
 
-
-            String imageUrl = postService.uploadImage(postRequest.getImages(), userDetails.getUserId());
-            
             return "redirect:/posts";
         } catch (Exception e) {
-            model.addAttribute("error", "게시글 작성 중 오류가 발생했습니다.");
+            model.addAttribute("error", "게시글 작성 중 오류가 발생했습니다: " + e.getMessage());
             
             // 실패 시 다시 작성 페이지로
             List<CommonCode> postInformation = commonCodeService.getCommonCodeList("POST_INFORMATION");

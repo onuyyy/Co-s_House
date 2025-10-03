@@ -127,41 +127,12 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // 링크 추가/제거 버튼
-    const linkInputGroup = document.querySelector('.link-input-group');
-    const btnAdd = document.querySelector('.btn-add');
-    const btnRemove = document.querySelector('.btn-remove');
-    let linkCount = 1;
-    const maxLinks = 4;
-
-    if (btnAdd) {
-        btnAdd.addEventListener('click', function() {
-            if (linkCount >= maxLinks) {
-                alert('링크는 최대 4개까지 추가할 수 있습니다.');
-                return;
-            }
-
-            const newLinkGroup = linkInputGroup.cloneNode(true);
-            const inputs = newLinkGroup.querySelectorAll('input');
-            inputs.forEach(input => input.value = '');
-            
-            linkInputGroup.parentNode.insertBefore(newLinkGroup, linkInputGroup.nextSibling);
-            linkCount++;
-        });
-    }
-
-    if (btnRemove) {
-        btnRemove.addEventListener('click', function() {
-            if (linkCount <= 1) {
-                const inputs = linkInputGroup.querySelectorAll('input');
-                inputs.forEach(input => input.value = '');
-                return;
-            }
-
-            linkInputGroup.parentNode.removeChild(linkInputGroup);
-            linkCount--;
-        });
-    }
+    // 링크 추가/제거 버튼 - 필요없으므로 제거
+    // const linkInputGroup = document.querySelector('.link-input-group');
+    // const btnAdd = document.querySelector('.btn-add');
+    // const btnRemove = document.querySelector('.btn-remove');
+    // let linkCount = 1;
+    // const maxLinks = 4;
 
     // 폼 제출 처리
     const postForm = document.getElementById('postForm');
@@ -169,34 +140,122 @@ document.addEventListener('DOMContentLoaded', function() {
     if (postForm) {
         postForm.addEventListener('submit', function(e) {
             e.preventDefault();
+            console.log('폼 제출 시작');
+
+            // 필수 필드 요소 확인
+            const titleInput = document.querySelector('input[name="title"]');
+            const contentTextarea = document.querySelector('textarea[name="content"]');
+            const housingTypeSelect = document.querySelector('select[name="housingType"]');
+
+            console.log('titleInput:', titleInput);
+            console.log('contentTextarea:', contentTextarea);
+            console.log('housingTypeSelect:', housingTypeSelect);
+
+            if (!titleInput || !contentTextarea || !housingTypeSelect) {
+                alert('필수 입력 필드를 찾을 수 없습니다. 페이지를 새로고침해주세요.');
+                return;
+            }
 
             // 필수 필드 검증
-            const title = document.querySelector('input[name="title"]').value.trim();
-            const content = document.querySelector('textarea[name="content"]').value.trim();
-            const housingType = document.querySelector('select[name="housingType"]').value;
+            const title = titleInput.value.trim();
+            const content = contentTextarea.value.trim();
+            const housingType = housingTypeSelect.value;
+
+            console.log('title:', title);
+            console.log('content:', content);
+            console.log('housingType:', housingType);
 
             if (!title) {
                 alert('제목을 입력해주세요.');
+                titleInput.focus();
                 return;
             }
 
             if (!content) {
                 alert('내용을 입력해주세요.');
+                contentTextarea.focus();
                 return;
             }
 
             if (!housingType) {
                 alert('주거형태를 선택해주세요.');
+                housingTypeSelect.focus();
                 return;
             }
 
-            // FormData 생성
-            const formData = new FormData(postForm);
+            // 이미지 업로드 확인
+            if (uploadedFiles.length === 0) {
+                if (!confirm('이미지 없이 게시글을 작성하시겠습니까?')) {
+                    return;
+                }
+            }
 
-            // 업로드된 이미지 추가
-            uploadedFiles.forEach((file, index) => {
+            console.log('검증 완료, FormData 생성 시작');
+
+            // FormData 생성
+            const formData = new FormData();
+
+            // 기본 필드 추가 (필수)
+            formData.append('title', title);
+            formData.append('content', content);
+            formData.append('housingType', housingType);
+
+            // 선택 필드 추가 (DTO에 있는 필드만)
+            const areaSizeInput = document.querySelector('input[name="areaSize"]');
+            if (areaSizeInput && areaSizeInput.value) {
+                formData.append('areaSize', areaSizeInput.value);
+            }
+
+            const roomCountInput = document.querySelector('input[name="roomCount"]');
+            if (roomCountInput && roomCountInput.value) {
+                formData.append('roomCount', roomCountInput.value);
+            }
+
+            const familyTypeSelect = document.querySelector('select[name="familyType"]');
+            if (familyTypeSelect && familyTypeSelect.value) {
+                formData.append('familyType', familyTypeSelect.value);
+            }
+
+            const familyCountInput = document.querySelector('input[name="familyCount"]');
+            if (familyCountInput && familyCountInput.value) {
+                formData.append('familyCount', familyCountInput.value);
+            }
+
+            const hasPet = document.querySelector('input[name="hasPet"]:checked');
+            if (hasPet) {
+                formData.append('hasPet', hasPet.value);
+            }
+
+            const projectTypeSelect = document.querySelector('select[name="projectType"]');
+            if (projectTypeSelect && projectTypeSelect.value) {
+                formData.append('projectType', projectTypeSelect.value);
+            }
+
+            const isPublic = document.querySelector('input[name="isPublic"]:checked');
+            if (isPublic) {
+                formData.append('isPublic', isPublic.value);
+            }
+
+            // 업로드된 이미지 파일 추가
+            uploadedFiles.forEach((file) => {
                 formData.append('images', file);
             });
+
+            console.log('FormData 생성 완료, 업로드된 파일 수:', uploadedFiles.length);
+
+            // FormData 내용 확인
+            for (let pair of formData.entries()) {
+                console.log(pair[0] + ': ' + pair[1]);
+            }
+
+            // 제출 버튼 비활성화 (중복 제출 방지)
+            const submitBtn = postForm.querySelector('.btn-submit');
+            if (submitBtn) {
+                submitBtn.disabled = true;
+                submitBtn.textContent = '작성 중...';
+            }
+
+            console.log('서버로 전송 시작:', postForm.action);
 
             // 서버로 전송
             fetch(postForm.action, {
@@ -204,19 +263,32 @@ document.addEventListener('DOMContentLoaded', function() {
                 body: formData
             })
             .then(response => {
+                console.log('서버 응답:', response);
                 if (response.ok) {
-                    alert('게시글이 저장되었습니다.');
+                    alert('게시글이 작성되었습니다.');
                     window.location.href = '/posts';
+                } else if (response.redirected) {
+                    // 리다이렉트된 경우
+                    window.location.href = response.url;
                 } else {
-                    return response.json().then(data => {
-                        throw new Error(data.message || '게시글 저장에 실패했습니다.');
+                    return response.text().then(text => {
+                        console.error('서버 에러 응답:', text);
+                        throw new Error(text || '게시글 작성에 실패했습니다.');
                     });
                 }
             })
             .catch(error => {
                 console.error('Error:', error);
-                alert(error.message);
+                alert(error.message || '게시글 작성 중 오류가 발생했습니다.');
+                
+                // 버튼 다시 활성화
+                if (submitBtn) {
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = '게시글 작성';
+                }
             });
         });
+    } else {
+        console.error('postForm을 찾을 수 없습니다.');
     }
 });

@@ -280,31 +280,6 @@
     justify-content: center;
 }
 
-/* 링크 입력 그룹 */
-.link-input-group {
-    display: grid;
-    grid-template-columns: 1fr 1fr auto auto;
-    gap: 10px;
-    align-items: center;
-}
-
-.btn-add,
-.btn-remove {
-    width: 40px;
-    height: 40px;
-    border: 1px solid #e0e0e0;
-    border-radius: 4px;
-    background-color: white;
-    cursor: pointer;
-    font-size: 18px;
-    transition: background-color 0.3s;
-}
-
-.btn-add:hover,
-.btn-remove:hover {
-    background-color: #f5f5f5;
-}
-
 /* 버튼 영역 */
 .form-actions {
     display: flex;
@@ -344,19 +319,15 @@
     background-color: #2ba8d4;
 }
 
+.btn-submit:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
 /* 반응형 */
 @media (max-width: 768px) {
     .post-write-container {
         padding: 20px 15px;
-    }
-
-    .link-input-group {
-        grid-template-columns: 1fr;
-    }
-
-    .btn-add,
-    .btn-remove {
-        width: 100%;
     }
 
     .form-actions {

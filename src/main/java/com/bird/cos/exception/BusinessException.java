@@ -47,6 +47,20 @@ public class BusinessException extends RuntimeException {
                 "이미 사용된 쿠폰입니다." + couponId);
     }
 
+    public static BusinessException notSavedPost() {
+        return new BusinessException(ErrorCode.POST_SAVE_FAILED);
+    }
+
+    public static BusinessException notFoundPost() {
+        return new BusinessException(ErrorCode.POST_NOT_FOUND,
+                "게시글을 찾을 수 없습니다.");
+    }
+
+    public static BusinessException fileUploadFailed() {
+        return new BusinessException(ErrorCode.FILE_UPLOAD_FAILED,
+                "파일 업로드에 실패했습니다.");
+    }
+
     public static BusinessException userNotFound() {
         return new BusinessException(ErrorCode.USER_NOT_FOUND);
     }

@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 
 @Component
 public class ReviewImageService {
+
     private static final Logger log = LoggerFactory.getLogger(ReviewImageService.class);
     @Value("${file.upload-dir}")
     private String uploadDir;
