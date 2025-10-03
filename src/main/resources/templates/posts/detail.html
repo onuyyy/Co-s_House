@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/layout :: head('오늘의 집 | 집들이')"></head>
+<body class="page font-body">
+<header th:replace="fragments/layout :: header"></header>
+<main class="page-main container">
+    <section class="section">
+        <!-- 헤더 -->
+        <div class="posts-header">
+            <h1 class="posts-title">집들이</h1>
+            <div class="posts-count">
+
+            </div>
+        </div>
+    </section>
+</main>
+<footer th:replace="fragments/layout :: footer"></footer>
+<link rel="stylesheet" th:href="@{/css/sections.css}">
+<link rel="stylesheet" th:href="@{/css/posts.css}">
+<script th:src="@{/js/posts.js}"></script>
+</body>
+</html>

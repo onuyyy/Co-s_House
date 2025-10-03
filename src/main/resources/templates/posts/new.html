@@ -6,7 +6,7 @@
 <main class="page-main container">
     <section class="section">
         <div class="post-write-container">
-            <h1 class="post-write-title">오늘의집</h1>
+            <h1 class="post-write-title">코딩의 집</h1>
             
             <form id="postForm" th:action="@{/posts/new}" method="post" enctype="multipart/form-data">
                 <!-- 집들이 작성 가이드 -->
@@ -138,8 +138,8 @@
                     <div class="image-upload-box">
                         <input type="file" id="imageUpload" name="images" multiple accept="image/jpeg,image/jpg,image/png,image/webp,image/heif,image/heic,image/gif" style="display: none;">
                         <label for="imageUpload" class="image-upload-label">
-                            <span>드래그 앤 드롭하거나 추가하기 버튼으로<br>커버 사진을 업로드해주세요.</span>
-                            <button type="button" class="btn-upload" onclick="document.getElementById('imageUpload').click();">커버 사진 추가하기</button>
+                            <span>드래그 앤 드롭하거나 추가하기 버튼으로<br>사진을 업로드해주세요.</span>
+                            <button type="button" class="btn-upload" onclick="document.getElementById('imageUpload').click();">사진 추가하기</button>
                         </label>
                         <div class="image-upload-info">
                             <p>*권장 사이즈</p>

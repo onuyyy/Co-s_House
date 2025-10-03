@@ -9,6 +9,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -26,6 +28,10 @@ public class Post {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
+
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Builder.Default
+    private List<PostImage> postImages = new ArrayList<>();
 
     @Column(name = "title", length = 255, nullable = false)
     private String title;
@@ -77,6 +83,22 @@ public class Post {
 
     @Column(name = "post_updated_by")
     private Long postUpdatedBy;
+
+    /**
+     * 썸네일 이미지 URL 반환 (첫 번째 이미지 또는 isThumbnail=true인 이미지)
+     */
+    public String getThumbnailUrl() {
+        return postImages.stream()
+                .filter(PostImage::getIsThumbnail)
+                .findFirst()
+                .map(PostImage::getImageUrl)
+                .orElseGet(() -> 
+                    postImages.stream()
+                        .findFirst()
+                        .map(PostImage::getImageUrl)
+                        .orElse(null)
+                );
+    }
 
     public static Post from(PostRequest request, User user) {
         return Post.builder()

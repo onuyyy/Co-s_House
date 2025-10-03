@@ -1,21 +1,27 @@
 package com.bird.cos.controller.post;
 
 import com.bird.cos.domain.common.CommonCode;
+import com.bird.cos.dto.mypage.MyOrderRequest;
 import com.bird.cos.dto.post.PostRequest;
+import com.bird.cos.dto.post.PostResponse;
 import com.bird.cos.dto.post.PostSearchRequest;
+import com.bird.cos.dto.product.ProductResponse;
 import com.bird.cos.security.CustomUserDetails;
 import com.bird.cos.service.admin.common.CommonCodeService;
+import com.bird.cos.service.order.OrderService;
 import com.bird.cos.service.post.PostService;
+import com.bird.cos.service.product.ProductService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -27,10 +33,16 @@ public class PostController {
 
     private final PostService postService;
     private final CommonCodeService commonCodeService;
+    private final OrderService orderService;
 
     @GetMapping
-    public String getPostPage(PostSearchRequest searchRequest, Model model)
+    public String getPostPage(PostSearchRequest searchRequest,
+                              Model model,
+                              @PageableDefault(size = 12, sort = "postCreatedAt", direction = Sort.Direction.DESC) Pageable pageable)
     {
+        Page<PostResponse> posts = postService.getPosts(searchRequest, pageable);
+        model.addAttribute("posts", posts);
+        model.addAttribute("searchRequest", searchRequest);
 
         return "posts/index";
     }
@@ -44,23 +56,6 @@ public class PostController {
 
         return "posts/new";
     }
-
-//    @PreAuthorize("isAuthenticated()")
-//    @PostMapping("/upload-image")
-//    @ResponseBody
-//    public ResponseEntity<?> uploadImage(@RequestParam("file") MultipartFile file)
-//    {
-//        try {
-//            // 파일 업로드 처리
-//           String imageUrl = postService.uploadImage(file);
-//
-//            return ResponseEntity.ok()
-//                .body(Map.of("success", true, "imageUrl", imageUrl));
-//        } catch (Exception e) {
-//            return ResponseEntity.badRequest()
-//                .body(Map.of("success", false, "message", e.getMessage()));
-//        }
-//    }
 
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/new")
@@ -89,5 +84,23 @@ public class PostController {
             
             return "posts/new";
         }
+    }
+
+    @GetMapping("/products")
+    @ResponseBody
+    public ResponseEntity<List<ProductResponse>> getProducts(Model model,
+                                                             @ModelAttribute MyOrderRequest request,
+                                                             @PageableDefault Pageable pageable)
+    {
+
+        return null;
+    }
+
+    @GetMapping("{postId}")
+    public String getPostDetail(@PathVariable String postId, Model model)
+    {
+
+
+        return "posts/detail";
     }
 }

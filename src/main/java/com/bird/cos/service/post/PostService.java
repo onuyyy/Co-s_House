@@ -4,12 +4,16 @@ import com.bird.cos.domain.post.Post;
 import com.bird.cos.domain.post.PostImage;
 import com.bird.cos.domain.user.User;
 import com.bird.cos.dto.post.PostRequest;
+import com.bird.cos.dto.post.PostResponse;
+import com.bird.cos.dto.post.PostSearchRequest;
 import com.bird.cos.exception.BusinessException;
 import com.bird.cos.repository.post.PostImageRepository;
 import com.bird.cos.repository.post.PostRepository;
 import com.bird.cos.service.auth.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -135,5 +139,24 @@ public class PostService {
         if (!directory.exists()) {
             directory.mkdirs();
         }
+    }
+
+    /**
+     * 게시글 목록 조회 (페이징)
+     */
+    @Transactional(readOnly = true)
+    public Page<PostResponse> getPosts(PostSearchRequest request, Pageable pageable) {
+        Page<Post> posts = postRepository.searchPosts(request, pageable);
+
+        return posts.map(post -> PostResponse.builder()
+                .postId(post.getPostId())
+                .thumbnail(post.getThumbnailUrl())
+                .title(post.getTitle())
+                .username(post.getUser().getUserName())
+                .publishDate(post.getPostCreatedAt())
+                .scrapCount(0)  // TODO: 스크랩 기능 구현 후 실제 값
+                .viewCount(post.getViewCount())
+                .build()
+        );
     }
 }

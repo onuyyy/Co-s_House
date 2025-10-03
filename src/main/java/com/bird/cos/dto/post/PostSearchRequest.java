@@ -1,5 +1,8 @@
 package com.bird.cos.dto.post;
 
+import lombok.Getter;
+
+@Getter
 public class PostSearchRequest {
     private String housingType;   // 주거 형태 (아파트, 원룸, 빌라 등)
     private Integer areaSize;     // 평수
