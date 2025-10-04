@@ -41,7 +41,7 @@
                             <label><input type="radio" name="roomCount" value=""> 전체</label>
                             <label th:each="option : ${roomCounts}">
                                 <input type="radio" name="roomCount" th:value="${option.value}"
-                                       th:checked="${searchRequest.roomCount != null && searchRequest.roomCount == #numbers.parseInteger(option.value)}">
+                                       th:checked="${searchRequest.roomCount != null && #strings.toString(searchRequest.roomCount) == option.value}">
                                 <span th:text="${option.displayName}"></span>
                             </label>
                         </div>
@@ -71,7 +71,7 @@
                             <label><input type="radio" name="familyCount" value=""> 전체</label>
                             <label th:each="option : ${familyCounts}">
                                 <input type="radio" name="familyCount" th:value="${option.value}"
-                                       th:checked="${searchRequest.familyCount != null && searchRequest.familyCount == #numbers.parseInteger(option.value)}">
+                                       th:checked="${searchRequest.familyCount != null && #strings.toString(searchRequest.familyCount) == option.value}">
                                 <span th:text="${option.displayName}"></span>
                             </label>
                         </div>

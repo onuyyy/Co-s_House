@@ -95,7 +95,9 @@
     border-radius: 4px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
     z-index: 100;
-    min-width: 140px;
+    min-width: 160px;
+    max-width: 200px;
+    width: max-content;
 }
 
 .filter-dropdown.show {
