@@ -115,6 +115,10 @@ public class BusinessException extends RuntimeException {
                 String.format("포인트 사용 처리에 실패했습니다. userId: %d, amount: %d", userId, amount));
     }
 
+    public static BusinessException scrapDeleteFailed() {
+        return new BusinessException(ErrorCode.SCRAP_DELETE_FAILED);
+    }
+
     // 범용 메서드
     public static BusinessException of(ErrorCode errorCode) {
         return new BusinessException(errorCode);

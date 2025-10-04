@@ -1,6 +1,8 @@
 package com.bird.cos.repository.scrap;
 
 import com.bird.cos.domain.scrap.Scrap;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -24,4 +26,6 @@ public interface ScrapRepository extends JpaRepository<Scrap, Long> {
     // 특정 사용자가 스크랩한 게시글 ID 목록 조회 (여러 게시글 한번에)
     @Query("SELECT s.post.postId FROM Scrap s WHERE s.user.userId = :userId AND s.post.postId IN :postIds")
     List<Long> findScrapedPostIdsByUserAndPosts(@Param("userId") Long userId, @Param("postIds") List<Long> postIds);
+
+    Page<Scrap> findByUser_UserId(Long userId, Pageable pageable);
 }

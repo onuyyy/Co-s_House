@@ -3,11 +3,14 @@ package com.bird.cos.service.scrap;
 import com.bird.cos.domain.post.Post;
 import com.bird.cos.domain.scrap.Scrap;
 import com.bird.cos.domain.user.User;
+import com.bird.cos.dto.mypage.MyScrapResponse;
 import com.bird.cos.exception.BusinessException;
 import com.bird.cos.repository.post.PostRepository;
 import com.bird.cos.repository.scrap.ScrapRepository;
 import com.bird.cos.service.auth.AuthService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -67,5 +70,29 @@ public class ScrapService {
     @Transactional(readOnly = true)
     public List<Long> getScrapedPostIds(Long userId, List<Long> postIds) {
         return scrapRepository.findScrapedPostIdsByUserAndPosts(userId, postIds);
+    }
+
+    public Page<MyScrapResponse> getMyScrapList(Pageable pageable, Long userId) {
+
+        Page<Scrap> scraps = scrapRepository.findByUser_UserId(userId, pageable);
+
+        return scraps.map(MyScrapResponse::from);
+
+    }
+
+    /**
+     * 선택한 스크랩 삭제
+     */
+    public void deleteScraps(List<Long> scrapIds, Long userId) {
+        List<Scrap> scraps = scrapRepository.findAllById(scrapIds);
+        
+        // 본인의 스크랩만 삭제할 수 있도록 검증
+        scraps.forEach(scrap -> {
+            if (!scrap.getUser().getUserId().equals(userId)) {
+                throw  BusinessException.scrapDeleteFailed();
+            }
+        });
+        
+        scrapRepository.deleteAll(scraps);
     }
 }

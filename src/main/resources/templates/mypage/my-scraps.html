@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>스크랩북 - COS Mall</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlKq2a7mS5tnEEn9F/nx0xwu1jHq+8a6B1Z4x1N2R5xjw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+    <link rel="stylesheet" th:href="@{/css/main/header.css}">
+    <style>
+        /* 스크랩북 페이지 스타일 */
+        .scrap-page {
+            min-height: 100vh;
+            background: #f5f6f8;
+        }
+
+        .scrap-header {
+            background: linear-gradient(135deg, #74b9ff, #0984e3);
+            color: #ffffff;
+            padding: 60px 0 40px;
+            text-align: center;
+        }
+
+        .scrap-header__profile {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .scrap-header__title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin: 0;
+            letter-spacing: -0.5px;
+            line-height: 1.3;
+        }
+
+        .scrap-header__username {
+            color: #fef3c7;
+            text-shadow: 0 2px 10px rgba(254, 243, 199, 0.5);
+        }
+
+        .scrap-header__subtitle {
+            font-size: 1.1rem;
+            font-weight: 400;
+            color: rgba(255, 255, 255, 0.85);
+            margin: 0;
+        }
+
+        .scrap-tabs {
+            background: linear-gradient(135deg, #74b9ff, #0984e3);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .scrap-tabs__inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            gap: 32px;
+            align-items: center;
+        }
+
+        .scrap-tabs__tab {
+            padding: 16px 0;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            border-bottom: 3px solid transparent;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .scrap-tabs__tab.is-active {
+            color: #ffffff;
+            border-bottom-color: #ffffff;
+        }
+
+        .scrap-tabs__tab:hover {
+            color: #ffffff;
+        }
+
+        .scrap-tabs__count {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 20px;
+            height: 20px;
+            padding: 0 6px;
+            margin-left: 6px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.2);
+            color: #ffffff;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
+        .scrap-tabs__tab.is-active .scrap-tabs__count {
+            background: rgba(255, 255, 255, 0.3);
+            color: #ffffff;
+        }
+
+        .scrap-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 24px 80px;
+        }
+
+        .scrap-toolbar {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .scrap-toolbar__button {
+            padding: 8px 16px;
+            border-radius: 8px;
+            border: 1px solid #e5e7eb;
+            background: #ffffff;
+            color: #374151;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .scrap-toolbar__button:hover {
+            border-color: #0984e3;
+            color: #0984e3;
+        }
+
+        .scrap-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 24px;
+        }
+
+        @media (max-width: 1200px) {
+            .scrap-grid {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 900px) {
+            .scrap-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 600px) {
+            .scrap-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .scrap-card {
+            background: #ffffff;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .scrap-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+        }
+
+        .scrap-card__link {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .scrap-card__image {
+            position: relative;
+            aspect-ratio: 4 / 3;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .scrap-card__image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .scrap-card__placeholder {
+            font-size: 48px;
+            color: #d1d5db;
+        }
+
+        .scrap-card__tag {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            padding: 6px 12px;
+            border-radius: 6px;
+            background: rgba(9, 132, 227, 0.9);
+            color: #ffffff;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.3px;
+            backdrop-filter: blur(4px);
+        }
+
+        .scrap-card__body {
+            padding: 20px;
+        }
+
+        .scrap-card__title {
+            margin: 0;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #1f2937;
+            line-height: 1.5;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            min-height: 48px;
+        }
+
+        .scrap-empty {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 120px 0;
+        }
+
+        .scrap-empty__card {
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 48px 64px;
+            text-align: center;
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            align-items: center;
+        }
+
+        .scrap-empty__icon {
+            font-size: 64px;
+            margin-bottom: 8px;
+        }
+
+        .scrap-empty__title {
+            margin: 0;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1f2937;
+        }
+
+        .scrap-empty__desc {
+            margin: 0;
+            color: #6b7280;
+            line-height: 1.6;
+            max-width: 400px;
+        }
+
+        .scrap-empty__button {
+            margin-top: 16px;
+            padding: 12px 32px;
+            border-radius: 12px;
+            border: none;
+            background: linear-gradient(135deg, #74b9ff, #0984e3);
+            color: #ffffff;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .scrap-empty__button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(9, 132, 227, 0.3);
+        }
+
+        .scrap-pagination {
+            margin-top: 48px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .scrap-pagination__button {
+            min-width: 40px;
+            height: 40px;
+            padding: 0 12px;
+            border-radius: 8px;
+            border: 1px solid #e5e7eb;
+            background: #ffffff;
+            color: #374151;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .scrap-pagination__button:hover:not(:disabled):not(.is-active) {
+            border-color: #0984e3;
+            color: #0984e3;
+        }
+
+        .scrap-pagination__button.is-active {
+            background: #0984e3;
+            color: #ffffff;
+            border-color: #0984e3;
+            cursor: default;
+        }
+
+        .scrap-pagination__button:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        /* 편집 모드 스타일 */
+        .scrap-card__checkbox {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+            z-index: 5;
+            display: none;
+        }
+
+        .scrap-card.edit-mode .scrap-card__checkbox {
+            display: block;
+        }
+
+        .scrap-card.edit-mode .scrap-card__link {
+            pointer-events: none;
+        }
+
+        .scrap-card.selected {
+            outline: 3px solid #0984e3;
+            outline-offset: -3px;
+        }
+
+        .edit-actions {
+            display: none;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .edit-actions.is-active {
+            display: flex;
+        }
+
+        .scrap-toolbar__button.delete-btn {
+            background: #ef4444;
+            color: #ffffff;
+            border-color: #ef4444;
+        }
+
+        .scrap-toolbar__button.delete-btn:hover {
+            background: #dc2626;
+            border-color: #dc2626;
+            color: #ffffff;
+        }
+
+        .scrap-toolbar__button.cancel-btn {
+            background: #6b7280;
+            color: #ffffff;
+            border-color: #6b7280;
+        }
+
+        .scrap-toolbar__button.cancel-btn:hover {
+            background: #4b5563;
+            border-color: #4b5563;
+            color: #ffffff;
+        }
+
+        @media (max-width: 768px) {
+            .scrap-header {
+                padding: 40px 0 30px;
+            }
+
+            .scrap-header__title {
+                font-size: 1.8rem;
+            }
+
+            .scrap-header__subtitle {
+                font-size: 1rem;
+            }
+
+            .scrap-tabs__inner {
+                padding: 0 16px;
+                gap: 24px;
+            }
+
+            .scrap-content {
+                padding: 32px 16px 60px;
+            }
+
+            .scrap-empty__card {
+                padding: 40px 24px;
+            }
+
+            .scrap-empty__icon {
+                font-size: 48px;
+            }
+
+            .scrap-empty__title {
+                font-size: 1.25rem;
+            }
+        }
+    </style>
+</head>
+<body class="scrap-page">
+<header th:replace="~{fragments/layout :: header}"></header>
+
+<main>
+    <!-- 헤더 섹션 -->
+    <section class="scrap-header">
+        <div class="scrap-header__profile">
+            <h1 class="scrap-header__title">
+                <span class="scrap-header__username" th:text="${user?.nickname != null ? user.nickname : '닉네임'}">닉네임</span>님의 스크랩북입니다.
+            </h1>
+            <p class="scrap-header__subtitle">마음에 드는 게시글을 모아보세요!</p>
+        </div>
+    </section>
+
+    <!-- 탭 섹션 -->
+    <nav class="scrap-tabs">
+        <div class="scrap-tabs__inner">
+            <a class="scrap-tabs__tab is-active">
+                모두<span class="scrap-tabs__count" th:text="${myScrapList?.totalElements != null ? myScrapList.totalElements : 0}">0</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- 컨텐츠 섹션 -->
+    <section class="scrap-content">
+        <!-- 툴바 (편집 버튼) -->
+        <div class="scrap-toolbar" th:if="${myScrapList != null && !myScrapList.isEmpty()}">
+            <button class="scrap-toolbar__button" type="button" id="editBtn" onclick="toggleEditMode()">편집</button>
+            <div class="edit-actions" id="editActions">
+                <button class="scrap-toolbar__button delete-btn" type="button" onclick="deleteSelected()">삭제</button>
+                <button class="scrap-toolbar__button cancel-btn" type="button" onclick="cancelEdit()">취소</button>
+            </div>
+        </div>
+
+        <!-- 스크랩 그리드 -->
+        <div class="scrap-grid" th:if="${myScrapList != null && !myScrapList.isEmpty()}">
+            <article class="scrap-card" th:each="scrap : ${myScrapList.content}" th:data-scrap-id="${scrap.scrapId}">
+                <input type="checkbox" class="scrap-card__checkbox" th:id="'scrap-' + ${scrap.scrapId}" onclick="toggleSelection(this)">
+                <a th:href="@{'/posts/' + ${scrap.postId}}" class="scrap-card__link">
+                    <div class="scrap-card__image">
+                        <img th:if="${scrap.imageUrl != null}" 
+                             th:src="${scrap.imageUrl}" 
+                             th:alt="${scrap.title}"
+                             loading="lazy" />
+                        <div class="scrap-card__placeholder" th:unless="${scrap.imageUrl != null}">📌</div>
+                        <span class="scrap-card__tag">게시글</span>
+                    </div>
+                    <div class="scrap-card__body">
+                        <h3 class="scrap-card__title" th:text="${scrap.title}">스크랩 제목</h3>
+                    </div>
+                </a>
+            </article>
+        </div>
+
+        <!-- 빈 상태 -->
+        <div class="scrap-empty" th:if="${myScrapList == null || myScrapList.isEmpty()}">
+            <div class="scrap-empty__card">
+                <div class="scrap-empty__icon">📋</div>
+                <h3 class="scrap-empty__title">스크랩한 항목이 없습니다</h3>
+                <p class="scrap-empty__desc">마음에 드는 게시글을 스크랩하고 나만의 컬렉션을 만들어보세요!</p>
+                <a class="scrap-empty__button" th:href="@{/posts}">커뮤니티 둘러보기</a>
+            </div>
+        </div>
+
+        <!-- 페이지네이션 -->
+        <nav class="scrap-pagination" 
+             th:if="${myScrapList != null && !myScrapList.isEmpty() && myScrapList.totalPages > 1}">
+            <button type="button"
+                    class="scrap-pagination__button"
+                    th:disabled="${myScrapList.number == 0}"
+                    th:onclick="|goToPage(${myScrapList.number})|">
+                ‹
+            </button>
+
+            <th:block th:with="start=${T(java.lang.Math).max(0, myScrapList.number - 2)},
+                               end=${T(java.lang.Math).min(myScrapList.totalPages - 1, myScrapList.number + 2)}">
+                <th:block th:each="i : ${#numbers.sequence(start, end)}">
+                    <button type="button"
+                            class="scrap-pagination__button"
+                            th:classappend="${i == myScrapList.number ? 'is-active' : ''}"
+                            th:onclick="|goToPage(${i + 1})|"
+                            th:text="${i + 1}">
+                        1
+                    </button>
+                </th:block>
+            </th:block>
+
+            <button type="button"
+                    class="scrap-pagination__button"
+                    th:disabled="${myScrapList.number == myScrapList.totalPages - 1}"
+                    th:onclick="|goToPage(${myScrapList.number + 2})|">
+                ›
+            </button>
+        </nav>
+    </section>
+</main>
+
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    let isEditMode = false;
+
+    function goToPage(page) {
+        const url = new URL(window.location.href);
+        url.searchParams.set('page', page - 1);
+        window.location.href = url.toString();
+    }
+
+    function toggleEditMode() {
+        isEditMode = !isEditMode;
+        const cards = document.querySelectorAll('.scrap-card');
+        const editBtn = document.getElementById('editBtn');
+        const editActions = document.getElementById('editActions');
+
+        if (isEditMode) {
+            cards.forEach(card => card.classList.add('edit-mode'));
+            editBtn.style.display = 'none';
+            editActions.classList.add('is-active');
+        } else {
+            cards.forEach(card => {
+                card.classList.remove('edit-mode', 'selected');
+                const checkbox = card.querySelector('.scrap-card__checkbox');
+                if (checkbox) checkbox.checked = false;
+            });
+            editBtn.style.display = 'block';
+            editActions.classList.remove('is-active');
+        }
+    }
+
+    function cancelEdit() {
+        toggleEditMode();
+    }
+
+    function toggleSelection(checkbox) {
+        const card = checkbox.closest('.scrap-card');
+        if (checkbox.checked) {
+            card.classList.add('selected');
+        } else {
+            card.classList.remove('selected');
+        }
+    }
+
+    function deleteSelected() {
+        const selectedCheckboxes = document.querySelectorAll('.scrap-card__checkbox:checked');
+        
+        if (selectedCheckboxes.length === 0) {
+            alert('삭제할 스크랩을 선택해주세요.');
+            return;
+        }
+
+        if (!confirm(`선택한 ${selectedCheckboxes.length}개의 스크랩을 삭제하시겠습니까?`)) {
+            return;
+        }
+
+        const scrapIds = Array.from(selectedCheckboxes).map(checkbox => {
+            return checkbox.closest('.scrap-card').dataset.scrapId;
+        });
+
+        // 서버에 삭제 요청
+        fetch('/mypage/scraps/delete', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ scrapIds: scrapIds })
+        })
+        .then(response => {
+            if (response.ok) {
+                alert('스크랩이 삭제되었습니다.');
+                location.reload();
+            } else {
+                alert('스크랩 삭제에 실패했습니다.');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('스크랩 삭제 중 오류가 발생했습니다.');
+        });
+    }
+    /*]]>*/
+</script>
+</body>
+</html>
