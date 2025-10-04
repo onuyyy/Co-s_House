@@ -10,6 +10,7 @@ import com.bird.cos.service.home.dto.HomeProductDto;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -42,9 +43,18 @@ public class HomeService {
         return productRepository.findPopular(PageRequest.of(0, Math.max(1, limit)));
     }
 
-    public List<HomePostDto> topPosts(int limit) {
-        return postRepository.findTopPublic(PageRequest.of(0, Math.max(1, limit)));
+    public List<HomePostDto> getTopPublic() {
+        Pageable pageable = PageRequest.of(0, 8);
+        return postRepository.findTopPublic(pageable).stream()
+                .map(p -> new HomePostDto(
+                        p.getPostId(),
+                        p.getTitle(),
+                        p.getThumbnailUrl(),
+                        p.getCommentCount()
+                ))
+                .toList();
     }
+
 
     public List<HomeEventDto> highlightEvents() {
         List<HomeEventDto> activeEventDtos = eventService.getActiveEventCards().stream()

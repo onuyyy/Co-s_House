@@ -84,6 +84,7 @@
       <div class="community-grid" th:with="postCount=${topPosts != null ? topPosts.size() : 0}, displayPosts=${postCount > 4 ? 4 : postCount}">
         <article class="community-card" th:each="post, iterStat : ${topPosts}" th:if="${iterStat.index < 4}">
           <a class="thumb" th:href="@{'/posts/' + ${post.id}}">
+            <img th:if="${post.imageUrl != null}" th:src="${post.imageUrl}" th:alt="${post.title}" loading="lazy" />
             <div class="ph" role="img" aria-label="집들이 이미지 플레이스홀더"></div>
           </a>
           <div class="body">
@@ -93,8 +94,8 @@
             <h3 class="title" th:text="${post.title}">집들이 제목</h3>
             <p class="excerpt">커뮤니티에서 실제 집꾸미기 이야기를 만나보세요.</p>
             <div class="meta-bottom">
-              <span class="stat" th:text="${'좋아요 ' + (post.likeCount != null ? post.likeCount : 0)}">좋아요 0</span>
-              <span class="dot">·</span>
+<!--              <span class="stat" th:text="${'스크랩 ' + (post.likeCount != null ? post.likeCount : 0)}">좋아요 0</span>-->
+<!--              <span class="dot">·</span>-->
               <span class="stat" th:text="${'댓글 ' + (post.commentCount != null ? post.commentCount : 0)}">댓글 0</span>
             </div>
           </div>
