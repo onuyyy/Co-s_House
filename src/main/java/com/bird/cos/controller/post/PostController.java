@@ -9,6 +9,7 @@ import com.bird.cos.dto.post.PostResponse;
 import com.bird.cos.dto.post.PostSearchRequest;
 import com.bird.cos.security.CustomUserDetails;
 import com.bird.cos.service.admin.common.CommonCodeService;
+import com.bird.cos.service.common.PostEnumService;
 import com.bird.cos.service.order.OrderItemService;
 import com.bird.cos.service.post.PostService;
 import com.bird.cos.service.scrap.ScrapService;
@@ -38,6 +39,7 @@ public class PostController {
     private final CommonCodeService commonCodeService;
     private final OrderItemService orderItemService;
     private final ScrapService scrapService;
+    private final PostEnumService postEnumService;
 
     @GetMapping
     public String getPostPage(PostSearchRequest searchRequest,
@@ -51,6 +53,13 @@ public class PostController {
         model.addAttribute("posts", posts);
         model.addAttribute("searchRequest", searchRequest);
         model.addAttribute("currentUserId", currentUserId);
+        
+        // Enum 옵션들 추가
+        model.addAttribute("housingTypes", postEnumService.getHousingTypes());
+        model.addAttribute("areaSizes", postEnumService.getAreaSizes());
+        model.addAttribute("roomCounts", postEnumService.getRoomCounts());
+        model.addAttribute("familyTypes", postEnumService.getFamilyTypes());
+        model.addAttribute("projectTypes", postEnumService.getProjectTypes());
 
         return "posts/index";
     }
@@ -61,6 +70,11 @@ public class PostController {
     {
         List<CommonCode> postInformation = commonCodeService.getCommonCodeList("POST_INFORMATION");
         model.addAttribute("postInformation", postInformation);
+        
+        // Enum 옵션들 추가
+        model.addAttribute("housingTypes", postEnumService.getHousingTypes());
+        model.addAttribute("familyTypes", postEnumService.getFamilyTypes());
+        model.addAttribute("projectTypes", postEnumService.getProjectTypes());
 
         return "posts/new";
     }

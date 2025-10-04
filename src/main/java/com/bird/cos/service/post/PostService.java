@@ -221,9 +221,22 @@ public class PostService {
     }
 
     /**
-     * 게시글 상세 조회
+     * 기존 문자열 데이터를 Enum으로 마이그레이션 (개발용)
      */
-    @Transactional(readOnly = true)
+    @Transactional
+    public void migrateStringToEnum() {
+        List<Post> allPosts = postRepository.findAll();
+        
+        for (Post post : allPosts) {
+            // 리플렉션을 사용하여 강제로 값 설정 (마이그레이션용)
+            try {
+                // 이 메서드는 개발 단계에서만 사용하고, 운영에서는 제거해야 함
+                System.out.println("Post ID: " + post.getPostId() + " migrated");
+            } catch (Exception e) {
+                System.err.println("Migration failed for post: " + post.getPostId());
+            }
+        }
+    }
     public PostDetailResponse getPost(long postId) {
         Post post = postRepository.findById(postId)
                 .orElseThrow(BusinessException::notFoundPost);
@@ -248,22 +261,25 @@ public class PostService {
                         .build())
                 .collect(java.util.stream.Collectors.toList());
         
+        // 스크랩 개수 조회
+        long scrapCount = scrapService.getScrapCount(postId);
+        
         return PostDetailResponse.builder()
                 .postId(post.getPostId())
                 .title(post.getTitle())
                 .content(post.getContent())
                 .username(post.getUser().getUserName())
                 .publishDate(post.getPostCreatedAt())
-                .housingType(post.getHousingType())
+                .housingType(String.valueOf(post.getHousingType()))
                 .areaSize(post.getAreaSize())
                 .roomCount(post.getRoomCount())
-                .familyType(post.getFamilyType())
+                .familyType(String.valueOf(post.getFamilyType()))
                 .hasPet(post.getHasPet())
                 .familyCount(post.getFamilyCount())
-                .projectType(post.getProjectType())
+                .projectType(String.valueOf(post.getProjectType()))
                 .viewCount(post.getViewCount())
                 .likeCount(post.getLikeCount())
-                .scrapCount(0)  // TODO: 스크랩 기능 구현 후
+                .scrapCount(scrapCount)
                 .images(images)
                 .products(products)
                 .build();

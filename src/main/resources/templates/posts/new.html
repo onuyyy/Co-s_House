@@ -38,12 +38,9 @@
                             <label class="form-label required">주거형태 *</label>
                             <select name="housingType" class="form-select" required>
                                 <option value="">선택해주세요</option>
-                                <option value="원룸">원룸</option>
-                                <option value="오피스텔">오피스텔</option>
-                                <option value="아파트">아파트</option>
-                                <option value="빌라/연립">빌라/연립</option>
-                                <option value="단독주택">단독주택</option>
-                                <option value="기타">기타</option>
+                                <option th:each="option : ${housingTypes}" 
+                                        th:value="${option.displayName}" 
+                                        th:text="${option.displayName}"></option>
                             </select>
                         </div>
 
@@ -64,12 +61,9 @@
                             <label class="form-label">가족형태</label>
                             <select name="familyType" class="form-select">
                                 <option value="">선택해주세요</option>
-                                <option value="싱글">싱글</option>
-                                <option value="신혼부부">신혼부부</option>
-                                <option value="영유아 자녀">영유아 자녀</option>
-                                <option value="초등학생 자녀">초등학생 자녀</option>
-                                <option value="중고등학생 자녀">중고등학생 자녀</option>
-                                <option value="부모님과 함께">부모님과 함께</option>
+                                <option th:each="option : ${familyTypes}" 
+                                        th:value="${option.displayName}" 
+                                        th:text="${option.displayName}"></option>
                             </select>
                         </div>
 
@@ -97,11 +91,9 @@
                             <label class="form-label">작업 분야</label>
                             <select name="projectType" class="form-select">
                                 <option value="">선택해주세요</option>
-                                <option value="전체 리모델링">전체 리모델링</option>
-                                <option value="부분 리모델링">부분 리모델링</option>
-                                <option value="홈스타일링">홈스타일링</option>
-                                <option value="부분시공">부분시공</option>
-                                <option value="DIY">DIY</option>
+                                <option th:each="option : ${projectTypes}" 
+                                        th:value="${option.displayName}" 
+                                        th:text="${option.displayName}"></option>
                             </select>
                         </div>
 

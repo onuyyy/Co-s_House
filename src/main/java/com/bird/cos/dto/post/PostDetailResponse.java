@@ -27,7 +27,7 @@ public class PostDetailResponse {
     // 통계
     private Integer viewCount;
     private Integer likeCount;
-    private Integer scrapCount;
+    private Long scrapCount;
     
     // 이미지들
     private List<PostImageDto> images;

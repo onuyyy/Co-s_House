@@ -1,5 +1,6 @@
 package com.bird.cos.domain.post;
 
+import com.bird.cos.domain.post.enums.*;
 import com.bird.cos.domain.user.User;
 import com.bird.cos.dto.post.PostRequest;
 import jakarta.persistence.*;
@@ -44,16 +45,16 @@ public class Post {
     private String content;
 
     @Column(name = "housing_type", length = 50)
-    private String housingType;   // 주거 형태 (아파트, 원룸 등)
+    private String housingType;   // 주거 형태
 
     @Column(name = "area_size")
-    private Integer areaSize;     // 평수
+    private Integer areaSize;     // 실제 평수 값
 
     @Column(name = "room_count")
-    private Integer roomCount;    // 방 개수
+    private Integer roomCount;    // 실제 방 개수
 
     @Column(name = "family_type", length = 50)
-    private String familyType;    // 가족 형태 (싱글, 신혼, 아이 있음 등)
+    private String familyType;    // 가족 형태
 
     @Column(name = "has_pet")
     private Boolean hasPet;       // 반려동물 유무
@@ -62,7 +63,7 @@ public class Post {
     private Integer familyCount;  // 가족 구성원 수
 
     @Column(name = "project_type", length = 50)
-    private String projectType;   // 작업 분야 (리모델링, 홈스타일링 등)
+    private String projectType;   // 작업 분야
 
     @Column(name = "like_count")
     private Integer likeCount = 0;
@@ -112,6 +113,20 @@ public class Post {
     public boolean isRecent() {
         if (postCreatedAt == null) return false;
         return postCreatedAt.isAfter(LocalDateTime.now().minusDays(7));
+    }
+
+    /**
+     * 평수 범위 반환
+     */
+    public AreaSize getAreaSizeRange() {
+        return areaSize != null ? AreaSize.fromSize(areaSize) : null;
+    }
+
+    /**
+     * 방 개수 범위 반환
+     */
+    public RoomCount getRoomCountRange() {
+        return roomCount != null ? RoomCount.fromCount(roomCount) : null;
     }
 
     public static Post from(PostRequest request, User user) {

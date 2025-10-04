@@ -3,8 +3,10 @@ package com.bird.cos.repository.post;
 import com.bird.cos.domain.post.Post;
 import com.bird.cos.domain.post.QPost;
 import com.bird.cos.domain.post.QPostImage;
+import com.bird.cos.domain.post.enums.AreaSize;
+import com.bird.cos.domain.post.enums.RoomCount;
 import com.bird.cos.dto.post.PostSearchRequest;
-import com.querydsl.jpa.impl.JPAQuery;
+import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -31,20 +33,34 @@ public class PostRepositoryCustomImpl implements PostRepositoryCustom {
                 .select(post.postId)
                 .from(post)
                 .where(
-                        request.getHousingType() != null && !request.getHousingType().isEmpty() 
-                            ? post.housingType.eq(request.getHousingType()) : null,
-                        request.getAreaSize() != null && request.getAreaSize() > 0 
-                            ? post.areaSize.eq(request.getAreaSize()) : null,
-                        request.getRoomCount() != null && request.getRoomCount() > 0 
-                            ? post.roomCount.eq(request.getRoomCount()) : null,
-                        request.getFamilyType() != null && !request.getFamilyType().isEmpty() 
-                            ? post.familyType.eq(request.getFamilyType()) : null,
-                        request.getHasPet() != null 
-                            ? post.hasPet.eq(request.getHasPet()) : null,
-                        request.getFamilyCount() != null && request.getFamilyCount() > 0 
-                            ? post.familyCount.eq(request.getFamilyCount()) : null,
-                        request.getProjectType() != null && !request.getProjectType().isEmpty() 
-                            ? post.projectType.eq(request.getProjectType()) : null,
+                        // 주거형태 조건
+                        request.getHousingType() != null && !request.getHousingType().isEmpty() ? 
+                            post.housingType.eq(request.getHousingType()) : null,
+                        
+                        // 평수 범위 조건
+                        request.getAreaSize() != null && !request.getAreaSize().isEmpty() ? 
+                            createAreaSizeCondition(post, request.getAreaSize()) : null,
+                        
+                        // 방 개수 조건
+                        request.getRoomCount() != null && !request.getRoomCount().isEmpty() ? 
+                            createRoomCountCondition(post, request.getRoomCount()) : null,
+                        
+                        // 가족형태 조건
+                        request.getFamilyType() != null && !request.getFamilyType().isEmpty() ? 
+                            post.familyType.eq(request.getFamilyType()) : null,
+                        
+                        // 반려동물 조건
+                        request.getHasPet() != null ? 
+                            post.hasPet.eq(request.getHasPet()) : null,
+                        
+                        // 가족 구성원 수 조건
+                        request.getFamilyCount() != null && request.getFamilyCount() > 0 ? 
+                            post.familyCount.eq(request.getFamilyCount()) : null,
+                        
+                        // 작업분야 조건
+                        request.getProjectType() != null && !request.getProjectType().isEmpty() ? 
+                            post.projectType.eq(request.getProjectType()) : null,
+                        
                         post.isPublic.eq(true)  // 항상 공개 게시글만 조회
                 )
                 .orderBy(post.postCreatedAt.desc())
@@ -71,20 +87,20 @@ public class PostRepositoryCustomImpl implements PostRepositoryCustom {
                 .select(post.count())
                 .from(post)
                 .where(
-                        request.getHousingType() != null && !request.getHousingType().isEmpty() 
-                            ? post.housingType.eq(request.getHousingType()) : null,
-                        request.getAreaSize() != null && request.getAreaSize() > 0 
-                            ? post.areaSize.eq(request.getAreaSize()) : null,
-                        request.getRoomCount() != null && request.getRoomCount() > 0 
-                            ? post.roomCount.eq(request.getRoomCount()) : null,
-                        request.getFamilyType() != null && !request.getFamilyType().isEmpty() 
-                            ? post.familyType.eq(request.getFamilyType()) : null,
-                        request.getHasPet() != null 
-                            ? post.hasPet.eq(request.getHasPet()) : null,
-                        request.getFamilyCount() != null && request.getFamilyCount() > 0 
-                            ? post.familyCount.eq(request.getFamilyCount()) : null,
-                        request.getProjectType() != null && !request.getProjectType().isEmpty() 
-                            ? post.projectType.eq(request.getProjectType()) : null,
+                        request.getHousingType() != null && !request.getHousingType().isEmpty() ? 
+                            post.housingType.eq(request.getHousingType()) : null,
+                        request.getAreaSize() != null && !request.getAreaSize().isEmpty() ? 
+                            createAreaSizeCondition(post, request.getAreaSize()) : null,
+                        request.getRoomCount() != null && !request.getRoomCount().isEmpty() ? 
+                            createRoomCountCondition(post, request.getRoomCount()) : null,
+                        request.getFamilyType() != null && !request.getFamilyType().isEmpty() ? 
+                            post.familyType.eq(request.getFamilyType()) : null,
+                        request.getHasPet() != null ? 
+                            post.hasPet.eq(request.getHasPet()) : null,
+                        request.getFamilyCount() != null && request.getFamilyCount() > 0 ? 
+                            post.familyCount.eq(request.getFamilyCount()) : null,
+                        request.getProjectType() != null && !request.getProjectType().isEmpty() ? 
+                            post.projectType.eq(request.getProjectType()) : null,
                         post.isPublic.eq(true)  // 항상 공개 게시글만 조회
                 )
                 .fetchOne();
@@ -92,5 +108,33 @@ public class PostRepositoryCustomImpl implements PostRepositoryCustom {
         long total = (totalCount != null) ? totalCount : 0L;
 
         return new PageImpl<>(content, pageable, total);
+    }
+
+    // 평수 범위 조건 생성
+    private BooleanExpression createAreaSizeCondition(QPost post, String areaSizeStr) {
+        try {
+            AreaSize areaSize = AreaSize.valueOf(areaSizeStr);
+            if (areaSize.getMaxSize() == Integer.MAX_VALUE) {
+                return post.areaSize.goe(areaSize.getMinSize());
+            } else {
+                return post.areaSize.goe(areaSize.getMinSize()).and(post.areaSize.loe(areaSize.getMaxSize()));
+            }
+        } catch (IllegalArgumentException e) {
+            return null;
+        }
+    }
+
+    // 방 개수 조건 생성
+    private BooleanExpression createRoomCountCondition(QPost post, String roomCountStr) {
+        try {
+            RoomCount roomCount = RoomCount.valueOf(roomCountStr);
+            if (roomCount == RoomCount.FOUR_OR_MORE) {
+                return post.roomCount.goe(4);
+            } else {
+                return post.roomCount.eq(roomCount.getCount());
+            }
+        } catch (IllegalArgumentException e) {
+            return null;
+        }
     }
 }

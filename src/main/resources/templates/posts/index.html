@@ -24,11 +24,11 @@
                         </button>
                         <div class="filter-dropdown" id="housingTypeDropdown">
                             <label><input type="radio" name="housingType" value=""> 전체</label>
-                            <label><input type="radio" name="housingType" value="원룸"> 원룸</label>
-                            <label><input type="radio" name="housingType" value="오피스텔"> 오피스텔</label>
-                            <label><input type="radio" name="housingType" value="아파트"> 아파트</label>
-                            <label><input type="radio" name="housingType" value="빌라/연립"> 빌라/연립</label>
-                            <label><input type="radio" name="housingType" value="단독주택"> 단독주택</label>
+                            <label th:each="option : ${housingTypes}">
+                                <input type="radio" name="housingType" th:value="${option.value}" 
+                                       th:checked="${searchRequest.housingType == option.value}"> 
+                                <span th:text="${option.displayName}"></span>
+                            </label>
                         </div>
                     </div>
 
@@ -39,11 +39,11 @@
                         </button>
                         <div class="filter-dropdown" id="areaSizeDropdown">
                             <label><input type="radio" name="areaSize" value=""> 전체</label>
-                            <label><input type="radio" name="areaSize" value="10"> 10평 이하</label>
-                            <label><input type="radio" name="areaSize" value="20"> 10평대</label>
-                            <label><input type="radio" name="areaSize" value="30"> 20평대</label>
-                            <label><input type="radio" name="areaSize" value="40"> 30평대</label>
-                            <label><input type="radio" name="areaSize" value="50"> 40평대 이상</label>
+                            <label th:each="option : ${areaSizes}">
+                                <input type="radio" name="areaSize" th:value="${option.value}"
+                                       th:checked="${searchRequest.areaSize == option.value}">
+                                <span th:text="${option.displayName}"></span>
+                            </label>
                         </div>
                     </div>
 
@@ -54,10 +54,11 @@
                         </button>
                         <div class="filter-dropdown" id="familyTypeDropdown">
                             <label><input type="radio" name="familyType" value=""> 전체</label>
-                            <label><input type="radio" name="familyType" value="싱글"> 싱글</label>
-                            <label><input type="radio" name="familyType" value="신혼부부"> 신혼부부</label>
-                            <label><input type="radio" name="familyType" value="영유아 자녀"> 영유아 자녀</label>
-                            <label><input type="radio" name="familyType" value="초등학생 자녀"> 초등학생 자녀</label>
+                            <label th:each="option : ${familyTypes}">
+                                <input type="radio" name="familyType" th:value="${option.value}"
+                                       th:checked="${searchRequest.familyType == option.value}">
+                                <span th:text="${option.displayName}"></span>
+                            </label>
                         </div>
                     </div>
 
@@ -68,10 +69,11 @@
                         </button>
                         <div class="filter-dropdown" id="projectTypeDropdown">
                             <label><input type="radio" name="projectType" value=""> 전체</label>
-                            <label><input type="radio" name="projectType" value="전체 리모델링"> 전체 리모델링</label>
-                            <label><input type="radio" name="projectType" value="부분 리모델링"> 부분 리모델링</label>
-                            <label><input type="radio" name="projectType" value="홈스타일링"> 홈스타일링</label>
-                            <label><input type="radio" name="projectType" value="DIY"> DIY</label>
+                            <label th:each="option : ${projectTypes}">
+                                <input type="radio" name="projectType" th:value="${option.value}"
+                                       th:checked="${searchRequest.projectType == option.value}">
+                                <span th:text="${option.displayName}"></span>
+                            </label>
                         </div>
                     </div>
 
@@ -82,10 +84,11 @@
                         </button>
                         <div class="filter-dropdown" id="roomCountDropdown">
                             <label><input type="radio" name="roomCount" value=""> 전체</label>
-                            <label><input type="radio" name="roomCount" value="1"> 1개</label>
-                            <label><input type="radio" name="roomCount" value="2"> 2개</label>
-                            <label><input type="radio" name="roomCount" value="3"> 3개</label>
-                            <label><input type="radio" name="roomCount" value="4"> 4개 이상</label>
+                            <label th:each="option : ${roomCounts}">
+                                <input type="radio" name="roomCount" th:value="${option.value}"
+                                       th:checked="${searchRequest.roomCount == option.value}">
+                                <span th:text="${option.displayName}"></span>
+                            </label>
                         </div>
                     </div>
                 </form>

@@ -83,7 +83,7 @@
       </div>
       <div class="community-grid" th:with="postCount=${topPosts != null ? topPosts.size() : 0}, displayPosts=${postCount > 4 ? 4 : postCount}">
         <article class="community-card" th:each="post, iterStat : ${topPosts}" th:if="${iterStat.index < 4}">
-          <a class="thumb" th:href="@{'/community/' + ${post.id}}">
+          <a class="thumb" th:href="@{'/posts/' + ${post.id}}">
             <div class="ph" role="img" aria-label="집들이 이미지 플레이스홀더"></div>
           </a>
           <div class="body">
