@@ -1,98 +1,95 @@
 // 게시글 목록 페이지 JavaScript
 
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('Posts page loaded');
-
-    // 필터 드롭다운 토글
+    // 필터 기능
     const filterBtns = document.querySelectorAll('.filter-btn');
     const filterDropdowns = document.querySelectorAll('.filter-dropdown');
 
     filterBtns.forEach(btn => {
         btn.addEventListener('click', function(e) {
             e.stopPropagation();
+            
             const filterType = this.getAttribute('data-filter');
             const dropdown = document.getElementById(filterType + 'Dropdown');
-            
-            // 다른 드롭다운 닫기
-            filterDropdowns.forEach(dd => {
-                if (dd !== dropdown) {
-                    dd.classList.remove('show');
-                }
-            });
-            filterBtns.forEach(b => {
-                if (b !== this) {
-                    b.classList.remove('active');
-                }
-            });
+            const isActive = this.classList.contains('active');
 
-            // 현재 드롭다운 토글
-            dropdown.classList.toggle('show');
-            this.classList.toggle('active');
+            // 모든 필터 드롭다운 닫기
+            filterBtns.forEach(b => b.classList.remove('active'));
+            filterDropdowns.forEach(d => d.classList.remove('show'));
+
+            if (!isActive) {
+                this.classList.add('active');
+                dropdown.classList.add('show');
+            }
         });
     });
 
-    // 필터 선택 시 폼 제출
-    const searchForm = document.getElementById('searchForm');
-    const filterInputs = searchForm.querySelectorAll('input[type="radio"]');
-
-    filterInputs.forEach(input => {
+    // 필터 옵션 선택
+    const radioInputs = document.querySelectorAll('.filter-dropdown input[type="radio"]');
+    radioInputs.forEach(input => {
         input.addEventListener('change', function() {
-            
-            // 선택된 필터의 드롭다운 닫기
-            const dropdown = this.closest('.filter-dropdown');
-            if (dropdown) {
-                dropdown.classList.remove('show');
-            }
-
-            // 필터 버튼 상태 업데이트
-            const filterGroup = this.closest('.filter-group');
-            const filterBtn = filterGroup.querySelector('.filter-btn');
-            
-            if (this.value === '') {
-                filterBtn.classList.remove('active');
-            } else {
-                filterBtn.classList.add('active');
-            }
-
-            searchForm.submit();
+            const form = document.getElementById('searchForm');
+            form.submit();
         });
     });
 
-    // 드롭다운 외부 클릭 시 닫기
-    document.addEventListener('click', function(e) {
-        if (!e.target.closest('.filter-group')) {
-            filterDropdowns.forEach(dropdown => {
-                dropdown.classList.remove('show');
-            });
-            filterBtns.forEach(btn => {
-                btn.classList.remove('active');
-            });
-        }
+    // 외부 클릭 시 드롭다운 닫기
+    document.addEventListener('click', function() {
+        filterBtns.forEach(btn => btn.classList.remove('active'));
+        filterDropdowns.forEach(dropdown => dropdown.classList.remove('show'));
     });
 
-    // 북마크 토글
-    window.toggleBookmark = function(btn) {
-        btn.classList.toggle('active');
-        // TODO: 서버에 북마크 상태 저장
-    };
-
-    // URL 파라미터로 필터 상태 복원
-    const urlParams = new URLSearchParams(window.location.search);
-    
-    filterInputs.forEach(input => {
-        const paramValue = urlParams.get(input.name);
-        if (paramValue !== null) {
-            if (input.value === paramValue) {
-                input.checked = true;
-                const filterGroup = input.closest('.filter-group');
-                const filterBtn = filterGroup.querySelector('.filter-btn');
-                if (paramValue !== '') {
-                    filterBtn.classList.add('active');
-                }
-            }
-        } else if (input.value === '') {
-            // 파라미터가 없으면 "전체" 선택
-            input.checked = true;
-        }
+    // 드롭다운 내부 클릭 시 이벤트 전파 중단
+    filterDropdowns.forEach(dropdown => {
+        dropdown.addEventListener('click', function(e) {
+            e.stopPropagation();
+        });
     });
 });
+
+// 북마크 토글 함수
+function toggleBookmark(button) {
+    const postId = button.getAttribute('data-post-id');
+    
+    // 로그인 확인
+    const currentUserId = document.querySelector('body').getAttribute('data-user-id');
+    if (!currentUserId) {
+        if (confirm('로그인이 필요한 서비스입니다. 로그인 페이지로 이동하시겠습니까?')) {
+            window.location.href = '/login';
+        }
+        return;
+    }
+
+    // AJAX 요청
+    fetch(`/posts/${postId}/scrap`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('스크랩 처리 중 오류가 발생했습니다.');
+        }
+        return response.json();
+    })
+    .then(data => {
+        // 버튼 상태 업데이트
+        if (data.isScraped) {
+            button.classList.add('active');
+        } else {
+            button.classList.remove('active');
+        }
+
+        // 스크랩 수 업데이트
+        const postCard = button.closest('.post-card');
+        const scrapCountElement = postCard.querySelector('.post-stats span:first-child span');
+        if (scrapCountElement) {
+            scrapCountElement.textContent = data.scrapCount;
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('스크랩 처리 중 오류가 발생했습니다.');
+    });
+}

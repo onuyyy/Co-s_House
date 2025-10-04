@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/layout :: head('오늘의 집 | 집들이')"></head>
-<body class="page font-body">
+<body class="page font-body" th:data-user-id="${currentUserId}">
 <header th:replace="fragments/layout :: header"></header>
 <main class="page-main">
     <div class="container-posts">
@@ -95,7 +95,7 @@
             <div class="posts-grid" th:if="${posts != null and !posts.content.isEmpty()}">
                 <a th:href="@{/posts/{id}(id=${post.postId})}" class="post-card" th:each="post : ${posts.content}">
                     <div class="post-image">
-                        <span class="badge-new">NEW</span>
+                        <span class="badge-new" th:if="${post.recent}">NEW</span>
                         <img th:if="${post.thumbnail != null}" 
                              th:src="${post.thumbnail}" 
                              th:alt="${post.title}"
@@ -106,7 +106,10 @@
                                 <path d="M30 20v20M20 30h20" stroke="#ddd" stroke-width="2"/>
                             </svg>
                         </div>
-                        <button class="btn-bookmark" onclick="event.preventDefault(); toggleBookmark(this);">
+                        <button class="btn-bookmark" 
+                                th:classappend="${post.scraped} ? 'active'"
+                                th:data-post-id="${post.postId}"
+                                onclick="event.preventDefault(); toggleBookmark(this);">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
                                 <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
                             </svg>
@@ -119,7 +122,7 @@
                                 <span th:text="${post.username}">작성자</span>
                             </div>
                             <div class="post-stats">
-                                <span>스크랩 <span th:text="${post.scrapCount != null ? post.scrapCount : 0}">10</span></span>
+                                <span>스크랩 <span th:text="${post.scrapCount}">10</span></span>
                                 <span>·</span>
                                 <span>조회 <span th:text="${post.viewCount != null ? post.viewCount : 0}">293</span></span>
                             </div>

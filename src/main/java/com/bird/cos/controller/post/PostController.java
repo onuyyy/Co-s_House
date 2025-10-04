@@ -7,13 +7,13 @@ import com.bird.cos.dto.post.PostDetailResponse;
 import com.bird.cos.dto.post.PostRequest;
 import com.bird.cos.dto.post.PostResponse;
 import com.bird.cos.dto.post.PostSearchRequest;
-import com.bird.cos.dto.product.ProductResponse;
 import com.bird.cos.security.CustomUserDetails;
 import com.bird.cos.service.admin.common.CommonCodeService;
 import com.bird.cos.service.order.OrderItemService;
-import com.bird.cos.service.order.OrderService;
 import com.bird.cos.service.post.PostService;
-import com.bird.cos.service.product.ProductService;
+import com.bird.cos.service.scrap.ScrapService;
+import lombok.Builder;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -37,17 +37,20 @@ public class PostController {
     private final PostService postService;
     private final CommonCodeService commonCodeService;
     private final OrderItemService orderItemService;
+    private final ScrapService scrapService;
 
     @GetMapping
     public String getPostPage(PostSearchRequest searchRequest,
                               Model model,
-                              @PageableDefault(size = 12, sort = "postCreatedAt", direction = Sort.Direction.DESC) Pageable pageable)
+                              @PageableDefault(size = 12, sort = "postCreatedAt", direction = Sort.Direction.DESC) Pageable pageable,
+                              @AuthenticationPrincipal CustomUserDetails userDetails)
     {
-        
-        Page<PostResponse> posts = postService.getPosts(searchRequest, pageable);
+        Long currentUserId = userDetails != null ? userDetails.getUserId() : null;
+        Page<PostResponse> posts = postService.getPosts(searchRequest, pageable, currentUserId);
 
         model.addAttribute("posts", posts);
         model.addAttribute("searchRequest", searchRequest);
+        model.addAttribute("currentUserId", currentUserId);
 
         return "posts/index";
     }
@@ -110,5 +113,26 @@ public class PostController {
         model.addAttribute("post", post);
 
         return "posts/detail";
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @PostMapping("/{postId}/scrap")
+    @ResponseBody
+    public ResponseEntity<ScrapResponse> toggleScrap(@PathVariable Long postId,
+                                                   @AuthenticationPrincipal CustomUserDetails userDetails) {
+        boolean isScraped = scrapService.toggleScrap(userDetails.getUserId(), postId);
+        long scrapCount = scrapService.getScrapCount(postId);
+        
+        return ResponseEntity.ok(ScrapResponse.builder()
+                .isScraped(isScraped)
+                .scrapCount(scrapCount)
+                .build());
+    }
+
+    @Getter
+    @Builder
+    public static class ScrapResponse {
+        private boolean isScraped;
+        private long scrapCount;
     }
 }
