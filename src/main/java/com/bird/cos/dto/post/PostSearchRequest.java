@@ -5,11 +5,10 @@ import lombok.Data;
 @Data
 public class PostSearchRequest {
     private String housingType;
-    private String areaSize;
-    private String roomCount;
+    private Integer roomCount;
     private String familyType;
-    private Boolean hasPet;
     private Integer familyCount;
+    private Boolean hasPet;
     private String projectType;
     private Boolean isPublic;
 }

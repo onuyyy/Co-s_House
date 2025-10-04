@@ -1,6 +1,5 @@
 package com.bird.cos.domain.post;
 
-import com.bird.cos.domain.post.enums.*;
 import com.bird.cos.domain.user.User;
 import com.bird.cos.dto.post.PostRequest;
 import jakarta.persistence.*;
@@ -113,20 +112,6 @@ public class Post {
     public boolean isRecent() {
         if (postCreatedAt == null) return false;
         return postCreatedAt.isAfter(LocalDateTime.now().minusDays(7));
-    }
-
-    /**
-     * 평수 범위 반환
-     */
-    public AreaSize getAreaSizeRange() {
-        return areaSize != null ? AreaSize.fromSize(areaSize) : null;
-    }
-
-    /**
-     * 방 개수 범위 반환
-     */
-    public RoomCount getRoomCountRange() {
-        return roomCount != null ? RoomCount.fromCount(roomCount) : null;
     }
 
     public static Post from(PostRequest request, User user) {

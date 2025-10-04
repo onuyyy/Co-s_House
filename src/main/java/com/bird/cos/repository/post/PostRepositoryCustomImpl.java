@@ -3,8 +3,6 @@ package com.bird.cos.repository.post;
 import com.bird.cos.domain.post.Post;
 import com.bird.cos.domain.post.QPost;
 import com.bird.cos.domain.post.QPostImage;
-import com.bird.cos.domain.post.enums.AreaSize;
-import com.bird.cos.domain.post.enums.RoomCount;
 import com.bird.cos.dto.post.PostSearchRequest;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -37,25 +35,19 @@ public class PostRepositoryCustomImpl implements PostRepositoryCustom {
                         request.getHousingType() != null && !request.getHousingType().isEmpty() ? 
                             post.housingType.eq(request.getHousingType()) : null,
                         
-                        // 평수 범위 조건
-                        request.getAreaSize() != null && !request.getAreaSize().isEmpty() ? 
-                            createAreaSizeCondition(post, request.getAreaSize()) : null,
-                        
                         // 방 개수 조건
-                        request.getRoomCount() != null && !request.getRoomCount().isEmpty() ? 
-                            createRoomCountCondition(post, request.getRoomCount()) : null,
+                        createRoomCountCondition(post, request.getRoomCount()),
                         
                         // 가족형태 조건
                         request.getFamilyType() != null && !request.getFamilyType().isEmpty() ? 
                             post.familyType.eq(request.getFamilyType()) : null,
                         
+                        // 가족 구성원 수 조건
+                        createFamilyCountCondition(post, request.getFamilyCount()),
+                        
                         // 반려동물 조건
                         request.getHasPet() != null ? 
                             post.hasPet.eq(request.getHasPet()) : null,
-                        
-                        // 가족 구성원 수 조건
-                        request.getFamilyCount() != null && request.getFamilyCount() > 0 ? 
-                            post.familyCount.eq(request.getFamilyCount()) : null,
                         
                         // 작업분야 조건
                         request.getProjectType() != null && !request.getProjectType().isEmpty() ? 
@@ -89,16 +81,12 @@ public class PostRepositoryCustomImpl implements PostRepositoryCustom {
                 .where(
                         request.getHousingType() != null && !request.getHousingType().isEmpty() ? 
                             post.housingType.eq(request.getHousingType()) : null,
-                        request.getAreaSize() != null && !request.getAreaSize().isEmpty() ? 
-                            createAreaSizeCondition(post, request.getAreaSize()) : null,
-                        request.getRoomCount() != null && !request.getRoomCount().isEmpty() ? 
-                            createRoomCountCondition(post, request.getRoomCount()) : null,
+                        createRoomCountCondition(post, request.getRoomCount()),
                         request.getFamilyType() != null && !request.getFamilyType().isEmpty() ? 
                             post.familyType.eq(request.getFamilyType()) : null,
+                        createFamilyCountCondition(post, request.getFamilyCount()),
                         request.getHasPet() != null ? 
                             post.hasPet.eq(request.getHasPet()) : null,
-                        request.getFamilyCount() != null && request.getFamilyCount() > 0 ? 
-                            post.familyCount.eq(request.getFamilyCount()) : null,
                         request.getProjectType() != null && !request.getProjectType().isEmpty() ? 
                             post.projectType.eq(request.getProjectType()) : null,
                         post.isPublic.eq(true)  // 항상 공개 게시글만 조회
@@ -110,31 +98,33 @@ public class PostRepositoryCustomImpl implements PostRepositoryCustom {
         return new PageImpl<>(content, pageable, total);
     }
 
-    // 평수 범위 조건 생성
-    private BooleanExpression createAreaSizeCondition(QPost post, String areaSizeStr) {
-        try {
-            AreaSize areaSize = AreaSize.valueOf(areaSizeStr);
-            if (areaSize.getMaxSize() == Integer.MAX_VALUE) {
-                return post.areaSize.goe(areaSize.getMinSize());
-            } else {
-                return post.areaSize.goe(areaSize.getMinSize()).and(post.areaSize.loe(areaSize.getMaxSize()));
-            }
-        } catch (IllegalArgumentException e) {
+    // 방 개수 조건 생성
+    private BooleanExpression createRoomCountCondition(QPost post, Integer roomCount) {
+        if (roomCount == null) {
             return null;
         }
+        
+        // 4개 이상이면 >= 4
+        if (roomCount >= 4) {
+            return post.roomCount.goe(4);
+        }
+        
+        // 그 외에는 정확히 일치
+        return post.roomCount.eq(roomCount);
     }
 
-    // 방 개수 조건 생성
-    private BooleanExpression createRoomCountCondition(QPost post, String roomCountStr) {
-        try {
-            RoomCount roomCount = RoomCount.valueOf(roomCountStr);
-            if (roomCount == RoomCount.FOUR_OR_MORE) {
-                return post.roomCount.goe(4);
-            } else {
-                return post.roomCount.eq(roomCount.getCount());
-            }
-        } catch (IllegalArgumentException e) {
+    // 가족 구성원 수 조건 생성
+    private BooleanExpression createFamilyCountCondition(QPost post, Integer familyCount) {
+        if (familyCount == null) {
             return null;
         }
+        
+        // 5명 이상이면 >= 5
+        if (familyCount >= 5) {
+            return post.familyCount.goe(5);
+        }
+        
+        // 그 외에는 정확히 일치
+        return post.familyCount.eq(familyCount);
     }
 }

@@ -9,7 +9,6 @@ import com.bird.cos.dto.post.PostResponse;
 import com.bird.cos.dto.post.PostSearchRequest;
 import com.bird.cos.security.CustomUserDetails;
 import com.bird.cos.service.admin.common.CommonCodeService;
-import com.bird.cos.service.common.PostEnumService;
 import com.bird.cos.service.order.OrderItemService;
 import com.bird.cos.service.post.PostService;
 import com.bird.cos.service.scrap.ScrapService;
@@ -39,7 +38,6 @@ public class PostController {
     private final CommonCodeService commonCodeService;
     private final OrderItemService orderItemService;
     private final ScrapService scrapService;
-    private final PostEnumService postEnumService;
 
     @GetMapping
     public String getPostPage(PostSearchRequest searchRequest,
@@ -54,14 +52,27 @@ public class PostController {
         model.addAttribute("searchRequest", searchRequest);
         model.addAttribute("currentUserId", currentUserId);
         
-        // Enum 옵션들 추가
-        model.addAttribute("housingTypes", postEnumService.getHousingTypes());
-        model.addAttribute("areaSizes", postEnumService.getAreaSizes());
-        model.addAttribute("roomCounts", postEnumService.getRoomCounts());
-        model.addAttribute("familyTypes", postEnumService.getFamilyTypes());
-        model.addAttribute("projectTypes", postEnumService.getProjectTypes());
+        // 필터 옵션 추가 (게시글 작성할 때 사용하는 것과 동일)
+        model.addAttribute("housingTypes", getHousingTypeOptions());
+        model.addAttribute("familyTypes", getFamilyTypeOptions());
+        model.addAttribute("projectTypes", getProjectTypeOptions());
+        model.addAttribute("roomCounts", getRoomCountOptions());
+        model.addAttribute("familyCounts", getFamilyCountOptions());
 
         return "posts/index";
+    }
+
+    
+    @Getter
+    @Builder
+    public static class FilterOption {
+        private String value;
+        private String displayName;
+        
+        public FilterOption(String value, String displayName) {
+            this.value = value;
+            this.displayName = displayName;
+        }
     }
 
     @PreAuthorize("isAuthenticated()")
@@ -71,10 +82,10 @@ public class PostController {
         List<CommonCode> postInformation = commonCodeService.getCommonCodeList("POST_INFORMATION");
         model.addAttribute("postInformation", postInformation);
         
-        // Enum 옵션들 추가
-        model.addAttribute("housingTypes", postEnumService.getHousingTypes());
-        model.addAttribute("familyTypes", postEnumService.getFamilyTypes());
-        model.addAttribute("projectTypes", postEnumService.getProjectTypes());
+        // 필터 옵션 추가
+        model.addAttribute("housingTypes", getHousingTypeOptions());
+        model.addAttribute("familyTypes", getFamilyTypeOptions());
+        model.addAttribute("projectTypes", getProjectTypeOptions());
 
         return "posts/new";
     }
@@ -148,5 +159,62 @@ public class PostController {
     public static class ScrapResponse {
         private boolean isScraped;
         private long scrapCount;
+    }
+
+
+    // 주거형태 옵션
+    private List<FilterOption> getHousingTypeOptions() {
+        return List.of(
+                new FilterOption("원룸", "원룸"),
+                new FilterOption("오피스텔", "오피스텔"),
+                new FilterOption("아파트", "아파트"),
+                new FilterOption("빌라/연립", "빌라/연립"),
+                new FilterOption("단독주택", "단독주택"),
+                new FilterOption("기타", "기타")
+        );
+    }
+
+    // 가족형태 옵션
+    private List<FilterOption> getFamilyTypeOptions() {
+        return List.of(
+                new FilterOption("싱글", "싱글"),
+                new FilterOption("신혼부부", "신혼부부"),
+                new FilterOption("영유아 자녀", "영유아 자녀"),
+                new FilterOption("초등학생 자녀", "초등학생 자녀"),
+                new FilterOption("중고등학생 자녀", "중고등학생 자녀"),
+                new FilterOption("부모님과 함께", "부모님과 함께")
+        );
+    }
+
+    // 작업분야 옵션
+    private List<FilterOption> getProjectTypeOptions() {
+        return List.of(
+                new FilterOption("전체 리모델링", "전체 리모델링"),
+                new FilterOption("부분 리모델링", "부분 리모델링"),
+                new FilterOption("홈스타일링", "홈스타일링"),
+                new FilterOption("부분시공", "부분시공"),
+                new FilterOption("DIY", "DIY")
+        );
+    }
+
+    // 방 개수 옵션
+    private List<FilterOption> getRoomCountOptions() {
+        return List.of(
+                new FilterOption("1", "1개"),
+                new FilterOption("2", "2개"),
+                new FilterOption("3", "3개"),
+                new FilterOption("4", "4개 이상")
+        );
+    }
+
+    // 가족 구성원 수 옵션
+    private List<FilterOption> getFamilyCountOptions() {
+        return List.of(
+                new FilterOption("1", "1명"),
+                new FilterOption("2", "2명"),
+                new FilterOption("3", "3명"),
+                new FilterOption("4", "4명"),
+                new FilterOption("5", "5명 이상")
+        );
     }
 }

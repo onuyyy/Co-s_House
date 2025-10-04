@@ -33,15 +33,15 @@
                     </div>
 
                     <div class="filter-group">
-                        <button type="button" class="filter-btn" data-filter="areaSize">
-                            <span>평수</span>
+                        <button type="button" class="filter-btn" data-filter="roomCount">
+                            <span>방개수</span>
                             <svg width="12" height="12" viewBox="0 0 12 12"><path d="M6 8L2 4h8z" fill="currentColor"/></svg>
                         </button>
-                        <div class="filter-dropdown" id="areaSizeDropdown">
-                            <label><input type="radio" name="areaSize" value=""> 전체</label>
-                            <label th:each="option : ${areaSizes}">
-                                <input type="radio" name="areaSize" th:value="${option.value}"
-                                       th:checked="${searchRequest.areaSize == option.value}">
+                        <div class="filter-dropdown" id="roomCountDropdown">
+                            <label><input type="radio" name="roomCount" value=""> 전체</label>
+                            <label th:each="option : ${roomCounts}">
+                                <input type="radio" name="roomCount" th:value="${option.value}"
+                                       th:checked="${searchRequest.roomCount != null && searchRequest.roomCount == #numbers.parseInteger(option.value)}">
                                 <span th:text="${option.displayName}"></span>
                             </label>
                         </div>
@@ -63,6 +63,21 @@
                     </div>
 
                     <div class="filter-group">
+                        <button type="button" class="filter-btn" data-filter="familyCount">
+                            <span>가족구성원</span>
+                            <svg width="12" height="12" viewBox="0 0 12 12"><path d="M6 8L2 4h8z" fill="currentColor"/></svg>
+                        </button>
+                        <div class="filter-dropdown" id="familyCountDropdown">
+                            <label><input type="radio" name="familyCount" value=""> 전체</label>
+                            <label th:each="option : ${familyCounts}">
+                                <input type="radio" name="familyCount" th:value="${option.value}"
+                                       th:checked="${searchRequest.familyCount != null && searchRequest.familyCount == #numbers.parseInteger(option.value)}">
+                                <span th:text="${option.displayName}"></span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="filter-group">
                         <button type="button" class="filter-btn" data-filter="projectType">
                             <span>작업분야</span>
                             <svg width="12" height="12" viewBox="0 0 12 12"><path d="M6 8L2 4h8z" fill="currentColor"/></svg>
@@ -72,21 +87,6 @@
                             <label th:each="option : ${projectTypes}">
                                 <input type="radio" name="projectType" th:value="${option.value}"
                                        th:checked="${searchRequest.projectType == option.value}">
-                                <span th:text="${option.displayName}"></span>
-                            </label>
-                        </div>
-                    </div>
-
-                    <div class="filter-group">
-                        <button type="button" class="filter-btn" data-filter="roomCount">
-                            <span>방개수</span>
-                            <svg width="12" height="12" viewBox="0 0 12 12"><path d="M6 8L2 4h8z" fill="currentColor"/></svg>
-                        </button>
-                        <div class="filter-dropdown" id="roomCountDropdown">
-                            <label><input type="radio" name="roomCount" value=""> 전체</label>
-                            <label th:each="option : ${roomCounts}">
-                                <input type="radio" name="roomCount" th:value="${option.value}"
-                                       th:checked="${searchRequest.roomCount == option.value}">
                                 <span th:text="${option.displayName}"></span>
                             </label>
                         </div>
