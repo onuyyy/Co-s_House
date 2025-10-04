@@ -47,7 +47,10 @@ public enum ErrorCode {
     // post 관련
     POST_SAVE_FAILED(HttpStatus.INTERNAL_SERVER_ERROR, "PO001", "게시글 저장에 실패했습니다."),
     POST_NOT_FOUND(HttpStatus.NOT_FOUND, "PO002", "게시글을 찾을 수 없습니다."),
-    FILE_UPLOAD_FAILED(HttpStatus.INTERNAL_SERVER_ERROR, "F001", "파일 업로드에 실패했습니다.");
+    FILE_UPLOAD_FAILED(HttpStatus.INTERNAL_SERVER_ERROR, "F001", "파일 업로드에 실패했습니다."),
+
+    // 스크랩 관련
+    SCRAP_DELETE_FAILED(HttpStatus.BAD_REQUEST, "SC001", "본인의 스크랩만 삭제할 수 있습니다.");
 
     private final HttpStatus status;
     private final String code;
