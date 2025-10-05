@@ -32,8 +32,8 @@ public class EventService {
     private static final String EVENT_SLUG_PREFIX = "event-";
     private static final String DEFAULT_EVENT_IMAGE = "/images/home.jpeg";
 
-    private static final String WELCOME_POINT_DESCRIPTION = "웰컴 이벤트 3,000포인트";
-    private static final int WELCOME_POINT_AMOUNT = 3_000;
+    private static final String WELCOME_POINT_DESCRIPTION = "웰컴 이벤트 5,000포인트";
+    private static final int WELCOME_POINT_AMOUNT = 5_000;
 
     private final EventRepository eventRepository;
     private final CouponRepository couponRepository;
@@ -133,7 +133,7 @@ public class EventService {
                 .build();
         pointRepository.save(point);
 
-        return EventActionResult.success("웰컴 혜택으로 3,000포인트가 적립되었습니다!", true, WELCOME_POINT_AMOUNT);
+        return EventActionResult.success("웰컴 혜택으로 5,000포인트가 적립되었습니다!", true, WELCOME_POINT_AMOUNT);
     }
 
     /**

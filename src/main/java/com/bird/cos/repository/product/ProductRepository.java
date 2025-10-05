@@ -30,6 +30,8 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     //SELECT * FROM PRODUCT WHERE product_category_id = ?
     List<Product> findByProductCategory_CategoryId(Long categoryId);
 
+    Page<Product> findByProductCategory_CategoryId(Long categoryId, Pageable pageable);
+
     //특정 카테고리의 상품을 가격 기준 오름차순으로 조회 (낮은 가격순)
     //SELECT * FROM PRODUCT WHERE product_category_id = ? ORDER BY sale_price ASC
     List<Product> findByProductCategoryCategoryIdOrderBySalePriceAsc(Long categoryId);
