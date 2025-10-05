@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/layout :: head('오늘의 집 | 게시글 상세')"></head>
+<body class="page font-body">
+<header th:replace="fragments/layout :: header"></header>
+<main class="page-main">
+    <div class="container-detail">
+        <section class="post-detail">
+            <!-- 이미지 슬라이더 -->
+            <div class="post-images-slider">
+                <div class="slider-main">
+                    <div class="slider-images" id="sliderImages">
+                        <div class="slider-item active" th:each="image, iterStat : ${post.images}" 
+                             th:data-index="${iterStat.index}">
+                            <img th:src="${image.imageUrl}" th:alt="${post.title}">
+                        </div>
+                    </div>
+                    <button class="slider-btn prev" onclick="prevSlide()" style="display: none;">‹</button>
+                    <button class="slider-btn next" onclick="nextSlide()" style="display: none;">›</button>
+                    <div class="slider-indicator" id="sliderIndicator"></div>
+                </div>
+                
+                <!-- 썸네일 -->
+                <div class="slider-thumbnails" th:if="${post.images.size() > 1}">
+                    <div class="thumbnail-item" 
+                         th:each="image, iterStat : ${post.images}"
+                         th:data-index="${iterStat.index}"
+                         th:classappend="${iterStat.index == 0} ? 'active'"
+                         onclick="goToSlide(this.dataset.index)">
+                        <img th:src="${image.imageUrl}" th:alt="${post.title}">
+                    </div>
+                </div>
+            </div>
+
+            <!-- 게시글 정보 -->
+            <div class="post-detail-content">
+                <h1 class="post-detail-title" th:text="${post.title}">게시글 제목</h1>
+                
+                <div class="post-detail-meta">
+                    <div class="author-info">
+                        <div class="author-avatar"></div>
+                        <span class="author-name" th:text="${post.username}">작성자</span>
+                    </div>
+                    <div class="post-stats">
+                        <span>조회 <strong th:text="${post.viewCount}">0</strong></span>
+                        <span>·</span>
+                        <span>스크랩 <strong th:text="${post.scrapCount}">0</strong></span>
+                    </div>
+                </div>
+
+                <!-- 주거 정보 -->
+                <div class="housing-info" th:if="${post.housingType != null}">
+                    <h3>주거 정보</h3>
+                    <div class="info-grid">
+                        <div class="info-item" th:if="${post.housingType != null}">
+                            <span class="label">주거형태</span>
+                            <span class="value" th:text="${post.housingType}">아파트</span>
+                        </div>
+                        <div class="info-item" th:if="${post.areaSize != null}">
+                            <span class="label">평수</span>
+                            <span class="value" th:text="${post.areaSize} + '평'">34평</span>
+                        </div>
+                        <div class="info-item" th:if="${post.roomCount != null}">
+                            <span class="label">방 개수</span>
+                            <span class="value" th:text="${post.roomCount} + '개'">3개</span>
+                        </div>
+                        <div class="info-item" th:if="${post.familyType != null}">
+                            <span class="label">가족형태</span>
+                            <span class="value" th:text="${post.familyType}">신혼부부</span>
+                        </div>
+                        <div class="info-item" th:if="${post.familyCount != null}">
+                            <span class="label">가족 구성원</span>
+                            <span class="value" th:text="${post.familyCount} + '명'">2명</span>
+                        </div>
+                        <div class="info-item" th:if="${post.projectType != null}">
+                            <span class="label">작업분야</span>
+                            <span class="value" th:text="${post.projectType}">전체 리모델링</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 게시글 본문 -->
+                <div class="post-body">
+                    <p th:text="${post.content}">게시글 본문 내용</p>
+                </div>
+
+                <!-- 사용한 상품 -->
+                <div class="used-products" th:if="${post.products != null and !post.products.isEmpty()}">
+                    <h3>사용한 상품</h3>
+                    <div class="products-grid">
+                        <a th:each="product : ${post.products}" 
+                           th:href="@{/product/{id}(id=${product.productId})}"
+                           class="product-card"
+                           target="_blank">
+                            <div class="product-image">
+                                <img th:src="${product.mainImageUrl}" 
+                                     th:alt="${product.productTitle}"
+                                     onerror="this.src='/images/default-product.jpg'">
+                            </div>
+                            <div class="product-info">
+                                <p class="product-title" th:text="${product.productTitle}">상품명</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</main>
+<footer th:replace="fragments/layout :: footer"></footer>
+<link rel="stylesheet" th:href="@{/css/post-detail.css}">
+<script th:src="@{/js/post-detail.js}"></script>
+</body>
+</html>

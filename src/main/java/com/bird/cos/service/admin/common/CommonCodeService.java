@@ -114,4 +114,5 @@ public class CommonCodeService {
     public CommonCodeGroup getCommonCodeGroup(String groupId) {
         return commonCodeGroupRepository.findById(groupId).orElseThrow(() -> new RuntimeException("코드 그룹이 존재하지 않습니다."));
     }
+
 }

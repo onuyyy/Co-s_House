@@ -12,7 +12,8 @@ public class CommunityPageController {
 
     @GetMapping("/community")
     public String community(Model model) {
-        model.addAttribute("topPosts", homeService.topPosts(12));
+        model.addAttribute("topPosts", homeService.getTopPublic());
+
         return "community/index";
     }
 }
