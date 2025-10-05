@@ -65,7 +65,7 @@
                    th:classappend="${pageNum == currentPage} ? ' is-active' : ''"
                    th:text="${pageNum}"
                    th:href="@{/search(keyword=${keyword}, page=${pageNum}, size=${pageSize})}">1</a>
-            </span>ㅊ
+            </span>
             <a class="product-pagination__control"
                th:if="${currentPage < totalPages}"
                th:href="@{/search(keyword=${keyword}, page=${currentPage + 1}, size=${pageSize})}"

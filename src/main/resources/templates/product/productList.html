@@ -1,14 +1,16 @@
 <!doctype html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/layout :: head('코딩의 집 | 쇼핑')"></head>
+<head th:replace="~{fragments/layout :: head('코딩의 집 | 쇼핑')}"></head>
 <body class="page font-body product-page">
-<header th:replace="fragments/layout :: header"></header>
+<header th:replace="~{fragments/layout :: header}"></header>
 
 <main class="page-main"
-      th:with="uri=${#httpServletRequest.requestURI},
-                 isCategory=${#strings.startsWith(uri, '/product/category')},
+      th:with="isCategory=${activeCategoryId != null},
                  defaultHero=@{/images/home.jpeg},
-                 visibleSlides=${products != null ? (products.size() > 8 ? 8 : products.size()) : 0}">
+                 visibleSlides=${products != null ? (products.size() > 8 ? 8 : products.size()) : 0},
+                 activeCategoryId=${activeCategoryId},
+                 activeParentCategoryId=${activeParentCategoryId},
+                 categoryList=${productNavCategories}">
   <section class="product-hero">
     <div class="hero-carousel" th:if="${visibleSlides > 0}">
       <div class="hero-carousel__track">
@@ -67,13 +69,14 @@
   <section class="product-toolbar" aria-label="상품 탐색">
     <div class="container product-toolbar__inner">
       <nav class="category-scroll" aria-label="상품 카테고리">
-        <a th:href="@{/product}" th:classappend="${uri == '/product' ? 'is-active' : ''}">전체</a>
-        <a th:href="@{/product/category/100}" th:classappend="${#strings.startsWith(uri, '/product/category/100') ? 'is-active' : ''}">수납용품</a>
-        <a th:href="@{/product/category/103}" th:classappend="${#strings.startsWith(uri, '/product/category/103') ? 'is-active' : ''}">가구</a>
-        <a th:href="@{/product/category/104}" th:classappend="${#strings.startsWith(uri, '/product/category/104') ? 'is-active' : ''}">침실</a>
-        <a th:href="@{/product/category/108}" th:classappend="${#strings.startsWith(uri, '/product/category/108') ? 'is-active' : ''}">주방</a>
-        <a th:href="@{/product/category/5}" th:classappend="${#strings.startsWith(uri, '/product/category/5') ? 'is-active' : ''}">욕실</a>
-        <a th:href="@{/product/category/6}" th:classappend="${#strings.startsWith(uri, '/product/category/6') ? 'is-active' : ''}">조명</a>
+        <a th:href="@{/product}" th:classappend="${activeCategoryId == null ? ' is-active' : ''}">전체</a>
+        <th:block th:each="category : ${categoryList}">
+          <a th:href="|/product/category/${category.id}|"
+             th:classappend="${activeParentCategoryId != null and category.id == activeParentCategoryId ? ' is-active' : ''}"
+             th:text="${category.label}">
+            카테고리
+          </a>
+        </th:block>
       </nav>
       <div class="product-toolbar__actions" th:if="${isCategory}">
         <span class="sort-label">정렬</span>
@@ -87,75 +90,150 @@
     </div>
   </section>
 
-  <section class="product-list container">
-    <header class="product-list__head">
-      <h2 class="product-list__title" th:text="${isCategory ? '카테고리 상품' : '전체 상품'}">전체 상품</h2>
-      <span class="product-list__count"
-            th:text="${totalCount != null ? '총 ' + totalCount + '개' : (products != null ? '총 ' + #lists.size(products) + '개' : '0개')}">
-          총 0개
-        </span>
-    </header>
+  <section class="product-section container">
+    <div class="product-layout">
+      <aside class="category-sidebar" aria-label="카테고리 필터">
+        <h2 class="category-sidebar__title">카테고리</h2>
+        <ul class="category-sidebar__list">
+          <li class="category-sidebar__item">
+            <a th:href="@{/product}"
+               th:classappend="${activeCategoryId == null ? ' is-active' : ''}">전체</a>
+          </li>
+          <th:block th:each="category : ${categoryList}">
+            <li class="category-sidebar__item"
+                th:classappend="${activeParentCategoryId != null and category.id == activeParentCategoryId ? ' is-expanded' : ''}">
+              <a th:href="|/product/category/${category.id}|"
+                 th:classappend="${activeParentCategoryId != null and category.id == activeParentCategoryId ? ' is-active' : ''}"
+                 th:text="${category.label}">
+                카테고리
+              </a>
+              <ul class="category-sidebar__children"
+                  th:if="${category.hasChildren() and activeParentCategoryId != null and category.id == activeParentCategoryId}">
+                <li th:each="child : ${category.children}">
+                  <a th:href="|/product/category/${child.id}|"
+                     th:classappend="${activeCategoryId != null and child.id == activeCategoryId ? ' is-active' : ''}"
+                     th:text="${child.label}">
+                    세부 카테고리
+                  </a>
+                </li>
+              </ul>
+            </li>
+          </th:block>
+        </ul>
+      </aside>
 
-    <div class="product-grid" th:if="${products != null and !#lists.isEmpty(products)}">
-      <article class="product-card" th:each="product : ${products}">
-        <a class="product-card__link" th:href="@{'/product/' + ${product.productId}}">
-          <div class="product-card__image">
-            <img th:if="${product.mainImageUrl != null}" th:src="${product.mainImageUrl}" th:alt="${product.productTitle}" loading="lazy" />
-            <div class="product-card__placeholder" th:unless="${product.mainImageUrl != null}">📦</div>
-            <span class="product-card__badge"
-                  th:if="${product.originalPrice != null and product.salePrice != null and product.originalPrice > product.salePrice and product.originalPrice > 0}"
-                  th:text="${'-' + #numbers.formatDecimal((1 - product.salePrice.doubleValue() / product.originalPrice.doubleValue()) * 100, 0, 0) + '%'}">
-                -0%
-              </span>
-          </div>
-          <div class="product-card__body">
-            <p class="product-card__brand"
-               th:text="${product.brand != null ? product.brand.brandName : '브랜드 미등록'}">브랜드명</p>
-            <h3 class="product-card__title" th:text="${product.productTitle}">상품명</h3>
-            <div class="product-card__price">
-                <span class="product-card__sale"
-                      th:text="${#numbers.formatInteger(product.salePrice != null ? product.salePrice : (product.originalPrice != null ? product.originalPrice : 0), 0, 'COMMA')} + '원'">
-                  0원
-                </span>
-              <span class="product-card__original"
-                    th:if="${product.originalPrice != null and product.salePrice != null and product.originalPrice > product.salePrice}"
-                    th:text="${#numbers.formatInteger(product.originalPrice, 0, 'COMMA')} + '원'">
-                  0원
-                </span>
-            </div>
-              <div class="product-card__meta"
-                   th:if="${(product.averageRating != null and product.averageRating > 0 and product.reviewCount != null and product.reviewCount > 0)}">
-                <span class="product-card__rating"
-                      th:text="${'★ ' + #numbers.formatDecimal(product.averageRating, 1, 1)}">
-                  ★ 0.0
-                </span>
-                  <span class="product-card__reviews"
-                        th:text="${'후기 ' + product.reviewCount}">
-                  후기 0
+      <div class="product-layout__content">
+        <header class="product-list__head">
+          <h2 class="product-list__title" th:text="${isCategory ? '카테고리 상품' : '전체 상품'}">전체 상품</h2>
+          <span class="product-list__count"
+                th:text="${totalCount != null ? '총 ' + totalCount + '개' : (products != null ? '총 ' + #lists.size(products) + '개' : '0개')}">
+            총 0개
+          </span>
+        </header>
+
+        <div class="product-grid" th:if="${products != null and !#lists.isEmpty(products)}">
+          <article class="product-card" th:each="product : ${products}">
+            <a class="product-card__link" th:href="@{'/product/' + ${product.productId}}">
+              <div class="product-card__image">
+                <img th:if="${product.mainImageUrl != null}" th:src="${product.mainImageUrl}" th:alt="${product.productTitle}" loading="lazy" />
+                <div class="product-card__placeholder" th:unless="${product.mainImageUrl != null}">📦</div>
+                <span class="product-card__badge"
+                      th:if="${product.originalPrice != null and product.salePrice != null and product.originalPrice > product.salePrice and product.originalPrice > 0}"
+                      th:text="${'-' + #numbers.formatDecimal((1 - product.salePrice.doubleValue() / product.originalPrice.doubleValue()) * 100, 0, 0) + '%'}">
+                  -0%
                 </span>
               </div>
-          </div>
-        </a>
-      </article>
-    </div>
+              <div class="product-card__body">
+                <p class="product-card__brand"
+                   th:text="${product.brand != null ? product.brand.brandName : '브랜드 미등록'}">브랜드명</p>
+                <h3 class="product-card__title" th:text="${product.productTitle}">상품명</h3>
+                <div class="product-card__price">
+                    <span class="product-card__sale"
+                          th:text="${#numbers.formatInteger(product.salePrice != null ? product.salePrice : (product.originalPrice != null ? product.originalPrice : 0), 0, 'COMMA')} + '원'">
+                      0원
+                    </span>
+                  <span class="product-card__original"
+                        th:if="${product.originalPrice != null and product.salePrice != null and product.originalPrice > product.salePrice}"
+                        th:text="${#numbers.formatInteger(product.originalPrice, 0, 'COMMA')} + '원'">
+                      0원
+                    </span>
+                </div>
+                <div class="product-card__meta"
+                     th:if="${(product.averageRating != null and product.averageRating > 0) or (product.reviewCount != null)}">
+                    <span class="product-card__rating"
+                          th:if="${product.averageRating != null and product.averageRating > 0}"
+                          th:text="${'★ ' + #numbers.formatDecimal(product.averageRating, 1, 1)}">
+                      ★ 0.0
+                    </span>
+                  <span class="product-card__reviews"
+                        th:if="${product.reviewCount != null}"
+                        th:text="${'후기 ' + product.reviewCount}">
+                      후기 0
+                    </span>
+                </div>
+              </div>
+            </a>
+          </article>
+        </div>
 
-    <div class="product-empty" th:if="${products == null or #lists.isEmpty(products)}">
-      <div class="product-empty__card">
-        <div class="product-empty__icon">🛒</div>
-        <h3>등록된 상품이 없습니다</h3>
-        <p>곧 새로운 상품으로 채워질 예정이에요. 조금만 기다려 주세요!</p>
-        <a class="btn" th:href="@{/}">홈으로 가기</a>
+        <nav class="product-pagination" th:if="${totalPages != null and totalPages > 1}">
+          <button type="button"
+                  class="product-pagination__control"
+                  th:disabled="${currentPage <= 1}"
+                  th:onclick="|goToCategoryPage(${currentPage - 1})|"
+                  aria-label="이전 페이지">‹</button>
+
+          <span class="product-pagination__pages"
+                th:with="start=${T(java.lang.Math).max(1, currentPage - 4)},
+                         end=${T(java.lang.Math).min(totalPages, currentPage + 4)}">
+            <th:block th:each="i : ${#numbers.sequence(start, end)}">
+              <a th:if="${i != currentPage}"
+                 href="javascript:void(0)"
+                 class="product-pagination__page"
+                 th:onclick="|goToCategoryPage(${i})|"
+                 th:text="${i}"></a>
+              <span th:if="${i == currentPage}"
+                    class="product-pagination__page is-active"
+                    th:text="${i}"></span>
+            </th:block>
+          </span>
+
+          <button type="button"
+                  class="product-pagination__control"
+                  th:disabled="${currentPage >= totalPages}"
+                  th:onclick="|goToCategoryPage(${currentPage + 1})|"
+                  aria-label="다음 페이지">›</button>
+        </nav>
+
+        <div class="product-empty" th:if="${totalCount == null or totalCount == 0}">
+          <div class="product-empty__card">
+            <div class="product-empty__icon">🛒</div>
+            <h3>등록된 상품이 없습니다</h3>
+            <p>곧 새로운 상품으로 채워질 예정이에요. 조금만 기다려 주세요!</p>
+            <a class="btn" th:href="@{/}">홈으로 가기</a>
+          </div>
+        </div>
+
+        <div class="product-empty" th:if="${totalCount != null and totalCount > 0 and (products == null or #lists.isEmpty(products))}">
+          <div class="product-empty__card">
+            <div class="product-empty__icon">📄</div>
+            <h3>해당 페이지에 표시할 상품이 없습니다</h3>
+            <p>다른 페이지를 선택하거나 첫 페이지로 이동해 주세요.</p>
+            <button type="button" class="btn" th:onclick="|goToCategoryPage(1)|">첫 페이지로 이동</button>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 </main>
 
-<footer th:replace="fragments/layout :: footer"></footer>
+<footer th:replace="~{fragments/layout :: footer}"></footer>
 
 <link rel="stylesheet" th:href="@{/css/product/product.css}">
 <script th:inline="javascript">
   /*<![CDATA[*/
-  const currentUri = /*[[${#httpServletRequest.requestURI}]]*/ '';
+  const currentUri = window.location.pathname;
+  const queryParams = new URLSearchParams(window.location.search);
 
   (function initHeroCarousel() {
     const carousel = document.querySelector('.hero-carousel');
@@ -271,7 +349,19 @@
     } else if (sortType === 'rating-desc') {
       target += '/rating-desc';
     }
-    window.location.href = target;
+    const targetUrl = new URL(window.location.origin + target);
+    targetUrl.searchParams.set('page', '1');
+    const sizeParam = queryParams.get('size');
+    if (sizeParam) {
+      targetUrl.searchParams.set('size', sizeParam);
+    }
+    window.location.href = targetUrl.toString();
+  }
+
+  function goToCategoryPage(page) {
+    const url = new URL(window.location.href);
+    url.searchParams.set('page', page);
+    window.location.href = url.toString();
   }
   /*]]>*/
 </script>

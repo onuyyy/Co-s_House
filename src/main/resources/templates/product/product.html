@@ -1,13 +1,16 @@
 <!doctype html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/layout :: head('코딩의 집 | 쇼핑')"></head>
+<head th:replace="~{fragments/layout :: head('코딩의 집 | 쇼핑')}"></head>
 <body class="page font-body product-page">
-<header th:replace="fragments/layout :: header"></header>
+<header th:replace="~{fragments/layout :: header}"></header>
 
 <main class="page-main product-page__main"
       th:with="categoryParam=${param.categoryId != null ? param.categoryId[0] : null},
                defaultHero=@{/images/home.jpeg},
-               visibleSlides=${products != null ? (products.size() > 8 ? 8 : products.size()) : 0}">
+               visibleSlides=${products != null ? (products.size() > 8 ? 8 : products.size()) : 0},
+               activeCategoryId=${activeCategoryId},
+               activeParentCategoryId=${activeParentCategoryId},
+               categoryList=${productNavCategories}">
     <section class="product-hero">
         <div class="hero-carousel" th:if="${visibleSlides > 0}">
             <div class="hero-carousel__track">
@@ -63,13 +66,12 @@
     <section class="product-toolbar" aria-label="상품 탐색">
         <div class="container product-toolbar__inner">
             <nav class="category-scroll" aria-label="상품 카테고리">
-                <a th:href="@{/product}" th:classappend="${categoryParam == null ? ' is-active' : ''}">전체</a>
-                <a th:href="@{/product/category/100}" th:classappend="${categoryParam == '100' ? ' is-active' : ''}">수납용품</a>
-                <a th:href="@{/product/category/103}" th:classappend="${categoryParam == '103' ? ' is-active' : ''}">가구</a>
-                <a th:href="@{/product/category/104}" th:classappend="${categoryParam == '104' ? ' is-active' : ''}">침실</a>
-                <a th:href="@{/product/category/108}" th:classappend="${categoryParam == '108' ? ' is-active' : ''}">주방</a>
-                <a th:href="@{/product/category/5}" th:classappend="${categoryParam == '5' ? ' is-active' : ''}">욕실</a>
-                <a th:href="@{/product/category/6}" th:classappend="${categoryParam == '6' ? ' is-active' : ''}">조명</a>
+                <a th:href="@{/product}" th:classappend="${activeCategoryId == null ? ' is-active' : ''}">전체</a>
+                <th:block th:each="category : ${categoryList}">
+                    <a th:href="|/product/category/${category.id}|"
+                       th:classappend="${activeParentCategoryId != null and category.id == activeParentCategoryId ? ' is-active' : ''}"
+                       th:text="${category.label}">카테고리</a>
+                </th:block>
             </nav>
             <div class="product-toolbar__actions" th:if="${categoryParam != null}">
                 <span class="sort-label">정렬</span>
@@ -161,7 +163,7 @@
     </section>
 </main>
 
-<footer th:replace="fragments/layout :: footer"></footer>
+<footer th:replace="~{fragments/layout :: footer}"></footer>
 
 <link rel="stylesheet" th:href="@{/css/product/product.css}">
 <script th:inline="javascript">
