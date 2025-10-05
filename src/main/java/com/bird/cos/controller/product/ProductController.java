@@ -9,6 +9,7 @@ import com.bird.cos.security.CustomUserDetails;
 import com.bird.cos.service.product.ProductService;
 import com.bird.cos.service.product.ReviewService;
 import com.bird.cos.service.question.QuestionService;
+import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -255,6 +256,7 @@ public class ProductController {
             .comparing((ProductCategory cat) -> cat.getDisplayOrder() != null ? cat.getDisplayOrder() : Integer.MAX_VALUE)
             .thenComparing(cat -> cat.getCategoryName().toLowerCase());
 
+    @Getter
     private static final class CategoryNavGroup {
         private final Long id;
         private final String label;
@@ -266,23 +268,12 @@ public class ProductController {
             this.children = children;
         }
 
-        public Long getId() {
-            return id;
-        }
-
-        public String getLabel() {
-            return label;
-        }
-
-        public List<CategoryNavItem> getChildren() {
-            return children;
-        }
-
         public boolean hasChildren() {
             return children != null && !children.isEmpty();
         }
     }
 
+    @Getter
     private static final class CategoryNavItem {
         private final Long id;
         private final String label;
@@ -292,12 +283,5 @@ public class ProductController {
             this.label = label;
         }
 
-        public Long getId() {
-            return id;
-        }
-
-        public String getLabel() {
-            return label;
-        }
     }
 }

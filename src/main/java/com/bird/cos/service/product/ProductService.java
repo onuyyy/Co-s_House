@@ -8,6 +8,7 @@ import com.bird.cos.repository.product.ProductImageRepository;
 import com.bird.cos.repository.product.ProductOptionRepository;
 import com.bird.cos.repository.product.ProductRepository;
 import com.bird.cos.repository.product.ProductCategoryRepository;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -175,6 +176,7 @@ public class ProductService {
         return PageRequest.of(pageIndex, pageSize, effectiveSort);
     }
 
+    @Getter
     public static final class CategoryContext {
         private final Long categoryId;
         private final Long parentCategoryId;
@@ -184,12 +186,5 @@ public class ProductService {
             this.parentCategoryId = parentCategoryId;
         }
 
-        public Long getCategoryId() {
-            return categoryId;
-        }
-
-        public Long getParentCategoryId() {
-            return parentCategoryId;
-        }
     }
 }
