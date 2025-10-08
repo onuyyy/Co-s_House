@@ -16,6 +16,12 @@
 
             <!-- 필터 -->
             <div class="posts-filter">
+                <!-- 선택된 필터 표시 -->
+                <div class="selected-filters" id="selectedFilters" style="display: none;">
+                    <span class="filter-label">선택된 필터:</span>
+                    <div class="filter-tags"></div>
+                    <button type="button" class="clear-all-filters" onclick="clearAllFilters()">전체 초기화</button>
+                </div>
                 <form id="searchForm" th:action="@{/posts}" method="get">
                     <div class="filter-group">
                         <button type="button" class="filter-btn" data-filter="housingType">
@@ -109,9 +115,9 @@
                                 <path d="M30 20v20M20 30h20" stroke="#ddd" stroke-width="2"/>
                             </svg>
                         </div>
-                        <button class="btn-bookmark" 
+                        <button class="btn-bookmark"
                                 th:classappend="${post.scraped} ? 'active'"
-                                th:data-post-id="${post.postId}"
+                                th:attr="data-post-id=${post.postId}"
                                 onclick="event.preventDefault(); toggleBookmark(this);">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
                                 <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
@@ -125,7 +131,7 @@
                                 <span th:text="${post.username}">작성자</span>
                             </div>
                             <div class="post-stats">
-                                <span>스크랩 <span th:text="${post.scrapCount}">10</span></span>
+                                <span>스크랩 <span class="scrap-count" th:text="${post.scrapCount}">10</span></span>
                                 <span>·</span>
                                 <span>조회 <span th:text="${post.viewCount != null ? post.viewCount : 0}">293</span></span>
                             </div>
