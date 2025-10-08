@@ -335,7 +335,7 @@
                     email: emailInput.value.trim(),
                     password: document.getElementById('password').value,
                     phone: phoneInput.value.trim(),
-                    address: [addressInput.value.trim(), addressDetailInput.value.trim()].filter(Boolean).join(' ')
+                    address: [addressInput.value.trim(), addressDetailInput.value.trim()].filter(Boolean).join(', ')
                 };
 
                 const response = await fetch('/controller/register/register', {
