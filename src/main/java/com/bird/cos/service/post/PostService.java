@@ -48,6 +48,10 @@ public class PostService {
         return uploadDir + filename;
     }
 
+    public Post findPost(long postId) {
+        return postRepository.findById(postId).orElseThrow(BusinessException::notFoundPost);
+    }
+
     public void createPost(PostRequest postRequest, long userId) {
         User user = authService.getUser(userId);
         Post savedPost;
