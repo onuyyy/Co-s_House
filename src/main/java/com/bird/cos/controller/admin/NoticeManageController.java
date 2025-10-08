@@ -92,7 +92,8 @@ public class NoticeManageController {
 
             NoticeResponse createdNotice = noticeService.createNotice(request, writerId);
             redirectAttributes.addFlashAttribute("success", "공지사항이 성공적으로 등록되었습니다.");
-            return "redirect:/api/admin/notices/" + createdNotice.getNoticeId() + "/detail";
+            // return "redirect:/api/admin/notices/" + createdNotice.getNoticeId() + "/detail";
+            return "redirect:/api/admin/notices";
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("error", "공지사항 등록에 실패했습니다: " + e.getMessage());
             return "redirect:/api/admin/notices/create";

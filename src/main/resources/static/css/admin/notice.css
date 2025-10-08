@@ -81,7 +81,7 @@
     gap: 10px;
     margin-bottom: 20px;
     padding: 10px;
-    background-color: #f8f9fa;
+    background-color: #f5f5f5;
     border-radius: 8px;
 }
 
@@ -92,17 +92,21 @@
     color: #6c757d;
     border-radius: 6px;
     cursor: pointer;
-    transition: all 0.2s;
-}
-
-.mode-btn:hover {
-    background-color: #e9ecef;
+    transition: all 0.2s ease;
 }
 
 .mode-btn.active {
     background-color: #007bff;
     color: white;
     border-color: #007bff;
+}
+
+.mode-btn:hover {
+    background-color: #f8f9fa;
+}
+
+.mode-btn.active:hover {
+    background-color: #0056b3;
 }
 
 .notice-detail-card {
@@ -177,6 +181,11 @@
     border-radius: 8px;
     margin-top: 20px;
     border: 1px solid #bee5eb;
+}
+
+/* Hidden Element */
+.hidden {
+    display: none !important;
 }
 
 .content-header {
