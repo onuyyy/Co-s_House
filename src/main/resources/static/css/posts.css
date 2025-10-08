@@ -42,6 +42,80 @@
     margin-bottom: 40px;
 }
 
+/* 선택된 필터 표시 */
+.selected-filters {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    padding: 12px 0;
+    margin-bottom: 12px;
+}
+
+.filter-label {
+    font-size: 14px;
+    color: #757575;
+    font-weight: 500;
+}
+
+.filter-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    flex: 1;
+}
+
+.filter-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    background-color: #35c5f0;
+    color: #ffffff;
+    font-size: 13px;
+    border-radius: 16px;
+    font-weight: 500;
+}
+
+.remove-filter {
+    background: none;
+    border: none;
+    color: #ffffff;
+    font-size: 18px;
+    line-height: 1;
+    cursor: pointer;
+    padding: 0;
+    margin-left: 4px;
+    width: 16px;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: background-color 0.2s;
+}
+
+.remove-filter:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.clear-all-filters {
+    padding: 6px 12px;
+    background-color: #ffffff;
+    border: 1px solid #dbdbdb;
+    border-radius: 4px;
+    font-size: 13px;
+    color: #424242;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+}
+
+.clear-all-filters:hover {
+    border-color: #35c5f0;
+    color: #35c5f0;
+}
+
 .filter-group {
     display: inline-block;
     position: relative;
