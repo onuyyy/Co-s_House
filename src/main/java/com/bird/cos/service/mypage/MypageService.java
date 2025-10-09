@@ -6,6 +6,8 @@ import com.bird.cos.domain.user.UserGrade;
 import com.bird.cos.dto.order.OrderStatusCode;
 import com.bird.cos.dto.mypage.MypageUserManageResponse;
 import com.bird.cos.dto.mypage.MypageUserUpdateRequest;
+import com.bird.cos.dto.mypage.MyRecentOrderResponse;
+import com.bird.cos.dto.mypage.MyRecentQuestionResponse;
 import com.bird.cos.dto.product.ReviewResponse;
 import com.bird.cos.repository.log.UserActivityLogRepository;
 import com.bird.cos.repository.mypage.MypageRepository;
@@ -87,6 +89,36 @@ public class MypageService {
                 .totalOrderAmount(totalOrderAmount)
                 .membershipPoints(membershipPoints)
                 .build();
+    }
+
+    public long countOrdersByStatus(Long userId, OrderStatusCode statusCode) {
+        if (statusCode == null) {
+            return 0;
+        }
+        return orderRepository.countByUser_UserIdAndOrderStatusCode_CodeId(userId, statusCode.getCode());
+    }
+
+    public List<MyRecentOrderResponse> getRecentOrders(Long userId, int limit) {
+        PageRequest pageRequest = PageRequest.of(0, Math.max(limit, 1), Sort.by(Sort.Direction.DESC, "orderDate"));
+        return orderRepository.findByUserIdOrderByOrderDateDesc(userId, pageRequest)
+                .stream()
+                .map(order -> MyRecentOrderResponse.of(order.getOrderId(), order.getOrderDate()))
+                .toList();
+    }
+
+    public long countQuestions(Long userId) {
+        return questionRepository.countByUser_UserId(userId);
+    }
+
+    public List<MyRecentQuestionResponse> getRecentQuestions(Long userId, int limit) {
+        PageRequest pageRequest = PageRequest.of(0, Math.max(limit, 1), Sort.by(Sort.Direction.DESC, "questionCreatedAt"));
+        return questionRepository.findAllByUserIdWithUser(userId, pageRequest)
+                .stream()
+                .map(question -> MyRecentQuestionResponse.of(
+                        question.getQuestionId(),
+                        question.getQuestionTitle(),
+                        question.getQuestionCreatedAt()))
+                .toList();
     }
 
     //회원 정보 수정

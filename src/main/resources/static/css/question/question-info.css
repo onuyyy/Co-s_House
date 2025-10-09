@@ -1,194 +1,107 @@
-/* 기본 question 페이지 스타일 - product.css 기반 */
 @import url('/css/product/product.css');
 
-/* 추가 question 전용 스타일 */
+.question-page {
+    max-width: 760px;
+    margin: 40px auto 100px;
+}
+
 .question-header {
     text-align: center;
-    margin-bottom: 40px;
-    padding: 40px 0;
+    margin-bottom: 32px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #f1f5f9;
 }
 
-.question-header h1 {
-    font-size: 32px;
-    color: var(--text-primary);
-    margin-bottom: 16px;
-}
+.question-header h1 { margin: 0 0 12px; font-size: 28px; font-weight: 700; color: #0f172a; }
+.question-header p { margin: 0; color: #64748b; font-size: 15px; }
 
-.question-header p {
-    color: var(--text-secondary);
-    font-size: 16px;
-}
-
-.question-form-container {
-    max-width: 600px;
-    margin: 0 auto;
-    background: white;
-    padding: 40px;
-    border-radius: 12px;
+.question-card {
+    background: #fff;
+    border-radius: 16px;
     box-shadow: var(--shadow-lg);
+    border: 1px solid var(--color-border);
+    overflow: hidden;
 }
 
-.form-group {
-    margin-bottom: 24px;
-}
+.question-card__section { padding: 28px 32px; border-bottom: 1px solid #f1f5f9; }
+.question-card__section:last-child { border-bottom: none; }
 
-.form-group label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: 500;
-    color: var(--text-primary);
-}
+.form-grid { display: grid; gap: 20px; }
+.form-group { display: flex; flex-direction: column; gap: 8px; }
+.form-group label { font-weight: 600; color: #0f172a; font-size: 14px; }
 
 .form-group input,
 .form-group select,
 .form-group textarea {
     width: 100%;
     padding: 12px;
-    border: 1px solid var(--border-light);
-    border-radius: 6px;
+    border: 1px solid #d0d7e1;
+    border-radius: 10px;
     font-size: 14px;
-    transition: border-color 0.2s;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .form-group input:focus,
 .form-group select:focus,
 .form-group textarea:focus {
     outline: none;
-    border-color: var(--primary-color);
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
 }
 
-.file-info {
-    display: block;
-    margin-top: 4px;
-    font-size: 12px;
-    color: var(--text-tertiary);
+.form-group input:disabled,
+.form-group select:disabled {
+    background: #f7f8fb;
+    color: #94a3b8;
+    cursor: not-allowed;
 }
 
-/* 체크박스 그룹 */
+.form-info { font-size: 12px; color: #94a3b8; }
+
 .checkbox-container {
     display: flex;
     align-items: center;
-    margin: 0;
-    cursor: pointer;
+    gap: 8px;
+    font-size: 14px;
+    color: #1f2937;
 }
 
 .checkbox-container input[type="checkbox"] {
-    width: 16px !important;
-    height: 16px !important;
-    margin: 0 8px 0 0 !important;
-    padding: 0 !important;
+    width: 18px;
+    height: 18px;
+    accent-color: #2563eb;
 }
 
-.checkbox-container span {
-    font-size: 14px;
-    color: var(--text-primary);
-}
-
-.form-actions {
+.question-card__footer {
+    padding: 24px 32px;
     display: flex;
-    gap: 12px;
     justify-content: flex-end;
-    margin-top: 32px;
+    gap: 12px;
 }
 
 .btn {
     padding: 12px 24px;
+    border-radius: 999px;
     border: none;
-    border-radius: 6px;
     font-size: 14px;
-    font-weight: 500;
+    font-weight: 600;
     cursor: pointer;
-    transition: all 0.2s;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.btn-cancel {
-    background: var(--gray-200);
-    color: var(--text-primary);
-}
+.btn:hover { transform: translateY(-1px); }
 
-.btn-cancel:hover {
-    background: var(--gray-300);
-}
+.btn-cancel { background: #e5e7eb; color: #1f2937; }
+.btn-submit { background: #2563eb; color: #fff; }
+.btn-submit:hover { box-shadow: 0 10px 20px rgba(37, 99, 235, 0.25); }
 
-.btn-submit {
-    background: var(--primary-color);
-    color: white;
-}
+.char-count { text-align: right; font-size: 12px; color: #94a3b8; }
 
-.btn-submit:hover {
-    background: var(--primary-dark);
-}
+.question-actions { display: flex; justify-content: flex-end; gap: 12px; }
 
-.footer {
-    background: var(--gray-100);
-    padding: 20px 0;
-    text-align: center;
-    margin-top: 60px;
-}
+textarea { min-height: 180px; resize: vertical; }
 
-.footer p {
-    color: var(--text-secondary);
-    font-size: 14px;
-    margin: 0;
-}
-
-/* 이메일 입력 그룹 */
-.email-input-group {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.email-input-group input[type="text"] {
-    flex: 1;
-}
-
-.email-input-group select {
-    flex: 1;
-}
-
-.email-input-group span {
-    font-weight: bold;
-    color: #666;
-}
-
-/* 연락처 안내 */
-.phone-info {
-    color: #666;
-    font-size: 0.9em;
-    margin-top: 5px;
-    display: block;
-}
-
-/* 텍스트 영역 */
-textarea {
-    resize: none;
-}
-
-/* 글자 수 카운터 */
-.char-count {
-    color: #666;
-    font-size: 0.9em;
-    margin-top: 5px;
-    display: block;
-    text-align: right;
-}
-
-/* disabled 필드 스타일 */
-.form-group input:disabled,
-.form-group select:disabled,
-.form-group textarea:disabled {
-    background-color: #f5f5f5;
-    color: #666;
-    cursor: not-allowed;
-    border-color: #e0e0e0;
-}
-
-/* 폼 안내 텍스트 */
-.form-info {
-    color: #666;
-    font-size: 0.85em;
-    margin-top: 5px;
-    display: block;
-    font-style: italic;
+@media (max-width: 768px) {
+    .question-page { margin: 24px auto 60px; }
+    .question-card__section, .question-card__footer { padding: 24px; }
 }

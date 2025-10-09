@@ -80,6 +80,51 @@ header {
     margin-bottom: 16px;
 }
 
+.product-like {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.product-like__button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    border-radius: 999px;
+    border: 1px solid #e2e8f0;
+    background: #ffffff;
+    color: #334155;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.product-like__button i {
+    color: #94a3b8;
+    transition: color 0.2s ease;
+}
+
+.product-like__button.is-active,
+.product-like__button:hover {
+    border-color: #f472b6;
+    color: #be185d;
+    background: #fff5f8;
+}
+
+.product-like__button.is-active i,
+.product-like__button:hover i {
+    color: #be185d;
+}
+
+.product-like__count {
+    font-size: 0.95rem;
+    color: #475569;
+    font-weight: 600;
+}
+
 /* 별점 섹션 */
 .rating-section {
     display: flex;

@@ -44,4 +44,6 @@ public interface OrderRepository extends JpaRepository<Order,Long>, OrderReposit
     List<Order> findByOrderIdsWithDetails(@Param("orderIds") List<Long> orderIds);
 
     boolean existsByUser_UserId(Long userId);
+
+    long countByUser_UserIdAndOrderStatusCode_CodeId(Long userId, String codeId);
 }

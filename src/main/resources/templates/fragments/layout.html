@@ -43,11 +43,11 @@
             <a th:href="@{/cart}" class="nav-icon">
               <img th:src="@{/images/장바구니.png}" alt="장바구니" class="icon-img" />
             </a>
-            <a th:href="@{/heart}" class="nav-icon">
+            <a th:href="@{/mypage/likes}" class="nav-icon">
               <img th:src="@{/images/좋아요전.png}" alt="하트" class="icon-img" />
             </a>
-            <a th:href="@{/history}" class="nav-icon">
-              <img th:src="@{/images/북마크전.png}" alt="북마크" class="icon-img" />
+            <a th:href="@{/mypage/scraps}" class="nav-icon">
+              <img th:src="@{/images/북마크전.png}" alt="스크랩" class="icon-img" />
             </a>
             <a th:href="@{/customer}" class="nav-icon">
               <img th:src="@{/images/고객센터.png}" alt="고객센터" class="icon-img" />
@@ -231,7 +231,7 @@
         <div class="link-group">
           <h4>서비스</h4>
           <a th:href="@{/product}">스토어</a>
-          <a th:href="@{/templates/posts}">커뮤니티</a>
+          <a th:href="@{/posts}">커뮤니티</a>
           <a th:href="@{/events}">이벤트</a>
           <a th:href="@{/notices}">공지사항</a>
         </div>

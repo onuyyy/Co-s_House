@@ -23,4 +23,7 @@ public class OrderForm {
 
     // 최종 결제 금액
     private BigDecimal finalAmount = BigDecimal.ZERO; // 쿠폰/포인트 적용 후 실제 결제금액
+
+    // 주문 완료 후 장바구니에서 제거할 항목 ID 목록
+    private List<Long> cartItemIds = new ArrayList<>();
 }

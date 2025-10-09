@@ -286,6 +286,7 @@
         <input type="hidden" th:id="'item-' + ${itemStat.index} + '-quantity'" th:value="${item.quantity}" />
         <input type="hidden" th:id="'item-' + ${itemStat.index} + '-price'" th:value="${item.price}" />
         <input type="hidden" th:id="'item-' + ${itemStat.index} + '-productName'" th:value="${item.productName}" />
+        <input type="hidden" th:id="'item-' + ${itemStat.index} + '-cartItemId'" th:value="${item.cartItemId}" />
     </div>
     <input type="hidden" id="totalItemsCount" th:value="${#lists.size(order.items)}" />
 </div>
@@ -902,6 +903,7 @@
             const quantityElement = document.getElementById(`item-${index}-quantity`);
             const priceElement = document.getElementById(`item-${index}-price`);
             const productNameElement = document.getElementById(`item-${index}-productName`);
+            const cartItemIdElement = document.getElementById(`item-${index}-cartItemId`);
 
             if (!productIdElement || !quantityElement || !priceElement) {
                 continue;
@@ -911,6 +913,9 @@
             const quantity = Number(quantityElement.value);
             const priceValue = priceElement.value;
             const priceNumber = Number(priceValue);
+            const cartItemIdNumber = cartItemIdElement && cartItemIdElement.value
+                ? Number(cartItemIdElement.value)
+                : null;
 
             if (Number.isNaN(productId) || Number.isNaN(quantity) || Number.isNaN(priceNumber)) {
                 continue;
@@ -926,7 +931,8 @@
                 productOptionId: optionValue,
                 quantity,
                 price: priceValue,
-                productName: productNameElement ? productNameElement.value : ''
+                productName: productNameElement ? productNameElement.value : '',
+                cartItemId: (cartItemIdNumber != null && !Number.isNaN(cartItemIdNumber)) ? cartItemIdNumber : null
             });
         }
 
@@ -938,6 +944,12 @@
         if (!orderItems.length) {
             throw new Error('주문할 상품이 없습니다.');
         }
+
+        const uniqueCartItemIds = [...new Set(
+            orderItems
+                .map(item => item.cartItemId)
+                .filter(id => id != null && !Number.isNaN(id))
+        )];
 
         const couponDiscount = couponData
             ? (couponData.calculatedDiscountAmount != null
@@ -971,7 +983,8 @@
             finalAmount: sanitizedFinalAmount,
             orderName,
             customerEmail,
-            customerName
+            customerName,
+            cartItemIds: uniqueCartItemIds
         };
     }
 

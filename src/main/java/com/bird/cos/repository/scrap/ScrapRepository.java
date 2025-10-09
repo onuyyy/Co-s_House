@@ -22,10 +22,12 @@ public interface ScrapRepository extends JpaRepository<Scrap, Long> {
     
     // 특정 게시글의 스크랩 수 조회
     long countByPost_PostId(Long postId);
-    
+
     // 특정 사용자가 스크랩한 게시글 ID 목록 조회 (여러 게시글 한번에)
     @Query("SELECT s.post.postId FROM Scrap s WHERE s.user.userId = :userId AND s.post.postId IN :postIds")
     List<Long> findScrapedPostIdsByUserAndPosts(@Param("userId") Long userId, @Param("postIds") List<Long> postIds);
 
     Page<Scrap> findByUser_UserId(Long userId, Pageable pageable);
+
+    long countByUser_UserId(Long userId);
 }

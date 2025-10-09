@@ -23,6 +23,14 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
             "from Product p order by p.salesCount desc, p.viewCount desc")
     List<HomeProductDto> findPopular(Pageable pageable);
 
+    List<Product> findByIsTodayDealTrue();
+
+    @Query("select p from Product p " +
+            "where p.stockQuantity > 0 " +
+            "and (p.salePrice is not null or p.discountRate is not null) " +
+            "order by p.discountRate desc nulls last, p.salesCount desc, p.productId desc")
+    List<Product> findTopCandidatesForTodayDeals(Pageable pageable);
+
     @Query("SELECT p FROM Product p LEFT JOIN FETCH p.options WHERE p.productId = :productId")
     Optional<Product> findByIdWithOptions(@Param("productId") Long productId);
 

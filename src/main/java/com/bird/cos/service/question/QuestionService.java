@@ -40,8 +40,11 @@ public class QuestionService {
                 .orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다."));
 
 
-        Product product = productRepository.findById(questionDto.getProductId())
-                .orElseThrow(() -> new IllegalArgumentException("상품을 찾을 수 없습니다. ID: " + questionDto.getProductId()));
+        Product product = null;
+        if (questionDto.getProductId() != null) {
+            product = productRepository.findById(questionDto.getProductId())
+                    .orElseThrow(() -> new IllegalArgumentException("상품을 찾을 수 없습니다. ID: " + questionDto.getProductId()));
+        }
 
 
         CommonCode questionType = (questionDto.getQuestionType() != null && !questionDto.getQuestionType().isEmpty())

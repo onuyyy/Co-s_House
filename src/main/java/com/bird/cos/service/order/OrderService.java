@@ -8,6 +8,7 @@ import com.bird.cos.domain.order.OrderItem;
 import com.bird.cos.domain.product.Product;
 import com.bird.cos.domain.product.ProductOption;
 import com.bird.cos.domain.user.User;
+import com.bird.cos.service.cart.CartService;
 import com.bird.cos.dto.mypage.MyOrderRequest;
 import com.bird.cos.dto.order.*;
 import com.bird.cos.exception.BusinessException;
@@ -30,7 +31,10 @@ import org.springframework.transaction.annotation.Transactional;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 
 @Slf4j
 @Transactional
@@ -46,6 +50,7 @@ public class OrderService {
     private final UserCouponRepository userCouponRepository;
     private final PointService pointService;
     private final InventoryOutboundService inventoryOutboundService;
+    private final CartService cartService;
 
     @Transactional(readOnly = true)
     public OrderPreviewResponse getOrderPreview(String email, List<OrderRequest> orderItems) {
@@ -74,6 +79,7 @@ public class OrderService {
                     .price(orderItem.getPrice())
                     .itemTotalPrice(itemTotalPrice)
                     .imageUrl(product.getMainImageUrl())
+                    .cartItemId(orderItem.getCartItemId())
                     .build();
 
             itemPreviews.add(itemPreview);
@@ -90,9 +96,13 @@ public class OrderService {
     }
 
     // 쿠폰/포인트를 포함한 주문 생성
-    public OrderResponse createOrder(String email, List<OrderRequest> orderItems,
-                                   Long userCouponId, BigDecimal couponDiscountAmount,
-                                   BigDecimal usedPoints, BigDecimal finalAmount) {
+    public OrderResponse createOrder(String email,
+                                     List<OrderRequest> orderItems,
+                                     Long userCouponId,
+                                     BigDecimal couponDiscountAmount,
+                                     BigDecimal usedPoints,
+                                     BigDecimal finalAmount,
+                                     List<Long> cartItemIds) {
 
         User user = getUserByEmail(email);
         BigDecimal totalPrice = calculateTotalPrice(orderItems);
@@ -146,13 +156,37 @@ public class OrderService {
         List<OrderResponse.OrderItemResponse> itemResponses = createOrderItemResponses(order);
         OrderResponse.UserResponse userResponse = createUserResponse(user);
 
-        return OrderResponse.builder()
+        OrderResponse response = OrderResponse.builder()
                 .orderId(order.getOrderId())
                 .items(itemResponses)
                 .user(userResponse)
                 .totalPrice(totalPrice) // 할인 전 총 금액
                 .totalAmount(finalAmount != null ? finalAmount : totalPrice) // 할인 후 실제 결제 금액
                 .build();
+
+        Set<Long> uniqueCartItemIds = new LinkedHashSet<>();
+        if (cartItemIds != null) {
+            cartItemIds.stream()
+                    .filter(Objects::nonNull)
+                    .forEach(uniqueCartItemIds::add);
+        }
+        if (uniqueCartItemIds.isEmpty()) {
+            orderItems.stream()
+                    .map(OrderRequest::getCartItemId)
+                    .filter(Objects::nonNull)
+                    .forEach(uniqueCartItemIds::add);
+        }
+
+        if (!uniqueCartItemIds.isEmpty()) {
+            try {
+                cartService.delete(List.copyOf(uniqueCartItemIds), user);
+            } catch (Exception e) {
+                log.error("주문 완료 후 장바구니 정리 실패: userId={}, cartItemIds={}, error={}",
+                        user.getUserId(), uniqueCartItemIds, e.getMessage(), e);
+            }
+        }
+
+        return response;
     }
 
     /**

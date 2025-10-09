@@ -556,7 +556,7 @@
             <ul class="sidebar-nav">
                 <li><a href="/mypage" class="active">내 정보</a></li>
                 <li><a href="/mypage/my-orders">주문내역</a></li>
-                <li><a href="/mypage/scraps">스크랩</a></li>
+                <li><a href="/mypage/returns">교환/반품</a></li>
                 <li><a href="/question">문의</a></li>
                 <li><a href="/mypage/coupons">쿠폰함</a></li>
                 <li><a href="/mypage/points">적립금</a></li>
@@ -597,15 +597,15 @@
                     <div class="summary-title">결제완료</div>
                     <div class="summary-desc">총 결제 완료</div>
                 </a>
-                <a class="summary-card" href="/mypage/orders">
-                    <div class="summary-icon"><i class="fas fa-shipping-fast"></i></div>
-                    <div class="summary-title">배송조회</div>
-                    <div class="summary-desc">배송 중인 상품을 확인하세요</div>
+                <a class="summary-card" href="/mypage/likes">
+                    <div class="summary-value" th:text="${wishlistCount ?: (wishlistCount ?: 0)}">0</div>
+                    <div class="summary-title">좋아요</div>
+                    <div class="summary-desc">좋아요 누른 상품</div>
                 </a>
-                <a class="summary-card" href="/mypage/returns">
-                    <div class="summary-icon"><i class="fas fa-undo"></i></div>
-                    <div class="summary-title">교환/반품</div>
-                    <div class="summary-desc">교환/반품 신청 및 조회</div>
+                <a class="summary-card" href="/mypage/scraps">
+                    <div class="summary-value" th:text="${scrapCount ?: (scrapCount ?: 0)}">0</div>
+                    <div class="summary-title">스크랩</div>
+                    <div class="summary-desc">스크랩한 게시물</div>
                 </a>
             </div>
 

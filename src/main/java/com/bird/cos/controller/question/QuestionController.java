@@ -71,8 +71,10 @@ public class QuestionController {
         try {
             Long currentUserId = questionService.getUserIdFromAuthentication(authentication);
             Question savedQuestion = questionService.saveQuestion(questionDto, currentUserId);
-            // 저장 후 해당 상품 상세 페이지로 리다이렉트
-            return "redirect:/product/" + savedQuestion.getProduct().getProductId();
+            if (savedQuestion.getProduct() != null) {
+                return "redirect:/product/" + savedQuestion.getProduct().getProductId();
+            }
+            return "redirect:/question";
         } catch (Exception e) {
             model.addAttribute("error", "문의 등록 중 오류가 발생했습니다.");
             // 에러 발생 시, productId를 다시 모델에 담아 폼으로 돌아가야 함

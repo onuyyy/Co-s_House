@@ -14,6 +14,7 @@ public class OrderRequest {
     private Long productOptionId;
     private Integer quantity;
     private BigDecimal price;
+    private Long cartItemId;
 
     // 기본 setter들
     public void setProductId(Long productId) {
@@ -26,6 +27,22 @@ public class OrderRequest {
 
     public void setPrice(BigDecimal price) {
         this.price = price;
+    }
+
+    public void setCartItemId(Long cartItemId) {
+        this.cartItemId = cartItemId;
+    }
+
+    public void setCartItemId(String cartItemIdStr) {
+        if (cartItemIdStr == null || cartItemIdStr.trim().isEmpty()) {
+            this.cartItemId = null;
+            return;
+        }
+        try {
+            this.cartItemId = Long.valueOf(cartItemIdStr.trim());
+        } catch (NumberFormatException e) {
+            this.cartItemId = null;
+        }
     }
 
     // productOptionId에 대한 custom setter - "default" 문자열을 null로 처리

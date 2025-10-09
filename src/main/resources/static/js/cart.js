@@ -969,18 +969,27 @@ function proceedToCheckout() {
     appendCsrfToken(form);
 
     let appended = 0;
+    const cartItemIdsForForm = new Set();
     itemsToOrder.forEach(item => {
         if (!item || item.productId == null) {
             return;
         }
         const quantity = Math.max(1, Math.floor(getEffectiveQuantity(item)));
         const unitPrice = Math.max(0, Math.floor(getEffectiveUnitPrice(item)));
+        const cartItemId = item.cartItemId ?? item.id ?? null;
 
         form.appendChild(createHiddenInput(`orderItems[${appended}].productId`, item.productId));
         const optionValue = item.selectedOptionId != null ? item.selectedOptionId : 'default';
         form.appendChild(createHiddenInput(`orderItems[${appended}].productOptionId`, optionValue));
         form.appendChild(createHiddenInput(`orderItems[${appended}].quantity`, quantity));
         form.appendChild(createHiddenInput(`orderItems[${appended}].price`, unitPrice));
+        if (cartItemId != null) {
+            form.appendChild(createHiddenInput(`orderItems[${appended}].cartItemId`, cartItemId));
+            const numericCartItemId = Number(cartItemId);
+            if (Number.isFinite(numericCartItemId)) {
+                cartItemIdsForForm.add(String(numericCartItemId));
+            }
+        }
         appended += 1;
     });
 
@@ -988,6 +997,10 @@ function proceedToCheckout() {
         alert('주문할 상품 정보를 찾을 수 없습니다.');
         return;
     }
+
+    cartItemIdsForForm.forEach(id => {
+        form.appendChild(createHiddenInput('cartItemIds', id));
+    });
 
     document.body.appendChild(form);
     form.submit();

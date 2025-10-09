@@ -36,5 +36,6 @@ public class OrderPreviewResponse {
         private BigDecimal price;
         private BigDecimal itemTotalPrice; // price * quantity
         private String imageUrl;
+        private Long cartItemId;
     }
 }

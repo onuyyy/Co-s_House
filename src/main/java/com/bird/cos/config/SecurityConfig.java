@@ -86,6 +86,7 @@ public class SecurityConfig {
                                 "/favicon.ico",
                                 "/css/**", "/js/**", "/images/**", "/webjars/**", "/images/uploaded/**"
                         ).permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/products/*/like").permitAll()
 
                         // 2) 루트 및 공개 페이지(GET)
                         .requestMatchers(HttpMethod.GET,
