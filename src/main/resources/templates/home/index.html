@@ -26,7 +26,7 @@
     <section id="today" class="section container">
       <div class="section-head">
         <h2 class="text-h2">오늘의 딜</h2>
-        <a class="link-more" th:href="@{/deal/today}">더보기</a>
+<!--        <a class="link-more" th:href="@{/deal/today}">더보기</a>-->
       </div>
       <div class="product-grid grid-4 today-deals" th:with="dealCount=${todayDeals != null ? todayDeals.size() : 0}, displayCount=${dealCount > 4 ? 4 : dealCount}">
         <article class="p-card" th:each="p, iterStat : ${todayDeals}" th:if="${iterStat.index < 4}">
@@ -59,7 +59,7 @@
     <section id="popular" class="section container section--spaced">
       <div class="section-head">
         <h2 class="text-h2">인기 급상승</h2>
-        <a class="link-more" th:href="@{/product}">더보기</a>
+<!--        <a class="link-more" th:href="@{/product}">더보기</a>-->
       </div>
       <div class="product-grid grid-4">
         <article class="p-card small" th:each="p : ${popularProducts}">

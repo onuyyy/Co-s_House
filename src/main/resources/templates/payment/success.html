@@ -106,7 +106,16 @@
       }
       formData.append(`orderItems[${index}].quantity`, String(item.quantity));
       formData.append(`orderItems[${index}].price`, String(item.price));
+      if (item.cartItemId !== null && item.cartItemId !== undefined) {
+        formData.append(`orderItems[${index}].cartItemId`, String(item.cartItemId));
+      }
     });
+
+    if (Array.isArray(payload.cartItemIds)) {
+      payload.cartItemIds
+        .filter(id => id !== null && id !== undefined)
+        .forEach(id => formData.append('cartItemIds', String(id)));
+    }
 
     if (payload.userCouponId) {
       formData.append('userCouponId', payload.userCouponId);

@@ -45,6 +45,14 @@
 
                     <h1 class="product-title" th:text="${product.productTitle}">상품명</h1>
 
+                    <div class="product-like" data-like-widget>
+                        <button type="button" class="product-like__button" data-like-toggle>
+                            <i class="far fa-heart"></i>
+                            <span class="product-like__label">좋아요</span>
+                        </button>
+                        <span class="product-like__count" data-like-count>0</span>
+                    </div>
+
                     <div class="rating-section">
                         <div class="stars-outer">
                             ★★★★★
@@ -610,8 +618,84 @@
 
                     // 현재 선택된 별점 표시
                     updateSelectedRating();
+
+                    initProductLikeWidget();
                 });
 
+
+                async function initProductLikeWidget() {
+                    const info = document.querySelector('.product-info');
+                    const widget = document.querySelector('[data-like-widget]');
+                    if (!info || !widget) {
+                        return;
+                    }
+
+                    const productId = info.dataset.productId;
+                    const toggleButton = widget.querySelector('[data-like-toggle]');
+                    const countEl = widget.querySelector('[data-like-count]');
+
+                    if (!productId || !toggleButton || !countEl) {
+                        return;
+                    }
+
+                    const format = new Intl.NumberFormat('ko-KR');
+
+                    async function refreshStatus() {
+                        try {
+                            const response = await fetch(`/api/products/${productId}/like`, {
+                                method: 'GET',
+                                credentials: 'include'
+                            });
+                            if (!response.ok) {
+                                return;
+                            }
+                            const data = await response.json();
+                            applyLikeState(Boolean(data.liked), Number(data.likeCount || 0));
+                        } catch (error) {
+                            console.error('좋아요 상태 조회 실패', error);
+                        }
+                    }
+
+                    function applyLikeState(liked, count) {
+                        toggleButton.dataset.liked = String(liked);
+                        countEl.textContent = format.format(Math.max(0, count));
+
+                        const icon = toggleButton.querySelector('i');
+                        if (!icon) { return; }
+                        icon.classList.remove('fas', 'far');
+                        icon.classList.add(liked ? 'fas' : 'far');
+                        icon.classList.add('fa-heart');
+                        toggleButton.classList.toggle('is-active', liked);
+                    }
+
+                    async function toggleLike() {
+                        try {
+                            const response = await fetch(`/api/products/${productId}/like`, {
+                                method: 'POST',
+                                credentials: 'include'
+                            });
+
+                            if (response.status === 401) {
+                                alert('로그인 후 좋아요를 사용할 수 있습니다.');
+                                return;
+                            }
+
+                            if (!response.ok) {
+                                alert('좋아요 처리 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
+                                return;
+                            }
+
+                            const data = await response.json();
+                            applyLikeState(Boolean(data.liked), Number(data.likeCount || 0));
+                        } catch (error) {
+                            console.error('좋아요 처리 실패', error);
+                            alert('좋아요 처리 중 오류가 발생했습니다.');
+                        }
+                    }
+
+                    toggleButton.addEventListener('click', toggleLike);
+                    await refreshStatus();
+                }
 
                 // 선택된 옵션들을 저장할 배열
                 let selectedOptions = [];

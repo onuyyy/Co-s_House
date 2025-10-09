@@ -1,0 +1,99 @@
+@import url('/css/product/product.css');
+
+.question-detail {
+    max-width: 760px;
+    margin: 40px auto 100px;
+}
+
+.question-card {
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+}
+
+.question-card__header {
+    padding: 32px;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.question-card__title {
+    margin: 0 0 12px;
+    font-size: 28px;
+    font-weight: 700;
+    color: #0f172a;
+}
+
+.question-card__meta {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    font-size: 14px;
+    color: #64748b;
+}
+
+.meta-label { font-weight: 600; color: #475569; }
+.meta-value { color: #1e293b; }
+.meta-separator { color: #cbd5f5; }
+
+.question-card__section {
+    padding: 32px;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.section-title {
+    margin: 0 0 16px;
+    font-size: 18px;
+    font-weight: 600;
+    color: #0f172a;
+}
+
+.question-info-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+}
+
+.question-info-grid__item { display: flex; flex-direction: column; gap: 6px; }
+.question-info-grid__item .label { font-size: 13px; text-transform: uppercase; color: #94a3b8; letter-spacing: 0.08em; }
+.question-info-grid__item .value { font-size: 15px; font-weight: 600; color: #1f2937; }
+
+.question-content {
+    padding: 18px;
+    border-radius: 12px;
+    background: #f7fafc;
+    border: 1px solid #e2e8f0;
+    color: #1f2933;
+    line-height: 1.7;
+    white-space: pre-wrap;
+}
+
+.answer-content {
+    padding: 18px;
+    border-radius: 12px;
+    border: 1px dashed #cbd5f5;
+    background: #f8fafc;
+    color: #475569;
+}
+
+.answer-content.is-empty .empty-message { margin: 0; color: #94a3b8; }
+
+.question-card__footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px 32px;
+    gap: 16px;
+}
+
+.question-card__actions {
+    display: flex;
+    gap: 12px;
+}
+
+@media (max-width: 768px) {
+    .question-detail { margin: 24px auto 60px; }
+    .question-card__header, .question-card__section, .question-card__footer { padding: 24px; }
+    .question-info-grid { grid-template-columns: 1fr; }
+}

@@ -147,4 +147,36 @@ public class Product {
             this.mainImageUrl = request.getMainImageUrl().trim();
         }
     }
+
+    public void increaseBookmarkCount() {
+        if (bookmarkCount == null) {
+            bookmarkCount = 0;
+        }
+        bookmarkCount += 1;
+    }
+
+    public void decreaseBookmarkCount() {
+        if (bookmarkCount == null || bookmarkCount <= 0) {
+            bookmarkCount = 0;
+            return;
+        }
+        bookmarkCount -= 1;
+    }
+
+    public String getMainImageUrl() {
+        if (mainImageUrl == null || mainImageUrl.isBlank()) {
+            return null;
+        }
+
+        String normalized = mainImageUrl.trim();
+        if (normalized.startsWith("http://")
+                || normalized.startsWith("https://")
+                || normalized.startsWith("//")) {
+            return normalized;
+        }
+        if (normalized.startsWith("/")) {
+            return normalized;
+        }
+        return "/" + normalized;
+    }
 }

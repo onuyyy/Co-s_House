@@ -58,7 +58,8 @@ public class OrderController {
                 orderForm.getUserCouponId(),
                 orderForm.getCouponDiscountAmount(),
                 orderForm.getUsedPoints(),
-                orderForm.getFinalAmount()
+                orderForm.getFinalAmount(),
+                orderForm.getCartItemIds()
             );
 
             return OrderCreateResponse.success(order.getOrderId());

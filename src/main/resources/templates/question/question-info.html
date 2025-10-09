@@ -1,15 +1,13 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>코딩의집 - 문의하기</title>
-    <link rel="stylesheet" href="/css/question/question-info.css">
-    <link rel="stylesheet" th:href="@{/css/main/header.css}">
+    <th:block th:replace="~{fragments/layout :: head('오늘의집 | 문의하기')}"></th:block>
+    <link rel="stylesheet" th:href="@{/css/question/question-info.css}">
+dev
 </head>
-<body>
+<body class="page font-body">
+<header th:replace="~{fragments/layout :: header}"></header>
 
-<!-- 메인 컨텐츠 -->
 <main class="main-content">
     <div class="container">
         <div class="question-header">
@@ -17,7 +15,7 @@
             <p>궁금한 사항이나 문의 내용을 남겨주세요. 빠른 시간 내에 답변해드리겠습니다.</p>
         </div>
 
-
+        <div class="question-form-container">
         <!-- 문의 작성 폼 -->
         <form class="question-form" method="post"
               th:object="${questionDto}"
@@ -89,17 +87,12 @@
                 <button type="submit" class="btn btn-submit">문의 등록</button>
             </div>
             </form>
-
         </div>
     </div>
 </main>
 
-<!-- 푸터 -->
-<footer class="footer">
-    <div class="container">
-        <p>&copy; 2025 코딩의집. All rights reserved.</p>
-    </div>
-</footer>
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+
 
 <script>
 function updateCharCount(textarea) {

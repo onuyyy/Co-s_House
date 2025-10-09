@@ -10,7 +10,6 @@ import com.bird.cos.repository.common.CommonCodeRepository;
 import com.bird.cos.repository.product.ProductRepository;
 import com.bird.cos.repository.question.QuestionRepository;
 import com.bird.cos.repository.user.UserRepository;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -40,8 +39,11 @@ public class QuestionService {
                 .orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다."));
 
 
-        Product product = productRepository.findById(questionDto.getProductId())
-                .orElseThrow(() -> new IllegalArgumentException("상품을 찾을 수 없습니다. ID: " + questionDto.getProductId()));
+        Product product = null;
+        if (questionDto.getProductId() != null) {
+            product = productRepository.findById(questionDto.getProductId())
+                    .orElseThrow(() -> new IllegalArgumentException("상품을 찾을 수 없습니다. ID: " + questionDto.getProductId()));
+        }
 
 
         CommonCode questionType = (questionDto.getQuestionType() != null && !questionDto.getQuestionType().isEmpty())

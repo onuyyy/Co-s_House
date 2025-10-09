@@ -14,6 +14,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface QuestionRepository extends JpaRepository<Question, Long> {
     long countByProduct_ProductId(Long productId);
+    long countByUser_UserId(Long userId);
 
     //페이징 - 특정 사용자 문의 조회
     @Query("SELECT q FROM Question q WHERE q.user.userId = :userId ORDER BY q.questionCreatedAt DESC")

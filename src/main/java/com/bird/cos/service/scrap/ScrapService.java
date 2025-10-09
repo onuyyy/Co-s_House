@@ -56,6 +56,11 @@ public class ScrapService {
         return scrapRepository.countByPost_PostId(postId);
     }
 
+    @Transactional(readOnly = true)
+    public long countByUser(Long userId) {
+        return scrapRepository.countByUser_UserId(userId);
+    }
+
     /**
      * 사용자가 특정 게시글을 스크랩했는지 확인
      */

@@ -2,12 +2,15 @@ package com.bird.cos.controller.mypage;
 
 import com.bird.cos.dto.mypage.*;
 import com.bird.cos.dto.order.MyOrderResponse;
+import com.bird.cos.dto.order.OrderStatusCode;
 import com.bird.cos.dto.product.ReviewResponse;
 import com.bird.cos.repository.product.ReviewRepository;
 import com.bird.cos.security.CustomUserDetails;
 import com.bird.cos.service.mypage.CouponService;
 import com.bird.cos.service.mypage.MypageService;
 import com.bird.cos.service.order.OrderService;
+import com.bird.cos.service.product.ProductLikeService;
+import com.bird.cos.service.scrap.ScrapService;
 import com.bird.cos.service.user.PointService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -40,6 +43,9 @@ public class MypageController {
     private final CouponService couponService;
     private final PointService pointService;
     private final ReviewRepository reviewRepository;
+    private final ScrapService scrapService;
+    private final ProductLikeService productLikeService;
+
 
     /**
      * 마이페이지 홈
@@ -51,13 +57,20 @@ public class MypageController {
         com.bird.cos.dto.mypage.MypageUserManageResponse userInfo = mypageService.getUserInfoById(userId);
         model.addAttribute("userInfo", userInfo);
 
-        // 실제 리뷰 개수 조회
         long reviewCount = reviewRepository.countByUserNickname(userInfo.getUserNickname());
+        long paidOrderCount = mypageService.countOrdersByStatus(userId, OrderStatusCode.PAID);
+        long wishlistCount = productLikeService.countLikedProducts(userId);
+        long scrapCount = scrapService.countByUser(userId);
+        long questionCount = mypageService.countQuestions(userId);
 
-        model.addAttribute("orderCount", 5);
-        model.addAttribute("wishlistCount", 12);
+        model.addAttribute("orderCount", paidOrderCount);
+        model.addAttribute("paidOrderCount", paidOrderCount);
+        model.addAttribute("wishlistCount", wishlistCount);
+        model.addAttribute("scrapCount", scrapCount);
         model.addAttribute("reviewCount", reviewCount);
-        model.addAttribute("questionCount", 2);
+        model.addAttribute("questionCount", questionCount);
+        model.addAttribute("recentOrders", mypageService.getRecentOrders(userId, 5));
+        model.addAttribute("recentQuestions", mypageService.getRecentQuestions(userId, 5));
 
         return "/mypage/mypage";
     }
