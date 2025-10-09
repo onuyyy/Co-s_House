@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>좋아요한 상품 - 코딩의 집</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+    <link rel="stylesheet" th:href="@{/css/main/header.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1n00ql0R8HBEmhFlWoykLkQBS3o8VA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        body { background: #f5f6f8; }
+        .likes-container { max-width: 1200px; margin: 0 auto; padding: 40px 24px 80px; }
+        .likes-header { text-align: center; margin-bottom: 32px; }
+        .likes-header h1 { font-size: 2.2rem; font-weight: 700; margin-bottom: 8px; }
+        .likes-header p { color: #6b7280; }
+        .likes-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 24px; }
+        .like-card { background: #fff; border-radius: 16px; overflow: hidden; box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08); transition: transform 0.2s ease, box-shadow 0.2s ease; display: flex; flex-direction: column; }
+        .like-card:hover { transform: translateY(-6px); box-shadow: 0 18px 40px rgba(15, 23, 42, 0.15); }
+        .like-card__image { position: relative; width: 100%; padding-top: 70%; background: #f9fafb; overflow: hidden; }
+        .like-card__image img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+        .like-card__body { padding: 20px; display: flex; flex-direction: column; gap: 12px; flex: 1; }
+        .like-card__title { font-size: 1.05rem; font-weight: 600; color: #111827; line-height: 1.4; }
+        .like-card__meta { display: flex; align-items: center; gap: 8px; color: #6b7280; font-size: 0.85rem; }
+        .like-card__price { display: flex; align-items: baseline; gap: 8px; }
+        .like-card__price .sale { font-size: 1.1rem; font-weight: 700; color: #111827; }
+        .like-card__price .origin { text-decoration: line-through; color: #9ca3af; font-size: 0.95rem; }
+        .like-card__footer { margin-top: auto; display: flex; justify-content: space-between; align-items: center; }
+        .like-card__button { display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 10px 16px; border-radius: 999px; border: none; background: #0f172a; color: #fff; font-size: 0.9rem; font-weight: 600; text-decoration: none; transition: background 0.2s ease; }
+        .like-card__button:hover { background: #1e293b; }
+        .likes-empty { margin-top: 60px; text-align: center; padding: 80px 24px; background: #fff; border-radius: 24px; box-shadow: 0 12px 35px rgba(15, 23, 42, 0.08); }
+        .likes-empty__icon { font-size: 3rem; margin-bottom: 16px; }
+        .likes-empty__title { font-size: 1.6rem; font-weight: 700; margin-bottom: 12px; }
+        .likes-empty__desc { color: #6b7280; margin-bottom: 24px; }
+        .likes-empty__button { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 12px 24px; border-radius: 999px; border: none; background: linear-gradient(135deg, #3c9dfc, #2a7ed1); color: #fff; font-weight: 600; text-decoration: none; }
+        .likes-pagination { margin-top: 48px; display: flex; justify-content: center; gap: 8px; }
+        .likes-pagination button { min-width: 40px; height: 40px; border-radius: 10px; border: 1px solid #d1d5db; background: #fff; font-weight: 600; color: #374151; cursor: pointer; transition: background 0.2s ease, color 0.2s ease; }
+        .likes-pagination button.is-active { background: #0f172a; border-color: #0f172a; color: #fff; }
+        .likes-pagination button:disabled { opacity: 0.4; cursor: not-allowed; }
+        @media (max-width: 768px) {
+            .likes-container { padding: 24px 16px 60px; }
+            .likes-header h1 { font-size: 1.6rem; }
+        }
+    </style>
+</head>
+<body>
+<header th:replace="~{fragments/layout :: header}"></header>
+
+<main class="likes-container">
+    <section class="likes-header">
+        <h1>좋아요한 상품</h1>
+        <p>
+            <span th:text="${user.userName}">사용자</span>
+            님이 좋아요한 상품은
+            <strong th:text="${likedProducts != null ? likedProducts.totalElements : 0}">0</strong>개입니다.
+        </p>
+    </section>
+
+    <section th:if="${likedProducts != null && likedProducts.hasContent()}" class="likes-grid">
+        <article class="like-card" th:each="item : ${likedProducts}">
+            <div class="like-card__image">
+                <img th:if="${item.imageUrl != null}" th:src="${item.imageUrl}" th:alt="${item.productTitle}" loading="lazy" />
+                <div th:if="${item.imageUrl == null}" class="like-card__placeholder"></div>
+            </div>
+            <div class="like-card__body">
+                <h2 class="like-card__title" th:text="${item.productTitle}">상품명</h2>
+                <div class="like-card__price">
+                    <span class="sale" th:text="${#numbers.formatDecimal(item.salePrice != null ? item.salePrice : item.price, 0, 'COMMA', 0, 'POINT')} + '원'">0원</span>
+                    <span class="origin" th:if="${item.salePrice != null && item.price != null && item.price > item.salePrice}"
+                          th:text="${#numbers.formatDecimal(item.price, 0, 'COMMA', 0, 'POINT')} + '원'">0원</span>
+                </div>
+                <div class="like-card__meta">
+                    <i class="far fa-clock"></i>
+                    <span th:text="${item.likedAt != null ? #temporals.format(item.likedAt, 'yyyy.MM.dd HH:mm') : '알 수 없음'}">2024.01.01</span>
+                </div>
+                <div class="like-card__footer">
+                    <a class="like-card__button" th:href="@{'/product/' + ${item.productId}}">
+                        <i class="fas fa-arrow-right"></i>
+                        상품 보러가기
+                    </a>
+                </div>
+            </div>
+        </article>
+    </section>
+
+    <section th:if="${likedProducts == null || likedProducts.isEmpty()}" class="likes-empty">
+        <div class="likes-empty__icon">💙</div>
+        <h2 class="likes-empty__title">아직 좋아요한 상품이 없어요</h2>
+        <p class="likes-empty__desc">마음에 드는 상품에 좋아요를 누르고 여기에서 한 번에 확인해보세요.</p>
+        <a class="likes-empty__button" th:href="@{/product}">
+            <i class="fas fa-store"></i>
+            쇼핑하러 가기
+        </a>
+    </section>
+
+    <nav class="likes-pagination"
+         th:if="${likedProducts != null && likedProducts.totalPages > 1}">
+        <button type="button"
+                th:disabled="${likedProducts.first}"
+                th:onclick="|goToPage(${likedProducts.number})|">‹</button>
+
+        <th:block th:with="start=${T(java.lang.Math).max(0, likedProducts.number - 2)},
+                             end=${T(java.lang.Math).min(likedProducts.totalPages - 1, likedProducts.number + 2)}">
+            <th:block th:each="i : ${#numbers.sequence(start, end)}">
+                <button type="button"
+                        th:classappend="${i == likedProducts.number ? 'is-active' : ''}"
+                        th:onclick="|goToPage(${i + 1})|"
+                        th:text="${i + 1}">1</button>
+            </th:block>
+        </th:block>
+
+        <button type="button"
+                th:disabled="${likedProducts.last}"
+                th:onclick="|goToPage(${likedProducts.number + 2})|">›</button>
+    </nav>
+</main>
+
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    function goToPage(page) {
+        const url = new URL(window.location.href);
+        url.searchParams.set('page', page - 1);
+        window.location.href = url.toString();
+    }
+    /*]]>*/
+</script>
+</body>
+</html>
