@@ -91,23 +91,14 @@
     margin-top: 32px;
 }
 
-.btn {
-    padding: 12px 24px;
-    border: none;
-    border-radius: 6px;
-    font-size: 14px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.2s;
-}
-
 .btn-cancel {
-    background: var(--gray-200);
+    background: rgba(15, 23, 42, 0.06);
     color: var(--text-primary);
+    border: 1px solid rgba(148, 163, 184, 0.3);
 }
 
 .btn-cancel:hover {
-    background: var(--gray-300);
+    background: rgba(15, 23, 42, 0.1);
 }
 
 .btn-submit {

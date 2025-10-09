@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>고객센터 FAQ - 코딩의집</title>
+    <link rel="icon" th:href="@{/images/logo.png}" type="image/png" />
+    <link rel="stylesheet" th:href="@{/css/app.css}" />
+    <link rel="stylesheet" th:href="@{/css/main/header.css}" />
+    <style>
+        :root {
+            color-scheme: light;
+        }
+        body {
+            background: var(--color-bg);
+        }
+        .support-center {
+            --hero-bg: linear-gradient(135deg, color-mix(in srgb, var(--brand-500) 78%, #fff 22%), color-mix(in srgb, var(--brand-700) 65%, #fff 35%));
+            --card-surface: rgba(255, 255, 255, 0.78);
+            --card-border: rgba(255, 255, 255, 0.6);
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 24px 120px;
+            display: grid;
+            gap: 48px;
+        }
+        .support-hero {
+            position: relative;
+            padding: 48px clamp(24px, 4vw, 56px);
+            border-radius: 28px;
+            background: var(--hero-bg);
+            box-shadow: 0 28px 48px rgba(15, 23, 42, 0.18);
+            overflow: hidden;
+            color: #fff;
+        }
+        .support-hero::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            backdrop-filter: blur(12px);
+            opacity: 0.15;
+        }
+        .support-hero__inner {
+            position: relative;
+            display: grid;
+            gap: 32px;
+            z-index: 1;
+        }
+        .support-hero__top {
+            display: grid;
+            gap: 16px;
+        }
+        .support-hero__title {
+            font-size: clamp(28px, 4.2vw, 40px);
+            font-weight: 700;
+            letter-spacing: -0.015em;
+        }
+        .support-hero__desc {
+            font-size: 16px;
+            color: rgba(255, 255, 255, 0.82);
+            max-width: 520px;
+            line-height: 1.6;
+        }
+        .support-cta-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+        }
+        .support-cta-card {
+            position: relative;
+            display: grid;
+            gap: 12px;
+            padding: 22px 24px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.32);
+            background: rgba(255, 255, 255, 0.22);
+            color: #fff;
+            text-decoration: none;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .support-cta-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 16px 30px rgba(15, 23, 42, 0.16);
+        }
+        .support-cta-card__title {
+            font-size: 18px;
+            font-weight: 600;
+        }
+        .support-cta-card__desc {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.78);
+        }
+        .support-cta-card__link {
+            font-weight: 600;
+            font-size: 14px;
+        }
+        .support-faq-section {
+            display: grid;
+            gap: 28px;
+        }
+        .support-faq-category {
+            background: var(--card-surface);
+            border: 1px solid var(--card-border);
+            border-radius: 26px;
+            padding: 32px clamp(22px, 3.2vw, 38px);
+            box-shadow: 0 20px 40px rgba(15, 23, 42, 0.08);
+            backdrop-filter: blur(12px);
+        }
+        .support-faq-category__header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            gap: 24px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+        .support-faq-category__title {
+            font-size: clamp(20px, 2.6vw, 24px);
+            font-weight: 700;
+            color: var(--color-text);
+        }
+        .support-faq-category__sub {
+            font-size: 14px;
+            color: var(--color-muted);
+        }
+        .support-faq-list {
+            display: grid;
+            gap: 12px;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .support-faq-item {
+            background: rgba(255, 255, 255, 0.84);
+            border-radius: 18px;
+            border: 1px solid rgba(226, 232, 240, 0.85);
+            overflow: hidden;
+            box-shadow: 0 12px 24px rgba(15, 23, 42, 0.04);
+        }
+        .support-faq-question {
+            width: 100%;
+            border: none;
+            background: transparent;
+            padding: 18px 22px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            font-size: 16px;
+            font-weight: 600;
+            text-align: left;
+            color: var(--color-text);
+            cursor: pointer;
+            transition: background 0.18s ease;
+        }
+        .support-faq-question:hover {
+            background: rgba(237, 242, 255, 0.6);
+        }
+        .support-faq-question span {
+            flex: 1;
+        }
+        .support-faq-answer {
+            padding: 0 24px 22px;
+            font-size: 15px;
+            color: #475569;
+            background: rgba(255, 255, 255, 0.78);
+        }
+        .support-faq-answer p {
+            margin: 0;
+        }
+        .support-faq-answer p + p {
+            margin-top: 10px;
+        }
+        .support-faq-answer strong {
+            color: var(--brand-600);
+            font-weight: 600;
+        }
+        .support-faq-more {
+            display: grid;
+            gap: 12px;
+            margin-top: 12px;
+        }
+        .support-faq-more[hidden] {
+            display: none !important;
+        }
+        .support-more {
+            margin-top: 22px;
+            text-align: center;
+        }
+        .support-more button {
+            border-radius: 999px;
+            padding: 10px 28px;
+            border: none;
+            background: var(--color-primary);
+            color: #fff;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 12px 24px rgba(60, 157, 252, 0.25);
+            transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease;
+        }
+        .support-more button:hover {
+            transform: translateY(-1px);
+            filter: brightness(1.08);
+            box-shadow: 0 14px 30px rgba(30, 144, 255, 0.28);
+        }
+        .support-more button:disabled {
+            opacity: 0.8;
+            cursor: default;
+            filter: none;
+            box-shadow: 0 10px 20px rgba(60, 157, 252, 0.2);
+        }
+        @media (max-width: 768px) {
+            .support-center {
+                padding: 24px 16px 80px;
+                gap: 36px;
+            }
+            .support-hero {
+                border-radius: 24px;
+                padding: 36px 24px;
+            }
+            .support-cta-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+            .support-contact {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            }
+        }
+        @media (max-width: 540px) {
+            .support-cta-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body class="page font-body">
+<header th:replace="fragments/layout :: header"></header>
+<main class="page-main">
+    <section class="support-center">
+        <section class="support-hero" aria-labelledby="support-hero-title">
+            <div class="support-hero__inner">
+                <div class="support-hero__top">
+                    <h1 id="support-hero-title" class="support-hero__title">무엇을 도와드릴까요?</h1>
+                    <p class="support-hero__desc">가장 자주 묻는 질문을 빠르게 모아두었어요.<br> 필요한 답변이 보이지 않으면 1:1 문의나 상담 채널로 연결해 드릴게요.</p>
+                </div>
+                <div class="support-cta-grid" role="navigation" aria-label="고객센터 주요 안내">
+                    <div class="support-cta-card">
+                        <span class="support-cta-card__title">고객센터 운영</span>
+                        <span class="support-cta-card__desc"><strong>1670-0876</strong><br> 평일 09:00~18:00<br>토·공휴일은 직접배송 문의만<br> 일요일 휴무</span>
+                    </div>
+                    <a class="support-cta-card" href="#category-order">
+                        <span class="support-cta-card__title">자주 묻는 질문</span>
+                        <span class="support-cta-card__desc">주문/결제, 배송, 취소·환불 등 자주 묻는 질문을 확인하세요.</span><br>
+                        <span class="support-cta-card__link">FAQ 바로가기 →</span>
+                    </a>
+                    <a class="support-cta-card" th:href="@{/support/direct}">
+                        <span class="support-cta-card__title">1:1 문의</span>
+                        <span class="support-cta-card__desc">상담 유형을 선택하고 사유를 남기면 담당자가 영업일 기준 24시간 내 답변합니다.</span><br>
+                        <span class="support-cta-card__link">1:1 문의 작성 →</span>
+                    </a>
+                    <a class="support-cta-card" th:href="@{/support/email}">
+                        <span class="support-cta-card__title">이메일 문의</span>
+                        <span class="support-cta-card__desc">Co-s_House@codinghouse.kr으로 파일 첨부·상세 문의를 보낼 수 있어요.</span><br>
+                        <span class="support-cta-card__link">이메일 문의 페이지 →</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="support-faq-section" id="faq-top" aria-label="FAQ 카테고리">
+            <article class="support-faq-category" id="category-order">
+                <header class="support-faq-category__header">
+                    <h2 class="support-faq-category__title">주문/결제</h2>
+                    <p class="support-faq-category__sub">대표 질문 5개를 먼저 보여드리고, 세부 내용은 더보기에서 확인하세요.</p>
+                </header>
+                <ul class="support-faq-list">
+                    <li class="support-faq-item">
+                        <button class="support-faq-question" type="button" aria-expanded="false">
+                            <span>Q. 주문 내역은 어떻게 확인할 수 있나요?</span>
+                            </button>
+                        <div class="support-faq-answer" hidden>
+                            <p>우측 상단 프로필을 클릭해 <strong>나의 쇼핑</strong>으로 이동하면 전체 주문 내역과 배송 상태, 영수증 발급 요청을 한 번에 확인할 수 있습니다.</p>
+                        </div>
+                    </li>
+                    <li class="support-faq-item">
+                        <button class="support-faq-question" type="button" aria-expanded="false">
+                            <span>Q. 결제 방법은 어떤 것이 있나요?</span>
+                            </button>
+                        <div class="support-faq-answer" hidden>
+                            <p>신용·체크카드, 무통장입금(가상계좌), 휴대폰 소액결제, 네이버페이를 이용할 수 있습니다. 토스 간편결제와 기업 전용 결제수단은 순차적으로 제공될 예정입니다.</p>
+                        </div>
+                    </li>
+                    <li class="support-faq-item">
+                        <button class="support-faq-question" type="button" aria-expanded="false">
+                            <span>Q. 비회원 주문이나 전화 주문도 가능한가요?</span>
+                            </button>
+                        <div class="support-faq-answer" hidden>
+                            <p>비회원 주문은 일부 상품에서 가능하며 주문번호와 비밀번호로 조회합니다. 전화 주문은 준비 중이므로 온라인 주문을 이용해 주세요.</p>
+                        </div>
+                    </li>
+                    <li class="support-faq-item">
+                        <button class="support-faq-question" type="button" aria-expanded="false">
+                            <span>Q. 주문 후 결제 방법을 변경할 수 있나요?</span>
+                            </button>
+                        <div class="support-faq-answer" hidden>
+                            <p>결제 완료 이후에는 결제 수단 변경이 어려워요. <strong>입금 대기</strong> 또는 <strong>결제 완료</strong> 단계에서는 주문을 취소하고 원하는 수단으로 재주문해야 합니다.</p>
+                        </div>
+                    </li>
+                    <li class="support-faq-item">
+                        <button class="support-faq-question" type="button" aria-expanded="false">
+                            <span>Q. 결제 시 오류 메시지가 나오면 어떻게 하나요?</span>
+                            </button>
+                        <div class="support-faq-answer" hidden>
+                            <p>오류 메시지를 캡처한 뒤 <strong>나의 쇼핑 &gt; 고객센터 &gt; 1:1 카톡 상담하기</strong>로 전달해 주세요. 카드사 인증 재시도, 캐시 삭제 등 해결 방법을 안내해 드립니다.</p>
+                        </div>
+                    </li>
+                </ul>
+                <ul class="support-faq-list support-faq-more" id="more-order" hidden>
+                    <li class="support-faq-item">
+                        <button class="support-faq-question" type="button" aria-expanded="false">
+                            <span>Q. 신용카드 무이자 할부가 되나요?</span>
+                            </button>
+                        <div class="support-faq-answer" hidden>
+                            <p>카드사별 무이자·부분 무이자 행사는 매월 다릅니다. 결제 화면 하단의 <strong>무이자 안내</strong> 배너나 카드사 공지에서 최신 정보를 확인해 주세요.</p>
+                        </div>
+                    </li>
+                    <li class="support-faq-item">
+                        <button class="support-faq-question" type="button" aria-expanded="false">
+                            <span>Q. 결제 후 할부 개월 수를 변경할 수 있나요?</span>
+                            </button>
+                        <div class="support-faq-answer" hidden>
+                            <p>결제가 승인된 후에는 할부 개월 수 변경이 불가합니다. 필요하다면 주문을 취소한 뒤 원하는 개월 수로 재결제해 주세요.</p>
+                        </div>
+                    </li>
+                    <li class="support-faq-item">
+                        <button class="support-faq-question" type="button" aria-expanded="false">
+                            <span>Q. 가상계좌 은행을 변경하고 싶어요.</span>
+                            </button>
+                        <div class="support-faq-answer" hidden>
+                            <p>가상계좌는 발급과 동시에 은행과 계좌번호가 고정됩니다. 다른 은행을 사용하려면 기존 주문을 취소하고 새 주문을 생성해야 합니다.</p>
+                        </div>
+                    </li>
+                    <li class="support-faq-item">
+                        <button class="support-faq-question" type="button" aria-expanded="false">
+                            <span>Q. 가상계좌 입금 확인은 언제 되나요?</span>
+                            </button>
+                        <div class="support-faq-answer" hidden>
+                            <p>입금 후 보통 30분 이내 확인되며 최대 24시간까지 걸릴 수 있습니다. 금액이나 계좌번호가 다르면 확인이 지연되니 다시 확인해 주세요.</p>
+                        </div>
+                    </li>
+                    <li class="support-faq-item">
+                        <button class="support-faq-question" type="button" aria-expanded="false">
+                            <span>Q. 입금자명이 달라도 문제가 없나요?</span>
+                            </button>
+                        <div class="support-faq-answer" hidden>
+                            <p>가상계좌는 주문별 고유 계좌번호로 연결되므로 입금자명이 달라도 확인됩니다. 다만 금액이 다르거나 계좌가 틀리면 입금 확인이 되지 않습니다.</p>
+                        </div>
+                    </li>
+                    <li class="support-faq-item">
+                        <button class="support-faq-question" type="button" aria-expanded="false">
+                            <span>Q. 안전결제(ISP)란 무엇인가요?</span>
+                            </button>
+                        <div class="support-faq-answer" hidden>
+                            <p>국민·BC카드는 인터넷 안전결제(ISP) 방식으로 결제됩니다. 첫 이용 시 카드 정보를 등록해야 하며 30만 원 이상 결제 시 공인인증서가 필요합니다.</p>
+                        </div>
+                    </li>
+                </ul>
+                <div class="support-more">
+                    <button type="button" data-more-toggle="more-order" aria-expanded="false">더보기</button>
+                </div>
+            </article>
+
+            <article class="support-faq-category" id="category-shipping">
+                <header class="support-faq-category__header">
+                    <h2 class="support-faq-category__title">배송 관련</h2>
+                    <p class="support-faq-category__sub">배송 일정과 조회 방법, 묶음 배송 등 자주 묻는 질문을 정리했습니다.</p>
+                </header>
+                <ul class="support-faq-list">
+                    <li class="support-faq-item">
+                        <button class="support-faq-question" type="button" aria-expanded="false">
+                            <span>Q. 배송은 얼마나 걸리나요?</span>
+                            </button>
+                        <div class="support-faq-answer" hidden>
+                            <p>일반·화물 택배는 결제 후 1~3영업일 내 출고됩니다. 업체 직접 배송이나 설치 상품은 지역·일정 협의에 따라 5~7영업일 이상 소요될 수 있습니다. 자세한 일정은 상품 상세 페이지에서 확인해 주세요.</p>
+                        </div>
+                    </li>
+                    <li class="support-faq-item">
+                        <button class="support-faq-question" type="button" aria-expanded="false">
+                            <span>Q. 배송비는 얼마인가요?</span>
+                            </button>
+                        <div class="support-faq-answer" hidden>
+                            <p>판매 업체마다 배송 정책이 달라 상품 상세 페이지의 배송비 안내를 확인해야 합니다. 동일 주문이라도 판매처가 다르면 배송비가 각각 청구될 수 있습니다.</p>
+                        </div>
+                    </li>
+                    <li class="support-faq-item">
+                        <button class="support-faq-question" type="button" aria-expanded="false">
+                            <span>Q. 배송 상태는 어디에서 확인할 수 있나요?</span>
+                            </button>
+                        <div class="support-faq-answer" hidden>
+                            <p><strong>나의 쇼핑</strong>에서 실시간 배송 단계를 확인할 수 있고, 배송이 시작되면 카카오톡 알림톡 또는 문자 메시지로 송장 번호가 안내됩니다.</p>
+                        </div>
+                    </li>
+                    <li class="support-faq-item">
+                        <button class="support-faq-question" type="button" aria-expanded="false">
+                            <span>Q. 배송완료로 표시되는데 상품을 받지 못했어요.</span>
+                            </button>
+                        <div class="support-faq-answer" hidden>
+                            <p>경비실·무인택배함·문 앞 등 위탁 장소를 먼저 확인해 주세요. 확인이 어렵다면 배송 기사님께 직접 연락하거나 고객센터로 문의해 주시면 재배송 여부를 안내해 드립니다.</p>
+                        </div>
+                    </li>
+                    <li class="support-faq-item">
+                        <button class="support-faq-question" type="button" aria-expanded="false">
+                            <span>Q. 원하는 날짜에 맞춰 배송 받을 수 있나요?</span>
+                            </button>
+                        <div class="support-faq-answer" hidden>
+                            <p>업체 직접 배송 상품은 담당 기사와 일정 조율이 가능합니다. 주문 메모나 고객센터를 통해 희망 일자를 남겨주세요.</p>
+                        </div>
+                    </li>
+                </ul>
+                <ul class="support-faq-list support-faq-more" id="more-shipping" hidden>
+                    <li class="support-faq-item">
+                        <button class="support-faq-question" type="button" aria-expanded="false">
+                            <span>Q. 여러 상품을 묶음 배송 받을 수 있나요?</span>
+                            </button>
+                        <div class="support-faq-answer" hidden>
+                            <p>배송처가 다르면 묶음 배송이 어렵습니다. 동일 판매처 상품이라면 정책에 따라 가능할 수 있으니 판매처 안내를 확인해 주세요.</p>
+                        </div>
+                    </li>
+                    <li class="support-faq-item">
+                        <button class="support-faq-question" type="button" aria-expanded="false">
+                            <span>Q. 배송 시작 알림을 받았지만 추적이 되지 않아요.</span>
+                            </button>
+                        <div class="support-faq-answer" hidden>
+                            <p>송장 번호 발급 후 실제 물류 이동까지 1영업일 정도 시차가 있을 수 있습니다. 24시간 후에도 조회되지 않으면 고객센터로 문의해 주세요.</p>
+                        </div>
+                    </li>
+                    <li class="support-faq-item">
+                        <button class="support-faq-question" type="button" aria-expanded="false">
+                            <span>Q. 해외 배송이 가능한가요?</span>
+                            </button>
+                        <div class="support-faq-answer" hidden>
+                            <p>현재 Co's House는 국내 배송만 지원합니다. 해외 배송이 필요하다면 배송대행 서비스를 이용해 주세요.</p>
+                        </div>
+                    </li>
+                    <li class="support-faq-item">
+                        <button class="support-faq-question" type="button" aria-expanded="false">
+                            <span>Q. 배송 기사님과 직접 통화하고 싶어요.</span>
+                            </button>
+                        <div class="support-faq-answer" hidden>
+                            <p>송장 등록 이후 배송 상세 화면에서 기사님 연락처를 확인할 수 있습니다. 연결이 어려우면 고객센터가 대신 전달해 드립니다.</p>
+                        </div>
+                    </li>
+                </ul>
+                <div class="support-more">
+                    <button type="button" data-more-toggle="more-shipping" aria-expanded="false">더보기</button>
+                </div>
+            </article>
+
+            <article class="support-faq-category" id="category-cancel">
+                <header class="support-faq-category__header">
+                    <h2 class="support-faq-category__title">취소/환불</h2>
+                    <p class="support-faq-category__sub">주문 단계별 취소 가능 여부와 환불 소요 시간을 안내합니다.</p>
+                </header>
+                <ul class="support-faq-list">
+                    <li class="support-faq-item">
+                        <button class="support-faq-question" type="button" aria-expanded="false">
+                            <span>Q. 주문 취소는 어떻게 진행하나요?</span>
+                            </button>
+                        <div class="support-faq-answer" hidden>
+                            <p><strong>나의 쇼핑 &gt; 주문배송내역</strong>에서 주문 상세를 열면 준비 단계까지는 즉시 취소할 수 있습니다. 배송 준비 중 이상이면 판매처 확인 후 취소 여부가 결정됩니다.</p>
+                        </div>
+                    </li>
+                    <li class="support-faq-item">
+                        <button class="support-faq-question" type="button" aria-expanded="false">
+                            <span>Q. 취소 후 환불은 언제 완료되나요?</span>
+                            </button>
+                        <div class="support-faq-answer" hidden>
+                            <p>카드·휴대폰 결제는 3~7영업일, 계좌 환불은 5영업일 내 처리됩니다. 카드사에서 승인 취소가 지연될 수 있어 이용 내역을 함께 확인해 주세요.</p>
+                        </div>
+                    </li>
+                    <li class="support-faq-item">
+                        <button class="support-faq-question" type="button" aria-expanded="false">
+                            <span>Q. 일부 상품만 취소할 수 있나요?</span>
+                            </button>
+                        <div class="support-faq-answer" hidden>
+                            <p>카드·무통장 결제는 배송 단계에 따라 부분 취소가 가능합니다. <strong>입금 대기/결제 완료</strong> 단계에서는 즉시 취소 가능하며, <strong>배송 준비 중</strong> 이후에는 고객센터 확인이 필요합니다. 가상계좌 입금 전에는 부분 취소가 불가능합니다.</p>
+                        </div>
+                    </li>
+                    <li class="support-faq-item">
+                        <button class="support-faq-question" type="button" aria-expanded="false">
+                            <span>Q. 배송 중에는 주문을 취소할 수 없나요?</span>
+                            </button>
+                        <div class="support-faq-answer" hidden>
+                            <p>배송 중에는 취소가 어려워요. 상품을 수령한 뒤 반품 절차로 진행해야 하며, 반품 신청 방법은 하단 반품/교환 카테고리를 참고해 주세요.</p>
+                        </div>
+                    </li>
+                    <li class="support-faq-item">
+                        <button class="support-faq-question" type="button" aria-expanded="false">
+                            <span>Q. 취소 요청이 지연되면 어떻게 확인하나요?</span>
+                            </button>
+                        <div class="support-faq-answer" hidden>
+                            <p>판매처 승인 절차가 길어질 수 있습니다. 24시간 이상 상태가 변하지 않으면 주문번호와 함께 1:1 문의로 접수해 주세요.</p>
+                        </div>
+                    </li>
+                </ul>
+                <ul class="support-faq-list support-faq-more" id="more-cancel" hidden>
+                    <li class="support-faq-item">
+                        <button class="support-faq-question" type="button" aria-expanded="false">
+                            <span>Q. 환불 계좌를 변경하고 싶어요.</span>
+                            </button>
+                        <div class="support-faq-answer" hidden>
+                            <p>무통장 환불은 <strong>나의 쇼핑 &gt; 환불계좌 관리</strong>에서 계좌를 등록하거나 변경한 뒤 요청해 주세요. 등록된 계좌가 없으면 고객센터에서 별도 확인 후 처리됩니다.</p>
+                        </div>
+                    </li>
+                    <li class="support-faq-item">
+                        <button class="support-faq-question" type="button" aria-expanded="false">
+                            <span>Q. 취소된 주문의 포인트는 어떻게 되나요?</span>
+                            </button>
+                        <div class="support-faq-answer" hidden>
+                            <p>주문 시 사용했던 포인트는 취소가 완료되면 즉시 복구됩니다. 이벤트로 적립된 포인트는 유효기간 내에서만 재사용할 수 있습니다.</p>
+                        </div>
+                    </li>
+                    <li class="support-faq-item">
+                        <button class="support-faq-question" type="button" aria-expanded="false">
+                            <span>Q. 쿠폰을 사용했는데 취소하면 다시 받을 수 있나요?</span>
+                            </button>
+                        <div class="support-faq-answer" hidden>
+                            <p>유효기간이 남아 있으면 취소 후 자동으로 복원됩니다. 기간이 지난 쿠폰은 복원이 불가하니 유효기간 내 재사용해 주세요.</p>
+                        </div>
+                    </li>
+                </ul>
+                <div class="support-more">
+                    <button type="button" data-more-toggle="more-cancel" aria-expanded="false">더보기</button>
+                </div>
+            </article>
+
+            <article class="support-faq-category" id="category-return">
+                <header class="support-faq-category__header">
+                    <h2 class="support-faq-category__title">반품/교환</h2>
+                    <p class="support-faq-category__sub">상품 상태에 따라 필요한 증빙과 절차를 안내합니다.</p>
+                </header>
+                <ul class="support-faq-list">
+                    <li class="support-faq-item">
+                        <button class="support-faq-question" type="button" aria-expanded="false">
+                            <span>Q. 제품이 불량일 때는 어떻게 진행하나요?</span>
+                            </button>
+                        <div class="support-faq-answer" hidden>
+                            <p>불량 사진을 첨부해 <strong>나의 쇼핑 &gt; 주문상세 &gt; 교환/반품 신청</strong>을 진행해 주세요. 회수 일정과 교환·환불 절차를 순차적으로 안내드립니다.</p>
+                        </div>
+                    </li>
+                    <li class="support-faq-item">
+                        <button class="support-faq-question" type="button" aria-expanded="false">
+                            <span>Q. 단순 변심으로도 교환/반품이 가능한가요?</span>
+                            </button>
+                        <div class="support-faq-answer" hidden>
+                            <p>상품 수령 후 7일 이내 신청 시 가능하지만, 포장 훼손이나 사용 흔적이 있으면 거절될 수 있으며 왕복 배송비가 부과됩니다.</p>
+                        </div>
+                    </li>
+                    <li class="support-faq-item">
+                        <button class="support-faq-question" type="button" aria-expanded="false">
+                            <span>Q. 교환/반품은 어디에서 신청하나요?</span>
+                            </button>
+                        <div class="support-faq-answer" hidden>
+                            <p><strong>나의 쇼핑 &gt; 주문상세</strong>에서 신청 버튼을 눌러 접수해 주세요. 사전 접수 없이 임의로 반송하면 처리에 시간이 더 걸릴 수 있습니다.</p>
+                        </div>
+                    </li>
+                    <li class="support-faq-item">
+                        <button class="support-faq-question" type="button" aria-expanded="false">
+                            <span>Q. 사은품도 함께 반품해야 하나요?</span>
+                            </button>
+                        <div class="support-faq-answer" hidden>
+                            <p>사은품은 상품 구성의 일부로 간주되어 반드시 함께 회수해야 반품이 완료됩니다.</p>
+                        </div>
+                    </li>
+                    <li class="support-faq-item">
+                        <button class="support-faq-question" type="button" aria-expanded="false">
+                            <span>Q. 주문한 것과 다른 상품이 왔습니다.</span>
+                            </button>
+                        <div class="support-faq-answer" hidden>
+                            <p>오배송 사진을 첨부해 1:1 상담으로 알려주시면 즉시 확인 후 교환 또는 환불을 진행합니다.</p>
+                        </div>
+                    </li>
+                </ul>
+                <ul class="support-faq-list support-faq-more" id="more-return" hidden>
+                    <li class="support-faq-item">
+                        <button class="support-faq-question" type="button" aria-expanded="false">
+                            <span>Q. 구매확정 이후에도 반품이 가능한가요?</span>
+                            </button>
+                        <div class="support-faq-answer" hidden>
+                            <p>구매확정 후에는 판매처 확인이 필수며, 사용 흔적이 없고 재판매가 가능한 경우에 한해 예외적으로 진행됩니다. 먼저 고객센터에 문의해 주세요.</p>
+                        </div>
+                    </li>
+                    <li class="support-faq-item">
+                        <button class="support-faq-question" type="button" aria-expanded="false">
+                            <span>Q. 반품 시 포장은 어떻게 해야 하나요?</span>
+                            </button>
+                        <div class="support-faq-answer" hidden>
+                            <p>제품이 손상되지 않도록 완충재를 사용해 원래 포장 상태와 유사하게 포장해 주세요. 포장이 미흡해 발생한 손상은 고객 부담이 될 수 있습니다.</p>
+                        </div>
+                    </li>
+                    <li class="support-faq-item">
+                        <button class="support-faq-question" type="button" aria-expanded="false">
+                            <span>Q. 맞춤 제작 상품도 반품할 수 있나요?</span>
+                            </button>
+                        <div class="support-faq-answer" hidden>
+                            <p>주문 제작 상품은 제작에 착수한 이후 단순 변심 반품이 어렵고, 제품 하자 시에만 교환·환불이 가능합니다.</p>
+                        </div>
+                    </li>
+                </ul>
+                <div class="support-more">
+                    <button type="button" data-more-toggle="more-return" aria-expanded="false">더보기</button>
+                </div>
+            </article>
+
+            <article class="support-faq-category" id="category-docs">
+                <header class="support-faq-category__header">
+                    <h2 class="support-faq-category__title">증빙 서류 발급</h2>
+                    <p class="support-faq-category__sub">세금계산서, 현금영수증 등 증빙 발급 관련 문의를 모았습니다.</p>
+                </header>
+                <ul class="support-faq-list">
+                    <li class="support-faq-item">
+                        <button class="support-faq-question" type="button" aria-expanded="false">
+                            <span>Q. 세금계산서를 발급받을 수 있나요?</span>
+                            </button>
+                        <div class="support-faq-answer" hidden>
+                            <p>현재 세금계산서 발급은 지원하지 않습니다. 대신 현금영수증 또는 지출증빙 영수증으로 대체해 주세요.</p>
+                        </div>
+                    </li>
+                    <li class="support-faq-item">
+                        <button class="support-faq-question" type="button" aria-expanded="false">
+                            <span>Q. 주문 후 지출증빙/현금영수증 발행이 가능한가요?</span>
+                            </button>
+                        <div class="support-faq-answer" hidden>
+                            <p>주문 시 결제 단계에서 지출증빙/현금영수증 발행을 선택해야 합니다. 주문 완료 후에는 변경이 어려우니 주문 시 꼭 신청해 주세요.</p>
+                        </div>
+                    </li>
+                    <li class="support-faq-item">
+                        <button class="support-faq-question" type="button" aria-expanded="false">
+                            <span>Q. 현금영수증을 다른 사람 명의로 발급할 수 있나요?</span>
+                            </button>
+                        <div class="support-faq-answer" hidden>
+                            <p>결제 단계에서 발급 받을 명의의 휴대폰 번호나 사업자등록번호를 입력하면 타인 명의로 발급받을 수 있습니다.</p>
+                        </div>
+                    </li>
+                    <li class="support-faq-item">
+                        <button class="support-faq-question" type="button" aria-expanded="false">
+                            <span>Q. 주문 금액을 나눠서 영수증을 발급받을 수 있나요?</span>
+                            </button>
+                        <div class="support-faq-answer" hidden>
+                            <p>한 주문 내 일부 상품만 분리해 영수증을 발급하는 것은 어렵습니다. 필요한 경우 상품별로 주문을 나눠 결제해 주세요.</p>
+                        </div>
+                    </li>
+                    <li class="support-faq-item">
+                        <button class="support-faq-question" type="button" aria-expanded="false">
+                            <span>Q. 현금영수증 발급을 신청했는데 확인이 되지 않아요.</span>
+                            </button>
+                        <div class="support-faq-answer" hidden>
+                            <p>국세청 시스템 반영까지 영업일 기준 2~3일이 소요될 수 있습니다. 기간이 지난 후에도 확인되지 않으면 고객센터로 문의해 주세요.</p>
+                        </div>
+                    </li>
+                </ul>
+                <ul class="support-faq-list support-faq-more" id="more-docs" hidden>
+                    <li class="support-faq-item">
+                        <button class="support-faq-question" type="button" aria-expanded="false">
+                            <span>Q. 사업자용 현금영수증을 분실했어요. 재발급 가능한가요?</span>
+                            </button>
+                        <div class="support-faq-answer" hidden>
+                            <p>국세청 홈택스에서 주문번호와 결제 금액을 입력해 재발급 받을 수 있습니다. 홈택스 &gt; 현금영수증 조회 메뉴를 이용해 주세요.</p>
+                        </div>
+                    </li>
+                    <li class="support-faq-item">
+                        <button class="support-faq-question" type="button" aria-expanded="false">
+                            <span>Q. 지출증빙 신청을 깜박했어요. 추가 발급이 가능할까요?</span>
+                            </button>
+                        <div class="support-faq-answer" hidden>
+                            <p>주문 완료 후에는 시스템에서 추가 발급이 되지 않습니다. 다음 주문 시 지출증빙 항목을 반드시 선택해 주세요.</p>
+                        </div>
+                    </li>
+                </ul>
+                <div class="support-more">
+                    <button type="button" data-more-toggle="more-docs" aria-expanded="false">더보기</button>
+                </div>
+            </article>
+
+            <article class="support-faq-category" id="category-account">
+                <header class="support-faq-category__header">
+                    <h2 class="support-faq-category__title">로그인/회원정보</h2>
+                    <p class="support-faq-category__sub">소셜 로그인 연동, 계정 관리 및 정보 변경 관련 FAQ입니다.</p>
+                </header>
+                <ul class="support-faq-list">
+                    <li class="support-faq-item">
+                        <button class="support-faq-question" type="button" aria-expanded="false">
+                            <span>Q. 카카오로 로그인하면 이미 가입된 이메일이라고 나옵니다.</span>
+                            </button>
+                        <div class="support-faq-answer" hidden>
+                            <p>이메일 회원 정보와 카카오 계정이 분리되어 있어 발생하는 메시지입니다. 이메일로 로그인 후 <strong>내 정보 &gt; 연결 계정 관리</strong>에서 카카오 계정을 연동하거나 고객센터에 계정 통합을 요청해 주세요.</p>
+                        </div>
+                    </li>
+                    <li class="support-faq-item">
+                        <button class="support-faq-question" type="button" aria-expanded="false">
+                            <span>Q. 회원가입 시 이미 가입된 이메일이라고 표시돼요.</span>
+                            </button>
+                        <div class="support-faq-answer" hidden>
+                            <p>과거 오입력된 이메일일 수 있습니다. 본인 확인 후 이메일 수정이 가능하니 고객센터로 문의해 주세요.</p>
+                        </div>
+                    </li>
+                    <li class="support-faq-item">
+                        <button class="support-faq-question" type="button" aria-expanded="false">
+                            <span>Q. 비밀번호를 변경하려면 어떻게 하나요?</span>
+                            </button>
+                        <div class="support-faq-answer" hidden>
+                            <p>우측 상단 프로필에서 <strong>마이홈 &gt; 설정 &gt; 비밀번호 변경</strong>으로 이동해 새 비밀번호를 설정하세요. 비밀번호 찾기는 로그인 화면에서 진행합니다.</p>
+                        </div>
+                    </li>
+                    <li class="support-faq-item">
+                        <button class="support-faq-question" type="button" aria-expanded="false">
+                            <span>Q. 회원정보는 어디에서 수정할 수 있나요?</span>
+                            </button>
+                        <div class="support-faq-answer" hidden>
+                            <p><strong>마이홈 &gt; 설정 &gt; 회원정보수정</strong>에서 주소, 연락처, 배송 메모 등을 변경할 수 있습니다. 실명 변경은 고객센터에 별도 요청이 필요합니다.</p>
+                        </div>
+                    </li>
+                    <li class="support-faq-item">
+                        <button class="support-faq-question" type="button" aria-expanded="false">
+                            <span>Q. 회원 탈퇴는 어떻게 하나요?</span>
+                            </button>
+                        <div class="support-faq-answer" hidden>
+                            <p>PC 웹과 모바일 앱의 <strong>마이페이지 &gt; 설정 &gt; 회원정보수정</strong> 상단에서 탈퇴할 수 있습니다. 전문가 회원은 전용 채널로 문의해 주세요.</p>
+                        </div>
+                    </li>
+                </ul>
+                <ul class="support-faq-list support-faq-more" id="more-account" hidden>
+                    <li class="support-faq-item">
+                        <button class="support-faq-question" type="button" aria-expanded="false">
+                            <span>Q. 좋아요 한 콘텐츠는 어디에서 확인하나요?</span>
+                            </button>
+                        <div class="support-faq-answer" hidden>
+                            <p><strong>마이홈 &gt; 좋아요</strong>에서 사진, 집들이, 노하우 등 저장한 콘텐츠를 모아볼 수 있습니다.</p>
+                        </div>
+                    </li>
+                    <li class="support-faq-item">
+                        <button class="support-faq-question" type="button" aria-expanded="false">
+                            <span>Q. 애플 로그인을 웹에서도 사용할 수 있나요?</span>
+                            </button>
+                        <div class="support-faq-answer" hidden>
+                            <p>현재 애플 로그인은 앱에서만 제공되며, 웹 지원은 준비 중입니다. 앱에서 애플 로그인 후 연동 상태를 확인해 주세요.</p>
+                        </div>
+                    </li>
+                    <li class="support-faq-item">
+                        <button class="support-faq-question" type="button" aria-expanded="false">
+                            <span>Q. 페이스북 간편 로그인 시 이미 가입된 이메일이라고 나옵니다.</span>
+                            </button>
+                        <div class="support-faq-answer" hidden>
+                            <p>페이스북 계정을 변경하거나 새로 만든 경우 기존 정보가 남아 있을 수 있습니다. 페이스북 설정에서 연동 여부를 확인하고 문제가 지속되면 고객센터로 문의해 주세요.</p>
+                        </div>
+                    </li>
+                </ul>
+                <div class="support-more">
+                    <button type="button" data-more-toggle="more-account" aria-expanded="false">더보기</button>
+                </div>
+            </article>
+        </section>
+    </section>
+</main>
+<footer th:replace="fragments/layout :: footer"></footer>
+
+<script>
+    (function () {
+        const faqQuestions = document.querySelectorAll('.support-faq-question');
+        faqQuestions.forEach(function (button) {
+            button.addEventListener('click', function () {
+                const expanded = this.getAttribute('aria-expanded') === 'true';
+                this.setAttribute('aria-expanded', (!expanded).toString());
+                const answer = this.nextElementSibling;
+                if (answer) {
+                    answer.hidden = expanded;
+                }
+            });
+        });
+
+        const moreButtons = Array.from(document.querySelectorAll('[data-more-toggle]'));
+        moreButtons.forEach(function (button) {
+            const targetId = button.getAttribute('data-more-toggle');
+            const target = document.getElementById(targetId);
+            if (!target) {
+                return;
+            }
+            button.dataset.defaultLabel = button.textContent.trim() || '더보기';
+            button.addEventListener('click', function () {
+                if (button.disabled) {
+                    return;
+                }
+                const expanded = button.getAttribute('aria-expanded') === 'true';
+                target.hidden = expanded;
+                button.setAttribute('aria-expanded', (!expanded).toString());
+                button.textContent = expanded ? (button.dataset.defaultLabel || '더보기') : '접기';
+            });
+        });
+
+    })();
+</script>
+</body>
+</html>

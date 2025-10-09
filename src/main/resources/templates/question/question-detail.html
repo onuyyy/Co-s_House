@@ -31,7 +31,7 @@
                             <div class="col-sm-3"><strong>작성일:</strong></div>
                             <div class="col-sm-9" th:text="${#temporals.format(question.questionCreatedAt, 'yyyy-MM-dd HH:mm')}">작성일</div>
                         </div>
-                        <div class="row mb-3">
+                        <div class="row mb-">
                             <div class="col-sm-3"><strong>상태:</strong></div>
                             <div class="col-sm-9" th:text="${question.questionStatus != null ? question.questionStatus : ''}">답변상태</div>
                         </div>
