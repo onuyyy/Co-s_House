@@ -6,6 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -15,6 +18,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@EntityListeners(AuditingEntityListener.class)
 @Entity
 @Table(name = "COMMENT")
 public class Comment {
@@ -42,10 +46,12 @@ public class Comment {
     @Column(name = "content", columnDefinition = "TEXT", nullable = false)
     private String content;
 
-    @Column(name = "comment_created_at", insertable = false, updatable = false)
+    @CreatedDate
+    @Column(name = "comment_created_at", nullable = false, updatable = false)
     private LocalDateTime commentCreatedAt;
 
-    @Column(name = "comment_updated_at", insertable = false, updatable = false)
+    @LastModifiedDate
+    @Column(name = "comment_updated_at", nullable = false)
     private LocalDateTime commentUpdatedAt;
 
     public void addChildComment(Comment childComment) {
