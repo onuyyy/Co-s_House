@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:replace="fragments/layout :: head('오늘의 집 | 게시글 상세')"></head>
 <body class="page font-body">
 <header th:replace="fragments/layout :: header"></header>
@@ -88,12 +88,12 @@
                 <div class="used-products" th:if="${post.products != null and !post.products.isEmpty()}">
                     <h3>사용한 상품</h3>
                     <div class="products-grid">
-                        <a th:each="product : ${post.products}" 
+                        <a th:each="product : ${post.products}"
                            th:href="@{/product/{id}(id=${product.productId})}"
                            class="product-card"
                            target="_blank">
                             <div class="product-image">
-                                <img th:src="${product.mainImageUrl}" 
+                                <img th:src="${product.mainImageUrl}"
                                      th:alt="${product.productTitle}"
                                      onerror="this.src='/images/default-product.jpg'">
                             </div>
@@ -103,12 +103,41 @@
                         </a>
                     </div>
                 </div>
+
+                <!-- 댓글 영역 -->
+                <div class="comments-section" th:attr="data-post-id=${post.postId}">
+                    <h3 class="comments-title">댓글 <span class="comment-count" id="commentCount">0</span></h3>
+
+                    <!-- 댓글 작성 폼 (로그인한 사용자만 보임) -->
+                    <div class="comment-form-wrapper" sec:authorize="isAuthenticated()">
+                        <form class="comment-form" id="commentForm" onsubmit="return false;">
+                            <textarea
+                                class="comment-input"
+                                id="commentInput"
+                                placeholder="댓글을 입력하세요..."
+                                rows="3"
+                                maxlength="500"
+                                required></textarea>
+                            <div class="comment-form-actions">
+                                <span class="char-count"><span id="charCount">0</span>/500</span>
+                                <button type="button" class="btn-submit-comment" onclick="submitComment()">댓글 작성</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- 댓글 목록 -->
+                    <div class="comments-list" id="commentsList">
+                        <!-- 댓글이 JavaScript로 동적으로 렌더링됩니다 -->
+                    </div>
+                </div>
             </div>
         </section>
     </div>
 </main>
 <footer th:replace="fragments/layout :: footer"></footer>
 <link rel="stylesheet" th:href="@{/css/post-detail.css}">
+<link rel="stylesheet" th:href="@{/css/comments.css}">
 <script th:src="@{/js/post-detail.js}"></script>
+<script th:src="@{/js/comments.js}"></script>
 </body>
 </html>

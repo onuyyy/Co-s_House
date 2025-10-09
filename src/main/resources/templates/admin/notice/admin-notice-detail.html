@@ -89,13 +89,13 @@
             if (mode === 'view') {
                 viewBtn.classList.add('active');
                 editBtn.classList.remove('active');
-                viewSection.style.display = 'block';
+                viewSection.classList.remove('hidden');
                 editSection.classList.add('hidden');
                 readonlyMessage.style.display = 'block';
             } else {
                 editBtn.classList.add('active');
                 viewBtn.classList.remove('active');
-                viewSection.style.display = 'none';
+                viewSection.classList.add('hidden');
                 editSection.classList.remove('hidden');
                 readonlyMessage.style.display = 'none';
             }

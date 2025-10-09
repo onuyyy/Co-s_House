@@ -42,12 +42,6 @@ public class Comment {
     @Column(name = "content", columnDefinition = "TEXT", nullable = false)
     private String content;
 
-    @Column(name = "like_count")
-    private Integer likeCount = 0;
-
-    @Column(name = "report_count")
-    private Integer reportCount = 0;
-
     @Column(name = "comment_created_at", insertable = false, updatable = false)
     private LocalDateTime commentCreatedAt;
 

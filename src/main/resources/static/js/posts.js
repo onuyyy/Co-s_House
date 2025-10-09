@@ -1,5 +1,14 @@
 // 게시글 목록 페이지 JavaScript
 
+// 필터 이름 매핑
+const filterNames = {
+    housingType: '주거형태',
+    roomCount: '방개수',
+    familyType: '가족형태',
+    familyCount: '가족구성원',
+    projectType: '작업분야'
+};
+
 document.addEventListener('DOMContentLoaded', function() {
     // 필터 기능
     const filterBtns = document.querySelectorAll('.filter-btn');
@@ -8,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function() {
     filterBtns.forEach(btn => {
         btn.addEventListener('click', function(e) {
             e.stopPropagation();
-            
+
             const filterType = this.getAttribute('data-filter');
             const dropdown = document.getElementById(filterType + 'Dropdown');
             const isActive = this.classList.contains('active');
@@ -45,12 +54,68 @@ document.addEventListener('DOMContentLoaded', function() {
             e.stopPropagation();
         });
     });
+
+    // 페이지 로드 시 선택된 필터 표시
+    updateSelectedFilters();
 });
+
+// 선택된 필터 표시 업데이트
+function updateSelectedFilters() {
+    const selectedFiltersContainer = document.getElementById('selectedFilters');
+    const filterTagsContainer = selectedFiltersContainer.querySelector('.filter-tags');
+    filterTagsContainer.innerHTML = '';
+
+    let hasSelectedFilters = false;
+
+    // 모든 라디오 버튼 체크
+    const radioInputs = document.querySelectorAll('.filter-dropdown input[type="radio"]:checked');
+    radioInputs.forEach(input => {
+        const filterName = input.getAttribute('name');
+        const filterValue = input.value;
+
+        // 값이 있고 '전체'가 아닌 경우에만 표시
+        if (filterValue && filterValue !== '') {
+            hasSelectedFilters = true;
+            const displayText = input.nextElementSibling ? input.nextElementSibling.textContent : filterValue;
+
+            const tag = document.createElement('span');
+            tag.className = 'filter-tag';
+            tag.innerHTML = `
+                ${filterNames[filterName]}: ${displayText}
+                <button type="button" onclick="removeFilter('${filterName}')" class="remove-filter">×</button>
+            `;
+            filterTagsContainer.appendChild(tag);
+        }
+    });
+
+    // 선택된 필터가 있으면 컨테이너 표시
+    selectedFiltersContainer.style.display = hasSelectedFilters ? 'flex' : 'none';
+}
+
+// 특정 필터 제거
+function removeFilter(filterName) {
+    const form = document.getElementById('searchForm');
+    const input = form.querySelector(`input[name="${filterName}"][value=""]`);
+    if (input) {
+        input.checked = true;
+        form.submit();
+    }
+}
+
+// 모든 필터 초기화
+function clearAllFilters() {
+    const form = document.getElementById('searchForm');
+    const allEmptyInputs = form.querySelectorAll('input[type="radio"][value=""]');
+    allEmptyInputs.forEach(input => {
+        input.checked = true;
+    });
+    form.submit();
+}
 
 // 북마크 토글 함수
 function toggleBookmark(button) {
     const postId = button.getAttribute('data-post-id');
-    
+
     // 로그인 확인
     const currentUserId = document.querySelector('body').getAttribute('data-user-id');
     if (!currentUserId) {
@@ -74,18 +139,23 @@ function toggleBookmark(button) {
         return response.json();
     })
     .then(data => {
-        // 버튼 상태 업데이트
-        if (data.isScraped) {
+
+        // 버튼 상태 업데이트 (서버에서 scraped로 응답)
+        if (data.scraped) {
             button.classList.add('active');
         } else {
             button.classList.remove('active');
         }
 
-        // 스크랩 수 업데이트
+        // 스크랩 수 업데이트 - 클래스명으로 직접 찾기
         const postCard = button.closest('.post-card');
-        const scrapCountElement = postCard.querySelector('.post-stats span:first-child span');
+
+        const scrapCountElement = postCard.querySelector('.scrap-count');
         if (scrapCountElement) {
+            console.log('Updating scrap count from', scrapCountElement.textContent, 'to', data.scrapCount);
             scrapCountElement.textContent = data.scrapCount;
+        } else {
+            console.error('Scrap count element not found!');
         }
     })
     .catch(error => {

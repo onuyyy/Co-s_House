@@ -119,6 +119,10 @@ public class BusinessException extends RuntimeException {
         return new BusinessException(ErrorCode.SCRAP_DELETE_FAILED);
     }
 
+    public static BusinessException notFoundComment(Long commentId) {
+        return new BusinessException(ErrorCode.NOT_FOUND_COMMENT, "댓글을 찾을 수 없습니다. " + commentId);
+    }
+
     // 범용 메서드
     public static BusinessException of(ErrorCode errorCode) {
         return new BusinessException(errorCode);
