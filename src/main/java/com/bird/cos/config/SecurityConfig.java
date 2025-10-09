@@ -84,7 +84,8 @@ public class SecurityConfig {
                         .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                         .requestMatchers(
                                 "/favicon.ico",
-                                "/css/**", "/js/**", "/images/**", "/webjars/**", "/images/uploaded/**"
+                                "/css/**", "/js/**", "/images/**", "/webjars/**",
+                                "/images/uploaded/**", "/uploads/**"
                         ).permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/products/*/like").permitAll()
 
