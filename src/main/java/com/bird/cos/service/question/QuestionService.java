@@ -10,7 +10,6 @@ import com.bird.cos.repository.common.CommonCodeRepository;
 import com.bird.cos.repository.product.ProductRepository;
 import com.bird.cos.repository.question.QuestionRepository;
 import com.bird.cos.repository.user.UserRepository;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
