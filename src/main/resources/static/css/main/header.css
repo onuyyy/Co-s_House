@@ -215,7 +215,7 @@
 
     .nav-icons {
         display: flex;
-        gap: 15px;
+        gap: 10px;
     }
 
     .nav-icon {
@@ -226,6 +226,8 @@
         font-size: 20px;
         text-decoration: none;
         position: relative;
+        min-width: 24px;
+        min-height: 24px;
     }
 
     .icon-img {
@@ -440,7 +442,7 @@
 
     .nav-icons {
         display: flex;
-        gap: 15px;
+        gap: 10px;
     }
 
     .nav-icon {
@@ -451,6 +453,8 @@
         font-size: 20px;
         text-decoration: none;
         position: relative;
+        min-width: 24px;
+        min-height: 24px;
     }
 
     .icon-img {
@@ -459,6 +463,7 @@
         object-fit: contain;
         display: block;
     }
+
 
     .user-actions {
         display: flex;

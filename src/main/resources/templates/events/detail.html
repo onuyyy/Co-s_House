@@ -5,7 +5,9 @@
   <header th:replace="~{fragments/layout :: header}"></header>
   <main class="page-main event-detail">
     <div class="event-detail__inner container">
-      <a class="event-detail__back" th:href="@{/events}">
+      <a class="event-detail__back"
+         th:href="@{/events}"
+         onclick="if (window.history.length > 1) { history.back(); return false; }">
         <span aria-hidden="true">←</span>
         <span>이벤트 목록으로</span>
       </a>
