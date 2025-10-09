@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1:1 문의 - 코딩의집 고객센터</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}" />
+    <link rel="stylesheet" th:href="@{/css/main/header.css}" />
+    <link rel="stylesheet" th:href="@{/css/question/question-info.css}" />
+    <style>
+        .direct-wrapper {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: clamp(40px, 6vw, 80px) clamp(16px, 4vw, 40px);
+            display: grid;
+            gap: 32px;
+        }
+        .direct-header {
+            text-align: center;
+            display: grid;
+            gap: 12px;
+        }
+        .direct-header h1 {
+            font-size: clamp(30px, 4vw, 38px);
+            font-weight: 700;
+            color: #0f172a;
+            margin: 0;
+        }
+        .direct-header p {
+            color: var(--color-muted);
+            font-size: 16px;
+            margin: 0;
+        }
+        .direct-form {
+            background: #fff;
+            border-radius: 22px;
+            padding: clamp(28px, 5vw, 42px);
+            box-shadow: none;
+            border: 1px solid rgba(226, 232, 240, 0.9);
+        }
+        .direct-form .form-group input,
+        .direct-form .form-group textarea,
+        .direct-form .form-group select {
+            background: #f8fafc;
+        }
+        .direct-form .form-actions {
+            justify-content: flex-end;
+            gap: 16px;
+        }
+        .direct-form .form-actions button {
+            min-width: 120px;
+        }
+    </style>
+</head>
+<body class="page font-body">
+<header th:replace="fragments/layout :: header"></header>
+<main class="page-main">
+    <section class="direct-wrapper">
+        <header class="direct-header">
+            <h1>1:1 문의 남기기</h1>
+        </header>
+        <article class="direct-form">
+                <form id="directInquiryForm">
+                    <div class="form-group">
+                        <label for="inquiryType">문의 유형</label>
+                        <select id="inquiryType" required>
+                            <option value="">문의 유형을 선택해주세요</option>
+                            <option value="배송">배송 문의</option>
+                            <option value="상품">상품 문의</option>
+                            <option value="주문">주문/결제 문의</option>
+                            <option value="기타">기타</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="inquiryName">이름</label>
+                        <input type="text" id="inquiryName" placeholder="이름을 입력하세요" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="inquiryEmail">이메일</label>
+                        <input type="email" id="inquiryEmail" placeholder="답변 받을 이메일을 입력하세요" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="inquiryOrder">주문번호 (선택)</label>
+                        <input type="text" id="inquiryOrder" placeholder="주문번호가 있다면 입력해주세요">
+                    </div>
+                    <div class="form-group">
+                        <label for="inquiryContent">문의 내용</label>
+                        <textarea id="inquiryContent" rows="6" placeholder="상담 받고 싶은 내용을 자세히 적어주세요" required></textarea>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-cancel" onclick="history.back()">뒤로가기</button>
+                        <button type="submit" class="btn btn-submit">문의 전송</button>
+                    </div>
+                </form>
+            </article>
+    </section>
+</main>
+<footer th:replace="fragments/layout :: footer"></footer>
+<script>
+    document.getElementById('directInquiryForm').addEventListener('submit', function (event) {
+        event.preventDefault();
+        const type = document.getElementById('inquiryType').value || '일반문의';
+        const name = document.getElementById('inquiryName').value.trim();
+        const email = document.getElementById('inquiryEmail').value.trim();
+        const order = document.getElementById('inquiryOrder').value.trim();
+        const content = document.getElementById('inquiryContent').value.trim();
+
+        if (!name || !email || !content) {
+            alert('이름, 이메일, 문의 내용을 입력해주세요.');
+            return;
+        }
+
+        const subject = encodeURIComponent(`[1:1문의] ${type} - ${name}`);
+        const orderLine = order ? `\n주문번호: ${order}` : '';
+        const body = encodeURIComponent(`이름: ${name}\n이메일: ${email}${orderLine}\n\n문의 유형: ${type}\n\n문의 내용:\n${content}`);
+        window.location.href = `mailto:contact@cos-house.com?subject=${subject}&body=${body}`;
+    });
+</script>
+</body>
+</html>
