@@ -15,8 +15,8 @@
     <!-- Header -->
     <header class="header">
         <div class="logo-section">
-            <div class="logo">🏠</div>
-            <span class="brand-text">코딩의 집</span>
+            <img th:src="@{/favicon.png}" alt="로고" class="logo-img" />
+            <span class="brand-text">코딩의집</span>
             <h1 class="page-title">관리자 시스템</h1>
         </div>
         <div class="header-actions">
@@ -29,7 +29,6 @@
         <!-- Sidebar -->
         <aside class="sidebar">
             <div class="admin-profile">
-                <div class="admin-avatar">👤</div>
                 <div class="admin-info">
                     <h4 th:text="${#authentication.getPrincipal().name}"></h4><!-- 화면에 실제 이름 표시 -->
                     <p sec:authentication="name"></p>                 <!-- 로그인 ID(email) 표시 -->
