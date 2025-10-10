@@ -62,7 +62,7 @@ public class OrderController {
                 orderForm.getCartItemIds()
             );
 
-            return OrderCreateResponse.success(order.getOrderId());
+            return OrderCreateResponse.success(order);
 
         } catch (Exception e) {
             return OrderCreateResponse.failure("주문 처리 중 오류가 발생했습니다: " + e.getMessage());

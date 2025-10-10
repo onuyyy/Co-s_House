@@ -17,11 +17,17 @@
           <dd id="orderIdValue" th:text="${orderId} ?: '확인 중'">확인 중</dd>
         </div>
         <div>
-          <dt>결제 키</dt>
-          <dd id="paymentKeyValue" th:text="${paymentKey} ?: '확인 중'">확인 중</dd>
+          <dt>최종 결제 금액</dt>
+          <dd id="orderTotal" data-default="확인 중">확인 중</dd>
         </div>
       </dl>
     </div>
+
+    <section id="orderItemsSection" style="margin-top:32px;">
+      <h2 style="font-size:20px; font-weight:600; margin-bottom:16px;">주문 상품</h2>
+      <ul id="orderItems" style="list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:12px;"></ul>
+      <p id="noOrderItems" style="margin-top:12px; color:#6b7280; display:none;">주문 상품 정보를 불러올 수 없습니다.</p>
+    </section>
 
     <div class="actions" style="margin-top:32px; display:flex; gap:12px;">
       <a class="btn" th:href="@{/mypage}" style="padding:12px 20px;">마이페이지로 이동</a>
@@ -38,7 +44,9 @@
     const statusEl = document.getElementById('paymentStatus');
     const errorEl = document.getElementById('errorMessage');
     const orderIdEl = document.getElementById('orderIdValue');
-    const paymentKeyEl = document.getElementById('paymentKeyValue');
+    const orderTotalEl = document.getElementById('orderTotal');
+    const itemsContainer = document.getElementById('orderItems');
+    const noItemsEl = document.getElementById('noOrderItems');
 
     const params = new URLSearchParams(window.location.search);
     const paymentKey = params.get('paymentKey');
@@ -77,17 +85,23 @@
 
       if (!orderPayload) {
         statusEl.textContent = '결제는 완료되었지만 주문 정보가 없어 주문을 생성하지 못했습니다.';
-        paymentKeyEl.textContent = paymentKey;
         return;
       }
 
       const orderResponse = await submitOrder(orderPayload);
       sessionStorage.removeItem('pendingOrderPayload');
 
-      paymentKeyEl.textContent = paymentKey;
-      orderIdEl.textContent = orderResponse && orderResponse.orderId ? orderResponse.orderId : (orderPayload.paymentOrderId || '-');
+      if (orderResponse && orderResponse.success) {
+        orderIdEl.textContent = orderResponse.orderId ?? (orderPayload.paymentOrderId || '-');
+        updateOrderTotal(orderResponse.totalAmount, orderTotalEl);
+        renderOrderItems(orderResponse.items, itemsContainer, noItemsEl);
+        statusEl.textContent = '주문이 완료되었습니다.';
+      } else {
+        statusEl.textContent = '결제는 완료되었지만 주문 정보 확인에 실패했습니다.';
+        noItemsEl.textContent = '주문 정보를 불러오지 못했습니다.';
+        noItemsEl.style.display = 'block';
+      }
 
-      statusEl.textContent = '주문이 완료되었습니다.';
     } catch (error) {
       console.error('결제 확인 오류:', error);
       statusEl.textContent = '결제 확인에 실패했습니다.';
@@ -141,6 +155,93 @@
       throw new Error(data.message || '주문 생성에 실패했습니다.');
     }
     return data;
+  }
+
+  function updateOrderTotal(totalAmount, target) {
+    if (!target) {
+      return;
+    }
+
+    if (!totalAmount && totalAmount !== 0) {
+      target.textContent = target.dataset.default || '확인 중';
+      return;
+    }
+
+    target.textContent = formatCurrency(totalAmount) + '원';
+  }
+
+  function renderOrderItems(items, container, emptyElement) {
+    if (!container) {
+      return;
+    }
+
+    container.innerHTML = '';
+
+    if (!Array.isArray(items) || items.length === 0) {
+      if (emptyElement) {
+        emptyElement.style.display = 'block';
+      }
+      return;
+    }
+
+    if (emptyElement) {
+      emptyElement.style.display = 'none';
+    }
+
+    items.forEach(item => {
+      const li = document.createElement('li');
+      li.style.display = 'flex';
+      li.style.gap = '16px';
+      li.style.alignItems = 'center';
+      li.style.border = '1px solid #e5e7eb';
+      li.style.borderRadius = '12px';
+      li.style.padding = '12px';
+
+      const thumbnail = document.createElement('img');
+      thumbnail.src = item.imageUrl || '/images/default-product.jpg';
+      thumbnail.alt = item.productName || '상품 이미지';
+      thumbnail.style.width = '72px';
+      thumbnail.style.height = '72px';
+      thumbnail.style.objectFit = 'cover';
+      thumbnail.style.borderRadius = '8px';
+      thumbnail.onerror = () => {
+        thumbnail.src = '/images/default-product.jpg';
+      };
+
+      const info = document.createElement('div');
+      info.style.display = 'flex';
+      info.style.flexDirection = 'column';
+      info.style.gap = '4px';
+
+      const name = document.createElement('strong');
+      name.textContent = item.productName || '상품';
+      name.style.fontSize = '16px';
+
+      const option = document.createElement('span');
+      option.textContent = item.productOptionName ? `옵션: ${item.productOptionName}` : '기본 옵션';
+      option.style.color = '#6b7280';
+      option.style.fontSize = '14px';
+
+      const meta = document.createElement('span');
+      meta.textContent = `수량 ${item.quantity}개 · ${formatCurrency(item.price)}원`;
+      meta.style.fontWeight = '600';
+
+      info.appendChild(name);
+      info.appendChild(option);
+      info.appendChild(meta);
+
+      li.appendChild(thumbnail);
+      li.appendChild(info);
+      container.appendChild(li);
+    });
+  }
+
+  function formatCurrency(amount) {
+    const number = Number(amount);
+    if (Number.isNaN(number)) {
+      return '-';
+    }
+    return number.toLocaleString('ko-KR');
   }
 </script>
 </body>

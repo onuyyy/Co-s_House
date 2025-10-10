@@ -288,6 +288,7 @@ public class OrderService {
                     .orderItemId(item.getOrderItemId())
                     .orderId(order.getOrderId())
                     .productId(item.getProduct().getProductId())
+                    .productName(item.getProduct().getProductTitle())
                     .productOptionId(item.getProductOption() != null ? item.getProductOption().getOptionId() : null)
                     .productOptionName(item.getProductOption() != null ?
                             item.getProductOption().getOptionName() + " : " + item.getProductOption().getOptionValue() : null)
