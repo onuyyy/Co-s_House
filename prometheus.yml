@@ -1,0 +1,27 @@
+global:
+  scrape_interval: 15s # 15초마다 메트릭을 수집
+  evaluation_interval: 15s # 15초마다 rules를 평가
+
+# Alertmanager 설정 (선택사항)
+# alerting:
+#   alertmanagers:
+#     - static_configs:
+#         - targets:
+#           # - alertmanager:9093
+
+# 메트릭을 수집할 대상 설정
+scrape_configs:
+  # Prometheus 자체 메트릭 수집
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+
+  # Spring Boot 애플리케이션 메트릭 수집
+  - job_name: 'spring-boot-app'
+    metrics_path: '/actuator/prometheus'
+    scrape_interval: 10s # Spring Boot 앱은 10초마다 수집
+    static_configs:
+      - targets: ['host.docker.internal:8080'] # Docker 내부에서 호스트 접근
+        labels:
+          application: 'cos-house'
+          environment: 'development'

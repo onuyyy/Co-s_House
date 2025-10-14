@@ -90,3 +90,27 @@ toss:
     secret-key: test_sk_0RnYX2w532oq2Ankz7vMVNeyqApQ
     success-url: http://localhost:8080/payment/success
     fail-url: http://localhost:8080/payment/fail
+
+# Actuator & Prometheus Configuration
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+      base-path: /actuator
+  endpoint:
+    health:
+      show-details: always
+    metrics:
+      enabled: true
+    prometheus:
+      enabled: true
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+    distribution:
+      percentiles-histogram:
+        http.server.requests: true
+    tags:
+      application: ${spring.application.name:cos-house}

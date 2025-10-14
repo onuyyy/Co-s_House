@@ -74,10 +74,13 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        // 0) 이메일 인증 허용
+                        // 0) Actuator endpoints 허용 (모니터링용)
+                        .requestMatchers("/actuator/**").permitAll()
+
+                        // 1) 이메일 인증 허용
                         .requestMatchers("/auth/email/**").permitAll()
 
-                        // 0-1) OAuth2 인증 엔드포인트 전용 허용
+                        // 2) OAuth2 인증 엔드포인트 전용 허용
                         .requestMatchers("/oauth2/**", "/login/oauth2/**").permitAll()
 
                         // 1) 정적 리소스 전부 허용
