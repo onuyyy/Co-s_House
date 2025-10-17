@@ -1,10 +1,7 @@
 package com.bird.cos.service.question;
 
-<<<<<<< Updated upstream
 import com.bird.cos.domain.product.Product;
-=======
 import com.bird.cos.domain.common.CommonCode;
->>>>>>> Stashed changes
 import com.bird.cos.domain.product.Question;
 import com.bird.cos.domain.user.User;
 import com.bird.cos.dto.question.QuestionManageResponse;
@@ -22,12 +19,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-<<<<<<< Updated upstream
 import java.util.*;
 import java.util.stream.Collectors;
 
-=======
->>>>>>> Stashed changes
 @Service
 @RequiredArgsConstructor
 public class QuestionService {
