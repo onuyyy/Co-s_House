@@ -2,7 +2,7 @@
 
 > Spring Boot 기반의 현대적인 E-Commerce 플랫폼
 
-Co's House는 Spring Boot 3.5.5와 Java 21을 기반으로 구축된 종합 전자상거래 애플리케이션입니다. 소셜 로그인, 결제 처리, 재고 관리, 커뮤니티 기능을 통합한 풀스택 e-commerce 솔루션을 제공합니다.
+Co's House는 '오늘의 집'을 벤치마킹 한 E-Commerce 플랫폼입니다. 
 
 ## 📋 목차
 
