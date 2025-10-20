@@ -18,11 +18,13 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.context.SecurityContextRepository;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -71,7 +73,11 @@ class LoginPageControllerTest {
 
         Authentication authentication = mock(Authentication.class);
         when(authenticationManager.authenticate(any(UsernamePasswordAuthenticationToken.class))).thenReturn(authentication);
-        when(authentication.getAuthorities()).thenReturn(List.of(new SimpleGrantedAuthority("user_role")));
+        List<GrantedAuthority> authorities = Arrays.asList(
+                new SimpleGrantedAuthority("user_role"),
+                new SimpleGrantedAuthority("admin_role")
+        );
+        when(authentication.getAuthorities()).thenAnswer(invocation -> authorities);
 
         User user = User.builder()
                 .userId(1L)
