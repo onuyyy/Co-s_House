@@ -3,15 +3,18 @@ package com.bird.cos.domain.coupon;
 import com.bird.cos.domain.brand.Brand;
 import com.bird.cos.domain.product.Product;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+
+@Builder
 @Getter
 @Setter
 @Entity
 @Table(name = "COUPON")
+@NoArgsConstructor
+@AllArgsConstructor
 public class Coupon {
 
     @Id
