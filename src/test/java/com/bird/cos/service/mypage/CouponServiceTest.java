@@ -7,9 +7,6 @@ import com.bird.cos.domain.coupon.UserCoupon;
 import com.bird.cos.domain.product.Product;
 import com.bird.cos.domain.user.User;
 import com.bird.cos.dto.order.MyCouponResponse;
-import com.bird.cos.domain.coupon.UserCoupon;
-import com.bird.cos.domain.product.Product;
-import com.bird.cos.domain.user.User;
 import com.bird.cos.dto.order.SalesPriceCheckResponse;
 import com.bird.cos.exception.BusinessException;
 import com.bird.cos.repository.mypage.coupon.CouponRepository;
@@ -37,17 +34,8 @@ import java.util.Optional;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.eq;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
-
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
-import java.util.Optional;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
