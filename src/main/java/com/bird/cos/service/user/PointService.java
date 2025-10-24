@@ -1,5 +1,6 @@
 package com.bird.cos.service.user;
 
+import com.bird.cos.domain.user.Point;
 import com.bird.cos.domain.user.PointHistory;
 import com.bird.cos.domain.user.PointType;
 import com.bird.cos.domain.user.User;
@@ -13,6 +14,7 @@ import com.bird.cos.repository.user.PointRepository;
 import com.bird.cos.repository.user.UserPointRepository;
 import com.bird.cos.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.Synchronized;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -82,7 +84,7 @@ public class PointService {
         Integer currentPoints = getAvailablePoints(userId);
 
         // Point 테이블에 양수 금액 레코드 추가 (적립 내역)
-        com.bird.cos.domain.user.Point pointRecord = com.bird.cos.domain.user.Point.builder()
+        Point pointRecord = Point.builder()
                 .user(user)
                 .pointAmount(amount)
                 .pointDescription(description)
@@ -107,10 +109,10 @@ public class PointService {
      * @throws BusinessException 사용 가능한 포인트가 부족한 경우
      */
     @Transactional
-    public void usePoints(Long userId, int amount, String description, String referenceId, String referenceType) {
+    public synchronized void usePoints(Long userId, int amount, String description, String referenceId, String referenceType) {
         validatePositiveAmount(amount);
 
-        User user = userRepository.findById(userId)
+        User user = userRepository.findByIdForUpdate(userId)
                 .orElseThrow(BusinessException::userNotFound);
 
         // 현재 포인트 조회 (Point 테이블 기반)
@@ -122,7 +124,7 @@ public class PointService {
         }
 
         // Point 테이블에 음수 금액 레코드 추가 (사용 내역)
-        com.bird.cos.domain.user.Point pointRecord = com.bird.cos.domain.user.Point.builder()
+        Point pointRecord = Point.builder()
                 .user(user)
                 .pointAmount(-amount)
                 .pointDescription(description)

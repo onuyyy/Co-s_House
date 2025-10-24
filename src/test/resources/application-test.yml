@@ -1,17 +1,25 @@
 spring:
+  main:
+    allow-bean-definition-overriding: true
   datasource:
-    url: jdbc:h2:mem:testdb
+    url: jdbc:h2:mem:testdb;MODE=MYSQL;DB_CLOSE_DELAY=-1;DATABASE_TO_UPPER=false;IGNORECASE=TRUE;INIT=CREATE DOMAIN IF NOT EXISTS TEXT AS CLOB\;CREATE DOMAIN IF NOT EXISTS LONGTEXT AS CLOB
     driver-class-name: org.h2.Driver
     username: sa
     password:
 
   jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
       ddl-auto: create-drop
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
     show-sql: true
     properties:
       hibernate:
         format_sql: true
+        dialect: org.hibernate.dialect.H2Dialect
+        globally_quoted_identifiers: true
+        physical_naming_strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
 
   h2:
     console:
@@ -21,3 +29,6 @@ logging:
   level:
     org.hibernate.SQL: DEBUG
     org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+
+file:
+  upload-dir: ${java.io.tmpdir}/cos-test-uploads/
