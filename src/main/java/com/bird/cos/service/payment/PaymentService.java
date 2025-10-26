@@ -9,7 +9,6 @@ import com.bird.cos.dto.payment.PaymentRequest;
 import com.bird.cos.dto.payment.PaymentResponse;
 import com.bird.cos.dto.payment.TossConfirmRequest;
 import com.bird.cos.repository.payment.PaymentRepository;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpEntity;
@@ -31,7 +30,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Service
-@RequiredArgsConstructor
 @Slf4j
 public class PaymentService {
 
@@ -40,18 +38,17 @@ public class PaymentService {
 
     private final PaymentRepository paymentRepository;
     private final TossPaymentsProperties.Property tossProperties;
-    private final RestTemplateBuilder restTemplateBuilder;
+    private final RestTemplate restTemplate;
 
-    private RestTemplate restTemplate;
-
-    private RestTemplate restTemplate() {
-        if (restTemplate == null) {
-            restTemplate = restTemplateBuilder
-                    .setConnectTimeout(Duration.ofSeconds(5))
-                    .setReadTimeout(Duration.ofSeconds(10))
-                    .build();
-        }
-        return restTemplate;
+    public PaymentService(PaymentRepository paymentRepository,
+                          TossPaymentsProperties.Property tossProperties,
+                          RestTemplateBuilder restTemplateBuilder) {
+        this.paymentRepository = paymentRepository;
+        this.tossProperties = tossProperties;
+        this.restTemplate = restTemplateBuilder
+                .setConnectTimeout(Duration.ofSeconds(5))
+                .setReadTimeout(Duration.ofSeconds(10))
+                .build();
     }
 
     @Transactional
@@ -105,7 +102,7 @@ public class PaymentService {
         HttpEntity<Map<String, Object>> entity = new HttpEntity<>(payload, headers);
 
         try {
-            ResponseEntity<Map> response = restTemplate().postForEntity(TOSS_CONFIRM_ENDPOINT, entity, Map.class);
+            ResponseEntity<Map> response = restTemplate.postForEntity(TOSS_CONFIRM_ENDPOINT, entity, Map.class);
             Map<String, Object> body = response.getBody();
             if (body == null) {
                 throw new IllegalStateException("토스 결제 승인 응답이 비어 있습니다.");
@@ -158,7 +155,7 @@ public class PaymentService {
         HttpEntity<Map<String, Object>> entity = new HttpEntity<>(payload, headers);
 
         try {
-            ResponseEntity<Map> response = restTemplate().postForEntity(url, entity, Map.class);
+            ResponseEntity<Map> response = restTemplate.postForEntity(url, entity, Map.class);
             Map<String, Object> body = response.getBody();
             if (body == null) {
                 throw new IllegalStateException("토스 결제 취소 응답이 비어 있습니다.");

@@ -42,7 +42,7 @@ public class QuestionController {
         model.addAttribute("hasNext", questionPage.hasNext());
         model.addAttribute("hasPrevious", questionPage.hasPrevious());
 
-        return "/question/question-list";
+        return "question/question-list";
     }
 
 
@@ -60,7 +60,7 @@ public class QuestionController {
         questionRequest.setCustomerPhone(currentUser.getUserPhone());
         model.addAttribute("questionDto", questionRequest);
 
-        return "/question/question-info";
+        return "question/question-info";
     }
 
     /**
@@ -79,7 +79,7 @@ public class QuestionController {
             model.addAttribute("error", "문의 등록 중 오류가 발생했습니다.");
             // 에러 발생 시, productId를 다시 모델에 담아 폼으로 돌아가야 함
             model.addAttribute("questionDto", questionDto);
-            return "/question/question-info";
+            return "question/question-info";
         }
     }
 
@@ -92,7 +92,7 @@ public class QuestionController {
             Long currentUserId = questionService.getUserIdFromAuthentication(authentication);
             QuestionManageResponse question = questionService.getQuestionDetail(id, currentUserId);
             model.addAttribute("question", question);
-            return "/question/question-detail";
+            return "question/question-detail";
         } catch (RuntimeException e) {
             return "redirect:/question";
         }
@@ -107,7 +107,7 @@ public class QuestionController {
             Long currentUserId = questionService.getUserIdFromAuthentication(authentication);
             QuestionManageResponse question = questionService.getQuestionDetail(id, currentUserId);
             model.addAttribute("questionDto", question.toUpdateRequest());
-            return "/question/question-info";
+            return "question/question-info";
         } catch (RuntimeException e) {
             return "redirect:/question";
         }
@@ -151,7 +151,7 @@ public class QuestionController {
         questionRequest.setCustomerPhone(currentUser.getUserPhone());
         model.addAttribute("questionDto", questionRequest);
 
-        return "/question/question-info"; // 기존 폼 페이지 재활용
+        return "question/question-info"; // 기존 폼 페이지 재활용
     }
 
 }
