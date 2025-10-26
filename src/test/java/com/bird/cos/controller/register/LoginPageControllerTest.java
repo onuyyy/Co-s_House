@@ -92,7 +92,7 @@ class LoginPageControllerTest {
 
         String view = loginPageController.loginForm(loginEmail, "password", session, request, response);
 
-        assertThat(view).isEqualTo("redirect:/");
+        assertThat(view).isEqualTo("redirect:/api/admin");
         assertThat(session.getAttribute("userId")).isEqualTo(1L);
         assertThat(session.getAttribute("userEmail")).isEqualTo(loginEmail);
         assertThat(session.getAttribute("userName")).isEqualTo("테스트");
