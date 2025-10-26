@@ -8,8 +8,8 @@ spring:
   datasource:
     # 로컬에서 Docker 컨테이너 MySQL에 접속 (root 계정 사용)
     url: jdbc:mysql://localhost:13306/cos?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
-    username: root
-    password: root
+    username: ${DB_USER_NAME}
+    password: ${DB_PASSWORD}
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
@@ -45,7 +45,7 @@ spring:
       client:
         registration:
           kakao:
-            client-id: 48efe75b44fe2a4173051596f7cd011f
+            client-id: ${KAKAO_CLIENT_ID}
             client-secret: ${KAKAO_CLIENT_SECRET:}
             redirect-uri: "{baseUrl}/login/oauth2/code/kakao"
             authorization-grant-type: authorization_code
@@ -54,8 +54,8 @@ spring:
               - account_email
             client-name: Kakao
           naver:
-            client-id: Sxh4tWtKGajFK1MS1zjq
-            client-secret: 2as3KpoEeD
+            client-id: ${NAVER_CLIENT_ID}
+            client-secret: ${NAVER_CLIENT_SECRET}
             redirect-uri: "{baseUrl}/login/oauth2/code/naver"
             authorization-grant-type: authorization_code
             scope:
@@ -86,8 +86,8 @@ server:
 
 toss:
   payments:
-    client-key: test_ck_DLJOpm5QrlOgXm5Qw2xNVPNdxbWn
-    secret-key: test_sk_0RnYX2w532oq2Ankz7vMVNeyqApQ
+    client-key: ${TOSS_CLIENT_KEY}
+    secret-key: ${TOSS_SECRET_KEY}
     success-url: http://localhost:8080/payment/success
     fail-url: http://localhost:8080/payment/fail
 

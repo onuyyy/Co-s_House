@@ -37,19 +37,36 @@ services:
     restart: unless-stopped
 
   grafana:
-    image: grafana/grafana:latest
+    image: grafana/grafana:11.3.0
     container_name: cos-grafana
     ports:
       - "3000:3000"
     volumes:
       - grafana-data:/var/lib/grafana
+      - ./grafana-snapshots:/var/lib/grafana/snapshots
     environment:
       - GF_SECURITY_ADMIN_USER=admin
       - GF_SECURITY_ADMIN_PASSWORD=admin
-      - GF_USERS_ALLOW_SIGN_UP=false
+      - GF_SNAPSHOTS_ENABLED=true
+      - GF_SNAPSHOTS_LOCAL_MODE=true
+      - GF_SNAPSHOTS_PUBLIC_MODE=true
+      # 렌더 설정 (Grafana -> Renderer)
+      - GF_RENDERING_SERVER_URL=http://renderer:8081/render
+      # Renderer가 완료 후 Grafana로 콜백할 주소 (도커 네트워크 내부 주소)
+      - GF_RENDERING_CALLBACK_URL=http://grafana:3000/
+      # (선택) 렌더 로그 보기 좋게
+      - GF_LOG_FILTERS=rendering:debug
     depends_on:
       - prometheus
     restart: unless-stopped
+
+  renderer:
+    image: grafana/grafana-image-renderer:latest
+    container_name: cos-grafana-renderer
+    environment:
+       - ENABLE_METRICS=true
+    ports:
+        - "8081:8081"
 
 volumes:
   mysql-data:
