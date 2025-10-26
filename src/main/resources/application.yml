@@ -1,15 +1,14 @@
 spring:
   docker:
     compose:
-      enabled: true
+      enabled: ${SPRING_DOCKER_COMPOSE_ENABLED:true}
       file: ${COMPOSE_FILE:docker-compose.yml}
       lifecycle-management: start-and-stop
 
   datasource:
-    # 로컬에서 Docker 컨테이너 MySQL에 접속 (root 계정 사용)
-    url: jdbc:mysql://localhost:13306/cos?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
-    username: ${DB_USER_NAME}
-    password: ${DB_PASSWORD}
+    url: ${SPRING_DATASOURCE_URL:jdbc:mysql://localhost:13306/cos?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true}
+    username: ${SPRING_DATASOURCE_USERNAME:root}
+    password: ${SPRING_DATASOURCE_PASSWORD:root}
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
@@ -27,10 +26,10 @@ spring:
     cache: false
 
   mail:
-    host: smtp.naver.com #smtp 서버 주소
-    port: 465 # 메일 인증서버 포트
-    username: yju407@naver.com #네이버 아이디
-    password: JYVFH6QBY141 #네이버 비밀번호
+    host: ${MAIL_HOST:smtp.naver.com}
+    port: ${MAIL_PORT:465}
+    username: ${MAIL_USERNAME:yju407@naver.com}
+    password: ${MAIL_PASSWORD:change-me}
     properties:
       mail:
         smtp:
@@ -102,13 +101,13 @@ management:
     health:
       show-details: always
     metrics:
-      enabled: true
+      enabled: ${SPRING_DOCKER_COMPOSE_ENABLED:true}
     prometheus:
-      enabled: true
+      enabled: ${SPRING_DOCKER_COMPOSE_ENABLED:true}
   metrics:
     export:
       prometheus:
-        enabled: true
+        enabled: ${SPRING_DOCKER_COMPOSE_ENABLED:true}
     distribution:
       percentiles-histogram:
         http.server.requests: true

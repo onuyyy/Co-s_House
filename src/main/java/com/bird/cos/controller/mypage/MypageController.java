@@ -72,7 +72,7 @@ public class MypageController {
         model.addAttribute("recentOrders", mypageService.getRecentOrders(userId, 5));
         model.addAttribute("recentQuestions", mypageService.getRecentQuestions(userId, 5));
 
-        return "/mypage/mypage";
+        return "mypage/mypage";
     }
 
     /**
@@ -83,7 +83,7 @@ public class MypageController {
         Long userId = mypageService.getUserIdFromAuthentication(authentication);
         MypageUserManageResponse userInfo = mypageService.getUserInfoById(userId);
         model.addAttribute("userInfo", userInfo);
-        return "/mypage/mypage-user";
+        return "mypage/mypage-user";
     }
 
     /**
