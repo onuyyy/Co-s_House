@@ -45,7 +45,7 @@ spring:
         registration:
           kakao:
             client-id: ${KAKAO_CLIENT_ID}
-            client-secret: ${KAKAO_CLIENT_SECRET}
+            client-secret: ${KAKAO_CLIENT_SECRET:}
             redirect-uri: "{baseUrl}/login/oauth2/code/kakao"
             authorization-grant-type: authorization_code
             scope:
@@ -85,8 +85,8 @@ server:
 
 toss:
   payments:
-    client-key: test_ck_DLJOpm5QrlOgXm5Qw2xNVPNdxbWn
-    secret-key: test_sk_0RnYX2w532oq2Ankz7vMVNeyqApQ
+    client-key: ${TOSS_CLIENT_KEY}
+    secret-key: ${TOSS_SECRET_KEY}
     success-url: http://localhost:8080/payment/success
     fail-url: http://localhost:8080/payment/fail
 

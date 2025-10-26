@@ -7,14 +7,14 @@ spring:
 
   datasource:
     # 로컬에서 Docker 컨테이너 MySQL에 접속 (root 계정 사용)
-    url: jdbc:mysql://localhost:13306/cos?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+    url: jdbc:mysql://localhost:13306/cos-test?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
     username: root
     password: root
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create-drop
     show-sql: true
     database-platform: org.hibernate.dialect.MySQL8Dialect
 
