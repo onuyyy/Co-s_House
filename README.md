@@ -4,6 +4,9 @@
 
 Co's House는 '오늘의 집'을 벤치마킹 한 E-Commerce 플랫폼입니다. 
 
+<img width="595" height="569" alt="image" src="https://github.com/user-attachments/assets/578fd96b-5474-466b-aa7b-7a1b7b52e900" />
+
+
 ## 📋 목차
 
 - [주요 기능](#주요-기능)
