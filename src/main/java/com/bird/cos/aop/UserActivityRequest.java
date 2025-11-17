@@ -1,5 +1,7 @@
 package com.bird.cos.aop;
 
+import com.bird.cos.domain.log.UserActivityLog;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -7,6 +9,7 @@ import java.time.LocalDateTime;
 
 @Setter
 @Getter
+@Builder
 public class UserActivityRequest {
 
     private String username;
@@ -18,5 +21,9 @@ public class UserActivityRequest {
     private String referrerUrl;
     private String userAgent;
     private long targetId;
+    private boolean isAdminAccess;
+    private Integer accessStatus;
+    private UserActivityLog.AccessResult accessResult;
+    private UserActivityLog.ActivityType activityType;
 
 }
