@@ -22,4 +22,23 @@ public interface UserActivityLogRepository extends JpaRepository<UserActivityLog
     @Query("DELETE FROM UserActivityLog ual WHERE ual.userId = :user")
     void deleteByUserId(@Param("user") User user);
 
+    // 관리자 접근 로그 조회 메서드들
+    Page<UserActivityLog> findByIsAdminAccessTrueOrderByActivityTimeDesc(Pageable pageable);
+    
+    Page<UserActivityLog> findByIsAdminAccessTrueAndAccessResultOrderByActivityTimeDesc(
+            UserActivityLog.AccessResult accessResult, Pageable pageable);
+    
+    Page<UserActivityLog> findByIsAdminAccessTrueAndActivityTimeBetweenOrderByActivityTimeDesc(
+            LocalDateTime startDate, LocalDateTime endDate, Pageable pageable);
+    
+    @Query("SELECT ual FROM UserActivityLog ual WHERE ual.isAdminAccess = true " +
+           "AND ual.userId.userName LIKE %:userName% " +
+           "ORDER BY ual.activityTime DESC")
+    Page<UserActivityLog> findAdminAccessByUserName(@Param("userName") String userName, Pageable pageable);
+    
+    @Query("SELECT ual FROM UserActivityLog ual WHERE ual.isAdminAccess = true " +
+           "AND ual.accessResult IN ('DENIED', 'UNAUTHENTICATED') " +
+           "ORDER BY ual.activityTime DESC")
+    Page<UserActivityLog> findFailedAdminAccess(Pageable pageable);
+
 }

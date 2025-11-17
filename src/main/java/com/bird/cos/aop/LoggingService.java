@@ -51,6 +51,10 @@ public class LoggingService {
                     .ipAddress(request.getIpAddress())
                     .sessionId(request.getSessionId())
                     .targetId(request.getTargetId())
+                    .isAdminAccess(request.isAdminAccess())
+                    .accessStatus(request.getAccessStatus())
+                    .accessResult(request.getAccessResult())
+                    .activityType(request.getActivityType())
                     .build();
 
             userActivityLogRepository.save(activityLog);
@@ -61,7 +65,10 @@ public class LoggingService {
                     request.getPageUrl());
 
         } catch (Exception e) {
-            // todo : 예외 처리
+            log.error("Failed to save activity log - User: {}, URL: {}, Error: {}", 
+                    request.getUsername(), 
+                    request.getPageUrl(), 
+                    e.getMessage(), e);
         }
     }
 }

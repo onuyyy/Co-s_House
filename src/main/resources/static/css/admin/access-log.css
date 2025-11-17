@@ -1,0 +1,93 @@
+/* 접근 로그 페이지 전용 스타일 */
+
+.card {
+    border: none;
+    box-shadow: 0 0.125rem 0.25rem rgba(0,0,0,0.075);
+    transition: box-shadow 0.3s ease;
+}
+
+.card:hover {
+    box-shadow: 0 0.25rem 0.5rem rgba(0,0,0,0.1);
+}
+
+.card-title {
+    font-size: 0.875rem;
+    color: #6c757d;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 0.5rem;
+}
+
+.display-6 {
+    font-weight: 600;
+}
+
+.table {
+    font-size: 0.875rem;
+}
+
+.table th {
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.5px;
+    color: #6c757d;
+    border-bottom: 2px solid #dee2e6;
+}
+
+.table td {
+    vertical-align: middle;
+    padding: 0.75rem 0.5rem;
+}
+
+.badge {
+    font-weight: 500;
+    padding: 0.25rem 0.5rem;
+}
+
+.text-truncate {
+    display: inline-block;
+}
+
+/* 필터 섹션 스타일 */
+.form-label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #495057;
+    margin-bottom: 0.25rem;
+}
+
+.form-control,
+.form-select {
+    font-size: 0.875rem;
+}
+
+/* 페이지네이션 스타일 */
+.pagination {
+    margin-top: 2rem;
+}
+
+.page-link {
+    color: #495057;
+    border: 1px solid #dee2e6;
+}
+
+.page-item.active .page-link {
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+}
+
+/* 반응형 테이블 */
+@media (max-width: 768px) {
+    .table-responsive {
+        font-size: 0.75rem;
+    }
+    
+    .card-title {
+        font-size: 0.75rem;
+    }
+    
+    .display-6 {
+        font-size: 1.5rem;
+    }
+}

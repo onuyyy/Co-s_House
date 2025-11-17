@@ -90,6 +90,13 @@ toss:
     success-url: http://localhost:8080/payment/success
     fail-url: http://localhost:8080/payment/fail
 
+logging:
+  level:
+    com.bird.cos: DEBUG
+    com.bird.cos.aop: DEBUG
+    com.bird.cos.security: DEBUG
+    org.springframework.security: DEBUG
+
 # Actuator & Prometheus Configuration
 management:
   endpoints:

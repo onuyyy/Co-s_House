@@ -1,10 +1,12 @@
 package com.bird.cos.config;
 
+import com.bird.cos.security.AdminAccessLogFilter;
 import com.bird.cos.security.ProblemDetailsAccessDeniedHandler;
 import com.bird.cos.security.ProblemDetailsAuthenticationEntryPoint;
 import com.bird.cos.security.RegisterSecurityFilter;
 import com.bird.cos.security.oauth.SocialOAuth2UserService;
 import com.bird.cos.security.oauth.OAuth2LoginSuccessHandler;
+import jakarta.servlet.Filter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,6 +21,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.access.intercept.AuthorizationFilter;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.savedrequest.NullRequestCache;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
@@ -42,6 +45,7 @@ public class SecurityConfig {
     private final Environment environment;
     private final SocialOAuth2UserService socialOAuth2UserService;
     private final OAuth2LoginSuccessHandler oAuth2LoginSuccessHandler;
+    private final AdminAccessLogFilter adminAccessLogFilter;
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
@@ -73,6 +77,8 @@ public class SecurityConfig {
                 // 서버 렌더/동일 오리진 기준이므로 CSRF/CORS는 기본 비활성화(필요 시 별도 구성)
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(AbstractHttpConfigurer::disable)
+                // 관리자 접근 로그는 인증/인가 결과까지 포착하기 위해 ExceptionTranslationFilter 앞에서 처리
+                .addFilterBefore(adminAccessLogFilter, org.springframework.security.web.access.ExceptionTranslationFilter.class)
                 .authorizeHttpRequests(auth -> auth
                         // 0) Actuator endpoints 허용 (모니터링용)
                         .requestMatchers("/actuator/**").permitAll()

@@ -1,5 +1,6 @@
 package com.bird.cos.aop;
 
+import com.bird.cos.domain.log.UserActivityLog;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -38,34 +39,35 @@ public class LoggingAspect {
 
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-            UserActivityRequest userActivityRequest = new UserActivityRequest();
-            userActivityRequest.setIpAddress(ip);
-            userActivityRequest.setUserAgent(userAgent);
-            userActivityRequest.setReferrerUrl(referrerUrl);
-            userActivityRequest.setPageUrl(pageUrl);
-            userActivityRequest.setSessionId(sessionId);
-            userActivityRequest.setActivityTime(LocalDateTime.now());
-
-            String username;
-
+            String username = "anonymous";
+            boolean isAdmin = false;
+            
             if (authentication != null) {
                 Object principal = authentication.getPrincipal();
 
                 if (principal instanceof UserDetails userDetails) {
                     username = userDetails.getUsername();
 
-                    boolean isAdmin = userDetails.getAuthorities().stream()
+                    isAdmin = userDetails.getAuthorities().stream()
                             .anyMatch(authority ->
                                     authority.getAuthority().contains("ADMIN"));
-
-                    userActivityRequest.setUsername(username);
-                    userActivityRequest.setAdmin(isAdmin);
                 }
-
-            } else {
-                userActivityRequest.setUsername("anonymous");
-                userActivityRequest.setAdmin(false);
             }
+            
+            UserActivityRequest userActivityRequest = UserActivityRequest.builder()
+                    .ipAddress(ip)
+                    .userAgent(userAgent)
+                    .referrerUrl(referrerUrl)
+                    .pageUrl(pageUrl)
+                    .sessionId(sessionId)
+                    .activityTime(LocalDateTime.now())
+                    .username(username)
+                    .isAdmin(isAdmin)
+                    // 관리자 페이지 접근 표시 (AOP는 정상 접근만 기록)
+                    .isAdminAccess(true)
+                    .accessStatus(200)
+                    .accessResult(UserActivityLog.AccessResult.SUCCESS)
+                    .build();
 
             loggingService.logSave(userActivityRequest);
         } catch (Exception e) {

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>관리자 접근 로그</title>
+    <link rel="stylesheet" th:href="@{/css/admin/common.css}">
+    <link rel="stylesheet" th:href="@{/css/admin/access-log.css}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- 사이드바 -->
+            <div th:replace="~{admin/fragments/sidebar :: sidebar}"></div>
+            
+            <!-- 메인 컨텐츠 -->
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1 class="h2">관리자 접근 로그</h1>
+                </div>
+                
+                <!-- 통계 정보 -->
+                <div class="row mb-4">
+                    <div class="col-md-3">
+                        <div class="card text-center">
+                            <div class="card-body">
+                                <h5 class="card-title">총 접근 수</h5>
+                                <p class="card-text display-6" th:text="${stats.totalAccess}">0</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card text-center">
+                            <div class="card-body">
+                                <h5 class="card-title">성공</h5>
+                                <p class="card-text display-6 text-success" th:text="${stats.successCount}">0</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card text-center">
+                            <div class="card-body">
+                                <h5 class="card-title">실패</h5>
+                                <p class="card-text display-6 text-danger" th:text="${stats.failedCount}">0</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card text-center">
+                            <div class="card-body">
+                                <h5 class="card-title">성공률</h5>
+                                <p class="card-text display-6" th:text="${#numbers.formatDecimal(stats.successRate, 1, 1) + '%'}">0%</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 필터 섹션 -->
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <form th:action="@{/api/admin/access-logs}" method="get" class="row g-3">
+                            <div class="col-md-3">
+                                <label for="result" class="form-label">접근 결과</label>
+                                <select name="result" id="result" class="form-select">
+                                    <option value="">전체</option>
+                                    <option value="SUCCESS" th:selected="${currentResult == 'SUCCESS'}">성공</option>
+                                    <option value="DENIED" th:selected="${currentResult == 'DENIED'}">권한 거부</option>
+                                    <option value="UNAUTHENTICATED" th:selected="${currentResult == 'UNAUTHENTICATED'}">미인증</option>
+                                    <option value="failed" th:selected="${currentResult == 'failed'}">실패 (전체)</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="userName" class="form-label">사용자명</label>
+                                <input type="text" name="userName" id="userName" class="form-control" 
+                                       th:value="${currentUserName}" placeholder="사용자명 검색">
+                            </div>
+                            <div class="col-md-2">
+                                <label for="startDate" class="form-label">시작일</label>
+                                <input type="date" name="startDate" id="startDate" class="form-control" 
+                                       th:value="${currentStartDate}">
+                            </div>
+                            <div class="col-md-2">
+                                <label for="endDate" class="form-label">종료일</label>
+                                <input type="date" name="endDate" id="endDate" class="form-control" 
+                                       th:value="${currentEndDate}">
+                            </div>
+                            <div class="col-md-2 d-flex align-items-end">
+                                <button type="submit" class="btn btn-primary w-100">검색</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                
+                <!-- 로그 테이블 -->
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>시간</th>
+                                <th>사용자</th>
+                                <th>이메일</th>
+                                <th>권한</th>
+                                <th>페이지 URL</th>
+                                <th>IP 주소</th>
+                                <th>상태</th>
+                                <th>결과</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="log : ${logs.content}">
+                                <td th:text="${log.activityTimeFormatted}">2024-01-01 00:00:00</td>
+                                <td th:text="${log.userName}">사용자명</td>
+                                <td th:text="${log.userEmail}">email@example.com</td>
+                                <td>
+                                    <span class="badge bg-secondary" th:text="${log.userRole}">권한</span>
+                                </td>
+                                <td class="text-truncate" style="max-width: 300px;" 
+                                    th:text="${log.pageUrl}" 
+                                    th:title="${log.pageUrl}">URL</td>
+                                <td th:text="${log.ipAddress}">0.0.0.0</td>
+                                <td>
+                                    <span class="badge" 
+                                          th:classappend="${log.accessStatus >= 200 && log.accessStatus < 300} ? 'bg-success' : 
+                                                          ${log.accessStatus >= 400 && log.accessStatus < 500} ? 'bg-warning' : 'bg-danger'"
+                                          th:text="${log.accessStatus}">200</span>
+                                </td>
+                                <td>
+                                    <span class="badge" 
+                                          th:classappend="'bg-' + ${log.accessResultClass}"
+                                          th:text="${log.accessResultDisplay}">결과</span>
+                                </td>
+                            </tr>
+                            <tr th:if="${logs.content.empty}">
+                                <td colspan="8" class="text-center">조회된 로그가 없습니다.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <!-- 페이지네이션 -->
+                <nav th:if="${logs.totalPages > 1}">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item" th:classappend="${logs.first} ? 'disabled'">
+                            <a class="page-link" 
+                               th:href="@{/api/admin/access-logs(page=${logs.number - 1}, result=${currentResult}, userName=${currentUserName}, startDate=${currentStartDate}, endDate=${currentEndDate})}" 
+                               tabindex="-1">이전</a>
+                        </li>
+                        
+                        <li th:each="pageNum : ${#numbers.sequence(0, logs.totalPages - 1)}" 
+                            class="page-item" 
+                            th:classappend="${pageNum == logs.number} ? 'active'">
+                            <a class="page-link" 
+                               th:href="@{/api/admin/access-logs(page=${pageNum}, result=${currentResult}, userName=${currentUserName}, startDate=${currentStartDate}, endDate=${currentEndDate})}" 
+                               th:text="${pageNum + 1}">1</a>
+                        </li>
+                        
+                        <li class="page-item" th:classappend="${logs.last} ? 'disabled'">
+                            <a class="page-link" 
+                               th:href="@{/api/admin/access-logs(page=${logs.number + 1}, result=${currentResult}, userName=${currentUserName}, startDate=${currentStartDate}, endDate=${currentEndDate})}">다음</a>
+                        </li>
+                    </ul>
+                </nav>
+            </main>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
