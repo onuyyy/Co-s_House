@@ -15,7 +15,6 @@ Co's House는 '오늘의 집'을 벤치마킹 한 E-Commerce 플랫폼입니다.
 - [프로젝트 구조](#프로젝트-구조)
 - [보안](#보안)
 - [모니터링](#모니터링)
-- [개발 가이드](#개발-가이드)
 - [데이터베이스](#데이터베이스)
 
 ---
@@ -128,7 +127,6 @@ CONTAINER ID   IMAGE               PORTS                      NAMES
 mysql -h 127.0.0.1 -P 13306 -u root -proot cos
 
 # SQL 스크립트 실행 (순서 중요!)
-source document/sql/1_table_insert.sql;           # 테이블 생성
 source document/sql/0_user_role_migration.sql;    # 역할 마이그레이션 (필수)
 source document/sql/2_basic_data_insert.sql;      # 기본 데이터 삽입
 source document/sql/3_test_queries.sql;           # 테스트 쿼리 (선택)
@@ -343,134 +341,6 @@ spring:
 
 ---
 
-## 💻 개발 가이드
-
-### 빌드 명령어
-
-```bash
-# 전체 빌드 (테스트 포함)
-./gradlew build
-
-# 테스트 제외 빌드
-./gradlew build -x test
-
-# 클린 빌드
-./gradlew clean build
-
-# 애플리케이션 실행
-./gradlew bootRun
-
-# JAR 파일 생성
-./gradlew bootJar
-```
-
-### 테스트
-
-```bash
-# 전체 테스트 실행
-./gradlew test
-
-# 특정 테스트 클래스 실행
-./gradlew test --tests CartServiceTest
-
-# 특정 테스트 메서드 실행
-./gradlew test --tests CartServiceTest.testMethodName
-
-# 상세 출력과 함께 테스트
-./gradlew test --info
-```
-
-### 새로운 엔티티 추가
-
-1. **엔티티 클래스 생성** (`domain/` 패키지)
-```java
-@Entity
-@Getter @Builder
-@NoArgsConstructor @AllArgsConstructor
-public class NewEntity {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    // ... fields
-}
-```
-
-2. **리포지토리 생성**
-```java
-public interface NewEntityRepository extends JpaRepository<NewEntity, Long> {
-}
-```
-
-3. **복잡한 쿼리가 필요한 경우 Querydsl 추가**
-```java
-// NewEntityRepositoryCustom.java
-public interface NewEntityRepositoryCustom {
-    List<NewEntity> complexQuery(String param);
-}
-
-// NewEntityRepositoryCustomImpl.java
-@Repository
-public class NewEntityRepositoryCustomImpl implements NewEntityRepositoryCustom {
-    private final JPAQueryFactory queryFactory;
-    // ... 구현
-}
-
-// NewEntityRepository.java (확장)
-public interface NewEntityRepository extends
-    JpaRepository<NewEntity, Long>, NewEntityRepositoryCustom {
-}
-```
-
-4. **Q-class 생성**
-```bash
-./gradlew clean compileJava
-```
-
-5. **서비스 및 컨트롤러 작성**
-
-### 엔드포인트 추가
-
-**Public 엔드포인트** (인증 불필요):
-```java
-// SecurityConfig.java에 추가
-.requestMatchers(HttpMethod.GET,
-    "/new-endpoint"  // 추가
-).permitAll()
-```
-
-**Admin 엔드포인트** (자동으로 admin_role 필요):
-```java
-@GetMapping("/api/admin/new-feature")
-public ResponseEntity<?> adminMethod() { ... }
-// /api/admin/** 경로는 자동으로 보호됨
-```
-
-**메서드 레벨 보안**:
-```java
-@PreAuthorize("hasAuthority('admin_role')")
-public void protectedMethod() { ... }
-```
-
-### 디버깅
-
-**데이터베이스 확인**:
-```bash
-# MySQL 컨테이너 확인
-docker ps
-
-# MySQL 접속
-mysql -h 127.0.0.1 -P 13306 -u root -proot cos
-
-# SQL 로그 확인 (콘솔 출력, show-sql: true)
-```
-
-**Querydsl Q-class 누락 시**:
-```bash
-./gradlew clean build
-# Q-classes는 build/generated/querydsl/에 생성됨
-```
-
----
-
 ## 🗄 데이터베이스
 
 ### 연결 정보
@@ -565,22 +435,6 @@ toss:
 
 ---
 
-## 🤝 기여
-
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
----
-
-## 📄 라이선스
-
-이 프로젝트는 [LICENSE](LICENSE) 파일에 명시된 라이선스를 따릅니다.
-
----
-
 ## 📚 추가 문서
 
 - [CLAUDE.md](CLAUDE.md) - 개발자를 위한 상세 가이드
@@ -589,30 +443,3 @@ toss:
 
 ---
 
-## 🔧 문제 해결
-
-### Q-class 생성 안됨
-```bash
-./gradlew clean compileJava
-# build/generated/querydsl/ 확인
-```
-
-### MySQL 연결 실패
-```bash
-docker ps  # 컨테이너 실행 확인
-docker logs cos-mysql  # 로그 확인
-```
-
-### 테스트 실패
-```bash
-# H2 데이터베이스 사용 (in-memory)
-./gradlew test --info  # 상세 로그 확인
-```
-
-### 포트 충돌
-- 8080 (애플리케이션), 13306 (MySQL), 9090 (Prometheus), 3000 (Grafana)
-- 필요 시 `application.yml` 및 `docker-compose.yml`에서 포트 변경
-
----
-
-**Made with ☕ and Spring Boot**
