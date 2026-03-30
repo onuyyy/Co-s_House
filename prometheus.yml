@@ -21,7 +21,7 @@ scrape_configs:
     metrics_path: '/actuator/prometheus'
     scrape_interval: 10s # Spring Boot 앱은 10초마다 수집
     static_configs:
-      - targets: ['host.docker.internal:8080'] # Docker 내부에서 호스트 접근
+      - targets: ['cos-app:8080'] # Docker 네트워크 서비스명으로 접근
         labels:
           application: 'cos-house'
           environment: 'development'

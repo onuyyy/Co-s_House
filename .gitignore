@@ -203,4 +203,8 @@ gradle-app.setting
 
 
 .env
+
+# Private documents (interview prep, personal notes)
+docs/private/
+
 # End of https://www.toptal.com/developers/gitignore/api/gradle,java,macos,windows,intellij+all

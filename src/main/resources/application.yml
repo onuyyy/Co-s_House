@@ -1,4 +1,7 @@
 spring:
+  application:
+    name: cos-house
+
   docker:
     compose:
       enabled: ${SPRING_DOCKER_COMPOSE_ENABLED:true}
@@ -108,13 +111,13 @@ management:
     health:
       show-details: always
     metrics:
-      enabled: ${SPRING_DOCKER_COMPOSE_ENABLED:true}
+      enabled: true
     prometheus:
-      enabled: ${SPRING_DOCKER_COMPOSE_ENABLED:true}
+      enabled: true
   metrics:
     export:
       prometheus:
-        enabled: ${SPRING_DOCKER_COMPOSE_ENABLED:true}
+        enabled: true
     distribution:
       percentiles-histogram:
         http.server.requests: true

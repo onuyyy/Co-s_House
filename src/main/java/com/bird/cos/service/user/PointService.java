@@ -112,8 +112,16 @@ public class PointService {
     public synchronized void usePoints(Long userId, int amount, String description, String referenceId, String referenceType) {
         validatePositiveAmount(amount);
 
-        User user = userRepository.findByIdForUpdate(userId)
+        User user = userRepository.findById(userId)
                 .orElseThrow(BusinessException::userNotFound);
+
+        // 포인트 차감 시 사용자별 user_point 행에 비관적 락 획득
+        userPointRepository.findByUserIdForUpdate(userId)
+                .orElseGet(() -> {
+                    getOrCreateUserPoint(userId);
+                    return userPointRepository.findByUserIdForUpdate(userId)
+                            .orElseThrow(() -> BusinessException.pointNotFound(userId));
+                });
 
         // 현재 포인트 조회 (Point 테이블 기반)
         Integer currentPoints = getAvailablePoints(userId);

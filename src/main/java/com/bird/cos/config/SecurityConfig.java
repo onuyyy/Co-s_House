@@ -4,15 +4,16 @@ import com.bird.cos.security.AdminAccessLogFilter;
 import com.bird.cos.security.ProblemDetailsAccessDeniedHandler;
 import com.bird.cos.security.ProblemDetailsAuthenticationEntryPoint;
 import com.bird.cos.security.RegisterSecurityFilter;
-import com.bird.cos.security.oauth.SocialOAuth2UserService;
 import com.bird.cos.security.oauth.OAuth2LoginSuccessHandler;
-import jakarta.servlet.Filter;
+import com.bird.cos.security.oauth.SocialOAuth2UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.core.env.Profiles;
 import org.springframework.http.HttpMethod;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
@@ -21,10 +22,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.access.intercept.AuthorizationFilter;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.savedrequest.NullRequestCache;
-import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.security.web.context.SecurityContextRepository;
 
@@ -72,6 +71,21 @@ public class SecurityConfig {
     }
 
     @Bean
+    @Order(0)
+    public SecurityFilterChain actuatorSecurityFilterChain(HttpSecurity http) throws Exception {
+        http
+                .securityMatcher("/actuator/**")
+                .csrf(AbstractHttpConfigurer::disable)
+                .cors(AbstractHttpConfigurer::disable)
+                .requestCache(c -> c.requestCache(new NullRequestCache()))
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .authorizeHttpRequests(auth -> auth.anyRequest().permitAll());
+
+        return http.build();
+    }
+
+    @Bean
+    @Order(1)
     public SecurityFilterChain securityFilterChain(HttpSecurity http, SecurityContextRepository securityContextRepository) throws Exception {
         http
                 // 서버 렌더/동일 오리진 기준이므로 CSRF/CORS는 기본 비활성화(필요 시 별도 구성)
@@ -80,9 +94,6 @@ public class SecurityConfig {
                 // 관리자 접근 로그는 인증/인가 결과까지 포착하기 위해 ExceptionTranslationFilter 앞에서 처리
                 .addFilterBefore(adminAccessLogFilter, org.springframework.security.web.access.ExceptionTranslationFilter.class)
                 .authorizeHttpRequests(auth -> auth
-                        // 0) Actuator endpoints 허용 (모니터링용)
-                        .requestMatchers("/actuator/**").permitAll()
-
                         // 1) 이메일 인증 허용
                         .requestMatchers("/auth/email/**").permitAll()
 

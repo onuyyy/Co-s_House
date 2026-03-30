@@ -11,6 +11,20 @@ services:
       SPRING_DATASOURCE_URL: ${SPRING_DATASOURCE_URL:-jdbc:mysql://mysql:3306/cos?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true}
       SPRING_DATASOURCE_USERNAME: ${SPRING_DATASOURCE_USERNAME:-cos}
       SPRING_DATASOURCE_PASSWORD: ${SPRING_DATASOURCE_PASSWORD:-cos123}
+      JAVA_TOOL_OPTIONS: -javaagent:/otel/opentelemetry-javaagent.jar
+      OTEL_SERVICE_NAME: cos-house
+      OTEL_EXPORTER_OTLP_ENDPOINT: http://jaeger:4318
+      OTEL_EXPORTER_OTLP_PROTOCOL: http/protobuf
+      OTEL_TRACES_EXPORTER: otlp
+      OTEL_TRACES_SAMPLER: always_on
+      OTEL_METRICS_EXPORTER: none
+      OTEL_LOGS_EXPORTER: none
+      OTEL_BSP_MAX_QUEUE_SIZE: "65536"
+      OTEL_BSP_MAX_EXPORT_BATCH_SIZE: "512"
+      OTEL_BSP_SCHEDULE_DELAY: "200"
+      OTEL_BSP_EXPORT_TIMEOUT: "30000"
+      OTEL_INSTRUMENTATION_JDBC_ENABLED: "true"
+      OTEL_INSTRUMENTATION_HIKARICP_ENABLED: "true"
       KAKAO_CLIENT_ID: ${KAKAO_CLIENT_ID:-}
       KAKAO_CLIENT_SECRET: ${KAKAO_CLIENT_SECRET:-}
       NAVER_CLIENT_ID: ${NAVER_CLIENT_ID:-}
@@ -98,6 +112,19 @@ services:
        - ENABLE_METRICS=true
     ports:
         - "8081:8081"
+
+  jaeger:
+    image: jaegertracing/all-in-one:latest
+    container_name: cos-jaeger
+    environment:
+      - COLLECTOR_OTLP_ENABLED=true
+    ports:
+      - "16686:16686"
+      - "4317:4317"
+      - "4318:4318"
+    restart: unless-stopped
+    networks:
+      - backend
 
 volumes:
   mysql-data:
