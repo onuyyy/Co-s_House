@@ -85,6 +85,20 @@ public class UserPoint {
     }
 
     /**
+     * 외부 원장 기준으로 현재 사용 가능 포인트를 동기화한다.
+     * 단기적으로 Point 합계와 UserPoint를 맞추기 위한 보정용 메서드다.
+     */
+    public void syncAvailablePoint(int availablePoint) {
+        if (availablePoint < 0) {
+            this.availablePoint = 0;
+            this.totalPoint = 0;
+            return;
+        }
+        this.availablePoint = availablePoint;
+        this.totalPoint = Math.max(this.totalPoint, availablePoint);
+    }
+
+    /**
      * 포인트 만료
      * @param amount 만료될 포인트 (양수)
      */

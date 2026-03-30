@@ -13,6 +13,10 @@ spring:
     username: ${SPRING_DATASOURCE_USERNAME:root}
     password: ${SPRING_DATASOURCE_PASSWORD:root}
     driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      maximum-pool-size: 50 # 동시에 DB 처리 가능한 최대 커넥션 수
+      minimum-idle: 10 # 커넥션 풀에서 유지할 최소 유휴 커넥션 수
+      connection-timeout: 30000 # 커넥션을 얻기 위해 기다리는 최대 시간 (ms)
 
   jpa:
     hibernate:

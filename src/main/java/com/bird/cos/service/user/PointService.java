@@ -14,7 +14,6 @@ import com.bird.cos.repository.user.PointRepository;
 import com.bird.cos.repository.user.UserPointRepository;
 import com.bird.cos.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
-import lombok.Synchronized;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -41,6 +40,14 @@ public class PointService {
     public Integer getAvailablePoints(Long userId) {
         Integer points = pointRepository.getTotalPointsByUserId(userId);
         return points != null ? points : 0;
+    }
+
+    /**
+     * 주문 화면/주문 생성 전용 포인트 조회 - UserPoint 기준
+     */
+    @Transactional
+    public Integer getOrderAvailablePoints(Long userId) {
+        return getOrCreateUserPoint(userId).getAvailablePoint();
     }
 
     /**
@@ -114,14 +121,6 @@ public class PointService {
 
         User user = userRepository.findById(userId)
                 .orElseThrow(BusinessException::userNotFound);
-
-        // 포인트 차감 시 사용자별 user_point 행에 비관적 락 획득
-        userPointRepository.findByUserIdForUpdate(userId)
-                .orElseGet(() -> {
-                    getOrCreateUserPoint(userId);
-                    return userPointRepository.findByUserIdForUpdate(userId)
-                            .orElseThrow(() -> BusinessException.pointNotFound(userId));
-                });
 
         // 현재 포인트 조회 (Point 테이블 기반)
         Integer currentPoints = getAvailablePoints(userId);
@@ -226,7 +225,31 @@ public class PointService {
     @Transactional
     public void useOrderPoints(Long userId, int useAmount, String orderId) {
         if (useAmount > 0) {
-            usePoints(userId, useAmount, "주문 결제", orderId, "ORDER");
+            User user = userRepository.findById(userId)
+                    .orElseThrow(BusinessException::userNotFound);
+
+            UserPoint userPoint = userPointRepository.findByUserIdForUpdate(userId)
+                    .orElseGet(() -> {
+                        getOrCreateUserPoint(userId);
+                        return userPointRepository.findByUserIdForUpdate(userId)
+                                .orElseThrow(() -> BusinessException.pointNotFound(userId));
+                    });
+
+            int currentPoints = userPoint.getAvailablePoint();
+            if (currentPoints < useAmount) {
+                throw BusinessException.pointInsufficient(userId, useAmount, currentPoints);
+            }
+
+            userPoint.usePoints(useAmount);
+
+            PointHistory history = PointHistory.createUse(
+                    user, useAmount, currentPoints, currentPoints - useAmount,
+                    "주문 결제", orderId, "ORDER"
+            );
+            pointHistoryRepository.save(history);
+
+            log.info("주문 포인트 사용 완료 - userId: {}, amount: {}, balanceAfter: {}",
+                    userId, useAmount, currentPoints - useAmount);
         }
     }
 

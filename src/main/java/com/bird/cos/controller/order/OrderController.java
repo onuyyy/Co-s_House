@@ -115,7 +115,7 @@ public class OrderController {
         Map<String, Object> response = new HashMap<>();
 
         try {
-            Integer availablePoints = pointService.getAvailablePoints(customUserDetails.getUserId());
+            Integer availablePoints = pointService.getOrderAvailablePoints(customUserDetails.getUserId());
 
             response.put("success", true);
             response.put("totalPoints", availablePoints != null ? availablePoints : 0);
