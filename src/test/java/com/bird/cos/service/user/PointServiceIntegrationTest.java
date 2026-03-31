@@ -1,10 +1,10 @@
 package com.bird.cos.service.user;
 
 import com.bird.cos.config.WebMvcConfig;
-import com.bird.cos.domain.user.Point;
 import com.bird.cos.domain.user.User;
-import com.bird.cos.repository.user.PointRepository;
+import com.bird.cos.domain.user.UserPoint;
 import com.bird.cos.repository.user.UserRepository;
+import com.bird.cos.repository.user.UserPointRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +42,7 @@ class PointServiceIntegrationTest {
     private UserRepository userRepository;
 
     @Autowired
-    private PointRepository pointRepository;
+    private UserPointRepository userPointRepository;
 
     @MockitoBean
     private JavaMailSender javaMailSender;
@@ -118,11 +118,12 @@ class PointServiceIntegrationTest {
                 .termsAgreed(true)
                 .build());
 
-        Point point = Point.builder()
-                .pointAmount(initialPoint)
+        UserPoint userPoint = UserPoint.builder()
                 .user(user)
+                .totalPoint(initialPoint)
+                .availablePoint(initialPoint)
                 .build();
-        pointRepository.save(point);
+        userPointRepository.save(userPoint);
 
         return user.getUserId();
     }

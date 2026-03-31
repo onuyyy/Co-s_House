@@ -3,7 +3,7 @@ package com.bird.cos.service.event;
 import com.bird.cos.domain.brand.Event;
 import com.bird.cos.domain.coupon.Coupon;
 import com.bird.cos.domain.coupon.UserCoupon;
-import com.bird.cos.domain.user.Point;
+import com.bird.cos.domain.user.PointType;
 import com.bird.cos.domain.user.User;
 import com.bird.cos.dto.events.EventActionResult;
 import com.bird.cos.dto.events.EventCardResponse;
@@ -13,8 +13,9 @@ import com.bird.cos.dto.events.EventType;
 import com.bird.cos.repository.event.EventRepository;
 import com.bird.cos.repository.mypage.coupon.CouponRepository;
 import com.bird.cos.repository.mypage.coupon.UserCouponRepository;
-import com.bird.cos.repository.user.PointRepository;
+import com.bird.cos.repository.user.PointHistoryRepository;
 import com.bird.cos.repository.user.UserRepository;
+import com.bird.cos.service.user.PointService;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import lombok.RequiredArgsConstructor;
@@ -34,13 +35,16 @@ public class EventService {
 
     private static final String WELCOME_POINT_DESCRIPTION = "웰컴 이벤트 5,000포인트";
     private static final int WELCOME_POINT_AMOUNT = 5_000;
+    private static final String WELCOME_POINT_REFERENCE_ID = "WELCOME_EVENT";
+    private static final String EVENT_REFERENCE_TYPE = "EVENT";
 
     private final EventRepository eventRepository;
     private final CouponRepository couponRepository;
-    private final PointRepository pointRepository;
+    private final PointHistoryRepository pointHistoryRepository;
     private final UserRepository userRepository;
     private final UserCouponRepository userCouponRepository;
     private final ResourceLoader resourceLoader;
+    private final PointService pointService;
 
     /**
      * 활성화된 이벤트만 조회해 목록으로 변환
@@ -118,20 +122,20 @@ public class EventService {
      * 웰컴 이벤트 참여 시 포인트를 지급한다.
      */
     private EventActionResult grantWelcomeBenefit(Long userId) {
-        boolean alreadyClaimed = pointRepository.existsByUser_UserIdAndPointDescription(userId, WELCOME_POINT_DESCRIPTION);
+        boolean alreadyClaimed = pointHistoryRepository.existsByUser_UserIdAndReferenceIdAndReferenceTypeAndType(
+                userId, WELCOME_POINT_REFERENCE_ID, EVENT_REFERENCE_TYPE, PointType.EARN
+        );
         if (alreadyClaimed) {
             return EventActionResult.failure("이미 웰컴 혜택을 받으셨습니다.", true);
         }
 
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다."));
-
-        Point point = Point.builder()
-                .user(user)
-                .pointAmount(WELCOME_POINT_AMOUNT)
-                .pointDescription(WELCOME_POINT_DESCRIPTION)
-                .build();
-        pointRepository.save(point);
+        pointService.earnPoints(
+                userId,
+                WELCOME_POINT_AMOUNT,
+                WELCOME_POINT_DESCRIPTION,
+                WELCOME_POINT_REFERENCE_ID,
+                EVENT_REFERENCE_TYPE
+        );
 
         return EventActionResult.success("웰컴 혜택으로 5,000포인트가 적립되었습니다!", true, WELCOME_POINT_AMOUNT);
     }

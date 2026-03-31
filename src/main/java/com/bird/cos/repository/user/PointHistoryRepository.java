@@ -119,6 +119,8 @@ public interface PointHistoryRepository extends JpaRepository<PointHistory, Long
      */
     boolean existsByReferenceIdAndReferenceTypeAndType(String referenceId, String referenceType, PointType type);
 
+    boolean existsByUser_UserIdAndReferenceIdAndReferenceTypeAndType(Long userId, String referenceId, String referenceType, PointType type);
+
     /**
      * 시스템 전체 포인트 내역 개수 조회 (관리자용)
      * @return 전체 포인트 내역 개수

@@ -4,7 +4,7 @@ import com.bird.cos.domain.brand.Brand;
 import com.bird.cos.domain.brand.Event;
 import com.bird.cos.domain.coupon.Coupon;
 import com.bird.cos.domain.coupon.UserCoupon;
-import com.bird.cos.domain.user.Point;
+import com.bird.cos.domain.user.PointType;
 import com.bird.cos.domain.user.User;
 import com.bird.cos.dto.events.EventActionResult;
 import com.bird.cos.dto.events.EventCardResponse;
@@ -13,12 +13,12 @@ import com.bird.cos.dto.events.EventType;
 import com.bird.cos.repository.event.EventRepository;
 import com.bird.cos.repository.mypage.coupon.CouponRepository;
 import com.bird.cos.repository.mypage.coupon.UserCouponRepository;
-import com.bird.cos.repository.user.PointRepository;
+import com.bird.cos.repository.user.PointHistoryRepository;
 import com.bird.cos.repository.user.UserRepository;
+import com.bird.cos.service.user.PointService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -43,13 +43,15 @@ class EventServiceTest {
     @Mock
     private CouponRepository couponRepository;
     @Mock
-    private PointRepository pointRepository;
+    private PointHistoryRepository pointHistoryRepository;
     @Mock
     private UserRepository userRepository;
     @Mock
     private UserCouponRepository userCouponRepository;
     @Mock
     private ResourceLoader resourceLoader;
+    @Mock
+    private PointService pointService;
 
     @InjectMocks
     private EventService eventService;
@@ -166,17 +168,15 @@ class EventServiceTest {
                 .build();
 
         when(eventRepository.findById(3L)).thenReturn(Optional.of(event));
-        when(pointRepository.existsByUser_UserIdAndPointDescription(eq(10L), anyString()))
+        when(pointHistoryRepository.existsByUser_UserIdAndReferenceIdAndReferenceTypeAndType(
+                eq(10L), eq("WELCOME_EVENT"), eq("EVENT"), eq(PointType.EARN)))
                 .thenReturn(false);
-        when(userRepository.findById(10L)).thenReturn(Optional.of(user));
-        when(pointRepository.save(any(Point.class))).thenAnswer(invocation -> invocation.getArgument(0));
 
         EventActionResult result = eventService.performEventAction("event-3", 10L);
 
         assertThat(result.isSuccess()).isTrue();
         assertThat(result.getPointAmount()).isEqualTo(5_000);
-        ArgumentCaptor<Point> captor = ArgumentCaptor.forClass(Point.class);
-        verify(pointRepository).save(argThat(saved -> saved.getPointAmount().equals(5_000)));
+        verify(pointService).earnPoints(10L, 5_000, "웰컴 이벤트 5,000포인트", "WELCOME_EVENT", "EVENT");
     }
 
     // 웰컴 이벤트를 이미 참여한 사용자는 실패 응답과 completed=true를 받는지 확인
@@ -188,14 +188,15 @@ class EventServiceTest {
                 .eventType(EventType.WELCOME.name())
                 .build();
         when(eventRepository.findById(4L)).thenReturn(Optional.of(event));
-        when(pointRepository.existsByUser_UserIdAndPointDescription(eq(10L), anyString()))
+        when(pointHistoryRepository.existsByUser_UserIdAndReferenceIdAndReferenceTypeAndType(
+                eq(10L), eq("WELCOME_EVENT"), eq("EVENT"), eq(PointType.EARN)))
                 .thenReturn(true);
 
         EventActionResult result = eventService.performEventAction("event-4", 10L);
 
         assertThat(result.isSuccess()).isFalse();
         assertThat(result.isCompleted()).isTrue();
-        verify(pointRepository, never()).save(any());
+        verify(pointService, never()).earnPoints(anyLong(), anyInt(), anyString(), anyString(), anyString());
     }
 
     // 브랜드 이벤트 참여 시 활성 쿠폰 중 미발급분만 발급되고 메시지가 생성되는지 확인

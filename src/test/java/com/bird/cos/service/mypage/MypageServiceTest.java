@@ -7,7 +7,7 @@ import com.bird.cos.repository.mypage.MypageRepository;
 import com.bird.cos.repository.order.OrderRepository;
 import com.bird.cos.repository.product.ReviewRepository;
 import com.bird.cos.repository.question.QuestionRepository;
-import com.bird.cos.repository.user.PointRepository;
+import com.bird.cos.repository.user.UserPointRepository;
 import com.bird.cos.repository.user.UserGradeRepository;
 import com.bird.cos.repository.user.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -51,7 +51,7 @@ class MypageServiceTest {
     private OrderRepository orderRepository;
 
     @Mock
-    private PointRepository pointRepository;
+    private UserPointRepository userPointRepository;
 
     @Mock
     private UserGradeRepository userGradeRepository;
