@@ -1,6 +1,6 @@
 package com.bird.cos.service.user;
 
-import com.bird.cos.domain.user.Point;
+import com.bird.cos.annotation.DistributedLock;
 import com.bird.cos.domain.user.PointHistory;
 import com.bird.cos.domain.user.PointType;
 import com.bird.cos.domain.user.User;
@@ -10,11 +10,9 @@ import com.bird.cos.dto.mypage.MyPointResponse;
 import com.bird.cos.dto.mypage.MyPointSummary;
 import com.bird.cos.exception.BusinessException;
 import com.bird.cos.repository.user.PointHistoryRepository;
-import com.bird.cos.repository.user.PointRepository;
 import com.bird.cos.repository.user.UserPointRepository;
 import com.bird.cos.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
-import lombok.Synchronized;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -30,16 +28,16 @@ public class PointService {
 
     private final UserPointRepository userPointRepository;
     private final PointHistoryRepository pointHistoryRepository;
-    private final PointRepository pointRepository;
     private final UserRepository userRepository;
+    private final PointTransactionService pointTransactionService;
 
     /**
-     * 사용자의 현재 사용 가능한 포인트 조회 - Point 테이블 기반
+     * 사용자의 현재 사용 가능한 포인트 조회 - UserPoint 기준
      * @param userId 사용자 ID
      * @return 사용 가능한 포인트
      */
     public Integer getAvailablePoints(Long userId) {
-        Integer points = pointRepository.getTotalPointsByUserId(userId);
+        Integer points = userPointRepository.getAvailablePointByUserId(userId);
         return points != null ? points : 0;
     }
 
@@ -52,6 +50,15 @@ public class PointService {
     public UserPoint getOrCreateUserPoint(Long userId) {
         return userPointRepository.findByUser_UserId(userId)
                 .orElseGet(() -> createUserPointEntity(userId));
+    }
+
+    private UserPoint getOrCreateUserPointForUpdate(Long userId) {
+        return userPointRepository.findByUserIdForUpdate(userId)
+                .orElseGet(() -> {
+                    getOrCreateUserPoint(userId);
+                    return userPointRepository.findByUserIdForUpdate(userId)
+                            .orElseThrow(() -> BusinessException.pointNotFound(userId));
+                });
     }
 
     /**
@@ -80,20 +87,13 @@ public class PointService {
         User user = userRepository.findById(userId)
                 .orElseThrow(BusinessException::userNotFound);
 
-        // 현재 포인트 조회 (Point 테이블 기반)
-        Integer currentPoints = getAvailablePoints(userId);
-
-        // Point 테이블에 양수 금액 레코드 추가 (적립 내역)
-        Point pointRecord = Point.builder()
-                .user(user)
-                .pointAmount(amount)
-                .pointDescription(description)
-                .build();
-        pointRepository.save(pointRecord);
+        UserPoint userPoint = getOrCreateUserPoint(userId);
+        int currentPoints = userPoint.getAvailablePoint();
+        userPoint.earnPoints(amount);
 
         // 내역 저장 (PointHistory)
         PointHistory history = PointHistory.createEarn(
-                user, amount, currentPoints, currentPoints + amount,
+                user, amount, currentPoints, userPoint.getAvailablePoint(),
                 description, referenceId, referenceType
         );
         pointHistoryRepository.save(history);
@@ -109,50 +109,50 @@ public class PointService {
      * @throws BusinessException 사용 가능한 포인트가 부족한 경우
      */
     @Transactional
-    public synchronized void usePoints(Long userId, int amount, String description, String referenceId, String referenceType) {
+    @DistributedLock(key = "'lock:point:user:' + #userId", waitTime = 3000L, leaseTime = 10000L)
+    public void usePoints(Long userId, int amount, String description, String referenceId, String referenceType) {
         validatePositiveAmount(amount);
+        pointTransactionService.usePointsInTransaction(userId, amount, description, referenceId, referenceType);
+    }
 
+    @Transactional
+    public synchronized void usePointsCaseA(Long userId, int amount, String description, String referenceId, String referenceType) {
+        validatePositiveAmount(amount);
+        usePointsWithPessimisticLock(userId, amount, description, referenceId, referenceType);
+    }
+
+    @Transactional
+    public void usePointsCaseB(Long userId, int amount, String description, String referenceId, String referenceType) {
+        validatePositiveAmount(amount);
+        usePointsWithPessimisticLock(userId, amount, description, referenceId, referenceType);
+    }
+
+    private void usePointsWithPessimisticLock(Long userId, int amount, String description, String referenceId, String referenceType) {
         User user = userRepository.findById(userId)
                 .orElseThrow(BusinessException::userNotFound);
 
-        // 포인트 차감 시 사용자별 user_point 행에 비관적 락 획득
-        userPointRepository.findByUserIdForUpdate(userId)
-                .orElseGet(() -> {
-                    getOrCreateUserPoint(userId);
-                    return userPointRepository.findByUserIdForUpdate(userId)
-                            .orElseThrow(() -> BusinessException.pointNotFound(userId));
-                });
+        UserPoint userPoint = getOrCreateUserPointForUpdate(userId);
+        int currentPoints = userPoint.getAvailablePoint();
 
-        // 현재 포인트 조회 (Point 테이블 기반)
-        Integer currentPoints = getAvailablePoints(userId);
-
-        // 잔액 부족 검증
         if (currentPoints < amount) {
             throw BusinessException.pointInsufficient(userId, amount, currentPoints);
         }
 
-        // Point 테이블에 음수 금액 레코드 추가 (사용 내역)
-        Point pointRecord = Point.builder()
-                .user(user)
-                .pointAmount(-amount)
-                .pointDescription(description)
-                .build();
-        pointRepository.save(pointRecord);
+        userPoint.usePoints(amount);
 
-        // 내역 저장 (PointHistory)
         PointHistory history = PointHistory.createUse(
-                user, amount, currentPoints, currentPoints - amount,
+                user, amount, currentPoints, userPoint.getAvailablePoint(),
                 description, referenceId, referenceType
         );
         pointHistoryRepository.save(history);
 
-        log.info("포인트 사용 완료 - userId: {}, amount: {}, balanceAfter: {}",
-                userId, amount, currentPoints - amount);
+        log.info("포인트 사용 완료(A/B) - userId: {}, amount: {}, balanceAfter: {}",
+                userId, amount, userPoint.getAvailablePoint());
     }
 
 
     /**
-     * 포인트 사용 가능 여부 검증 - Point 테이블 기반
+     * 포인트 사용 가능 여부 검증 - UserPoint 기준
      * @param userId 사용자 ID
      * @param requestAmount 사용하려는 포인트
      * @return 사용 가능 여부
@@ -201,7 +201,6 @@ public class PointService {
      * @param orderId 주문 ID
      * @param earnRate 적립율 (%)
      */
-    @Transactional
     public void earnOrderPoints(Long userId, int orderAmount, String orderId, double earnRate) {
         // 중복 적립 방지
         if (isDuplicatePointTransaction(orderId, "ORDER", PointType.EARN)) {
@@ -224,9 +223,11 @@ public class PointService {
      * @param orderId 주문 ID
      */
     @Transactional
+    @DistributedLock(key = "'lock:point:user:' + #userId", waitTime = 3000L, leaseTime = 10000L)
     public void useOrderPoints(Long userId, int useAmount, String orderId) {
         if (useAmount > 0) {
-            usePoints(userId, useAmount, "주문 결제", orderId, "ORDER");
+            validatePositiveAmount(useAmount);
+            pointTransactionService.usePointsInTransaction(userId, useAmount, "주문 결제", orderId, "ORDER");
         }
     }
 
@@ -259,8 +260,7 @@ public class PointService {
      * @return 포인트 통계 정보
      */
     public MyPointSummary getPointSummary(Long userId) {
-        // 현재 포인트 (Point 테이블의 합계)
-        Integer currentPoint = pointRepository.getTotalPointsByUserId(userId);
+        Integer currentPoint = getAvailablePoints(userId);
 
         // 이번 달 적립/사용 포인트 (PointHistory 테이블)
         java.time.LocalDateTime now = java.time.LocalDateTime.now();

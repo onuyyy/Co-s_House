@@ -1,6 +1,10 @@
 spring:
   main:
     allow-bean-definition-overriding: true
+  data:
+    redis:
+      host: localhost
+      port: 6379
   datasource:
     url: jdbc:h2:mem:testdb;MODE=MYSQL;DB_CLOSE_DELAY=-1;DATABASE_TO_UPPER=false;IGNORECASE=TRUE;INIT=CREATE DOMAIN IF NOT EXISTS TEXT AS CLOB\;CREATE DOMAIN IF NOT EXISTS LONGTEXT AS CLOB
     driver-class-name: org.h2.Driver

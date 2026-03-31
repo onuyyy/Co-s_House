@@ -14,7 +14,7 @@ import com.bird.cos.repository.mypage.MypageRepository;
 import com.bird.cos.repository.order.OrderRepository;
 import com.bird.cos.repository.product.ReviewRepository;
 import com.bird.cos.repository.question.QuestionRepository;
-import com.bird.cos.repository.user.PointRepository;
+import com.bird.cos.repository.user.UserPointRepository;
 import com.bird.cos.repository.user.UserGradeRepository;
 import com.bird.cos.repository.user.UserRepository;
 import lombok.Getter;
@@ -56,7 +56,7 @@ public class MypageService {
     private final UserActivityLogRepository userActivityLogRepository;
     private final ReviewRepository reviewRepository;
     private final OrderRepository orderRepository;
-    private final PointRepository pointRepository;
+    private final UserPointRepository userPointRepository;
     private final UserGradeRepository userGradeRepository;
 
     //UserId 정보 넘기기
@@ -65,7 +65,7 @@ public class MypageService {
                 .orElseThrow(()-> new IllegalArgumentException("사용자를 찾을 수 없습니다."));
         AddressParts addressParts = splitAddress(user.getUserAddress());
 
-        Integer membershipPoints = Optional.ofNullable(pointRepository.getTotalPointsByUserId(userId)).orElse(0);
+        Integer membershipPoints = Optional.ofNullable(userPointRepository.getAvailablePointByUserId(userId)).orElse(0);
         BigDecimal totalOrderAmount = Optional.ofNullable(
                 orderRepository.sumOrderAmountByStatusCodes(userId, ORDER_SUMMARY_STATUS_CODES)
         ).orElse(BigDecimal.ZERO);
